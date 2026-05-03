@@ -1,0 +1,1881 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rick Rattle — Gaming Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==================== TOKENS ==================== */
+:root, [data-theme="dark"]{
+  --bg:#0b0813;
+  --bg2:#120c22;
+  --panel:#15102a;
+  --panel2:#1c1538;
+  --line:#2a2148;
+  --line2:#3a2c5e;
+  --ink:#ECEAF5;
+  --muted:#9a93b3;
+  --muted2:#cfcadd;
+  --accent:#B026FF;
+  --accent2:#7B2CBF;
+  --cyan:#00F0FF;
+  --hot:#E11D2A;
+  --good:#4CD964;
+  --shadow:0 6px 30px rgba(0,0,0,.4);
+}
+[data-theme="light"]{
+  --bg:#f5f1ff;
+  --bg2:#ece5ff;
+  --panel:#ffffff;
+  --panel2:#f7f3ff;
+  --line:#dcd0f4;
+  --line2:#c2b1e8;
+  --ink:#1a0e3d;
+  --muted:#5d4d8a;
+  --muted2:#3a2c5e;
+  --accent:#7B2CBF;
+  --accent2:#B026FF;
+  --cyan:#00b8c4;
+  --hot:#E11D2A;
+  --good:#2eb84a;
+  --shadow:0 6px 30px rgba(123,44,191,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;scroll-behavior:smooth;transition:background .3s,color .3s}
+::selection{background:var(--accent);color:#fff}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:10px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+
+/* ==================== LAYOUT ==================== */
+.app{min-height:100vh;position:relative}
+.sidebar{position:fixed;top:0;left:0;width:240px;height:100vh;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:50;transition:transform .3s}
+.main{margin-left:240px;display:flex;flex-direction:column;min-height:100vh}
+
+/* ==================== SIDEBAR ==================== */
+.brand{padding:24px 22px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.brand img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 0 8px rgba(176,38,255,.4))}
+.brand-name{display:flex;flex-direction:column;line-height:1}
+.brand-name strong{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:2px}
+.brand-name span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--accent);margin-top:4px}
+
+.nav{padding:18px 12px;display:flex;flex-direction:column;gap:2px;flex:1;overflow-y:auto}
+.nav-section{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;padding:14px 10px 6px}
+.nav-item{display:flex;align-items:center;gap:12px;padding:11px 12px;color:var(--ink);font-size:14px;font-weight:500;cursor:pointer;border-radius:8px;border:1px solid transparent;position:relative;transition:.2s}
+.nav-item .ico{width:18px;height:18px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.nav-item:hover{background:var(--panel2);color:var(--ink)}
+.nav-item.active{background:linear-gradient(90deg,rgba(176,38,255,.18),rgba(0,240,255,.05));color:var(--ink);border-color:var(--accent)}
+.nav-item.active::before{content:"";position:absolute;left:-13px;top:8px;bottom:8px;width:3px;background:var(--accent);border-radius:0 3px 3px 0}
+.nav-item.active .ico{color:var(--accent)}
+
+.sidebar-foot{padding:14px 18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.foot-socials{display:flex;gap:8px}
+.foot-socials a{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);color:var(--muted);font-size:13px;border-radius:6px;transition:.2s}
+.foot-socials a:hover{border-color:var(--accent);color:var(--accent)}
+.live-badge{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(225,29,42,.1);border:1px solid var(--hot);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--hot);border-radius:6px;text-decoration:none}
+.live-dot{width:7px;height:7px;background:var(--hot);border-radius:50%;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ==================== TOPBAR ==================== */
+.topbar{display:flex;align-items:center;gap:14px;padding:14px 32px;background:var(--panel);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40}
+.search{flex:1;max-width:520px;position:relative;display:flex;align-items:center}
+.search input{width:100%;padding:10px 14px 10px 38px;background:var(--bg);border:1px solid var(--line);color:var(--ink);font-family:inherit;font-size:13px;border-radius:8px;outline:none;transition:.2s}
+.search input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(176,38,255,.15)}
+.search-ico{position:absolute;left:12px;color:var(--muted);font-size:14px;pointer-events:none}
+.search-results{position:absolute;top:100%;left:0;right:0;margin-top:6px;background:var(--panel);border:1px solid var(--line);border-radius:8px;max-height:380px;overflow-y:auto;display:none;box-shadow:var(--shadow);z-index:60}
+.search-results.open{display:block}
+.search-results .res{padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;justify-content:space-between;gap:10px;transition:.15s}
+.search-results .res:hover{background:var(--panel2)}
+.search-results .res:last-child{border-bottom:none}
+.search-results .res .rt{font-size:13px;font-weight:600}
+.search-results .res .rd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.search-results .empty{padding:14px;text-align:center;font-size:12px;color:var(--muted)}
+
+.tools{display:flex;gap:8px;align-items:center;margin-left:auto}
+.tool-btn,.lang-toggle{background:transparent;border:1px solid var(--line);color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:8px 10px;cursor:pointer;border-radius:6px;display:inline-flex;align-items:center;gap:6px;transition:.2s}
+.tool-btn:hover{border-color:var(--accent);color:var(--accent)}
+.lang-toggle{padding:0;overflow:hidden}
+.lang-toggle button{background:transparent;border:none;color:var(--ink);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;padding:8px 10px;cursor:pointer;transition:.2s}
+.lang-toggle button.active{background:var(--accent);color:#fff}
+
+.menu-btn{display:none;background:transparent;border:1px solid var(--line);color:var(--ink);width:38px;height:38px;align-items:center;justify-content:center;border-radius:6px;cursor:pointer;font-size:18px}
+
+/* ==================== CONTENT ==================== */
+.content{padding:32px 40px 60px;max-width:1280px;margin:0 auto;width:100%;flex:1}
+.page-head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:28px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.page-kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:4px;color:var(--accent);text-transform:uppercase;margin-bottom:6px}
+.page-title{font-family:'Anton',sans-serif;font-size:46px;letter-spacing:-1px;margin:0;line-height:1;text-transform:uppercase}
+.page-sub{color:var(--muted);font-size:14px;margin-top:8px;max-width:680px;line-height:1.5}
+
+/* ==================== CARDS ==================== */
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.25s;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit}
+.card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 30px rgba(176,38,255,.18)}
+.card-thumb{aspect-ratio:16/9;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .4s}
+.card:hover .card-thumb img{transform:scale(1.05)}
+.card-thumb-fallback{font-family:'Anton',sans-serif;font-size:48px;letter-spacing:2px;color:rgba(255,255,255,.85);text-shadow:0 0 20px rgba(0,0,0,.3)}
+.card-thumb img + .card-thumb-fallback{display:none}
+.card-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.4));z-index:1;pointer-events:none;opacity:0;transition:.3s}
+.card-thumb img ~ ::after,.card:has(img) .card-thumb::after{opacity:1}
+.card-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.card-tag{position:absolute;top:10px;left:10px;background:rgba(11,8,19,.85);backdrop-filter:blur(6px);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 7px;border:1px solid var(--accent);text-transform:uppercase;z-index:3;border-radius:4px}
+.card-tag.featured{background:var(--accent);color:#fff;border:none}
+.card-tag.source-steam{background:#1b2838;color:#66c0f4;border-color:#66c0f4}
+.card-tag.source-reddit{background:#1a1a1b;color:#FF4500;border-color:#FF4500}
+
+.news-loading{padding:14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);letter-spacing:2px;border:1px dashed var(--line);border-radius:8px;margin-bottom:18px;animation:pulse 1.6s infinite}
+
+.source-block{margin:30px 0 14px;padding:18px 20px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.source-block .source-label{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:1px;text-transform:uppercase}
+.source-block .source-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+.card-body{padding:16px 18px;flex:1;display:flex;flex-direction:column;gap:8px}
+.card-meta{display:flex;gap:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.card-meta .game{color:var(--cyan)}
+.card-title{font-size:16px;font-weight:700;line-height:1.3;margin:0}
+.card-summary{font-size:13px;color:var(--muted2);line-height:1.5;margin:0}
+.card-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:8px}
+.tag-pill{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);padding:2px 7px;border:1px solid var(--line);border-radius:99px;text-transform:uppercase}
+
+.grid{display:grid;gap:18px}
+.grid-3{grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.grid-2{grid-template-columns:repeat(auto-fill,minmax(380px,1fr))}
+
+/* ==================== HOME ==================== */
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;margin-bottom:34px}
+.hero-main{padding:36px;background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero-main::before{content:"";position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:var(--accent);filter:blur(80px);opacity:.18;pointer-events:none}
+.hero-main h1{font-family:'Anton',sans-serif;font-size:56px;letter-spacing:-1px;line-height:.95;margin:0;text-transform:uppercase}
+.hero-main h1 em{font-style:normal;background:linear-gradient(90deg,var(--accent),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-main p{color:var(--muted2);font-size:16px;line-height:1.6;margin:14px 0 22px;max-width:520px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn{padding:11px 20px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:6px;display:inline-flex;align-items:center;gap:8px;transition:.2s}
+.btn-primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn-primary:hover{background:var(--accent2);transform:translateY(-2px);box-shadow:0 6px 16px rgba(176,38,255,.4)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.btn-cyan{background:transparent;border-color:var(--cyan);color:var(--cyan)}
+.btn-cyan:hover{background:var(--cyan);color:var(--bg)}
+
+.hero-side{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.hero-side-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.hero-side-head strong{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px}
+.hero-side-head .live-mini{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--hot);letter-spacing:2px;display:flex;align-items:center;gap:6px}
+.embed{aspect-ratio:16/9;background:#000}
+.embed iframe{width:100%;height:100%;border:0;display:block}
+
+.section{margin-bottom:38px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;gap:10px;flex-wrap:wrap}
+.section-head h2{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:-.5px;margin:0;text-transform:uppercase}
+.section-head a.see-all{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--accent);cursor:pointer}
+.section-head a.see-all:hover{color:var(--cyan)}
+
+/* ==================== FILTERS ==================== */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.filter-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.filter-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-right:4px}
+.chip{padding:6px 12px;background:transparent;border:1px solid var(--line);color:var(--muted2);font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;cursor:pointer;border-radius:99px;transition:.2s;text-transform:uppercase}
+.chip:hover{border-color:var(--accent);color:var(--ink)}
+.chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.chip-stream{border-color:var(--cyan);color:var(--cyan)}
+.chip.chip-stream:hover{background:rgba(0,240,255,.08);color:var(--cyan)}
+.chip.chip-stream.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.game-tab-stream{border-color:var(--cyan);color:var(--cyan)}
+.game-tab-stream:hover{color:var(--cyan)}
+.game-tab-stream.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.filter-divider{width:1px;height:18px;background:var(--line);margin:0 4px}
+
+/* ==================== ARTICLE / GUIDE DETAIL ==================== */
+.detail{max-width:780px;margin:0 auto}
+.detail-back{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;margin-bottom:18px}
+.detail-back:hover{color:var(--accent)}
+.detail-cover{aspect-ratio:21/9;background:linear-gradient(135deg,var(--accent2),var(--accent));border-radius:14px;overflow:hidden;margin-bottom:22px;display:flex;align-items:center;justify-content:center;position:relative}
+.detail-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.detail-cover::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.5));pointer-events:none}
+.detail-meta{display:flex;gap:14px;flex-wrap:wrap;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.detail-meta .game{color:var(--cyan)}
+.detail-title{font-family:'Anton',sans-serif;font-size:44px;letter-spacing:-.5px;line-height:1.05;margin:0 0 12px;text-transform:uppercase}
+.detail-sub{color:var(--muted2);font-size:16px;line-height:1.6;margin-bottom:28px}
+.detail-body{font-size:15px;line-height:1.7;color:var(--muted2)}
+.detail-body h3{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:0;margin:32px 0 12px;color:var(--ink);text-transform:uppercase;letter-spacing:-.5px}
+.detail-body p{margin:0 0 16px}
+.detail-body ul,.detail-body ol{padding-left:20px;margin:0 0 16px}
+.detail-body li{margin-bottom:6px}
+.detail-body strong{color:var(--ink)}
+.detail-body code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan)}
+.detail-body blockquote{border-left:3px solid var(--accent);padding:8px 16px;margin:16px 0;color:var(--ink);font-style:italic;background:var(--panel2)}
+.detail-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+
+/* ==================== TIER LIST ==================== */
+.tier-row{display:grid;grid-template-columns:90px 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:8px;background:var(--panel)}
+.tier-label{display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:36px;color:#fff;letter-spacing:1px}
+.tier-S .tier-label{background:#FF4136}
+.tier-A .tier-label{background:#FF851B}
+.tier-B .tier-label{background:#FFDC00;color:#000}
+.tier-C .tier-label{background:#2ECC40}
+.tier-D .tier-label{background:#0074D9}
+.tier-F .tier-label{background:#85144b}
+.tier-items{display:flex;flex-wrap:wrap;gap:8px;padding:10px 14px;align-items:center}
+.tier-items .item{padding:6px 12px;background:var(--panel2);border:1px solid var(--line2);border-radius:6px;font-size:13px;font-weight:600}
+
+/* ==================== ACCORDION ==================== */
+.acc{border:1px solid var(--line);border-radius:10px;background:var(--panel);overflow:hidden;margin-bottom:10px}
+.acc-head{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-weight:600;font-size:14px;transition:.2s}
+.acc-head:hover{background:var(--panel2)}
+.acc-head .acc-meta{display:flex;align-items:center;gap:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.acc-head .arrow{transition:.3s}
+.acc.open .acc-head .arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted2);line-height:1.6}
+.acc.open .acc-body{display:block}
+.diff{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:3px;text-transform:uppercase}
+.diff-beginner{background:rgba(76,217,100,.15);color:var(--good);border:1px solid var(--good)}
+.diff-intermediate{background:rgba(0,240,255,.12);color:var(--cyan);border:1px solid var(--cyan)}
+.diff-advanced{background:rgba(225,29,42,.15);color:var(--hot);border:1px solid var(--hot)}
+
+/* ==================== TIPS GAMES ==================== */
+.game-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.game-tab{padding:10px 16px;background:transparent;border:1px solid var(--line);color:var(--ink);font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;cursor:pointer;border-radius:8px;transition:.2s;text-transform:uppercase}
+.game-tab:hover{border-color:var(--accent);color:var(--accent)}
+.game-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.game-tab .count{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;margin-left:6px;opacity:.7}
+
+.subtabs{display:flex;gap:0;margin-bottom:18px;border-bottom:1px solid var(--line)}
+.subtab{padding:10px 16px;background:transparent;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:.2s;text-transform:uppercase;letter-spacing:1px}
+.subtab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.subtab:hover{color:var(--ink)}
+
+/* ==================== RICK SECTION ==================== */
+.rick-stack{display:flex;flex-direction:column;gap:34px}
+.rick-intro p{color:var(--muted2);font-size:16px;line-height:1.7;margin:0 0 14px;max-width:760px}
+.trailer-box{position:relative;border:1px solid var(--accent);border-radius:14px;overflow:hidden;background:#000;box-shadow:var(--shadow)}
+.trailer-box video{width:100%;display:block}
+.cards-section .deck-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:14px}
+.deck-tab{padding:9px 14px;background:transparent;border:1px solid var(--line);color:var(--ink);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:10px 14px;cursor:pointer;transition:.2s;text-transform:uppercase;border-radius:6px}
+.deck-tab:hover{border-color:var(--cyan);color:var(--cyan)}
+.deck-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.deck-meta-row{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:18px;letter-spacing:2px}
+.deck-meta-row strong{color:var(--cyan)}
+.deck-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.deck-card{background:var(--panel);border:1px solid var(--line);overflow:hidden;cursor:pointer;transition:.25s;display:flex;flex-direction:column;border-radius:8px}
+.deck-card:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 10px 24px rgba(176,38,255,.25)}
+.deck-card .num{position:absolute;top:6px;left:6px;background:var(--bg);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 5px;letter-spacing:1px;border:1px solid var(--accent);z-index:2;border-radius:3px}
+.deck-card .media{aspect-ratio:3/4;background:#000;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.deck-card.is-video .media{aspect-ratio:9/16}
+.deck-card .media img,.deck-card .media video{width:100%;height:100%;object-fit:cover;display:block}
+.deck-card .name{padding:8px 10px;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:1px;border-top:1px solid var(--line);text-align:center;line-height:1.2;text-transform:uppercase}
+.deck-card .play-ico{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid var(--cyan);color:#fff;font-size:18px;pointer-events:none;transition:.2s}
+.deck-card:hover .play-ico{opacity:0}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:200;display:none;align-items:center;justify-content:center;padding:40px;backdrop-filter:blur(6px)}
+.modal.open{display:flex}
+.modal-inner{max-width:90vw;max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:14px}
+.modal-body{display:flex;align-items:center;justify-content:center;border:2px solid var(--accent);max-height:80vh;background:#000;border-radius:6px}
+.modal-body img,.modal-body video{max-width:80vw;max-height:80vh;display:block}
+.modal-name{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:2px;text-transform:uppercase;color:#fff}
+.modal-close{position:absolute;top:18px;right:22px;background:transparent;border:2px solid var(--accent);color:#fff;width:42px;height:42px;font-size:24px;cursor:pointer;border-radius:6px;transition:.2s}
+.modal-close:hover{background:var(--accent);transform:rotate(90deg)}
+
+.what-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.what-card{padding:20px;background:var(--panel);border:1px solid var(--line);border-radius:10px;border-left:3px solid var(--accent)}
+.what-card h4{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;margin:0 0 6px;text-transform:uppercase}
+.what-card p{font-size:13px;color:var(--muted);line-height:1.5;margin:0}
+
+.cta-banner{padding:30px 32px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.cta-banner h3{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:1px;margin:0 0 4px;text-transform:uppercase}
+.cta-banner p{margin:0;opacity:.9;font-size:14px}
+.cta-banner .btn{background:#fff;color:var(--accent);border-color:#fff}
+.cta-banner .btn:hover{background:rgba(255,255,255,.85)}
+
+/* ==================== PROMINENT SOCIALS ==================== */
+.socials-prominent{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.social-big{display:flex;flex-direction:column;padding:22px;background:var(--panel);border:2px solid var(--line);border-radius:14px;text-decoration:none;color:var(--ink);position:relative;overflow:hidden;transition:.25s;min-height:200px}
+.social-big::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--social);transition:.25s}
+.social-big::after{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:var(--social);border-radius:50%;filter:blur(40px);opacity:.18;pointer-events:none;transition:.4s}
+.social-big:hover{transform:translateY(-4px);border-color:var(--social);box-shadow:0 14px 30px rgba(0,0,0,.4)}
+.social-big:hover::after{opacity:.4;width:160px;height:160px}
+.social-big-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.social-num{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--muted)}
+.social-arrow{font-size:18px;color:var(--social);transition:.25s}
+.social-big:hover .social-arrow{transform:translate(4px,-4px) scale(1.2)}
+.social-big-name{font-family:'Anton',sans-serif;font-size:36px;letter-spacing:1px;text-transform:uppercase;line-height:1;color:var(--ink)}
+.social-big-handle{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin-top:4px}
+.social-big-desc{font-size:13px;line-height:1.5;color:var(--muted2);margin:14px 0 16px;flex:1}
+.social-big-cta{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--social);text-transform:uppercase;margin-top:auto}
+.social-big.social-hero{grid-column:span 2;min-height:240px}
+.social-big.social-hero .social-big-name{font-size:52px}
+@media(max-width:700px){.social-big.social-hero{grid-column:span 1}.social-big.social-hero .social-big-name{font-size:36px}}
+
+/* ==================== MERCH ==================== */
+.merch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.merch-card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--ink);transition:.25s;display:flex;flex-direction:column}
+.merch-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
+.merch-card.merch-soon{opacity:.85}
+.merch-card.merch-soon:hover{transform:none}
+.merch-tag{position:absolute;top:10px;right:10px;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;padding:3px 7px;border-radius:4px;z-index:3;text-transform:uppercase}
+.merch-img{aspect-ratio:1;background:linear-gradient(135deg,var(--panel2),var(--bg2));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.merch-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;transition:transform .4s}
+.merch-card:hover .merch-img img{transform:scale(1.06)}
+.merch-fallback{font-family:'Anton',sans-serif;font-size:64px;letter-spacing:4px;color:var(--accent);opacity:.4}
+.merch-img.img-missing .merch-fallback{opacity:1}
+.merch-img img+.merch-fallback{display:none}
+.merch-img.img-missing img+.merch-fallback,.merch-img.img-missing .merch-fallback{display:block}
+.merch-body{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.merch-name{font-size:13px;font-weight:600;line-height:1.3;flex:1}
+.merch-price{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)}
+.merch-soon-tag{position:absolute;bottom:0;left:0;right:0;padding:6px;background:rgba(0,0,0,.7);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-align:center;text-transform:uppercase;z-index:3;backdrop-filter:blur(4px)}
+
+/* ==================== VISIT COUNTER ==================== */
+.visit-counter{display:flex;align-items:center;gap:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);margin-top:4px;padding-top:10px}
+.visit-eye{font-size:12px}
+.visit-counter [data-visit-count]{color:var(--cyan);font-weight:700}
+.visit-label{font-size:9px;letter-spacing:2px;color:var(--muted);margin-left:auto}
+
+/* ==================== EMPTY ==================== */
+.empty{padding:50px 24px;text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:2px;border:1px dashed var(--line);border-radius:10px}
+.empty-tips{padding:40px 24px;border:1px dashed var(--line);border-radius:12px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.empty-tips .empty-icon{font-size:42px;margin-bottom:12px;opacity:.6}
+.empty-tips h3{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0;margin:0 0 6px;text-transform:none;color:var(--ink)}
+.empty-tips > p{color:var(--muted);font-size:14px;margin:0 0 4px;max-width:520px}
+
+/* ==================== RESPONSIVE ==================== */
+@media(max-width:900px){
+  .main{margin-left:0}
+  .sidebar{transform:translateX(-100%);box-shadow:6px 0 24px rgba(0,0,0,.4)}
+  .sidebar.open{transform:translateX(0)}
+  .menu-btn{display:flex}
+  .topbar{padding:14px 18px}
+  .content{padding:24px 20px}
+  .hero{grid-template-columns:1fr}
+  .page-title{font-size:34px}
+  .detail-title{font-size:32px}
+  .hero-main h1{font-size:40px}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="Rick Rattle">
+      <div class="brand-name">
+        <strong>RICK RATTLE</strong>
+        <span data-i18n="brand.tag">GAMING HUB</span>
+      </div>
+    </div>
+    <nav class="nav" id="navMain"></nav>
+    <div class="sidebar-foot">
+      <a href="https://www.twitch.tv/rick__rattle" target="_blank" class="live-badge"><span class="live-dot"></span><span data-i18n="live">WATCH ON TWITCH</span></a>
+      <div class="foot-socials">
+        <a href="https://discord.gg/bptZUJtGgD" target="_blank" title="Discord">DC</a>
+        <a href="https://www.tiktok.com/@rick__rattle" target="_blank" title="TikTok">TT</a>
+        <a href="https://www.youtube.com/@Rick__Rattle" target="_blank" title="YouTube">YT</a>
+        <a href="https://www.instagram.com/rick__rattle/" target="_blank" title="Instagram">IG</a>
+      </div>
+      <div class="visit-counter" title="Page visits">
+        <span class="visit-eye">👁</span>
+        <span data-visit-count>—</span>
+        <span class="visit-label" data-i18n="visits">VISITS</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <div class="topbar">
+      <button class="menu-btn" id="menuBtn">☰</button>
+      <div class="search">
+        <span class="search-ico">🔍</span>
+        <input id="searchInput" type="text" placeholder="Search articles, guides, tier lists..." data-i18n-attr="placeholder|search.ph">
+        <div class="search-results" id="searchResults"></div>
+      </div>
+      <div class="tools">
+        <button class="tool-btn" id="themeBtn"><span id="themeIcon">🌙</span><span data-i18n="theme.dark">DARK</span></button>
+        <div class="lang-toggle">
+          <button data-lang="en" class="active">EN</button>
+          <button data-lang="pt">PT</button>
+        </div>
+      </div>
+    </div>
+    <div class="content" id="view"></div>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <button class="modal-close" id="modalClose">×</button>
+  <div class="modal-inner">
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-name" id="modalName"></div>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   I18N
+   ================================================================ */
+const T = {
+  en:{
+    "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
+    "search.ph":"Search articles, guides, tier lists...",
+    "nav.section.main":"MAIN","nav.section.creator":"CREATOR",
+    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips",
+    "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
+    "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
+    "home.live.title":"LIVE NOW","home.live.tag":"On Twitch",
+    "rick.kicker":"// CREATOR","rick.title":"The Channel","rick.sub":"A 30-second look at what happens when chat takes the wheel.",
+    "rick.intro1":"Rick Rattle is a variety streamer running interactive chaos sessions across multiple games. The stream is built around audience input — chat doesn't just watch, chat decides.",
+    "rick.intro2":"Through redeemable channel-points cards, viewers trigger curses, challenges, and game-altering modifiers in real time. Suffering is the point. Laughing is the prize.",
+    "rick.what.title":"WHAT HAPPENS ON STREAM","rick.what.1.h":"Wheel of Suffering","rick.what.1.p":"In Kingdom Come: Deliverance II, chat picks the next debuff or curse from a spinning wheel.","rick.what.2.h":"IRL Action Deck","rick.what.2.p":"Challenges that jump out of the game and into real life. Yes, I do them.","rick.what.3.h":"Rocket League Madness","rick.what.3.p":"Absurd modifiers turn RL into something completely unpredictable.","rick.what.4.h":"Outlaw Deck","rick.what.4.p":"RDR2 lawless redeems — bounty raises, no-fast-travel, drunk-cam, more.",
+    "rick.cards.title":"INTERACTIVE CARDS","rick.cards.sub":"// Real cards from chaos channel-points redemptions. Hover videos to preview · click to enlarge.","rick.cards.total":"Total cards",
+    "rick.cta.h":"Want to make me suffer?","rick.cta.p":"Join the live show. Redeem your card.",
+    "rick.socials.title":"FOLLOW THE BEARD","rick.socials.sub":"// Pick your platform of choice. The chaos goes everywhere.",
+    "rick.merch.title":"MERCH","rick.merch.sub":"// Wear the chaos.","rick.merch.see":"Full shop →","rick.merch.soon":"COMING SOON",
+    "visits":"VISITS",
+    "news.kicker":"// CONTENT","news.title":"Gaming News","news.sub":"Patches, drops, esports, updates. Auto-fed from Steam & Reddit, plus our editorial. Filter by game, tag or source.","news.search.empty":"No articles match your filters.","news.all":"All games","news.all.tags":"All tags",
+    "news.refresh":"REFRESH","news.loading":"// FETCHING LIVE NEWS FROM STEAM & REDDIT...","news.src.manual":"Editorial",
+    "news.scope":"SCOPE","news.scope.all":"All","news.scope.stream":"★ Stream Games","news.scope.general":"General Gaming",
+    "tips.kicker":"// CONTENT","tips.title":"Gaming Tips","tips.sub":"Guides, builds and tier lists. Pick a game to start.","tips.empty":"No content yet for this game.","tips.guides":"Guides","tips.tiers":"Tier Lists","tips.builds":"Builds",
+    "tips.empty.h":"No {sub} yet for {game}","tips.empty.p":"Editorial content for this game is on the way. Meanwhile, here's what's happening:","tips.empty.news":"Latest news for {game}","tips.empty.see":"See all news →","tips.empty.cta":"Browse all news →",
+    "back":"← Back","not.found":"Content not found.",
+    "diff.beginner":"BEGINNER","diff.intermediate":"INTERMEDIATE","diff.advanced":"ADVANCED",
+    "search.no":"No results found",
+    "type.article":"ARTICLE","type.guide":"GUIDE","type.tierlist":"TIER LIST","type.build":"BUILD"
+  },
+  pt:{
+    "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
+    "search.ph":"Procurar artigos, guias, tier lists...",
+    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR",
+    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas",
+    "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
+    "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
+    "home.live.title":"AO VIVO","home.live.tag":"Na Twitch",
+    "rick.kicker":"// CRIADOR","rick.title":"O Canal","rick.sub":"30 segundos do que acontece quando o chat manda.",
+    "rick.intro1":"Rick Rattle é um streamer variety com sessões interativas em vários jogos. A stream é construída à volta do chat — o público não vê, decide.",
+    "rick.intro2":"Através de cartas resgatadas com channel points, os espectadores ativam maldições, desafios e modificadores em tempo real. Sofrer é o objetivo. Rir é o prémio.",
+    "rick.what.title":"O QUE ACONTECE NA STREAM","rick.what.1.h":"Wheel of Suffering","rick.what.1.p":"Em Kingdom Come: Deliverance II, o chat escolhe o próximo debuff ou maldição.","rick.what.2.h":"IRL Action Deck","rick.what.2.p":"Desafios que saltam do jogo para a vida real. Sim, eu cumpro.","rick.what.3.h":"Rocket League Madness","rick.what.3.p":"Modificadores absurdos tornam o RL completamente imprevisível.","rick.what.4.h":"Outlaw Deck","rick.what.4.p":"Resgates fora-da-lei em RDR2 — aumentar bounty, no-fast-travel, drunk-cam, e mais.",
+    "rick.cards.title":"CARTAS INTERATIVAS","rick.cards.sub":"// Cartas reais dos resgates do canal. Hover nos vídeos para preview · clica para ampliar.","rick.cards.total":"Total de cartas",
+    "rick.cta.h":"Queres fazer-me sofrer?","rick.cta.p":"Junta-te à live. Resgata a tua carta.",
+    "rick.socials.title":"SEGUE A BARBA","rick.socials.sub":"// Escolhe a tua plataforma. O caos está em todas.",
+    "rick.merch.title":"MERCH","rick.merch.sub":"// Veste o caos.","rick.merch.see":"Loja completa →","rick.merch.soon":"EM BREVE",
+    "visits":"VISITAS",
+    "news.kicker":"// CONTEÚDO","news.title":"Notícias de Gaming","news.sub":"Patches, lançamentos, esports, atualizações. Alimentado em direto do Steam & Reddit, com curadoria editorial. Filtra por jogo, tag ou fonte.","news.search.empty":"Nenhum artigo corresponde aos filtros.","news.all":"Todos os jogos","news.all.tags":"Todas as tags",
+    "news.refresh":"ATUALIZAR","news.loading":"// A BUSCAR NOTÍCIAS EM DIRETO DO STEAM & REDDIT...","news.src.manual":"Editorial",
+    "news.scope":"ÂMBITO","news.scope.all":"Tudo","news.scope.stream":"★ Jogos da Stream","news.scope.general":"Gaming Geral",
+    "tips.kicker":"// CONTEÚDO","tips.title":"Dicas de Gaming","tips.sub":"Guias, builds e tier lists. Escolhe um jogo para começar.","tips.empty":"Sem conteúdo ainda para este jogo.","tips.guides":"Guias","tips.tiers":"Tier Lists","tips.builds":"Builds",
+    "tips.empty.h":"Ainda sem {sub} para {game}","tips.empty.p":"Conteúdo editorial para este jogo está a caminho. Entretanto, aqui está o que se passa:","tips.empty.news":"Últimas notícias de {game}","tips.empty.see":"Ver todas as notícias →","tips.empty.cta":"Procurar nas notícias →",
+    "back":"← Voltar","not.found":"Conteúdo não encontrado.",
+    "diff.beginner":"INICIANTE","diff.intermediate":"INTERMÉDIO","diff.advanced":"AVANÇADO",
+    "search.no":"Sem resultados",
+    "type.article":"ARTIGO","type.guide":"GUIA","type.tierlist":"TIER LIST","type.build":"BUILD"
+  }
+};
+let lang = localStorage.getItem('rr_lang')||'en';
+function t(k){return T[lang][k]||k}
+
+/* ================================================================
+   DATA MODEL
+   ================================================================ */
+const games = [
+  // === STREAM ROTATION (jogos jogados em stream) ===
+  {slug:'kcd2',         name:'Kingdom Come: Deliverance II', short:'KCD2',         steamAppId:1771300, subreddit:'kingdomcome',  streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'rocket-league',name:'Rocket League',                short:'Rocket League',steamAppId:252950,  subreddit:'RocketLeague', streamPlayed:true, platforms:['pc','ps5','xbox','switch']},
+  {slug:'arc-raiders',  name:'Arc Raiders',                  short:'Arc Raiders',  steamAppId:2376410, subreddit:'arcraiders',   streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'minecraft',    name:'Minecraft',                    short:'Minecraft',                        subreddit:'Minecraft',     streamPlayed:true, platforms:['pc','ps5','xbox','switch','mobile']},
+  {slug:'grounded-2',   name:'Grounded 2',                   short:'Grounded 2',                       subreddit:'GroundedGame',  streamPlayed:true, platforms:['pc','xbox']},
+  {slug:'chivalry-2',   name:'Chivalry 2',                   short:'Chivalry 2',   steamAppId:1824220, subreddit:'Chivalry2',     streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'it-takes-two', name:'It Takes Two',                 short:'It Takes Two', steamAppId:1426210,                            streamPlayed:true, platforms:['pc','ps5','xbox','switch']},
+  {slug:'split-fiction',name:'Split Fiction',                short:'Split Fiction',steamAppId:2001120, subreddit:'SplitFiction',  streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'the-finals',   name:'The Finals',                   short:'The Finals',   steamAppId:2073850, subreddit:'thefinals',     streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'rdr2',         name:'Red Dead Redemption 2',        short:'RDR2',         steamAppId:1174180, subreddit:'reddeadredemption', streamPlayed:true, platforms:['pc','ps5','xbox']},
+
+  // === MAJOR / POPULAR (não jogados em stream — para news + tips genéricas) ===
+  {slug:'cs2',                 name:'Counter-Strike 2',       short:'CS2',          steamAppId:730,     subreddit:'GlobalOffensive', platforms:['pc']},
+  {slug:'eldenring',           name:'Elden Ring',             short:'Elden Ring',   steamAppId:1245620, subreddit:'Eldenring',       platforms:['pc','ps5','xbox']},
+  {slug:'cyberpunk2077',       name:'Cyberpunk 2077',         short:'Cyberpunk',    steamAppId:1091500, subreddit:'cyberpunkgame',   platforms:['pc','ps5','xbox']},
+  {slug:'baldursgate3',        name:"Baldur's Gate 3",        short:'BG3',          steamAppId:1086940, subreddit:'BaldursGate3',    platforms:['pc','ps5','xbox']},
+  {slug:'gta6',                name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
+  {slug:'helldivers2',         name:'Helldivers 2',           short:'Helldivers 2', steamAppId:553850,  subreddit:'Helldivers',      platforms:['pc','ps5']},
+  {slug:'lol',                 name:'League of Legends',      short:'LoL',                              subreddit:'leagueoflegends', platforms:['pc']},
+  {slug:'valorant',            name:'Valorant',               short:'Valorant',                         subreddit:'VALORANT',        platforms:['pc']},
+  {slug:'palworld',            name:'Palworld',               short:'Palworld',     steamAppId:1623730, subreddit:'Palworld',        platforms:['pc','xbox']},
+  {slug:'monster-hunter-wilds',name:'Monster Hunter Wilds',   short:'MH Wilds',     steamAppId:2246340, subreddit:'MonsterHunter',   platforms:['pc','ps5','xbox']},
+  {slug:'apex',                name:'Apex Legends',           short:'Apex',         steamAppId:1172470, subreddit:'apexlegends',     platforms:['pc','ps5','xbox','switch']},
+  {slug:'fortnite',            name:'Fortnite',               short:'Fortnite',                         subreddit:'FortNiteBR',      platforms:['pc','ps5','xbox','switch','mobile']},
+  {slug:'overwatch2',          name:'Overwatch 2',            short:'Overwatch 2',                      subreddit:'Overwatch',       platforms:['pc','ps5','xbox','switch']},
+  {slug:'crimson-desert',      name:'Crimson Desert',         short:'Crimson Desert',steamAppId:1216730,subreddit:'CrimsonDesert',   platforms:['pc','ps5','xbox']},
+  {slug:'diablo-iv',           name:'Diablo IV',              short:'Diablo IV',    steamAppId:2344520, subreddit:'Diablo4',         platforms:['pc','ps5','xbox']},
+  {slug:'gta-v',               name:'Grand Theft Auto V',     short:'GTA V',        steamAppId:271590,  subreddit:'GTAV',            platforms:['pc','ps5','xbox']},
+  {slug:'marathon',            name:'Marathon',               short:'Marathon',     steamAppId:2462580, subreddit:'marathon',        platforms:['pc','ps5','xbox']},
+  {slug:'marvel-rivals',       name:'Marvel Rivals',          short:'Marvel Rivals',steamAppId:2767030, subreddit:'marvelrivals',    platforms:['pc','ps5','xbox']},
+  {slug:'re-requiem',          name:'Resident Evil: Requiem', short:'RE: Requiem',  steamAppId:3149190, subreddit:'residentevil',    platforms:['pc','ps5','xbox']},
+  {slug:'saros',               name:'Saros',                  short:'Saros',                            subreddit:'Saros',           platforms:['ps5']},
+  {slug:'windrose',            name:'Windrose',               short:'Windrose',                         subreddit:'Windrose',        platforms:['pc']}
+];
+
+// === Feeds gerais — não amarrados a um jogo específico ===
+const generalFeeds = [
+  {slug:'r-Games',          subreddit:'Games',          label:'r/Games',          minScore:300},
+  {slug:'r-pcgaming',       subreddit:'pcgaming',       label:'r/pcgaming',       minScore:150},
+  {slug:'r-PS5',            subreddit:'PS5',            label:'r/PS5',            minScore:100},
+  {slug:'r-XboxSeriesX',    subreddit:'XboxSeriesX',    label:'r/XboxSeriesX',    minScore:80},
+  {slug:'r-NintendoSwitch', subreddit:'NintendoSwitch', label:'r/NintendoSwitch', minScore:120},
+  {slug:'r-gaming',         subreddit:'gaming',         label:'r/gaming',         minScore:1500}  // very noisy, high bar
+];
+
+const articles = [
+  {
+    slug:'kcd2-patch-1-3-horse-overhaul',
+    title:'KCD2 Patch 1.3: Horse Overhaul and New Side Quests',
+    summary:'Warhorse rolls out a chunky update with reworked horse handling, two new questlines, and balance changes to combat stamina.',
+    game:'kcd2', tags:['patch','update'], featured:true, date:'2026-04-28', readTime:4,
+    content:[
+      {type:'p', text:'Warhorse Studios released Patch 1.3 for Kingdom Come: Deliverance II this week, focusing on long-requested fixes to horse handling and adding two new side questlines tied to the Trosky region.'},
+      {type:'h', text:'Horse handling rework'},
+      {type:'p', text:'Riding now uses a smoother turn radius model, and stamina drains based on terrain type rather than a flat timer. Steep slopes and forests cost noticeably more stamina, while paved roads cost less.'},
+      {type:'h', text:'Side quests'},
+      {type:'p', text:'Two new lines have been added — "The Bard\'s Toll" and "Crows Over Skalitz" — each rewarding unique cosmetic gear.'},
+      {type:'h', text:'Combat balance'},
+      {type:'ul', items:['Master Strike windows widened by 40ms','Polearm clinches no longer auto-disengage on mounted opponents','Stamina regen out of combat increased by 15%']},
+      {type:'p', text:'The full patch notes are available on the official Warhorse blog.'}
+    ]
+  },
+  {
+    slug:'rl-season-evolution-recap',
+    title:'Rocket League Season Evolution: What Made the Cut',
+    summary:'New maps, the rotation reshuffle, and why competitive players are split on the Volt Mutator.',
+    game:'rocket-league', tags:['esports','update'], featured:true, date:'2026-04-22', readTime:6,
+    content:[
+      {type:'p', text:'The latest competitive season rolled out with three reworked maps and one mutator that has pros divided.'},
+      {type:'h', text:'Map changes'},
+      {type:'ul', items:['Champions Field — repositioned boost pads','DFH Stadium — new lighting (cosmetic)','Mannfield — slightly tighter corner geometry']},
+      {type:'h', text:'The Volt Mutator'},
+      {type:'p', text:'Volt adds a small electric pulse that briefly boosts ball speed on hard hits. Casual players love it. Competitive players are not as sold — many feel it adds too much variance to high-level rallies.'},
+      {type:'blockquote', text:'"It\'s great for casual lobbies but I don\'t want it anywhere near ranked." — anonymous GC pro'},
+      {type:'h', text:'Worlds qualification'},
+      {type:'p', text:'Regional qualifiers begin in three weeks. EU and NA brackets remain the most stacked.'}
+    ]
+  },
+  {
+    slug:'finals-season-3-weapons-leaked',
+    title:'The Finals: Season 3 Weapons Leaked Ahead of Reveal',
+    summary:'Datamined assets point to a new heavy-class shotgun and a precision rifle for medium build.',
+    game:'the-finals', tags:['leak','update'], featured:false, date:'2026-04-19', readTime:3,
+    content:[
+      {type:'p', text:'Datamined files from the latest patch have surfaced what appear to be Season 3 weapons. Embark Studios has not commented.'},
+      {type:'h', text:'What\'s in the files'},
+      {type:'ul', items:['Heavy: pump-action shotgun with explosive slug variant','Medium: bolt-action precision rifle','Light: dual-wield SMG variant']},
+      {type:'p', text:'Treat all leaks as unofficial until Embark confirms — weapons in datamines have been cut from final releases before.'}
+    ]
+  },
+  {
+    slug:'arc-raiders-tech-test-results',
+    title:'Arc Raiders Tech Test: What We Learned',
+    summary:'Embark\'s extraction shooter showed strong server stability but raised questions about loot density.',
+    game:'arc-raiders', tags:['playtest'], featured:true, date:'2026-04-14', readTime:5,
+    content:[
+      {type:'p', text:'The recent Arc Raiders tech test gave players a deeper look at the extraction shooter\'s endgame loop. Server performance was the standout — 99.2% stability across the testing window.'},
+      {type:'h', text:'Loot economy'},
+      {type:'p', text:'Loot density felt thin in mid-tier zones. Top-tier raiders cleaned out hot drops within minutes, leaving casual players to scrape for crumbs. Embark has acknowledged the feedback.'},
+      {type:'h', text:'PvE feel'},
+      {type:'p', text:'Robot AI behaves more aggressively at night cycles. Pathing improvements over previous tests are noticeable.'}
+    ]
+  },
+  {
+    slug:'minecraft-tricky-trials-recap',
+    title:'Minecraft Tricky Trials: Mob Vote Aftermath',
+    summary:'The community\'s reaction to the latest mob, the new structure type, and how the trial spawner changes farms.',
+    game:'minecraft', tags:['update','community'], featured:false, date:'2026-04-08', readTime:4,
+    content:[
+      {type:'p', text:'The Tricky Trials update landed with the usual mix of celebration and constructive complaint.'},
+      {type:'h', text:'Trial Chambers'},
+      {type:'p', text:'Generated mid-deep underground, Trial Chambers offer a wave-based mob arena with predictable loot — a welcome contrast to RNG-heavy structures.'},
+      {type:'h', text:'Trial Spawners'},
+      {type:'p', text:'Modders are already designing custom maps around them. Vanilla survival players are using them for XP farming with predictable rates.'}
+    ]
+  },
+  {
+    slug:'chivalry-2-content-roadmap',
+    title:'Chivalry 2 Roadmap: Castle Sieges and New Faction',
+    summary:'Torn Banner outlines six months of content, including a new map type and the long-rumored "Iron Company" faction.',
+    game:'chivalry-2', tags:['roadmap'], featured:false, date:'2026-04-02', readTime:3,
+    content:[
+      {type:'p', text:'Torn Banner has published the next six-month content roadmap for Chivalry 2.'},
+      {type:'h', text:'New mode'},
+      {type:'p', text:'Castle Sieges — extended team objectives with destructible siege equipment.'},
+      {type:'h', text:'Iron Company faction'},
+      {type:'p', text:'Replaces some Mason Order skins with mercenary-themed gear. Available across all classes.'}
+    ]
+  },
+  // === GENERAL GAMING (não amarrado a um jogo específico) ===
+  {
+    slug:'gaming-handheld-market-2026',
+    title:'The Handheld Wars: Steam Deck OLED 2, ROG Ally X, MSI Claw — Who\'s Winning?',
+    summary:'Three years into the modern handheld PC gaming era, the market has matured. We compare battery life, library compatibility and price-to-performance.',
+    game:'general', tags:['hardware','industry'], featured:true, date:'2026-04-26', readTime:8,
+    content:[
+      {type:'p', text:'The handheld PC gaming market is no longer a curiosity. Steam Deck OLED Gen 2, ASUS ROG Ally X, and MSI Claw 8 have each carved out a niche. Here\'s where each one wins and loses.'},
+      {type:'h', text:'Battery life winner: Steam Deck OLED Gen 2'},
+      {type:'p', text:'5-7h on AAA titles, 8-12h on lighter games. The OLED panel is part of the reason — it pulls less power on dark scenes.'},
+      {type:'h', text:'Performance winner: ROG Ally X'},
+      {type:'p', text:'Highest framerates in modern AAA titles, but battery suffers as a result.'},
+      {type:'h', text:'Compatibility winner: Steam Deck'},
+      {type:'p', text:'SteamOS\'s Proton has matured into something legitimately impressive. 90%+ of the Steam top 1000 runs out of the box.'}
+    ]
+  },
+  {
+    slug:'esports-2026-prize-pool-record',
+    title:'Esports 2026 Prize Pools Hit All-Time High',
+    summary:'Combined prize pools across major esports titles have crossed the $400M mark, driven by Saudi League partnerships.',
+    game:'general', tags:['esports','industry'], featured:false, date:'2026-04-21', readTime:5,
+    content:[
+      {type:'p', text:'Esports prize pools in 2026 have crossed the $400M mark across all major titles, the highest in history.'},
+      {type:'h', text:'Top 5 by prize pool'},
+      {type:'ol', items:['Dota 2 — $48M (TI 2026 confirmed)','League of Legends — $36M','Counter-Strike 2 — $32M','Valorant — $28M','Mobile Legends — $25M']},
+      {type:'h', text:'The Saudi factor'},
+      {type:'p', text:'The Esports World Cup in Riyadh contributes ~30% of the global prize pool growth this year, raising the usual debates about funding sources.'}
+    ]
+  },
+  {
+    slug:'subscription-fatigue-gaming',
+    title:'Are We Hitting Gaming Subscription Fatigue?',
+    summary:'Game Pass, PS Plus Premium, EA Play, Ubisoft+, GeForce Now — the bills are stacking up. Where does this go from here?',
+    game:'general', tags:['industry','opinion'], featured:false, date:'2026-04-15', readTime:6,
+    content:[
+      {type:'p', text:'There are now seven major gaming subscription services in 2026. Subscribing to all of them costs more than buying 4-5 full-price games per year.'},
+      {type:'h', text:'The math'},
+      {type:'p', text:'Average gamer surveyed in Q1 2026 has 2.3 active gaming subscriptions, up from 1.4 in 2023.'},
+      {type:'blockquote', text:'"I\'m paying $40/month for libraries I don\'t have time to play through." — common refrain in industry surveys'},
+      {type:'h', text:'What changes?'},
+      {type:'p', text:'Bundled tiers (Microsoft + EA, Sony exploring multi-pub) are starting to appear. Expect more consolidation.'}
+    ]
+  },
+  {
+    slug:'crossplay-state-2026',
+    title:'The State of Crossplay in 2026: Where We Stand',
+    summary:'Five years after major holdouts caved, crossplay is the default. But not everywhere. A platform-by-platform check.',
+    game:'general', tags:['industry'], featured:false, date:'2026-04-09', readTime:5,
+    content:[
+      {type:'p', text:'In 2026, crossplay is no longer a feature — it\'s expected. But there are still gaps.'},
+      {type:'h', text:'The leaders'},
+      {type:'ul', items:['Fortnite, Rocket League, Apex — full crossplay including progression','The Finals, Helldivers 2 — crossplay native from day one','CoD — crossplay yes, but split queue at high ranks']},
+      {type:'h', text:'The holdouts'},
+      {type:'p', text:'PC-exclusive titles (Valorant, LoL) and platform-locked exclusives still resist crossplay for design or competitive reasons.'}
+    ]
+  }
+];
+
+const guides = [
+  {
+    slug:'kcd2-early-game-survival',
+    title:'KCD2 Early Game: Don\'t Die in the First Hour',
+    summary:'A practical breakdown of the first 90 minutes — what to grab, who to talk to, and which fights to skip.',
+    game:'kcd2', type:'guide', difficulty:'beginner', featured:true, date:'2026-03-12', readTime:7,
+    content:[
+      {type:'p', text:'Your first hour in Kingdom Come: Deliverance II will define how the next ten hours feel. Here\'s a tight survival path.'},
+      {type:'h', text:'Step 1 — Pick the right starter perk'},
+      {type:'ul', items:['Strong Stomach: doubles your food window before spoilage','Light-Footed: stealth checks ease early on','Iron Constitution: avoids the food poisoning loop']},
+      {type:'h', text:'Step 2 — Save your groschen'},
+      {type:'p', text:'Don\'t buy gear in the first town. Better gear drops from your second forced fight, free.'},
+      {type:'h', text:'Step 3 — Avoid these fights'},
+      {type:'p', text:'The drunkard near the inn, the wolf pack on the river path, and any "noble" with a horse. None of these scale with you in the first chapter.'},
+      {type:'blockquote', text:'Run, eat, sleep, save. In that order.'}
+    ]
+  },
+  {
+    slug:'rl-aerial-training-routine',
+    title:'Rocket League: 30-Minute Aerial Training Routine',
+    summary:'A drill-by-drill plan to get aerial-comfortable in two weeks. Works on free play.',
+    game:'rocket-league', type:'guide', difficulty:'intermediate', featured:true, date:'2026-03-04', readTime:5,
+    content:[
+      {type:'h', text:'The routine'},
+      {type:'ol', items:['5 min — Freestyle aerials, no boost limit','10 min — Wall-to-air dribbles, free play','10 min — Workshop map: Aim Training Pack','5 min — Air dribbles in 1v1 against a passive bot']},
+      {type:'p', text:'Do this 4–5 times a week. The wall-to-air drill is the highest-impact one for ranked play.'},
+      {type:'h', text:'Camera settings that help'},
+      {type:'ul', items:['FOV: 110','Distance: 270–290','Stiffness: 0.45–0.55','Swivel speed: 6.0']}
+    ]
+  },
+  {
+    slug:'finals-light-class-movement',
+    title:'The Finals: Light Class Movement Tech',
+    summary:'Slide cancels, grapple chains, and the dash-jump trick that pros are abusing.',
+    game:'the-finals', type:'guide', difficulty:'advanced', date:'2026-02-22', readTime:6,
+    content:[
+      {type:'p', text:'Light is the highest-skill-ceiling class in The Finals. Master these three movement techs and your kill ceiling shifts.'},
+      {type:'h', text:'1. Slide-cancel'},
+      {type:'p', text:'Crouch into slide, then jump immediately on slide-end frame. Preserves speed and breaks aim tracking.'},
+      {type:'h', text:'2. Grapple chain'},
+      {type:'p', text:'Grapple-jump-grapple links three apex points without ever touching the ground. Use for vertical rotates.'},
+      {type:'h', text:'3. Dash-jump'},
+      {type:'p', text:'Dash specialization + jump on the final dash frame produces a small extra-distance hop. Hard to defend.'}
+    ]
+  },
+  {
+    slug:'minecraft-villager-trading-loop',
+    title:'Minecraft: Villager Trading Hall in 30 Minutes',
+    summary:'A no-fuss design that runs reliably on Java and Bedrock. Costs almost nothing.',
+    game:'minecraft', type:'guide', difficulty:'beginner', date:'2026-02-10', readTime:4,
+    content:[
+      {type:'p', text:'A trading hall doesn\'t need to be a megabuild. This simple footprint covers librarians, fletchers and farmers, and you can build it with a single iron pickaxe and some wood.'},
+      {type:'h', text:'Footprint'},
+      {type:'ul', items:['3 villager slots side-by-side','Lectern / fletching table / composter on top','Bed below for spawn-trapping']}
+    ]
+  },
+  {
+    slug:'arc-raiders-extraction-101',
+    title:'Arc Raiders: Extraction 101 — Don\'t Die With Your Loot',
+    summary:'Reading the map, choosing your route, and the three rules that separate raiders who extract from raiders who get extracted.',
+    game:'arc-raiders', type:'guide', difficulty:'beginner', date:'2026-04-25', readTime:6,
+    content:[
+      {type:'p', text:'Extraction shooters live and die on the last 90 seconds. Here\'s the framework that keeps you alive.'},
+      {type:'h', text:'Rule 1 — Pick your extract before you push'},
+      {type:'p', text:'Hot drops are bait. Always know which extract is closest to your spawn and your secondary route if it gets contested.'},
+      {type:'h', text:'Rule 2 — Stop looting at 70%'},
+      {type:'p', text:'When your bag hits 70%, you switch from "looter" to "runner" mentality. Extra rare drops are not worth dying for.'},
+      {type:'h', text:'Rule 3 — Listen more than you shoot'},
+      {type:'p', text:'Audio info > visual info in Arc Raiders. Footsteps, drone whirrs, distant gunfire — all give you positioning data.'}
+    ]
+  },
+  {
+    slug:'chivalry2-knight-fundamentals',
+    title:'Chivalry 2: Knight Class Fundamentals',
+    summary:'The basics of footwork, drag attacks, and knowing when to commit. Knight is forgiving but not free.',
+    game:'chivalry-2', type:'guide', difficulty:'beginner', date:'2026-04-12', readTime:5,
+    content:[
+      {type:'h', text:'Stance & footwork'},
+      {type:'p', text:'Always face your engagement at a 30° angle, not square-on. This makes you harder to hit and gives your camera the spatial info to read incoming attacks.'},
+      {type:'h', text:'Drag attacks'},
+      {type:'p', text:'Slow your swing by aiming up at the start, then drop the camera at impact. The animation extends, throwing off the enemy\'s parry timing.'},
+      {type:'h', text:'When NOT to commit'},
+      {type:'ul', items:['You\'re outnumbered 1v3+','Your stamina is below 30%','You\'re between two enemies — disengage and reset']}
+    ]
+  },
+  {
+    slug:'cyberpunk-netrunner-phantom',
+    title:'Cyberpunk 2077: Netrunner Build for Phantom Liberty',
+    summary:'A full quickhack-focused build that melts everything in Dogtown. Stealth optional but recommended.',
+    game:'cyberpunk2077', type:'build', difficulty:'advanced', date:'2026-04-08', readTime:7,
+    content:[
+      {type:'h', text:'Core attributes'},
+      {type:'ul', items:['Intelligence: 20','Reflexes: 12','Cool: 15','Body: 6','Tech: 9']},
+      {type:'h', text:'Cyberware priorities'},
+      {type:'p', text:'Netwatch Netdriver MK.5 (cyberdeck) is the build-defining piece. Combine with Tetratronic Rippler for ultimate stealth.'},
+      {type:'h', text:'Quickhack rotation'},
+      {type:'ol', items:['Sonic Shock — silences and breaks audio detection','Reboot Optics — blinds for 6s','Synapse Burnout — finisher; instant kill on most enemies']},
+      {type:'h', text:'Edgerunner perk'},
+      {type:'p', text:'The cherry on top — when low HP, your quickhacks become free for 8s. Game-ending when stacked with Overclock.'}
+    ]
+  },
+  {
+    slug:'gtav-money-optimization',
+    title:'GTA V Online: Heist Money Optimization (2026)',
+    summary:'Diamond Casino vs Cayo Perico vs Doomsday — which heist actually pays per hour in the current economy.',
+    game:'gta-v', type:'guide', difficulty:'intermediate', date:'2026-04-04', readTime:5,
+    content:[
+      {type:'h', text:'Per-hour earnings ranking'},
+      {type:'ol', items:['Cayo Perico (solo) — ~$1.6M/h','Diamond Casino — ~$1.2M/h','Doomsday Act 3 — ~$1.0M/h','Bogdan Glitch — patched, RIP']},
+      {type:'h', text:'Solo grind tip'},
+      {type:'p', text:'Cayo Perico setup costs are minimal and replays don\'t reset cooldowns when you switch sessions between runs.'}
+    ]
+  },
+  {
+    slug:'split-fiction-coop-tips',
+    title:'Split Fiction: Co-op Communication Patterns',
+    summary:'Hazelight games are fun until you and your partner stop talking. Here\'s how to keep the team alive.',
+    game:'split-fiction', type:'guide', difficulty:'beginner', date:'2026-03-28', readTime:4,
+    content:[
+      {type:'h', text:'Pre-puzzle protocol'},
+      {type:'p', text:'Before any new mechanic, agree out loud on who controls what. 80% of co-op deaths come from miscommunication on first attempts.'},
+      {type:'h', text:'Vocal signals'},
+      {type:'ul', items:['"On three" — for synchronized actions','"Hold" — partner stops moving immediately','"Switch" — flip control roles for the next sequence']}
+    ]
+  },
+  {
+    slug:'rdr2-honor-route',
+    title:'RDR2: The Honor Route — Fastest Path to High Honor',
+    summary:'A clean playthrough plan that maxes honor by Chapter 3, unlocking Arthur\'s best outcome.',
+    game:'rdr2', type:'guide', difficulty:'intermediate', date:'2026-03-20', readTime:6,
+    content:[
+      {type:'p', text:'High honor unlocks Arthur\'s most rewarding ending sequence. Here\'s the fastest legitimate path.'},
+      {type:'h', text:'Chapter 1-2 essentials'},
+      {type:'ul', items:['Greet every NPC you pass (small honor over volume)','Donate $250 to camp early','Skip the Strawberry jail break — sneak instead']},
+      {type:'h', text:'Don\'t do this'},
+      {type:'ul', items:['No bounty-hunting innocents','No Catherine Braithwaite scene escalation','No looting bodies after non-combat deaths']}
+    ]
+  },
+  {
+    slug:'palworld-late-base',
+    title:'Palworld: Late Game Base Optimization',
+    summary:'Layout, pal assignment and the breeding loop that keeps your base self-sustaining at level 50+.',
+    game:'palworld', type:'build', difficulty:'intermediate', date:'2026-03-12', readTime:5,
+    content:[
+      {type:'h', text:'Pal slot priorities'},
+      {type:'ol', items:['1× Anubis (handiwork god)','2× Jormuntide Ignis (ore mining)','1× Frostallion Noct (electricity)','Rotate the rest based on biome']},
+      {type:'h', text:'Layout principle'},
+      {type:'p', text:'Keep crafting stations within 12 tiles of each other. Pals lose huge time pathing across long bases.'}
+    ]
+  }
+];
+
+const tierLists = [
+  {
+    slug:'rl-cars-spring-2026',
+    title:'Rocket League: Best Cars (Spring 2026)',
+    summary:'Hitbox meta hasn\'t shifted, but cosmetic-driven preference is.',
+    game:'rocket-league', featured:true, date:'2026-04-18',
+    tiers:[
+      {tier:'S', items:['Octane','Fennec']},
+      {tier:'A', items:['Dominus','Breakout','Plank']},
+      {tier:'B', items:['Hybrid (Endo, X-Devil MK2)','Merc']},
+      {tier:'C', items:['Batmobile (89)','Twinzer']},
+      {tier:'D', items:['Skyline R32','Zippy']}
+    ]
+  },
+  {
+    slug:'finals-weapons-current',
+    title:'The Finals: Weapon Tier List',
+    summary:'After the latest balance pass — heavy got hit, medium is comfy, light is spicy.',
+    game:'the-finals', featured:false, date:'2026-04-09',
+    tiers:[
+      {tier:'S', items:['M11 (Light)','AKM (Medium)','MGL32 (Heavy)']},
+      {tier:'A', items:['LH1 (Light)','FCAR (Medium)','Lewis Gun (Heavy)']},
+      {tier:'B', items:['XP-54','Pike-556','M134 Minigun']},
+      {tier:'C', items:['Sword (Light)','Riot Shield (Heavy)']}
+    ]
+  },
+  {
+    slug:'kcd2-perks-bohemia-edition',
+    title:'KCD2: Top Perks for Free-Roam Henry',
+    summary:'For your second playthrough — the perks that scale.',
+    game:'kcd2', featured:true, date:'2026-03-30',
+    tiers:[
+      {tier:'S', items:['Master Hunter','Iron Will','Drunken Master']},
+      {tier:'A', items:['Hawkeye','Silver Tongue','Anatomy']},
+      {tier:'B', items:['Pickpocket II','Slim Fingers','Smelly']},
+      {tier:'C', items:['Henry of Skalitz','Speedy Recovery']}
+    ]
+  },
+  {
+    slug:'cs2-rifles-current',
+    title:'CS2: Rifle Tier List (Current Meta)',
+    summary:'Post-shotgun nerfs, the rifle meta has settled. Here\'s the pecking order.',
+    game:'cs2', featured:false, date:'2026-04-15',
+    tiers:[
+      {tier:'S', items:['AK-47','M4A4']},
+      {tier:'A', items:['M4A1-S','AUG','SG 553']},
+      {tier:'B', items:['Galil AR','FAMAS']},
+      {tier:'C', items:['SCAR-20','G3SG1']}
+    ]
+  },
+  {
+    slug:'eldenring-classes-2026',
+    title:'Elden Ring: Best Starting Classes (2026)',
+    summary:'After all the patches, balance changes and DLC, here\'s where each class stands for new players.',
+    game:'eldenring', featured:false, date:'2026-04-04',
+    tiers:[
+      {tier:'S', items:['Vagabond','Astrologer']},
+      {tier:'A', items:['Samurai','Confessor','Prisoner']},
+      {tier:'B', items:['Hero','Bandit','Prophet']},
+      {tier:'C', items:['Warrior','Wretch']}
+    ]
+  },
+  {
+    slug:'helldivers2-stratagems',
+    title:'Helldivers 2: Stratagem Tier List',
+    summary:'For Liberty. Spread Democracy. Use these stratagems.',
+    game:'helldivers2', featured:false, date:'2026-03-26',
+    tiers:[
+      {tier:'S', items:['Orbital Railcannon Strike','Eagle 500kg Bomb','Autocannon']},
+      {tier:'A', items:['Orbital Laser','Quasar Cannon','Eagle Airstrike','Sentry: Rocket']},
+      {tier:'B', items:['Stalwart','Recoilless Rifle','Sentry: Mortar']},
+      {tier:'C', items:['Anti-Materiel Rifle','Smoke Strike']}
+    ]
+  },
+  {
+    slug:'bg3-classes-honour-mode',
+    title:"Baldur's Gate 3: Best Classes for Honour Mode",
+    summary:'No reloads, one save. These classes survive when others wipe.',
+    game:'baldursgate3', featured:false, date:'2026-03-18',
+    tiers:[
+      {tier:'S', items:['Sorcerer (Storm)','Paladin (Vengeance)','Cleric (Tempest)']},
+      {tier:'A', items:['Druid (Spore)','Bard (Sword)','Fighter (Battle Master)']},
+      {tier:'B', items:['Rogue (Assassin)','Monk (Open Hand)','Warlock (Tomelock)']},
+      {tier:'C', items:['Ranger (Beast Master)','Barbarian (Wild Magic)']}
+    ]
+  },
+  {
+    slug:'marvel-rivals-heroes-current',
+    title:'Marvel Rivals: Hero Tier List (Latest Patch)',
+    summary:'After the recent rebalance, the meta has shifted hard toward dive comps.',
+    game:'marvel-rivals', featured:true, date:'2026-04-29',
+    tiers:[
+      {tier:'S', items:['Spider-Man','Iron Fist','Hela','Luna Snow']},
+      {tier:'A', items:['Doctor Strange','Magneto','Punisher','Cloak & Dagger']},
+      {tier:'B', items:['Black Panther','Hulk','Mantis','Storm']},
+      {tier:'C', items:['Iron Man','Loki','Rocket Raccoon']},
+      {tier:'D', items:['Squirrel Girl','Jeff the Land Shark']}
+    ]
+  },
+  {
+    slug:'apex-legends-current',
+    title:'Apex Legends: Current Legend Tier List',
+    summary:'Where every legend stands at the start of the current ranked split.',
+    game:'apex', featured:false, date:'2026-04-19',
+    tiers:[
+      {tier:'S', items:['Bloodhound','Wraith','Horizon']},
+      {tier:'A', items:['Octane','Lifeline','Pathfinder','Catalyst']},
+      {tier:'B', items:['Bangalore','Gibraltar','Caustic','Newcastle']},
+      {tier:'C', items:['Loba','Crypto','Mirage','Wattson']},
+      {tier:'D', items:['Mad Maggie','Vantage']}
+    ]
+  },
+  {
+    slug:'valorant-agents-current',
+    title:'Valorant: Agent Tier List',
+    summary:'Updated for the current map pool. Sentinels are eating well.',
+    game:'valorant', featured:false, date:'2026-04-15',
+    tiers:[
+      {tier:'S', items:['Jett','Omen','Killjoy','Cypher']},
+      {tier:'A', items:['Reyna','Sova','Sage','Phoenix','Viper']},
+      {tier:'B', items:['Brimstone','Raze','Skye','Chamber']},
+      {tier:'C', items:['Breach','KAY/O','Yoru','Astra']},
+      {tier:'D', items:['Deadlock']}
+    ]
+  },
+  {
+    slug:'mh-wilds-weapons-2026',
+    title:'Monster Hunter Wilds: Weapon Tier List',
+    summary:'For solo and group hunts. Move count, openings created, comfort factor.',
+    game:'monster-hunter-wilds', featured:false, date:'2026-04-10',
+    tiers:[
+      {tier:'S', items:['Greatsword','Insect Glaive','Long Sword']},
+      {tier:'A', items:['Switch Axe','Charge Blade','Hammer','Hunting Horn']},
+      {tier:'B', items:['Bow','Heavy Bowgun','Dual Blades']},
+      {tier:'C', items:['Sword & Shield','Light Bowgun']},
+      {tier:'D', items:['Lance','Gunlance']}
+    ]
+  },
+  {
+    slug:'diablo4-classes-s8',
+    title:'Diablo IV Season 8: Class Tier List',
+    summary:'Pit pushing, NM dungeons, end-game viability — ranked.',
+    game:'diablo-iv', featured:true, date:'2026-04-02',
+    tiers:[
+      {tier:'S', items:['Sorcerer','Spiritborn']},
+      {tier:'A', items:['Necromancer','Druid']},
+      {tier:'B', items:['Rogue','Barbarian']},
+      {tier:'C', items:['Paladin (limited build variety)']}
+    ]
+  },
+  {
+    slug:'palworld-best-pals-early',
+    title:'Palworld: Best Pals to Catch First',
+    summary:'The early-game power picks that scale all the way to endgame.',
+    game:'palworld', featured:false, date:'2026-03-25',
+    tiers:[
+      {tier:'S', items:['Lifmunk','Tanzee','Foxparks','Cattiva']},
+      {tier:'A', items:['Lamball','Pengullet','Fuack','Cremis']},
+      {tier:'B', items:['Mau','Daedream','Rushoar']},
+      {tier:'C', items:['Tocotoco','Bristla']}
+    ]
+  }
+];
+
+/* ================================================================
+   AUTO-FED NEWS (Steam News API + Reddit JSON)
+   ================================================================ */
+const NEWS_CFG = {
+  cacheTTL: 30*60*1000,                           // 30 min
+  steamCount: 5,                                  // articles per game from Steam
+  redditCount: 4,                                 // posts per subreddit
+  redditMinScore: 80,                             // ignore low-engagement posts
+  // proxy chain — first one to succeed wins. Edit if a service stops working.
+  proxies:[
+    '',                                           // direct (works for some endpoints)
+    'https://corsproxy.io/?',
+    'https://api.allorigins.win/raw?url='
+  ]
+};
+
+let externalArticles = [];                        // populated by fetchAllNews()
+let newsLoading = false;
+
+const NEWS_CACHE_VERSION=3; // bump to invalidate caches after schema changes
+function newsCacheGet(){
+  try{
+    const raw=localStorage.getItem('rr_news_cache');
+    if(!raw)return null;
+    const parsed=JSON.parse(raw);
+    if(parsed.v!==NEWS_CACHE_VERSION){localStorage.removeItem('rr_news_cache');return null}
+    const {ts,data}=parsed;
+    if(Date.now()-ts > NEWS_CFG.cacheTTL)return null;
+    if(!Array.isArray(data))return null;
+    return data;
+  }catch{localStorage.removeItem('rr_news_cache');return null}
+}
+function newsCacheSet(data){
+  try{localStorage.setItem('rr_news_cache',JSON.stringify({v:NEWS_CACHE_VERSION,ts:Date.now(),data}))}catch{}
+}
+function newsCacheClear(){localStorage.removeItem('rr_news_cache')}
+
+async function fetchWithProxy(url){
+  for(const px of NEWS_CFG.proxies){
+    try{
+      const final=px ? px+encodeURIComponent(url) : url;
+      const r=await fetch(final,{headers:{'Accept':'application/json'}});
+      if(r.ok)return await r.text();
+    }catch{}
+  }
+  throw new Error('All proxies failed for '+url);
+}
+
+function stripHtml(s){return (s||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim()}
+function truncate(s,n){return (s||'').length>n ? s.slice(0,n).trim()+'…' : s}
+
+/* === IMAGE / DATE HELPERS === */
+function gameThumb(slug){
+  const g=games.find(x=>x.slug===slug);
+  if(g?.steamAppId)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/header.jpg`;
+  return null;
+}
+function gameHero(slug){
+  const g=games.find(x=>x.slug===slug);
+  if(g?.steamAppId)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/library_hero.jpg`;
+  return null;
+}
+function extractSteamImg(html){
+  if(!html)return null;
+  const img=html.match(/<img[^>]+src=["']([^"']+)["']/i);
+  if(img)return img[1];
+  const bb=html.match(/\[img\]([^\[]+)\[\/img\]/i);
+  if(bb)return bb[1].replace('{STEAM_CLAN_IMAGE}','https://clan.cloudflare.steamstatic.com/images/');
+  return null;
+}
+function extractRedditImg(p){
+  if(p.preview?.images?.[0]?.source?.url)return p.preview.images[0].source.url;
+  if(p.post_hint==='image' && p.url)return p.url;
+  if(p.thumbnail && /^https?:\/\//.test(p.thumbnail))return p.thumbnail;
+  return null;
+}
+function timeAgo(dateStr){
+  const d=new Date(dateStr);
+  if(isNaN(d))return dateStr;
+  const sec=Math.floor((Date.now()-d.getTime())/1000);
+  const PT=lang==='pt';
+  if(sec<60)return PT?'agora':'just now';
+  if(sec<3600)return PT?`há ${Math.floor(sec/60)} min`:`${Math.floor(sec/60)}m ago`;
+  if(sec<86400)return PT?`há ${Math.floor(sec/3600)} h`:`${Math.floor(sec/3600)}h ago`;
+  if(sec<604800)return PT?`há ${Math.floor(sec/86400)} d`:`${Math.floor(sec/86400)}d ago`;
+  if(sec<2592000)return PT?`há ${Math.floor(sec/604800)} sem`:`${Math.floor(sec/604800)}w ago`;
+  if(sec<31536000)return PT?`há ${Math.floor(sec/2592000)} m`:`${Math.floor(sec/2592000)}mo ago`;
+  return fmtDate(dateStr);
+}
+
+async function fetchSteamNews(game){
+  const url=`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${game.steamAppId}&count=${NEWS_CFG.steamCount}&maxlength=600&format=json`;
+  const txt=await fetchWithProxy(url);
+  const data=JSON.parse(txt);
+  return (data.appnews?.newsitems||[]).map(it=>({
+    slug:'st-'+it.gid,
+    title:it.title,
+    summary:truncate(stripHtml(it.contents),200),
+    game:game.slug,
+    tags:['steam','official', it.feedlabel?.toLowerCase().replace(/\s+/g,'-')||'news'].filter(Boolean),
+    date:new Date(it.date*1000).toISOString().slice(0,10),
+    readTime:3,
+    external:true,
+    source:'steam',
+    sourceUrl:it.url,
+    sourceLabel:it.feedlabel||'Steam',
+    thumb:extractSteamImg(it.contents)||gameThumb(game.slug),
+    content:[
+      {type:'p',text:stripHtml(it.contents)},
+      {type:'p',text:`— ${it.author||'Steam'}`}
+    ]
+  }));
+}
+
+async function fetchRedditPosts(game){
+  const url=`https://www.reddit.com/r/${game.subreddit}/hot.json?limit=15&raw_json=1`;
+  const txt=await fetchWithProxy(url);
+  const data=JSON.parse(txt);
+  return (data.data?.children||[])
+    .map(p=>p.data)
+    .filter(p=>!p.stickied && !p.over_18 && p.score>=NEWS_CFG.redditMinScore)
+    .slice(0,NEWS_CFG.redditCount)
+    .map(p=>({
+      slug:'rd-'+p.id,
+      title:p.title,
+      summary:p.selftext ? truncate(p.selftext,200) : `↑ ${p.score} · 💬 ${p.num_comments} · r/${game.subreddit}`,
+      game:game.slug,
+      tags:['reddit','community',p.link_flair_text?.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
+      date:new Date(p.created_utc*1000).toISOString().slice(0,10),
+      readTime:2,
+      external:true,
+      source:'reddit',
+      sourceUrl:'https://reddit.com'+p.permalink,
+      sourceLabel:'r/'+game.subreddit,
+      score:p.score,
+      thumb:extractRedditImg(p)||gameThumb(game.slug),
+      content:[
+        {type:'p',text:p.selftext||'(Discussion / link post — see thread for details.)'}
+      ]
+    }));
+}
+
+async function fetchGeneralReddit(feed){
+  const url=`https://www.reddit.com/r/${feed.subreddit}/hot.json?limit=25&raw_json=1`;
+  const txt=await fetchWithProxy(url);
+  const data=JSON.parse(txt);
+  return (data.data?.children||[])
+    .map(p=>p.data)
+    .filter(p=>!p.stickied && !p.over_18 && p.score>=(feed.minScore||100))
+    .slice(0,5)
+    .map(p=>({
+      slug:'rdg-'+p.id,
+      title:p.title,
+      summary:p.selftext ? truncate(p.selftext,200) : `↑ ${p.score} · 💬 ${p.num_comments} · ${feed.label}`,
+      game:'general',
+      tags:['general','gaming',p.link_flair_text?.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
+      date:new Date(p.created_utc*1000).toISOString().slice(0,10),
+      readTime:2,
+      external:true,
+      source:'reddit',
+      sourceUrl:'https://reddit.com'+p.permalink,
+      sourceLabel:feed.label,
+      score:p.score,
+      thumb:extractRedditImg(p),
+      content:[
+        {type:'p',text:p.selftext||'(Discussion / link post — open the source for full context.)'}
+      ]
+    }));
+}
+
+async function fetchAllNews({force=false}={}){
+  if(!force){
+    const c=newsCacheGet();
+    if(c){externalArticles=c;return c}
+  }
+  newsLoading=true;
+  const tasks=[];
+  for(const g of games){
+    if(g.steamAppId)tasks.push(fetchSteamNews(g).catch(e=>{console.warn('steam',g.slug,e.message);return[]}));
+    if(g.subreddit) tasks.push(fetchRedditPosts(g).catch(e=>{console.warn('reddit',g.slug,e.message);return[]}));
+  }
+  for(const f of generalFeeds){
+    tasks.push(fetchGeneralReddit(f).catch(e=>{console.warn('general',f.slug,e.message);return[]}));
+  }
+  const results=(await Promise.all(tasks)).flat();
+  // de-dupe by slug
+  const seen=new Set();
+  externalArticles=results.filter(a=>{if(seen.has(a.slug))return false;seen.add(a.slug);return true});
+  externalArticles.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  newsCacheSet(externalArticles);
+  newsLoading=false;
+  return externalArticles;
+}
+
+function getAllArticles(){
+  // manual articles take precedence visually (featured banner), externals merged after
+  const combined=[...articles, ...externalArticles];
+  combined.sort((a,b)=>{
+    if(a.featured&&!b.featured)return -1;
+    if(!a.featured&&b.featured)return 1;
+    return (b.date||'').localeCompare(a.date||'');
+  });
+  return combined;
+}
+
+/* ================================================================
+   MERCH & SOCIALS
+   ================================================================ */
+const socials = [
+  {key:'twitch',    name:'Twitch',    handle:'@rick__rattle',     url:'https://www.twitch.tv/rick__rattle',   color:'#9146FF', desc:{en:'Live stream — go suffer with the chat.', pt:'Live — vem sofrer com o chat.'},                cta:{en:'Watch Live', pt:'Ver Live'}},
+  {key:'discord',   name:'Discord',   handle:'invite link',       url:'https://discord.gg/bptZUJtGgD',         color:'#5865F2', desc:{en:'Community hub. Vote on next chaos drops.', pt:'Centro da comunidade. Vota no próximo caos.'}, cta:{en:'Join the Server', pt:'Entrar no Servidor'}},
+  {key:'youtube',   name:'YouTube',   handle:'@Rick__Rattle',     url:'https://www.youtube.com/@Rick__Rattle', color:'#FF0000', desc:{en:'Best clips, full streams, edited highlights.', pt:'Melhores clipes, streams completas, highlights editados.'}, cta:{en:'Subscribe', pt:'Subscrever'}},
+  {key:'tiktok',    name:'TikTok',    handle:'@rick__rattle',     url:'https://www.tiktok.com/@rick__rattle',  color:'#FF2E63', desc:{en:'Daily clips. Quick chaos doses.', pt:'Clipes diários. Doses rápidas de caos.'},                cta:{en:'Follow', pt:'Seguir'}},
+  {key:'instagram', name:'Instagram', handle:'@rick__rattle',     url:'https://www.instagram.com/rick__rattle/',color:'#E4405F', desc:{en:'Behind the scenes, photos, IRL stuff.', pt:'Bastidores, fotos, vida real.'},               cta:{en:'Follow', pt:'Seguir'}}
+];
+
+// Easy to edit — add/remove items here. Use placeholder url '#' if not yet listed.
+const merch = [
+  {slug:'hoodie-beard',  name:'Rattle Beard Hoodie',     price:'€39',  tag:'NEW',     img:'merch/hoodie.jpg', url:'#'},
+  {slug:'tee-chaos',     name:'Welcome to Chaos Tee',    price:'€22',  tag:null,      img:'merch/tee-chaos.jpg', url:'#'},
+  {slug:'cap-rr',        name:'RR Embroidered Snapback', price:'€19',  tag:null,      img:'merch/cap.jpg', url:'#'},
+  {slug:'sticker-pack',  name:'Rattle Sticker Pack',     price:'€5',   tag:'BUNDLE',  img:'merch/stickers.jpg', url:'#'},
+  {slug:'mug-suffer',    name:'Suffering Mug',           price:'€14',  tag:null,      img:'merch/mug.jpg', url:'#'},
+  {slug:'mousepad',      name:'XL Logo Mousepad',        price:'€24',  tag:null,      img:'merch/mousepad.jpg', url:'#'}
+];
+
+/* ================================================================
+   VISIT COUNTER
+   ================================================================ */
+const COUNTER_NS='rickrattle';
+const COUNTER_KEY='visits';
+
+async function bumpVisit(){
+  // count once per session
+  if(sessionStorage.getItem('rr_visit_counted')){
+    return readVisit();
+  }
+  sessionStorage.setItem('rr_visit_counted','1');
+  // try remote bump (counterapi.dev)
+  try{
+    const r=await fetch(`https://api.counterapi.dev/v1/${COUNTER_NS}/${COUNTER_KEY}/up`);
+    if(r.ok){
+      const d=await r.json();
+      const c=d.count??d.value;
+      if(typeof c==='number'){localStorage.setItem('rr_visit_remote',c);return c}
+    }
+  }catch{}
+  // fallback: local-only bump
+  const n=(+(localStorage.getItem('rr_visit_local')||0))+1;
+  localStorage.setItem('rr_visit_local',n);
+  return n;
+}
+async function readVisit(){
+  try{
+    const r=await fetch(`https://api.counterapi.dev/v1/${COUNTER_NS}/${COUNTER_KEY}`);
+    if(r.ok){
+      const d=await r.json();
+      const c=d.count??d.value;
+      if(typeof c==='number'){localStorage.setItem('rr_visit_remote',c);return c}
+    }
+  }catch{}
+  return +(localStorage.getItem('rr_visit_remote')||localStorage.getItem('rr_visit_local')||0);
+}
+function paintVisits(n){
+  document.querySelectorAll('[data-visit-count]').forEach(el=>el.textContent=n.toLocaleString(lang==='pt'?'pt-PT':'en-GB'));
+}
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+const navItems = [
+  {key:'home', icon:'⌂', label:'nav.home', section:'main'},
+  {key:'news', icon:'◫', label:'nav.news', section:'main'},
+  {key:'tips', icon:'✦', label:'nav.tips', section:'main'},
+  {key:'rick', icon:'★', label:'nav.rick', section:'creator'}
+];
+
+function renderSidebar(){
+  const nav=document.getElementById('navMain');
+  const route=getRoute();
+  let html='';
+  let curSection=null;
+  navItems.forEach(it=>{
+    if(it.section!==curSection){
+      curSection=it.section;
+      html+=`<div class="nav-section">${t('nav.section.'+curSection)}</div>`;
+    }
+    const active=(route.view===it.key)?' active':'';
+    html+=`<a class="nav-item${active}" href="#/${it.key}"><span class="ico">${it.icon}</span><span data-i18n="${it.label}">${t(it.label)}</span></a>`;
+  });
+  nav.innerHTML=html;
+}
+
+/* ================================================================
+   ROUTER
+   ================================================================ */
+function getRoute(){
+  const h=(location.hash||'#/home').replace(/^#\/?/,'').split('/');
+  return {view:h[0]||'home', a:h[1]||null, b:h[2]||null};
+}
+function go(path){location.hash='#/'+path}
+
+const routes = {
+  home:HomeView,
+  rick:RickView,
+  news:NewsView,
+  tips:TipsView
+};
+
+function render(){
+  const r=getRoute();
+  const view=document.getElementById('view');
+  view.innerHTML='';
+  const fn=routes[r.view]||HomeView;
+  try{
+    fn(view,r);
+  }catch(err){
+    console.error('[render] view crashed:',r.view,err);
+    view.innerHTML=`<div class="empty"><strong>⚠ Render error in "${r.view}"</strong><br><br><code style="font-size:11px;color:var(--hot)">${err.message}</code><br><br><a class="btn btn-ghost" href="#/home" onclick="location.reload()">Reload</a></div>`;
+  }
+  renderSidebar();
+  try{applyI18n()}catch(e){console.warn('[i18n]',e)}
+  window.scrollTo({top:0,behavior:'instant'});
+  document.getElementById('sidebar').classList.remove('open');
+}
+window.addEventListener('hashchange',render);
+
+/* ================================================================
+   COMPONENTS — generic
+   ================================================================ */
+function gameName(slug){
+  if(slug==='general')return lang==='pt'?'Geral':'General';
+  const g=games.find(x=>x.slug===slug);
+  return g?g.short:slug;
+}
+function fmtDate(d){return new Date(d).toLocaleDateString(lang==='pt'?'pt-PT':'en-GB',{day:'2-digit',month:'short',year:'numeric'})}
+
+function thumbHtml(item, fallback){
+  const url=item.thumb||gameThumb(item.game);
+  if(url)return `<img src="${url}" loading="lazy" alt="" onerror="this.parentElement.classList.add('thumb-fail');this.remove()">`;
+  return '';
+}
+function fallbackHtml(item){
+  return `<div class="card-thumb-fallback">${gameName(item.game).slice(0,3).toUpperCase()}</div>`;
+}
+
+function ArticleCard(a){
+  const tags=(a.tags||[]).slice(0,3).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
+  let badge='';
+  if(a.featured)badge=`<div class="card-tag featured">FEATURED</div>`;
+  else if(a.source==='steam')badge=`<div class="card-tag source-steam">STEAM</div>`;
+  else if(a.source==='reddit')badge=`<div class="card-tag source-reddit">r/REDDIT</div>`;
+  return `<a class="card" href="#/news/${a.slug}">
+    <div class="card-thumb">${badge}${thumbHtml(a)}${fallbackHtml(a)}</div>
+    <div class="card-body">
+      <div class="card-meta"><span class="game">${gameName(a.game)}</span>·<span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span>·<span>${a.readTime||3} min</span></div>
+      <h3 class="card-title">${a.title}</h3>
+      <p class="card-summary">${a.summary}</p>
+      <div class="card-tags">${tags}</div>
+    </div>
+  </a>`;
+}
+
+function GuideCard(g){
+  const tier=(g.type==='tierlist')?t('type.tierlist'):(g.type==='build')?t('type.build'):t('type.guide');
+  const diff=g.difficulty?`<span class="diff diff-${g.difficulty}">${t('diff.'+g.difficulty)}</span>`:'';
+  return `<a class="card" href="#/tips/${g.game}/${g.slug}">
+    <div class="card-thumb">${thumbHtml(g)}${fallbackHtml(g)}</div>
+    <div class="card-body">
+      <div class="card-meta"><span class="game">${gameName(g.game)}</span>·<span>${tier}</span>${diff?'·':''}</div>
+      ${diff?`<div>${diff}</div>`:''}
+      <h3 class="card-title">${g.title}</h3>
+      <p class="card-summary">${g.summary||''}</p>
+    </div>
+  </a>`;
+}
+
+function TierCard(tl){
+  return `<a class="card" href="#/tips/${tl.game}/${tl.slug}">
+    <div class="card-thumb">${thumbHtml(tl)}${fallbackHtml(tl)}</div>
+    <div class="card-body">
+      <div class="card-meta"><span class="game">${gameName(tl.game)}</span>·<span>${t('type.tierlist')}</span>·<span title="${fmtDate(tl.date)}">${timeAgo(tl.date)}</span></div>
+      <h3 class="card-title">${tl.title}</h3>
+      <p class="card-summary">${tl.summary||''}</p>
+    </div>
+  </a>`;
+}
+
+function renderBlocks(blocks){
+  return blocks.map(b=>{
+    if(b.type==='p')return `<p>${b.text}</p>`;
+    if(b.type==='h')return `<h3>${b.text}</h3>`;
+    if(b.type==='blockquote')return `<blockquote>${b.text}</blockquote>`;
+    if(b.type==='ul')return `<ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
+    if(b.type==='ol')return `<ol>${b.items.map(i=>`<li>${i}</li>`).join('')}</ol>`;
+    return '';
+  }).join('');
+}
+
+function TierListView(tl){
+  return `<div class="tiers">${tl.tiers.map(row=>`
+    <div class="tier-row tier-${row.tier}">
+      <div class="tier-label">${row.tier}</div>
+      <div class="tier-items">${row.items.map(i=>`<span class="item">${i}</span>`).join('')}</div>
+    </div>`).join('')}</div>`;
+}
+
+/* ================================================================
+   VIEWS
+   ================================================================ */
+function HomeView(view){
+  const all=getAllArticles();
+  // Featured = manual featured first, then most recent externals to fill up to 3
+  const featNews=[...articles.filter(a=>a.featured), ...all.filter(a=>a.external)].slice(0,3);
+  const featGuides=guides.filter(g=>g.featured).slice(0,3);
+  const featTiers=tierLists.slice(0,3);
+
+  // background fetch on home boot
+  if(!externalArticles.length && !newsLoading){
+    fetchAllNews().then(()=>{
+      if(getRoute().view==='home'){HomeView(view);applyI18n()}
+    });
+  }
+  view.innerHTML=`
+    <div class="hero">
+      <div class="hero-main">
+        <div class="page-kicker" data-i18n="home.kicker">// HUB</div>
+        <h1><span data-i18n="home.title">${t('home.title')}</span></h1>
+        <p data-i18n="home.sub">${t('home.sub')}</p>
+        <div class="hero-cta">
+          <a href="https://www.twitch.tv/rick__rattle" target="_blank" class="btn btn-primary"><span data-i18n="home.cta1">${t('home.cta1')}</span></a>
+          <a href="#/news" class="btn btn-cyan" data-i18n="home.cta2">${t('home.cta2')}</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="hero-side-head">
+          <strong data-i18n="home.live.title">${t('home.live.title')}</strong>
+          <span class="live-mini"><span class="live-dot"></span><span data-i18n="home.live.tag">${t('home.live.tag')}</span></span>
+        </div>
+        <div class="embed">
+          <iframe src="https://player.twitch.tv/?channel=rick__rattle&parent=localhost&parent=rickrattle.tv&muted=true" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="#/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+      <div class="grid grid-3">${featNews.map(ArticleCard).join('')}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2 data-i18n="home.feat.guides">${t('home.feat.guides')}</h2><a class="see-all" href="#/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+      <div class="grid grid-3">${featGuides.map(GuideCard).join('')}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2 data-i18n="home.feat.tiers">${t('home.feat.tiers')}</h2><a class="see-all" href="#/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+      <div class="grid grid-3">${featTiers.map(TierCard).join('')}</div>
+    </div>
+  `;
+}
+
+/* -------------------- RICK RATTLE -------------------- */
+const decks={
+  kcd2:{label:'KCD2 · Wheel of Suffering',folder:'Chanel Points/KCD2',cards:["Bard's Blessing","Beggar's Curse","Bleeding Pride","Crime & Punishment","Heavy Legs","Horse Tax Unpaid","KCD2 base","No Honor, Only Violence","Peasant's Curse","Possessed by Demons","Rusty Hands"]},
+  rdr2:{label:'RDR2 · Outlaw Deck',folder:'Chanel Points/RDR2',cards:["Base","Chain Reaction","Chaos Ride","Cold Blooded","Drunken Cowboy","First Blood","High Noon","Knife Work","Most Wanted","No Escape","No Horse Drifter","No Remedy","Nothing to Hide","Saloon Brawl","Silent Hunter","Turn Yourself In"]},
+  rl:{label:'Rocket League · Madness',folder:'Chanel Points/Rocket League',cards:["Ball Chasing","Be Toxic (Funny)","Boost Only","Camera Chaos","No Ball Cam","No Boost Pickup","No Boost","No Defense","No Jump","One Handed","Own Goal Attempt","Reverse Only","Throw Play"]},
+  irl:{label:'IRL · Action Deck',folder:'Chanel Points/IRL Cards',cards:[
+    {n:'ALL',ext:'png'},{n:'OCK',ext:'png'},{n:'OIOY',ext:'png'},{n:'asereje',ext:'mp4'},{n:'Backstreet',ext:'mp4'},{n:'Beer',ext:'mp4'},{n:'celine',ext:'mp4'},{n:'ganganm style',ext:'mp4'},{n:'genie in a botle',ext:'mp4'},{n:'lemon',ext:'mp4'},{n:'macarena',ext:'mp4'},{n:'oops i did it',ext:'mp4'},{n:'push ups',ext:'mp4'},{n:'Spicy',ext:'mp4'},{n:'Tortilla',ext:'mp4'},{n:'whiskey',ext:'mp4'}
+  ]}
+};
+let activeDeck='kcd2';
+
+function RickView(view){
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="rick.kicker">${t('rick.kicker')}</div>
+        <h1 class="page-title" data-i18n="rick.title">${t('rick.title')}</h1>
+        <p class="page-sub" data-i18n="rick.sub">${t('rick.sub')}</p>
+      </div>
+    </div>
+
+    <div class="rick-stack">
+      <div class="rick-intro">
+        <p data-i18n="rick.intro1">${t('rick.intro1')}</p>
+        <p data-i18n="rick.intro2">${t('rick.intro2')}</p>
+      </div>
+
+      <div class="trailer-box">
+        <video src="trailer.mov" controls preload="metadata" poster="logo.png" playsinline></video>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2 data-i18n="rick.what.title">${t('rick.what.title')}</h2></div>
+        <div class="what-grid">
+          <div class="what-card"><h4 data-i18n="rick.what.1.h">${t('rick.what.1.h')}</h4><p data-i18n="rick.what.1.p">${t('rick.what.1.p')}</p></div>
+          <div class="what-card"><h4 data-i18n="rick.what.2.h">${t('rick.what.2.h')}</h4><p data-i18n="rick.what.2.p">${t('rick.what.2.p')}</p></div>
+          <div class="what-card"><h4 data-i18n="rick.what.3.h">${t('rick.what.3.h')}</h4><p data-i18n="rick.what.3.p">${t('rick.what.3.p')}</p></div>
+          <div class="what-card"><h4 data-i18n="rick.what.4.h">${t('rick.what.4.h')}</h4><p data-i18n="rick.what.4.p">${t('rick.what.4.p')}</p></div>
+        </div>
+      </div>
+
+      <div class="section cards-section">
+        <div class="section-head"><h2 data-i18n="rick.cards.title">${t('rick.cards.title')}</h2></div>
+        <p style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:12px;margin:0 0 16px;letter-spacing:1px" data-i18n="rick.cards.sub">${t('rick.cards.sub')}</p>
+        <div class="deck-tabs" id="deckTabs"></div>
+        <div class="deck-meta-row"><span data-i18n="rick.cards.total">${t('rick.cards.total')}</span>: <strong id="deckTotal">0</strong></div>
+        <div class="deck-grid" id="deckGrid"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2 data-i18n="rick.socials.title">${t('rick.socials.title')}</h2></div>
+        <p style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:12px;margin:0 0 16px;letter-spacing:1px" data-i18n="rick.socials.sub">${t('rick.socials.sub')}</p>
+        <div class="socials-prominent">
+          ${socials.map((s,i)=>`
+            <a href="${s.url}" target="_blank" rel="noopener" class="social-big ${i===0?'social-hero':''}" style="--social:${s.color}">
+              <div class="social-big-head">
+                <span class="social-num">// 0${i+1}</span>
+                <span class="social-arrow">↗</span>
+              </div>
+              <div class="social-big-name">${s.name}</div>
+              <div class="social-big-handle">${s.handle}</div>
+              <p class="social-big-desc">${s.desc[lang]||s.desc.en}</p>
+              <span class="social-big-cta">${s.cta[lang]||s.cta.en}</span>
+            </a>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2 data-i18n="rick.merch.title">${t('rick.merch.title')}</h2>
+          <a class="see-all" href="#" data-i18n="rick.merch.see">${t('rick.merch.see')}</a>
+        </div>
+        <p style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:12px;margin:0 0 16px;letter-spacing:1px" data-i18n="rick.merch.sub">${t('rick.merch.sub')}</p>
+        <div class="merch-grid">
+          ${merch.map(m=>`
+            <a href="${m.url}" ${m.url==='#'?'':'target="_blank" rel="noopener"'} class="merch-card${m.url==='#'?' merch-soon':''}">
+              ${m.tag?`<div class="merch-tag">${m.tag}</div>`:''}
+              <div class="merch-img">
+                <img src="${m.img}" alt="${m.name}" loading="lazy" onerror="this.parentElement.classList.add('img-missing');this.remove()">
+                <div class="merch-fallback">${m.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>
+              </div>
+              <div class="merch-body">
+                <div class="merch-name">${m.name}</div>
+                <div class="merch-price">${m.price}</div>
+              </div>
+              ${m.url==='#'?`<div class="merch-soon-tag" data-i18n="rick.merch.soon">${t('rick.merch.soon')}</div>`:''}
+            </a>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="cta-banner">
+        <div>
+          <h3 data-i18n="rick.cta.h">${t('rick.cta.h')}</h3>
+          <p data-i18n="rick.cta.p">${t('rick.cta.p')}</p>
+        </div>
+        <a href="https://www.twitch.tv/rick__rattle" target="_blank" class="btn">▶ Twitch</a>
+      </div>
+    </div>
+  `;
+  renderDecks();
+}
+
+function renderDecks(){
+  const tabs=document.getElementById('deckTabs');
+  const grid=document.getElementById('deckGrid');
+  if(!tabs||!grid)return;
+  tabs.innerHTML=Object.keys(decks).map(k=>`<button class="deck-tab${k===activeDeck?' active':''}" data-deck="${k}">${decks[k].label}</button>`).join('');
+  tabs.querySelectorAll('.deck-tab').forEach(b=>b.addEventListener('click',()=>{activeDeck=b.dataset.deck;renderDecks()}));
+  const d=decks[activeDeck];
+  document.getElementById('deckTotal').textContent=d.cards.length;
+  grid.innerHTML=d.cards.map((c,i)=>{
+    const isObj=typeof c==='object', name=isObj?c.n:c, ext=isObj?c.ext:'png', isVideo=ext==='mp4';
+    const path=`${d.folder}/${name}.${ext}`;
+    return `<div class="deck-card${isVideo?' is-video':''}" data-path="${path}" data-name="${name}" data-video="${isVideo}">
+      <span class="num">#${String(i+1).padStart(2,'0')}</span>
+      <div class="media">
+        ${isVideo?`<video src="${path}" muted loop playsinline preload="metadata"></video><div class="play-ico">▶</div>`:`<img src="${path}" alt="${name}" loading="lazy">`}
+      </div>
+      <div class="name">${name}</div>
+    </div>`;
+  }).join('');
+  grid.querySelectorAll('.deck-card').forEach(card=>{
+    const v=card.querySelector('video');
+    if(v){card.addEventListener('mouseenter',()=>v.play().catch(()=>{}));card.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0})}
+    card.addEventListener('click',()=>openModal(card.dataset.path,card.dataset.name,card.dataset.video==='true'));
+  });
+}
+
+/* -------------------- NEWS -------------------- */
+let newsFilter={scope:'all',game:'all',tag:'all',source:'all'};
+
+function NewsView(view,r){
+  if(r.a){return NewsDetail(view,r.a)}
+  const all=getAllArticles();
+  const streamSlugs=new Set(games.filter(g=>g.streamPlayed).map(g=>g.slug));
+  const inScope=a=>{
+    if(newsFilter.scope==='stream')return streamSlugs.has(a.game);
+    if(newsFilter.scope==='general')return a.game==='general';
+    return true;
+  };
+  const f=all.filter(a=>
+    inScope(a) &&
+    (newsFilter.game==='all'||a.game===newsFilter.game) &&
+    (newsFilter.tag==='all'||(a.tags||[]).includes(newsFilter.tag)) &&
+    (newsFilter.source==='all'||(newsFilter.source==='manual'?!a.external:a.source===newsFilter.source))
+  );
+  // sort game chips: streamPlayed first, then with content, then alpha
+  const gamesByPriority=[...games].sort((a,b)=>{
+    if(a.streamPlayed!==b.streamPlayed)return a.streamPlayed?-1:1;
+    return a.short.localeCompare(b.short);
+  });
+  const allTags=[...new Set(all.flatMap(a=>a.tags||[]))].slice(0,16);
+  const counts={
+    total:all.length,
+    stream:all.filter(a=>streamSlugs.has(a.game)).length,
+    general:all.filter(a=>a.game==='general').length,
+    steam:all.filter(a=>a.source==='steam').length,
+    reddit:all.filter(a=>a.source==='reddit').length,
+    manual:all.filter(a=>!a.external).length
+  };
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="news.kicker">${t('news.kicker')}</div>
+        <h1 class="page-title" data-i18n="news.title">${t('news.title')}</h1>
+        <p class="page-sub" data-i18n="news.sub">${t('news.sub')}</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="filter-label" style="font-size:10px;color:var(--muted)">${counts.total} ${lang==='pt'?'artigos':'articles'} · ${counts.stream} stream · ${counts.general} ${lang==='pt'?'gerais':'general'} · ${counts.steam} Steam · ${counts.reddit} Reddit</span>
+        <button class="tool-btn" id="newsRefresh" title="Refresh from sources">↻ <span data-i18n="news.refresh">${t('news.refresh')}</span></button>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-label" data-i18n="news.scope">${t('news.scope')}</span>
+        <button class="chip${newsFilter.scope==='all'?' active':''}" data-fsc="all"><span data-i18n="news.scope.all">${t('news.scope.all')}</span></button>
+        <button class="chip${newsFilter.scope==='stream'?' active':''}" data-fsc="stream"><span data-i18n="news.scope.stream">${t('news.scope.stream')}</span></button>
+        <button class="chip${newsFilter.scope==='general'?' active':''}" data-fsc="general"><span data-i18n="news.scope.general">${t('news.scope.general')}</span></button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-label">SOURCE</span>
+        <button class="chip${newsFilter.source==='all'?' active':''}" data-fs="all"><span data-i18n="news.all">${t('news.all')}</span></button>
+        <button class="chip${newsFilter.source==='manual'?' active':''}" data-fs="manual"><span data-i18n="news.src.manual">${t('news.src.manual')}</span></button>
+        <button class="chip${newsFilter.source==='steam'?' active':''}" data-fs="steam">Steam</button>
+        <button class="chip${newsFilter.source==='reddit'?' active':''}" data-fs="reddit">Reddit</button>
+      </div>
+    </div>
+    ${newsFilter.scope!=='general'?`<div class="filters">
+      <div class="filter-group">
+        <span class="filter-label">GAME</span>
+        <button class="chip${newsFilter.game==='all'?' active':''}" data-fg="all"><span data-i18n="news.all">${t('news.all')}</span></button>
+        ${gamesByPriority.map(g=>`<button class="chip${newsFilter.game===g.slug?' active':''}${g.streamPlayed?' chip-stream':''}" data-fg="${g.slug}">${g.streamPlayed?'★ ':''}${g.short}</button>`).join('')}
+      </div>
+    </div>`:''}
+    ${allTags.length?`<div class="filters">
+      <div class="filter-group">
+        <span class="filter-label">TAG</span>
+        <button class="chip${newsFilter.tag==='all'?' active':''}" data-ft="all"><span data-i18n="news.all.tags">${t('news.all.tags')}</span></button>
+        ${allTags.map(tg=>`<button class="chip${newsFilter.tag===tg?' active':''}" data-ft="${tg}">#${tg}</button>`).join('')}
+      </div>
+    </div>`:''}
+    <div id="newsLoadingBar"></div>
+    <div id="newsListWrap">
+      ${f.length?`<div class="grid grid-2">${f.map(ArticleCard).join('')}</div>`:`<div class="empty" data-i18n="news.search.empty">${t('news.search.empty')}</div>`}
+    </div>
+  `;
+  view.querySelectorAll('[data-fg]').forEach(b=>b.addEventListener('click',()=>{newsFilter.game=b.dataset.fg;NewsView(view,r);applyI18n()}));
+  view.querySelectorAll('[data-ft]').forEach(b=>b.addEventListener('click',()=>{newsFilter.tag=b.dataset.ft;NewsView(view,r);applyI18n()}));
+  view.querySelectorAll('[data-fs]').forEach(b=>b.addEventListener('click',()=>{newsFilter.source=b.dataset.fs;NewsView(view,r);applyI18n()}));
+  view.querySelectorAll('[data-fsc]').forEach(b=>b.addEventListener('click',()=>{newsFilter.scope=b.dataset.fsc;newsFilter.game='all';NewsView(view,r);applyI18n()}));
+  view.querySelector('#newsRefresh').addEventListener('click',async()=>{
+    newsCacheClear();
+    document.getElementById('newsLoadingBar').innerHTML=`<div class="news-loading">${t('news.loading')}</div>`;
+    await fetchAllNews({force:true});
+    NewsView(view,r);applyI18n();
+  });
+
+  // background fetch on first visit (cache miss)
+  if(!externalArticles.length && !newsLoading){
+    document.getElementById('newsLoadingBar').innerHTML=`<div class="news-loading">${t('news.loading')}</div>`;
+    fetchAllNews().then(()=>{
+      // only re-render if user is still on news view
+      if(getRoute().view==='news' && !getRoute().a){NewsView(view,r);applyI18n()}
+    });
+  }
+}
+
+function NewsDetail(view,slug){
+  const a=articles.find(x=>x.slug===slug)||externalArticles.find(x=>x.slug===slug);
+  if(!a){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
+  const tags=(a.tags||[]).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
+  const sourceBlock=a.external?`
+    <div class="source-block">
+      <div>
+        <div class="source-label">${a.source==='steam'?'Steam News':a.sourceLabel}</div>
+        <div class="source-sub">${lang==='pt'?'Lê o artigo completo na fonte original':'Read the full article on the original source'}</div>
+      </div>
+      <a href="${a.sourceUrl}" target="_blank" rel="noopener" class="btn btn-primary">${lang==='pt'?'Abrir fonte ↗':'Open source ↗'}</a>
+    </div>`:'';
+  const coverImg=a.thumb||gameHero(a.game)||gameThumb(a.game);
+  view.innerHTML=`
+    <a class="detail-back" href="#/news">${t('back')}</a>
+    <div class="detail">
+      <div class="detail-cover">${coverImg?`<img src="${coverImg}" alt="" onerror="this.parentElement.innerHTML='<div class=card-thumb-fallback style=font-size:80px>'+'${gameName(a.game).slice(0,3).toUpperCase()}'+'</div>'">`:`<div class="card-thumb-fallback" style="font-size:80px">${gameName(a.game).slice(0,3).toUpperCase()}</div>`}</div>
+      <div class="detail-meta"><span class="game">${gameName(a.game)}</span><span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span><span>${a.readTime||3} min</span><span>${a.external?(a.source==='steam'?'STEAM':a.source==='reddit'?'REDDIT':'EXTERNAL'):t('type.article')}</span></div>
+      <h1 class="detail-title">${a.title}</h1>
+      <p class="detail-sub">${a.summary}</p>
+      <div class="detail-body">${renderBlocks(a.content||[])}</div>
+      ${sourceBlock}
+      <div class="detail-tags">${tags}</div>
+    </div>
+  `;
+}
+
+/* -------------------- TIPS -------------------- */
+let tipsState={game:games[0].slug, sub:'guides'};
+
+function TipsView(view,r){
+  if(r.a && r.b){return TipsDetail(view,r.a,r.b)}
+  if(r.a){tipsState.game=r.a}
+  const game=tipsState.game;
+  const gGuides=guides.filter(g=>g.game===game && g.type!=='tierlist');
+  const gTiers=tierLists.filter(g=>g.game===game);
+  const gBuilds=guides.filter(g=>g.game===game && g.type==='build');
+
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="tips.kicker">${t('tips.kicker')}</div>
+        <h1 class="page-title" data-i18n="tips.title">${t('tips.title')}</h1>
+        <p class="page-sub" data-i18n="tips.sub">${t('tips.sub')}</p>
+      </div>
+    </div>
+    <div class="game-tabs">
+      ${[...games].sort((a,b)=>{
+        if(a.streamPlayed!==b.streamPlayed)return a.streamPlayed?-1:1;
+        const ca=guides.filter(x=>x.game===a.slug).length+tierLists.filter(x=>x.game===a.slug).length;
+        const cb=guides.filter(x=>x.game===b.slug).length+tierLists.filter(x=>x.game===b.slug).length;
+        if(ca!==cb)return cb-ca;
+        return a.short.localeCompare(b.short);
+      }).map(g=>{
+        const c=guides.filter(x=>x.game===g.slug).length+tierLists.filter(x=>x.game===g.slug).length;
+        return `<button class="game-tab${g.slug===game?' active':''}${g.streamPlayed?' game-tab-stream':''}" data-g="${g.slug}" title="${g.name}">${g.streamPlayed?'★ ':''}${g.short}<span class="count">${c}</span></button>`;
+      }).join('')}
+    </div>
+    <div class="subtabs">
+      <button class="subtab${tipsState.sub==='guides'?' active':''}" data-s="guides"><span data-i18n="tips.guides">${t('tips.guides')}</span> · ${gGuides.length}</button>
+      <button class="subtab${tipsState.sub==='tiers'?' active':''}" data-s="tiers"><span data-i18n="tips.tiers">${t('tips.tiers')}</span> · ${gTiers.length}</button>
+      <button class="subtab${tipsState.sub==='builds'?' active':''}" data-s="builds"><span data-i18n="tips.builds">${t('tips.builds')}</span> · ${gBuilds.length}</button>
+    </div>
+    <div id="tipsContent"></div>
+  `;
+  view.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{tipsState.game=b.dataset.g;TipsView(view,r);applyI18n()}));
+  view.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{tipsState.sub=b.dataset.s;TipsView(view,r);applyI18n()}));
+
+  const cont=view.querySelector('#tipsContent');
+  let items=[];
+  if(tipsState.sub==='guides')items=gGuides.map(GuideCard);
+  else if(tipsState.sub==='tiers')items=gTiers.map(TierCard);
+  else items=gBuilds.map(GuideCard);
+
+  if(items.length){
+    cont.innerHTML=`<div class="grid grid-2">${items.join('')}</div>`;
+  }else{
+    // Empty state — show recent news for this game from external sources
+    const gameObj=games.find(g=>g.slug===game);
+    const recentNews=getAllArticles().filter(a=>a.game===game).slice(0,4);
+    const subLabel=tipsState.sub==='tiers'?t('tips.tiers'):tipsState.sub==='builds'?t('tips.builds'):t('tips.guides');
+    cont.innerHTML=`
+      <div class="empty-tips">
+        <div class="empty-icon">📭</div>
+        <h3>${(t('tips.empty.h')||'No {sub} yet').replace('{sub}',subLabel.toLowerCase()).replace('{game}',gameObj?.name||game)}</h3>
+        <p>${t('tips.empty.p').replace('{game}',gameObj?.name||game)}</p>
+        ${recentNews.length?`
+          <div style="margin-top:30px;width:100%">
+            <div class="section-head" style="margin-bottom:14px"><h2 style="font-size:20px">${t('tips.empty.news').replace('{game}',gameObj?.short||game)}</h2><a class="see-all" href="#/news" onclick="newsFilter.scope='all';newsFilter.game='${game}';">${t('tips.empty.see')}</a></div>
+            <div class="grid grid-2">${recentNews.map(ArticleCard).join('')}</div>
+          </div>
+        `:`<a class="btn btn-cyan" href="#/news" style="margin-top:14px">${t('tips.empty.cta')}</a>`}
+      </div>
+    `;
+  }
+}
+
+function TipsDetail(view,gameSlug,slug){
+  const item=guides.find(g=>g.slug===slug)||tierLists.find(g=>g.slug===slug);
+  if(!item){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
+  const isTier=!!item.tiers;
+  const diff=item.difficulty?`<span class="diff diff-${item.difficulty}">${t('diff.'+item.difficulty)}</span>`:'';
+  const typeLabel=isTier?t('type.tierlist'):(item.type==='build'?t('type.build'):t('type.guide'));
+  view.innerHTML=`
+    <a class="detail-back" href="#/tips/${gameSlug}">${t('back')}</a>
+    <div class="detail">
+      <div class="detail-meta"><span class="game">${gameName(item.game)}</span><span>${typeLabel}</span><span>${fmtDate(item.date)}</span>${item.readTime?`<span>${item.readTime} min</span>`:''}</div>
+      <h1 class="detail-title">${item.title}</h1>
+      ${item.summary?`<p class="detail-sub">${item.summary}</p>`:''}
+      ${diff?`<div style="margin-bottom:24px">${diff}</div>`:''}
+      <div class="detail-body">
+        ${isTier?TierListView(item):renderBlocks(item.content||[])}
+      </div>
+    </div>
+  `;
+}
+
+/* ================================================================
+   SEARCH
+   ================================================================ */
+const searchInput=document.getElementById('searchInput');
+const searchResults=document.getElementById('searchResults');
+function doSearch(q){
+  q=q.trim().toLowerCase();
+  if(!q){searchResults.classList.remove('open');return}
+  const results=[];
+  articles.forEach(a=>{if((a.title+a.summary).toLowerCase().includes(q))results.push({type:t('type.article'),title:a.title,href:`#/news/${a.slug}`,game:gameName(a.game)})});
+  guides.forEach(g=>{if((g.title+(g.summary||'')).toLowerCase().includes(q))results.push({type:g.type==='build'?t('type.build'):t('type.guide'),title:g.title,href:`#/tips/${g.game}/${g.slug}`,game:gameName(g.game)})});
+  tierLists.forEach(g=>{if((g.title+(g.summary||'')).toLowerCase().includes(q))results.push({type:t('type.tierlist'),title:g.title,href:`#/tips/${g.game}/${g.slug}`,game:gameName(g.game)})});
+  searchResults.classList.add('open');
+  searchResults.innerHTML=results.length
+    ?results.slice(0,8).map(r=>`<a class="res" href="${r.href}"><span class="rt">${r.title}</span><span class="rd">${r.game} · ${r.type}</span></a>`).join('')
+    :`<div class="empty">${t('search.no')}</div>`;
+}
+searchInput.addEventListener('input',e=>doSearch(e.target.value));
+searchInput.addEventListener('focus',e=>doSearch(e.target.value));
+document.addEventListener('click',e=>{if(!e.target.closest('.search'))searchResults.classList.remove('open')});
+
+/* ================================================================
+   MODAL
+   ================================================================ */
+function openModal(path,name,isVideo){
+  const m=document.getElementById('modal'),b=document.getElementById('modalBody'),n=document.getElementById('modalName');
+  n.textContent=name;
+  b.innerHTML=isVideo?`<video src="${path}" controls autoplay loop playsinline></video>`:`<img src="${path}" alt="${name}">`;
+  m.classList.add('open');
+}
+function closeModal(){const m=document.getElementById('modal'),b=document.getElementById('modalBody');m.classList.remove('open');b.innerHTML=''}
+document.getElementById('modalClose').addEventListener('click',closeModal);
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ================================================================
+   I18N + THEME APPLICATION
+   ================================================================ */
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(T[lang][k]!==undefined)el.textContent=T[lang][k]});
+  document.querySelectorAll('[data-i18n-attr]').forEach(el=>{
+    const [attr,key]=el.dataset.i18nAttr.split('|');
+    if(T[lang][key]!==undefined)el.setAttribute(attr,T[lang][key]);
+  });
+  document.documentElement.lang=lang;
+}
+function setLang(l){lang=l;localStorage.setItem('rr_lang',l);document.querySelectorAll('.lang-toggle button').forEach(b=>b.classList.toggle('active',b.dataset.lang===l));render()}
+document.querySelectorAll('.lang-toggle button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
+
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme',theme);
+  document.getElementById('themeIcon').textContent=theme==='light'?'☀️':'🌙';
+  const lbl=document.querySelector('#themeBtn span[data-i18n]');
+  if(lbl){lbl.dataset.i18n=theme==='light'?'theme.light':'theme.dark';lbl.textContent=t(lbl.dataset.i18n)}
+  localStorage.setItem('rr_theme',theme);
+}
+document.getElementById('themeBtn').addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme');
+  applyTheme(cur==='dark'?'light':'dark');
+});
+
+document.getElementById('menuBtn').addEventListener('click',()=>{document.getElementById('sidebar').classList.toggle('open')});
+
+/* ================================================================
+   INIT
+   ================================================================ */
+applyTheme(localStorage.getItem('rr_theme')||'dark');
+render();
+console.log('[rick-rattle] booted · articles:',articles.length,'· guides:',guides.length,'· tierLists:',tierLists.length,'· games:',games.length);
+
+// warm cache from any cached news + kick off background fetch (silent if cache fresh)
+(function bootNews(){
+  try{
+    const c=newsCacheGet();
+    if(c && Array.isArray(c)){externalArticles=c;render()}
+  }catch(e){console.warn('[bootNews cache]',e)}
+  fetchAllNews()
+    .then(()=>{
+      const v=getRoute().view;
+      if(v==='news'||v==='home')render();
+    })
+    .catch(e=>console.warn('[fetchAllNews]',e));
+})();
+
+// visit counter — never block render on this
+bumpVisit().then(paintVisits).catch(e=>console.warn('[visits]',e));
+</script>
+</body>
+</html>
