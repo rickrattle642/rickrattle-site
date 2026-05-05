@@ -3,7 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Rick Rattle — Gaming Hub</title>
+<title>Rick Rattle — Gaming Hub · News, Tips, Tier Lists</title>
+<meta name="description" content="Gaming news, guides and tier lists for KCD2, Rocket League, The Finals, GTA, Tekken 8, Diablo IV and more. Plus the chaos of the Rick Rattle Twitch channel.">
+<meta name="theme-color" content="#B026FF">
+<meta name="robots" content="index, follow">
+<link rel="canonical" id="seoCanonical" href="">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Rick Rattle">
+<meta property="og:title" id="seoOgTitle" content="Rick Rattle — Gaming Hub">
+<meta property="og:description" id="seoOgDesc" content="Gaming news, tips and tier lists for the games that matter — plus the chaos of the Rick Rattle Twitch channel.">
+<meta property="og:image" id="seoOgImage" content="/logo.png">
+<meta property="og:url" id="seoOgUrl" content="">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" id="seoTwitterTitle" content="Rick Rattle — Gaming Hub">
+<meta name="twitter:description" id="seoTwitterDesc" content="Gaming news, tips and tier lists.">
+<meta name="twitter:image" id="seoTwitterImage" content="/logo.png">
+<script type="application/ld+json" id="seoJsonLd">
+{"@context":"https://schema.org","@type":"WebSite","name":"Rick Rattle Gaming Hub","url":"https://rickrattle.tv/","potentialAction":{"@type":"SearchAction","target":"https://rickrattle.tv/?q={query}","query-input":"required name=query"}}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ==================== TOKENS ==================== */
@@ -177,6 +196,18 @@ button{font-family:inherit}
 .chip{padding:6px 12px;background:transparent;border:1px solid var(--line);color:var(--muted2);font-size:12px;font-family:'JetBrains Mono',monospace;letter-spacing:1px;cursor:pointer;border-radius:99px;transition:.2s;text-transform:uppercase}
 .chip:hover{border-color:var(--accent);color:var(--ink)}
 .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip.plat-xbox{border-color:#107C10;color:#9BCA3E}
+.chip.plat-xbox.active{background:#107C10;border-color:#107C10;color:#fff}
+.chip.plat-ps{border-color:#0070D1;color:#3FA9F5}
+.chip.plat-ps.active{background:#0070D1;border-color:#0070D1;color:#fff}
+.chip.plat-pc{border-color:#FF6B00;color:#FF8C42}
+.chip.plat-pc.active{background:#FF6B00;border-color:#FF6B00;color:#fff}
+.chip.plat-nin{border-color:#E60012;color:#FF4D4D}
+.chip.plat-nin.active{background:#E60012;border-color:#E60012;color:#fff}
+.card-tag.platform-xbox{background:#107C10;color:#fff;border-color:#107C10}
+.card-tag.platform-playstation{background:#0070D1;color:#fff;border-color:#0070D1}
+.card-tag.platform-pc{background:#FF6B00;color:#fff;border-color:#FF6B00}
+.card-tag.platform-nintendo{background:#E60012;color:#fff;border-color:#E60012}
 .chip.chip-stream{border-color:var(--cyan);color:var(--cyan)}
 .chip.chip-stream:hover{background:rgba(0,240,255,.08);color:var(--cyan)}
 .chip.chip-stream.active{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -247,8 +278,8 @@ button{font-family:inherit}
 /* ==================== RICK SECTION ==================== */
 .rick-stack{display:flex;flex-direction:column;gap:34px}
 .rick-intro p{color:var(--muted2);font-size:16px;line-height:1.7;margin:0 0 14px;max-width:760px}
-.trailer-box{position:relative;border:1px solid var(--accent);border-radius:14px;overflow:hidden;background:#000;box-shadow:var(--shadow)}
-.trailer-box video{width:100%;display:block}
+.trailer-box{position:relative;border:1px solid var(--accent);border-radius:14px;overflow:hidden;background:#000;box-shadow:var(--shadow);aspect-ratio:16/9}
+.trailer-box video,.trailer-box .trailer-iframe{position:absolute;inset:0;width:100%;height:100%;display:block;border:0}
 .cards-section .deck-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:14px}
 .deck-tab{padding:9px 14px;background:transparent;border:1px solid var(--line);color:var(--ink);font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;padding:10px 14px;cursor:pointer;transition:.2s;text-transform:uppercase;border-radius:6px}
 .deck-tab:hover{border-color:var(--cyan);color:var(--cyan)}
@@ -329,6 +360,24 @@ button{font-family:inherit}
 .visit-eye{font-size:12px}
 .visit-counter [data-visit-count]{color:var(--cyan);font-weight:700}
 .visit-label{font-size:9px;letter-spacing:2px;color:var(--muted);margin-left:auto}
+
+/* ==================== GAME NEWS PAGE ==================== */
+.game-hero{aspect-ratio:21/7;border-radius:14px;background-size:cover;background-position:center;display:flex;align-items:flex-end;padding:30px;margin-bottom:24px;border:1px solid var(--line);position:relative;overflow:hidden}
+.game-hero-inner{z-index:2}
+.game-hero-title{font-family:'Anton',sans-serif;font-size:clamp(40px,6vw,72px);letter-spacing:-1px;color:#fff;margin:6px 0 8px;line-height:.95;text-transform:uppercase;text-shadow:0 2px 16px rgba(0,0,0,.5)}
+.stream-flag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);background:rgba(0,240,255,.12);padding:4px 10px;border:1px solid var(--cyan);letter-spacing:2px;border-radius:4px}
+.game-intro{max-width:760px;margin-bottom:22px}
+.game-intro p{color:var(--muted2);font-size:15px;line-height:1.6;margin:0 0 12px}
+.game-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+.related-row{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.related-row h3{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:1px;text-transform:uppercase;margin:0 0 14px;color:var(--muted)}
+.related-chips{display:flex;flex-wrap:wrap;gap:8px}
+.related-chips .chip{cursor:pointer;text-decoration:none}
+.related-chips .chip:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.card-tag.source-rss{background:#FF6600;color:#fff;border:none}
+
+/* search results — grouped */
+.search-results .group-label{padding:6px 14px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;background:var(--panel2);border-bottom:1px solid var(--line)}
 
 /* ==================== EMPTY ==================== */
 .empty{padding:50px 24px;text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:2px;border:1px dashed var(--line);border-radius:10px}
@@ -510,17 +559,33 @@ const games = [
   {slug:'marvel-rivals',       name:'Marvel Rivals',          short:'Marvel Rivals',steamAppId:2767030, subreddit:'marvelrivals',    platforms:['pc','ps5','xbox']},
   {slug:'re-requiem',          name:'Resident Evil: Requiem', short:'RE: Requiem',  steamAppId:3149190, subreddit:'residentevil',    platforms:['pc','ps5','xbox']},
   {slug:'saros',               name:'Saros',                  short:'Saros',                            subreddit:'Saros',           platforms:['ps5']},
-  {slug:'windrose',            name:'Windrose',               short:'Windrose',                         subreddit:'Windrose',        platforms:['pc']}
+  {slug:'windrose',            name:'Windrose',               short:'Windrose',                         subreddit:'Windrose',        platforms:['pc']},
+  {slug:'tekken-8',            name:'Tekken 8',               short:'Tekken 8',     steamAppId:1778820, subreddit:'Tekken',          platforms:['pc','ps5','xbox']},
+  {slug:'gta-vi',              name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
+  {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
 const generalFeeds = [
-  {slug:'r-Games',          subreddit:'Games',          label:'r/Games',          minScore:300},
-  {slug:'r-pcgaming',       subreddit:'pcgaming',       label:'r/pcgaming',       minScore:150},
-  {slug:'r-PS5',            subreddit:'PS5',            label:'r/PS5',            minScore:100},
-  {slug:'r-XboxSeriesX',    subreddit:'XboxSeriesX',    label:'r/XboxSeriesX',    minScore:80},
-  {slug:'r-NintendoSwitch', subreddit:'NintendoSwitch', label:'r/NintendoSwitch', minScore:120},
-  {slug:'r-gaming',         subreddit:'gaming',         label:'r/gaming',         minScore:1500}  // very noisy, high bar
+  {slug:'r-Games',          subreddit:'Games',          label:'r/Games',          minScore:300, platform:null},
+  {slug:'r-pcgaming',       subreddit:'pcgaming',       label:'r/pcgaming',       minScore:150, platform:'pc'},
+  {slug:'r-PS5',            subreddit:'PS5',            label:'r/PS5',            minScore:100, platform:'playstation'},
+  {slug:'r-XboxSeriesX',    subreddit:'XboxSeriesX',    label:'r/XboxSeriesX',    minScore:80,  platform:'xbox'},
+  {slug:'r-NintendoSwitch', subreddit:'NintendoSwitch', label:'r/NintendoSwitch', minScore:120, platform:'nintendo'},
+  {slug:'r-gaming',         subreddit:'gaming',         label:'r/gaming',         minScore:1500, platform:null}
+];
+
+// === Platform RSS feeds (rss.app) — fetched via /api/rss serverless proxy ===
+const platformFeeds = [
+  {url:'https://rss.app/rss-feed/categories/gaming',     platform:'xbox',         label:'Xbox · Gaming Feed'},
+  {url:'https://rss.app/r/feed/hsCPLZbYBDlCgYPs',        platform:'xbox',         label:'Xbox Games'},
+  {url:'https://rss.app/r/feed/e9EESIa366CGSq51',        platform:'xbox',         label:'Xbox Game Pass'},
+  {url:'https://rss.app/r/feed/tQj7NMzVJC5CJHy1',        platform:'playstation',  label:'PlayStation'},
+  {url:'https://rss.app/r/feed/A26K3u4NuULk9eDG',        platform:'playstation',  label:'PlayStation News'},
+  {url:'https://rss.app/r/feed/QDHepgGkpkY4tmkr',        platform:'pc',           label:'PC Gaming'},
+  {url:'https://rss.app/r/feed/pKOHIzb3isteSzOf',        platform:'pc',           label:'PC Gaming News'},
+  {url:'https://rss.app/r/feed/v9CWiuOkGj2K0T1j',        platform:'pc',           label:'PC Gaming · Reviews'},
+  {url:'https://rss.app/r/feed/VwhkaPvCFZoak1mD',        platform:'pc',           label:'PC Gaming · Releases'}
 ];
 
 const articles = [
@@ -1000,7 +1065,7 @@ const NEWS_CFG = {
 let externalArticles = [];                        // populated by fetchAllNews()
 let newsLoading = false;
 
-const NEWS_CACHE_VERSION=3; // bump to invalidate caches after schema changes
+const NEWS_CACHE_VERSION=4; // bump to invalidate caches after schema changes
 function newsCacheGet(){
   try{
     const raw=localStorage.getItem('rr_news_cache');
@@ -1071,10 +1136,29 @@ function timeAgo(dateStr){
   return fmtDate(dateStr);
 }
 
+// Detects production env (vercel/etc) — use serverless API to avoid CORS.
+const HAS_API = (location.protocol==='https:' || location.hostname.endsWith('.vercel.app')) && location.hostname!=='localhost';
+
+async function fetchJsonApi(path){
+  const r=await fetch(path);
+  if(!r.ok)throw new Error('API '+r.status);
+  return r.json();
+}
+
 async function fetchSteamNews(game){
+  // Try Vercel serverless proxy first (production); fall back to public proxy chain.
+  if(HAS_API){
+    try{
+      const data=await fetchJsonApi(`/api/steam-news?appid=${game.steamAppId}&count=${NEWS_CFG.steamCount}`);
+      return mapSteamItems(data,game);
+    }catch(e){console.warn('[steam api]',game.slug,e.message)}
+  }
   const url=`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${game.steamAppId}&count=${NEWS_CFG.steamCount}&maxlength=600&format=json`;
   const txt=await fetchWithProxy(url);
   const data=JSON.parse(txt);
+  return mapSteamItems(data,game);
+}
+function mapSteamItems(data,game){
   return (data.appnews?.newsitems||[]).map(it=>({
     slug:'st-'+it.gid,
     title:it.title,
@@ -1096,9 +1180,16 @@ async function fetchSteamNews(game){
 }
 
 async function fetchRedditPosts(game){
-  const url=`https://www.reddit.com/r/${game.subreddit}/hot.json?limit=15&raw_json=1`;
-  const txt=await fetchWithProxy(url);
-  const data=JSON.parse(txt);
+  let data;
+  if(HAS_API){
+    try{ data=await fetchJsonApi(`/api/reddit?subreddit=${game.subreddit}&limit=15`); }
+    catch(e){console.warn('[reddit api]',game.slug,e.message)}
+  }
+  if(!data){
+    const url=`https://www.reddit.com/r/${game.subreddit}/hot.json?limit=15&raw_json=1`;
+    const txt=await fetchWithProxy(url);
+    data=JSON.parse(txt);
+  }
   return (data.data?.children||[])
     .map(p=>p.data)
     .filter(p=>!p.stickied && !p.over_18 && p.score>=NEWS_CFG.redditMinScore)
@@ -1124,9 +1215,16 @@ async function fetchRedditPosts(game){
 }
 
 async function fetchGeneralReddit(feed){
-  const url=`https://www.reddit.com/r/${feed.subreddit}/hot.json?limit=25&raw_json=1`;
-  const txt=await fetchWithProxy(url);
-  const data=JSON.parse(txt);
+  let data;
+  if(HAS_API){
+    try{ data=await fetchJsonApi(`/api/reddit?subreddit=${feed.subreddit}&limit=25`); }
+    catch(e){console.warn('[reddit api]',feed.slug,e.message)}
+  }
+  if(!data){
+    const url=`https://www.reddit.com/r/${feed.subreddit}/hot.json?limit=25&raw_json=1`;
+    const txt=await fetchWithProxy(url);
+    data=JSON.parse(txt);
+  }
   return (data.data?.children||[])
     .map(p=>p.data)
     .filter(p=>!p.stickied && !p.over_18 && p.score>=(feed.minScore||100))
@@ -1136,7 +1234,8 @@ async function fetchGeneralReddit(feed){
       title:p.title,
       summary:p.selftext ? truncate(p.selftext,200) : `↑ ${p.score} · 💬 ${p.num_comments} · ${feed.label}`,
       game:'general',
-      tags:['general','gaming',p.link_flair_text?.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
+      platform:feed.platform||null,
+      tags:['general','gaming',feed.platform,p.link_flair_text?.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
       date:new Date(p.created_utc*1000).toISOString().slice(0,10),
       readTime:2,
       external:true,
@@ -1149,6 +1248,30 @@ async function fetchGeneralReddit(feed){
         {type:'p',text:p.selftext||'(Discussion / link post — open the source for full context.)'}
       ]
     }));
+}
+
+async function fetchRssFeed(feed){
+  // Always uses /api/rss serverless proxy because rss.app blocks browser fetch via CORS.
+  if(!HAS_API)return []; // Local dev without `vercel dev` skips RSS — runs only in prod / vercel dev.
+  let data;
+  try{ data=await fetchJsonApi(`/api/rss?url=${encodeURIComponent(feed.url)}`); }
+  catch(e){ console.warn('[rss]',feed.label,e.message); return [] }
+  return (data.items||[]).slice(0,6).map(it=>({
+    slug:'rss-'+(feed.platform||'gen')+'-'+(it.guid||it.link||'').replace(/[^a-z0-9]/gi,'').slice(-32),
+    title:it.title,
+    summary:it.summary,
+    game:'general',
+    platform:feed.platform,
+    tags:['rss',feed.platform,feed.label.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
+    date:it.date?it.date.slice(0,10):new Date().toISOString().slice(0,10),
+    readTime:3,
+    external:true,
+    source:'rss',
+    sourceUrl:it.link,
+    sourceLabel:feed.label,
+    thumb:it.image,
+    content:[{type:'p',text:it.summary||'See source for full article.'}]
+  }));
 }
 
 async function fetchAllNews({force=false}={}){
@@ -1164,6 +1287,9 @@ async function fetchAllNews({force=false}={}){
   }
   for(const f of generalFeeds){
     tasks.push(fetchGeneralReddit(f).catch(e=>{console.warn('general',f.slug,e.message);return[]}));
+  }
+  for(const f of platformFeeds){
+    tasks.push(fetchRssFeed(f).catch(e=>{console.warn('rss',f.label,e.message);return[]}));
   }
   const results=(await Promise.all(tasks)).flat();
   // de-dupe by slug
@@ -1269,7 +1395,7 @@ function renderSidebar(){
       html+=`<div class="nav-section">${t('nav.section.'+curSection)}</div>`;
     }
     const active=(route.view===it.key)?' active':'';
-    html+=`<a class="nav-item${active}" href="#/${it.key}"><span class="ico">${it.icon}</span><span data-i18n="${it.label}">${t(it.label)}</span></a>`;
+    html+=`<a class="nav-item${active}" href="/${it.key}"><span class="ico">${it.icon}</span><span data-i18n="${it.label}">${t(it.label)}</span></a>`;
   });
   nav.innerHTML=html;
 }
@@ -1277,11 +1403,21 @@ function renderSidebar(){
 /* ================================================================
    ROUTER
    ================================================================ */
+// Clean URL routing via History API (with hash-route fallback for backward compat).
 function getRoute(){
-  const h=(location.hash||'#/home').replace(/^#\/?/,'').split('/');
+  let path=location.pathname.replace(/^\/+|\/+$/g,'');
+  // Backward compat: legacy hash-based URLs (#/news/kcd2) still work
+  if(!path && location.hash.startsWith('#/')){
+    path=location.hash.replace(/^#\/?/,'');
+  }
+  if(!path)return {view:'home', a:null, b:null};
+  const h=path.split('/');
   return {view:h[0]||'home', a:h[1]||null, b:h[2]||null};
 }
-function go(path){location.hash='#/'+path}
+function go(path){
+  history.pushState({},'','/'+path.replace(/^\/+/,''));
+  render();
+}
 
 const routes = {
   home:HomeView,
@@ -1289,6 +1425,32 @@ const routes = {
   news:NewsView,
   tips:TipsView
 };
+
+function updateSEO(r){
+  const baseUrl=location.origin+location.pathname;
+  let title='Rick Rattle — Gaming Hub';
+  let desc='Gaming news, guides and tier lists for KCD2, Rocket League, The Finals, GTA, Tekken 8 and more.';
+  let img='/logo.png';
+  if(r.view==='news' && r.a){
+    const a=articles.find(x=>x.slug===r.a)||(externalArticles||[]).find(x=>x.slug===r.a);
+    const game=games.find(g=>g.slug===r.a);
+    if(a){title=`${a.title} — Rick Rattle`;desc=a.summary||desc;img=a.thumb||gameThumb(a.game)||img;}
+    else if(game){title=`${game.name} News — Rick Rattle`;desc=`Latest ${game.short} news, patches, updates and community discussion.`;img=gameThumb(game.slug)||img;}
+  }else if(r.view==='news'){title='Gaming News — Rick Rattle';desc='Latest gaming news from Steam, Reddit, Xbox, PlayStation and PC. Filter by platform, game or source.';}
+  else if(r.view==='tips' && r.a){
+    const game=games.find(g=>g.slug===r.a);
+    if(game){title=`${game.name} Tips, Guides & Tier Lists — Rick Rattle`;desc=`Guides, builds and tier lists for ${game.name}. Curated for ${game.platforms?.join(', ')||'all platforms'}.`;img=gameThumb(game.slug)||img;}
+  }else if(r.view==='tips'){title='Gaming Tips — Rick Rattle';desc='Guides, builds and tier lists across the games we play. Updated regularly.';}
+  else if(r.view==='rick'){title='The Channel — Rick Rattle';desc='Variety streamer running interactive chaos sessions. Join the Twitch live show.';}
+  document.title=title;
+  const set=(id,v,attr='content')=>{const el=document.getElementById(id);if(el)el.setAttribute(attr,v);};
+  set('seoCanonical',baseUrl,'href');
+  set('seoOgTitle',title);set('seoOgDesc',desc);set('seoOgImage',img);set('seoOgUrl',baseUrl);
+  set('seoTwitterTitle',title);set('seoTwitterDesc',desc);set('seoTwitterImage',img);
+  // Update meta description
+  let metaDesc=document.querySelector('meta[name="description"]');
+  if(metaDesc)metaDesc.setAttribute('content',desc);
+}
 
 function render(){
   const r=getRoute();
@@ -1299,14 +1461,36 @@ function render(){
     fn(view,r);
   }catch(err){
     console.error('[render] view crashed:',r.view,err);
-    view.innerHTML=`<div class="empty"><strong>⚠ Render error in "${r.view}"</strong><br><br><code style="font-size:11px;color:var(--hot)">${err.message}</code><br><br><a class="btn btn-ghost" href="#/home" onclick="location.reload()">Reload</a></div>`;
+    view.innerHTML=`<div class="empty"><strong>⚠ Render error in "${r.view}"</strong><br><br><code style="font-size:11px;color:var(--hot)">${err.message}</code><br><br><a class="btn btn-ghost" href="/home" onclick="location.reload()">Reload</a></div>`;
   }
   renderSidebar();
   try{applyI18n()}catch(e){console.warn('[i18n]',e)}
+  try{updateSEO(r)}catch(e){console.warn('[seo]',e)}
   window.scrollTo({top:0,behavior:'instant'});
   document.getElementById('sidebar').classList.remove('open');
 }
-window.addEventListener('hashchange',render);
+window.addEventListener('popstate',render);
+// Intercept link clicks for SPA navigation. Anchors marked with data-route opt-in;
+// also, internal links starting with `/` that aren't external get intercepted.
+document.addEventListener('click',e=>{
+  const a=e.target.closest('a[href]');
+  if(!a)return;
+  const href=a.getAttribute('href');
+  // Skip externals, anchors, downloads, modifier-clicks
+  if(!href || href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || a.target==='_blank') return;
+  if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
+  if(!href.startsWith('/'))return;
+  e.preventDefault();
+  if(location.pathname!==href.split('?')[0].split('#')[0]){
+    history.pushState({},'',href);
+    render();
+  }
+});
+// Translate legacy hash URLs to clean ones at boot.
+if(location.hash.startsWith('#/')){
+  const cleanPath='/'+location.hash.replace(/^#\/?/,'');
+  history.replaceState({},'',cleanPath);
+}
 
 /* ================================================================
    COMPONENTS — generic
@@ -1327,16 +1511,20 @@ function fallbackHtml(item){
   return `<div class="card-thumb-fallback">${gameName(item.game).slice(0,3).toUpperCase()}</div>`;
 }
 
+const PLATFORM_LABEL={xbox:'Xbox',playstation:'PlayStation',pc:'PC',nintendo:'Nintendo'};
 function ArticleCard(a){
-  const tags=(a.tags||[]).slice(0,3).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
+  const tags=(a.tags||[]).filter(x=>x).slice(0,3).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
   let badge='';
   if(a.featured)badge=`<div class="card-tag featured">FEATURED</div>`;
+  else if(a.platform)badge=`<div class="card-tag platform-${a.platform}">${PLATFORM_LABEL[a.platform]||a.platform}</div>`;
   else if(a.source==='steam')badge=`<div class="card-tag source-steam">STEAM</div>`;
   else if(a.source==='reddit')badge=`<div class="card-tag source-reddit">r/REDDIT</div>`;
-  return `<a class="card" href="#/news/${a.slug}">
+  else if(a.source==='rss')badge=`<div class="card-tag source-rss">RSS</div>`;
+  const display=a.platform?PLATFORM_LABEL[a.platform]:gameName(a.game);
+  return `<a class="card" href="/news/${a.slug}" data-route>
     <div class="card-thumb">${badge}${thumbHtml(a)}${fallbackHtml(a)}</div>
     <div class="card-body">
-      <div class="card-meta"><span class="game">${gameName(a.game)}</span>·<span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span>·<span>${a.readTime||3} min</span></div>
+      <div class="card-meta"><span class="game">${display}</span>·<span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span>·<span>${a.readTime||3} min</span></div>
       <h3 class="card-title">${a.title}</h3>
       <p class="card-summary">${a.summary}</p>
       <div class="card-tags">${tags}</div>
@@ -1347,7 +1535,7 @@ function ArticleCard(a){
 function GuideCard(g){
   const tier=(g.type==='tierlist')?t('type.tierlist'):(g.type==='build')?t('type.build'):t('type.guide');
   const diff=g.difficulty?`<span class="diff diff-${g.difficulty}">${t('diff.'+g.difficulty)}</span>`:'';
-  return `<a class="card" href="#/tips/${g.game}/${g.slug}">
+  return `<a class="card" href="/tips/${g.game}/${g.slug}">
     <div class="card-thumb">${thumbHtml(g)}${fallbackHtml(g)}</div>
     <div class="card-body">
       <div class="card-meta"><span class="game">${gameName(g.game)}</span>·<span>${tier}</span>${diff?'·':''}</div>
@@ -1359,7 +1547,7 @@ function GuideCard(g){
 }
 
 function TierCard(tl){
-  return `<a class="card" href="#/tips/${tl.game}/${tl.slug}">
+  return `<a class="card" href="/tips/${tl.game}/${tl.slug}">
     <div class="card-thumb">${thumbHtml(tl)}${fallbackHtml(tl)}</div>
     <div class="card-body">
       <div class="card-meta"><span class="game">${gameName(tl.game)}</span>·<span>${t('type.tierlist')}</span>·<span title="${fmtDate(tl.date)}">${timeAgo(tl.date)}</span></div>
@@ -1412,7 +1600,7 @@ function HomeView(view){
         <p data-i18n="home.sub">${t('home.sub')}</p>
         <div class="hero-cta">
           <a href="https://www.twitch.tv/rick__rattle" target="_blank" class="btn btn-primary"><span data-i18n="home.cta1">${t('home.cta1')}</span></a>
-          <a href="#/news" class="btn btn-cyan" data-i18n="home.cta2">${t('home.cta2')}</a>
+          <a href="/news" class="btn btn-cyan" data-i18n="home.cta2">${t('home.cta2')}</a>
         </div>
       </div>
       <div class="hero-side">
@@ -1427,17 +1615,17 @@ function HomeView(view){
     </div>
 
     <div class="section">
-      <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="#/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+      <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
       <div class="grid grid-3">${featNews.map(ArticleCard).join('')}</div>
     </div>
 
     <div class="section">
-      <div class="section-head"><h2 data-i18n="home.feat.guides">${t('home.feat.guides')}</h2><a class="see-all" href="#/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+      <div class="section-head"><h2 data-i18n="home.feat.guides">${t('home.feat.guides')}</h2><a class="see-all" href="/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
       <div class="grid grid-3">${featGuides.map(GuideCard).join('')}</div>
     </div>
 
     <div class="section">
-      <div class="section-head"><h2 data-i18n="home.feat.tiers">${t('home.feat.tiers')}</h2><a class="see-all" href="#/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+      <div class="section-head"><h2 data-i18n="home.feat.tiers">${t('home.feat.tiers')}</h2><a class="see-all" href="/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
       <div class="grid grid-3">${featTiers.map(TierCard).join('')}</div>
     </div>
   `;
@@ -1471,7 +1659,7 @@ function RickView(view){
       </div>
 
       <div class="trailer-box">
-        <video src="trailer.mov" controls preload="metadata" poster="logo.png" playsinline></video>
+        <iframe class="trailer-iframe" src="https://www.youtube-nocookie.com/embed/EzKRnk0QKLM?rel=0&modestbranding=1" title="Rick Rattle Trailer" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>
 
       <div class="section">
@@ -1582,7 +1770,11 @@ function NewsView(view,r){
   const streamSlugs=new Set(games.filter(g=>g.streamPlayed).map(g=>g.slug));
   const inScope=a=>{
     if(newsFilter.scope==='stream')return streamSlugs.has(a.game);
-    if(newsFilter.scope==='general')return a.game==='general';
+    if(newsFilter.scope==='general')return a.game==='general' && !a.platform;
+    if(newsFilter.scope==='xbox')return a.platform==='xbox';
+    if(newsFilter.scope==='playstation')return a.platform==='playstation';
+    if(newsFilter.scope==='pc')return a.platform==='pc';
+    if(newsFilter.scope==='nintendo')return a.platform==='nintendo';
     return true;
   };
   const f=all.filter(a=>
@@ -1623,6 +1815,10 @@ function NewsView(view,r){
         <button class="chip${newsFilter.scope==='all'?' active':''}" data-fsc="all"><span data-i18n="news.scope.all">${t('news.scope.all')}</span></button>
         <button class="chip${newsFilter.scope==='stream'?' active':''}" data-fsc="stream"><span data-i18n="news.scope.stream">${t('news.scope.stream')}</span></button>
         <button class="chip${newsFilter.scope==='general'?' active':''}" data-fsc="general"><span data-i18n="news.scope.general">${t('news.scope.general')}</span></button>
+        <button class="chip plat-xbox${newsFilter.scope==='xbox'?' active':''}" data-fsc="xbox">🟢 Xbox</button>
+        <button class="chip plat-ps${newsFilter.scope==='playstation'?' active':''}" data-fsc="playstation">🔵 PlayStation</button>
+        <button class="chip plat-pc${newsFilter.scope==='pc'?' active':''}" data-fsc="pc">💻 PC</button>
+        <button class="chip plat-nin${newsFilter.scope==='nintendo'?' active':''}" data-fsc="nintendo">🔴 Nintendo</button>
       </div>
       <div class="filter-divider"></div>
       <div class="filter-group">
@@ -1673,7 +1869,61 @@ function NewsView(view,r){
   }
 }
 
+// SEO-friendly per-game news landing: original copy on top + auto-feed below.
+function GameNewsPage(view,game){
+  const all=getAllArticles();
+  const gameArticles=all.filter(a=>a.game===game.slug).slice(0,12);
+  const cover=gameHero(game.slug)||gameThumb(game.slug);
+  const platforms=(game.platforms||[]).map(p=>PLATFORM_LABEL[p]||p.toUpperCase()).join(' · ');
+  const desc=GAME_BLURBS[game.slug]||(lang==='pt'?
+    `As últimas notícias sobre ${game.name}. Patches, lançamentos, esports e discussão da comunidade — agregados de fontes oficiais (Steam) e da comunidade (Reddit).`:
+    `Latest ${game.name} news. Patches, releases, esports coverage and community discussion — aggregated from official Steam and community Reddit sources.`);
+  view.innerHTML=`
+    <a class="detail-back" href="/news">${t('back')}</a>
+    ${cover?`<div class="game-hero" style="background-image:linear-gradient(180deg,transparent 40%,rgba(11,8,19,.95)),url('${cover}')"><div class="game-hero-inner">
+      <div class="page-kicker">${platforms||'NEWS'}</div>
+      <h1 class="game-hero-title">${game.name}</h1>
+      ${game.streamPlayed?`<span class="stream-flag">★ ${lang==='pt'?'JOGADO EM STREAM':'PLAYED ON STREAM'}</span>`:''}
+    </div></div>`:`<h1 class="page-title">${game.name}</h1>`}
+    <div class="game-intro">
+      <p>${desc}</p>
+      <p>${lang==='pt'?'Esta página atualiza automaticamente. As últimas notícias aparecem no topo, vindas do Steam e do subreddit r/'+game.subreddit+'.':'This page updates automatically. The latest news appears below, pulled from Steam and r/'+game.subreddit+'.'}</p>
+    </div>
+    <div class="game-actions">
+      <a class="btn btn-primary" href="/tips/${game.slug}">▶ ${lang==='pt'?'Ver guias e tier lists':'View guides & tier lists'}</a>
+      ${game.steamAppId?`<a class="btn btn-ghost" href="https://store.steampowered.com/app/${game.steamAppId}" target="_blank" rel="noopener">Steam ↗</a>`:''}
+      ${game.subreddit?`<a class="btn btn-ghost" href="https://reddit.com/r/${game.subreddit}" target="_blank" rel="noopener">r/${game.subreddit} ↗</a>`:''}
+    </div>
+    <div class="section">
+      <div class="section-head"><h2>${lang==='pt'?'Últimas notícias':'Latest news'}</h2><a class="see-all" href="/news">${t('home.see.all')}</a></div>
+      ${gameArticles.length?`<div class="grid grid-2">${gameArticles.map(ArticleCard).join('')}</div>`:`<div class="empty">${lang==='pt'?'Ainda não há notícias para este jogo. A buscar...':'No news yet for this game. Fetching...'}</div>`}
+    </div>
+    <div class="related-row">
+      <h3>${lang==='pt'?'Outros jogos':'Other games'}</h3>
+      <div class="related-chips">
+        ${games.filter(g=>g.slug!==game.slug).slice(0,8).map(g=>`<a class="chip" href="/news/${g.slug}">${g.streamPlayed?'★ ':''}${g.short}</a>`).join('')}
+      </div>
+    </div>
+  `;
+  if(!externalArticles.length){
+    fetchAllNews().then(()=>{if(getRoute().view==='news'&&getRoute().a===game.slug)GameNewsPage(view,game)});
+  }
+}
+
+const GAME_BLURBS={
+  kcd2:'Kingdom Come: Deliverance II is Warhorse\'s ambitious sequel — a hardcore medieval RPG with simulation depth, brutal combat and a sprawling Bohemia to explore. The community is active and patches drop regularly.',
+  'rocket-league':'Rocket League turns soccer into rocket-powered cars and refuses to die. The competitive scene is one of the deepest in esports and the meta shifts every season.',
+  'the-finals':'The Finals — Embark Studios\' destructible-arena hero shooter. Three classes, dynamic maps, and the most chaotic team-objective gameplay around.',
+  'gta-vi':'Grand Theft Auto VI is the most anticipated game of the decade. Every leak, trailer, official drop and rumor — tracked here.',
+  'tekken-8':'Tekken 8 — Bandai Namco\'s flagship fighting game. Heat system, new mechanics, and a roster that keeps growing through DLC seasons.',
+  callofduty:'Call of Duty news — multiplayer, Warzone, campaigns. Patches, leaks, esports and balance discussions across the latest title.',
+  'arc-raiders':'Arc Raiders is Embark\'s extraction shooter set in a post-collapse world. Robot enemies, contested loot zones, high-stakes runs.'
+};
+
 function NewsDetail(view,slug){
+  // Check if slug is a game slug — render game-specific news landing page
+  const game=games.find(g=>g.slug===slug);
+  if(game){return GameNewsPage(view,game)}
   const a=articles.find(x=>x.slug===slug)||externalArticles.find(x=>x.slug===slug);
   if(!a){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
   const tags=(a.tags||[]).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
@@ -1687,7 +1937,7 @@ function NewsDetail(view,slug){
     </div>`:'';
   const coverImg=a.thumb||gameHero(a.game)||gameThumb(a.game);
   view.innerHTML=`
-    <a class="detail-back" href="#/news">${t('back')}</a>
+    <a class="detail-back" href="/news">${t('back')}</a>
     <div class="detail">
       <div class="detail-cover">${coverImg?`<img src="${coverImg}" alt="" onerror="this.parentElement.innerHTML='<div class=card-thumb-fallback style=font-size:80px>'+'${gameName(a.game).slice(0,3).toUpperCase()}'+'</div>'">`:`<div class="card-thumb-fallback" style="font-size:80px">${gameName(a.game).slice(0,3).toUpperCase()}</div>`}</div>
       <div class="detail-meta"><span class="game">${gameName(a.game)}</span><span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span><span>${a.readTime||3} min</span><span>${a.external?(a.source==='steam'?'STEAM':a.source==='reddit'?'REDDIT':'EXTERNAL'):t('type.article')}</span></div>
@@ -1761,10 +2011,10 @@ function TipsView(view,r){
         <p>${t('tips.empty.p').replace('{game}',gameObj?.name||game)}</p>
         ${recentNews.length?`
           <div style="margin-top:30px;width:100%">
-            <div class="section-head" style="margin-bottom:14px"><h2 style="font-size:20px">${t('tips.empty.news').replace('{game}',gameObj?.short||game)}</h2><a class="see-all" href="#/news" onclick="newsFilter.scope='all';newsFilter.game='${game}';">${t('tips.empty.see')}</a></div>
+            <div class="section-head" style="margin-bottom:14px"><h2 style="font-size:20px">${t('tips.empty.news').replace('{game}',gameObj?.short||game)}</h2><a class="see-all" href="/news" onclick="newsFilter.scope='all';newsFilter.game='${game}';">${t('tips.empty.see')}</a></div>
             <div class="grid grid-2">${recentNews.map(ArticleCard).join('')}</div>
           </div>
-        `:`<a class="btn btn-cyan" href="#/news" style="margin-top:14px">${t('tips.empty.cta')}</a>`}
+        `:`<a class="btn btn-cyan" href="/news" style="margin-top:14px">${t('tips.empty.cta')}</a>`}
       </div>
     `;
   }
@@ -1777,7 +2027,7 @@ function TipsDetail(view,gameSlug,slug){
   const diff=item.difficulty?`<span class="diff diff-${item.difficulty}">${t('diff.'+item.difficulty)}</span>`:'';
   const typeLabel=isTier?t('type.tierlist'):(item.type==='build'?t('type.build'):t('type.guide'));
   view.innerHTML=`
-    <a class="detail-back" href="#/tips/${gameSlug}">${t('back')}</a>
+    <a class="detail-back" href="/tips/${gameSlug}">${t('back')}</a>
     <div class="detail">
       <div class="detail-meta"><span class="game">${gameName(item.game)}</span><span>${typeLabel}</span><span>${fmtDate(item.date)}</span>${item.readTime?`<span>${item.readTime} min</span>`:''}</div>
       <h1 class="detail-title">${item.title}</h1>
@@ -1798,14 +2048,35 @@ const searchResults=document.getElementById('searchResults');
 function doSearch(q){
   q=q.trim().toLowerCase();
   if(!q){searchResults.classList.remove('open');return}
-  const results=[];
-  articles.forEach(a=>{if((a.title+a.summary).toLowerCase().includes(q))results.push({type:t('type.article'),title:a.title,href:`#/news/${a.slug}`,game:gameName(a.game)})});
-  guides.forEach(g=>{if((g.title+(g.summary||'')).toLowerCase().includes(q))results.push({type:g.type==='build'?t('type.build'):t('type.guide'),title:g.title,href:`#/tips/${g.game}/${g.slug}`,game:gameName(g.game)})});
-  tierLists.forEach(g=>{if((g.title+(g.summary||'')).toLowerCase().includes(q))results.push({type:t('type.tierlist'),title:g.title,href:`#/tips/${g.game}/${g.slug}`,game:gameName(g.game)})});
+  const groups={games:[], categories:[], articles:[], guides:[]};
+  games.forEach(g=>{
+    if((g.name+' '+g.short+' '+g.slug).toLowerCase().includes(q)){
+      groups.games.push({title:g.name+(g.streamPlayed?' ★':''),href:`/news/${g.slug}`,sub:`News · Tips · ${(g.platforms||[]).map(p=>p.toUpperCase()).join(' ')}`});
+    }
+  });
+  const cats=[
+    {label:'Home',href:'/',keys:['home','início']},
+    {label:'Gaming News',href:'/news',keys:['news','noticias']},
+    {label:'Gaming Tips',href:'/tips',keys:['tips','dicas']},
+    {label:'Rick Rattle Channel',href:'/rick',keys:['rick','rattle','channel','twitch']},
+    {label:'Xbox news',href:'/news',keys:['xbox']},
+    {label:'PlayStation news',href:'/news',keys:['playstation','ps5','sony']},
+    {label:'PC Gaming news',href:'/news',keys:['pc','steam']}
+  ];
+  cats.forEach(c=>{if(c.label.toLowerCase().includes(q)||c.keys.some(k=>k.includes(q)||q.includes(k)))groups.categories.push({title:c.label,href:c.href,sub:'Section'})});
+  articles.forEach(a=>{if((a.title+' '+a.summary).toLowerCase().includes(q))groups.articles.push({title:a.title,href:`/news/${a.slug}`,sub:`${gameName(a.game)} · ${t('type.article')}`})});
+  (externalArticles||[]).slice(0,40).forEach(a=>{if(a.title.toLowerCase().includes(q))groups.articles.push({title:a.title,href:`/news/${a.slug}`,sub:`${gameName(a.game)} · ${a.source||'feed'}`})});
+  guides.forEach(g=>{if((g.title+' '+(g.summary||'')).toLowerCase().includes(q))groups.guides.push({title:g.title,href:`/tips/${g.game}/${g.slug}`,sub:`${gameName(g.game)} · ${g.type==='build'?t('type.build'):t('type.guide')}`})});
+  tierLists.forEach(g=>{if((g.title+' '+(g.summary||'')).toLowerCase().includes(q))groups.guides.push({title:g.title,href:`/tips/${g.game}/${g.slug}`,sub:`${gameName(g.game)} · ${t('type.tierlist')}`})});
+  const total=Object.values(groups).reduce((n,arr)=>n+arr.length,0);
   searchResults.classList.add('open');
-  searchResults.innerHTML=results.length
-    ?results.slice(0,8).map(r=>`<a class="res" href="${r.href}"><span class="rt">${r.title}</span><span class="rd">${r.game} · ${r.type}</span></a>`).join('')
-    :`<div class="empty">${t('search.no')}</div>`;
+  if(!total){searchResults.innerHTML=`<div class="empty">${t('search.no')}</div>`;return}
+  const renderGroup=(label,arr,limit)=>arr.length?`<div class="group-label">${label} (${arr.length})</div>${arr.slice(0,limit).map(r=>`<a class="res" href="${r.href}"><span class="rt">${r.title}</span><span class="rd">${r.sub}</span></a>`).join('')}`:'';
+  searchResults.innerHTML=
+    renderGroup(lang==='pt'?'Jogos':'Games',groups.games,4)+
+    renderGroup(lang==='pt'?'Secções':'Sections',groups.categories,4)+
+    renderGroup(lang==='pt'?'Guias e Tier Lists':'Guides & Tier Lists',groups.guides,4)+
+    renderGroup(lang==='pt'?'Artigos':'Articles',groups.articles,5);
 }
 searchInput.addEventListener('input',e=>doSearch(e.target.value));
 searchInput.addEventListener('focus',e=>doSearch(e.target.value));
