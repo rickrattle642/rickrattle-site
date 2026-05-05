@@ -557,7 +557,7 @@ const games = [
   {slug:'gta-v',               name:'Grand Theft Auto V',     short:'GTA V',        steamAppId:271590,  subreddit:'GTAV',            platforms:['pc','ps5','xbox']},
   {slug:'marathon',            name:'Marathon',               short:'Marathon',     steamAppId:2462580, subreddit:'marathon',        platforms:['pc','ps5','xbox']},
   {slug:'marvel-rivals',       name:'Marvel Rivals',          short:'Marvel Rivals',steamAppId:2767030, subreddit:'marvelrivals',    platforms:['pc','ps5','xbox']},
-  {slug:'re-requiem',          name:'Resident Evil: Requiem', short:'RE: Requiem',  steamAppId:3149190, subreddit:'residentevil',    platforms:['pc','ps5','xbox']},
+  {slug:'re-requiem',          name:'Resident Evil: Requiem', short:'RE: Requiem',                      subreddit:'residentevil',    platforms:['pc','ps5','xbox']},
   {slug:'saros',               name:'Saros',                  short:'Saros',                            subreddit:'Saros',           platforms:['ps5']},
   {slug:'windrose',            name:'Windrose',               short:'Windrose',                         subreddit:'Windrose',        platforms:['pc']},
   {slug:'tekken-8',            name:'Tekken 8',               short:'Tekken 8',     steamAppId:1778820, subreddit:'Tekken',          platforms:['pc','ps5','xbox']},
@@ -1345,29 +1345,31 @@ async function bumpVisit(){
     return readVisit();
   }
   sessionStorage.setItem('rr_visit_counted','1');
-  // try remote bump (counterapi.dev)
-  try{
-    const r=await fetch(`https://api.counterapi.dev/v1/${COUNTER_NS}/${COUNTER_KEY}/up`);
-    if(r.ok){
-      const d=await r.json();
-      const c=d.count??d.value;
-      if(typeof c==='number'){localStorage.setItem('rr_visit_remote',c);return c}
-    }
-  }catch{}
+  // production: same-origin /api/visits (no CORS, no third-party). local: skip remote.
+  if(HAS_API){
+    try{
+      const r=await fetch('/api/visits?bump=1');
+      if(r.ok){
+        const d=await r.json();
+        if(typeof d.count==='number'){localStorage.setItem('rr_visit_remote',d.count);return d.count}
+      }
+    }catch{}
+  }
   // fallback: local-only bump
   const n=(+(localStorage.getItem('rr_visit_local')||0))+1;
   localStorage.setItem('rr_visit_local',n);
   return n;
 }
 async function readVisit(){
-  try{
-    const r=await fetch(`https://api.counterapi.dev/v1/${COUNTER_NS}/${COUNTER_KEY}`);
-    if(r.ok){
-      const d=await r.json();
-      const c=d.count??d.value;
-      if(typeof c==='number'){localStorage.setItem('rr_visit_remote',c);return c}
-    }
-  }catch{}
+  if(HAS_API){
+    try{
+      const r=await fetch('/api/visits');
+      if(r.ok){
+        const d=await r.json();
+        if(typeof d.count==='number'){localStorage.setItem('rr_visit_remote',d.count);return d.count}
+      }
+    }catch{}
+  }
   return +(localStorage.getItem('rr_visit_remote')||localStorage.getItem('rr_visit_local')||0);
 }
 function paintVisits(n){
