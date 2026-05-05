@@ -302,6 +302,7 @@ button{font-family:inherit}
 .modal-inner{max-width:90vw;max-height:88vh;display:flex;flex-direction:column;align-items:center;gap:14px}
 .modal-body{display:flex;align-items:center;justify-content:center;border:2px solid var(--accent);max-height:80vh;background:#000;border-radius:6px}
 .modal-body img,.modal-body video{max-width:80vw;max-height:80vh;display:block}
+.modal-yt{width:min(80vw,1280px);aspect-ratio:16/9;display:block;border:0}
 .modal-name{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:2px;text-transform:uppercase;color:#fff}
 .modal-close{position:absolute;top:18px;right:22px;background:transparent;border:2px solid var(--accent);color:#fff;width:42px;height:42px;font-size:24px;cursor:pointer;border-radius:6px;transition:.2s}
 .modal-close:hover{background:var(--accent);transform:rotate(90deg)}
@@ -1635,11 +1636,25 @@ function HomeView(view){
 
 /* -------------------- RICK RATTLE -------------------- */
 const decks={
-  kcd2:{label:'KCD2 · Wheel of Suffering',folder:'Chanel Points/KCD2',cards:["Bard's Blessing","Beggar's Curse","Bleeding Pride","Crime & Punishment","Heavy Legs","Horse Tax Unpaid","KCD2 base","No Honor, Only Violence","Peasant's Curse","Possessed by Demons","Rusty Hands"]},
-  rdr2:{label:'RDR2 · Outlaw Deck',folder:'Chanel Points/RDR2',cards:["Base","Chain Reaction","Chaos Ride","Cold Blooded","Drunken Cowboy","First Blood","High Noon","Knife Work","Most Wanted","No Escape","No Horse Drifter","No Remedy","Nothing to Hide","Saloon Brawl","Silent Hunter","Turn Yourself In"]},
-  rl:{label:'Rocket League · Madness',folder:'Chanel Points/Rocket League',cards:["Ball Chasing","Be Toxic (Funny)","Boost Only","Camera Chaos","No Ball Cam","No Boost Pickup","No Boost","No Defense","No Jump","One Handed","Own Goal Attempt","Reverse Only","Throw Play"]},
-  irl:{label:'IRL · Action Deck',folder:'Chanel Points/IRL Cards',cards:[
-    {n:'ALL',ext:'png'},{n:'OCK',ext:'png'},{n:'OIOY',ext:'png'},{n:'asereje',ext:'mp4'},{n:'Backstreet',ext:'mp4'},{n:'Beer',ext:'mp4'},{n:'celine',ext:'mp4'},{n:'ganganm style',ext:'mp4'},{n:'genie in a botle',ext:'mp4'},{n:'lemon',ext:'mp4'},{n:'macarena',ext:'mp4'},{n:'oops i did it',ext:'mp4'},{n:'push ups',ext:'mp4'},{n:'Spicy',ext:'mp4'},{n:'Tortilla',ext:'mp4'},{n:'whiskey',ext:'mp4'}
+  kcd2:{label:'KCD2 · Wheel of Suffering', folder:'Chanel Points/KCD2', ext:'jpg', cards:["Bard's Blessing","Beggar's Curse","Bleeding Pride","Crime & Punishment","Heavy Legs","Horse Tax Unpaid","KCD2 base","No Honor, Only Violence","Peasant's Curse","Possessed by Demons","Rusty Hands"]},
+  rdr2:{label:'RDR2 · Outlaw Deck', folder:'Chanel Points/RDR2', ext:'jpg', cards:["Base","Chain Reaction","Chaos Ride","Cold Blooded","Drunken Cowboy","First Blood","High Noon","Knife Work","Most Wanted","No Escape","No Horse Drifter","No Remedy","Nothing to Hide","Saloon Brawl","Silent Hunter","Turn Yourself In"]},
+  rl:{label:'Rocket League · Madness', folder:'Chanel Points/Rocket League', ext:'png', cards:["Ball Chasing","Be Toxic (Funny)","Boost Only","Camera Chaos","No Ball Cam","No Boost Pickup","No Boost","No Defense","No Jump","One Handed","Own Goal Attempt","Reverse Only","Throw Play"]},
+  irl:{label:'IRL · Action Deck', folder:'Chanel Points/IRL Cards', ext:'png', cards:[
+    // Local images
+    'ALL','IM','OCK','OI OY','OIOY',
+    // Imgur videos
+    {n:'Backstreet Everybody',  url:'https://i.imgur.com/hwJY5K3.mp4'},
+    {n:'Beer Chug',             url:'https://i.imgur.com/uYyx5us.mp4'},
+    {n:'Celine Dion',           url:'https://i.imgur.com/S6s8XPH.mp4'},
+    {n:'Macarena',              url:'https://i.imgur.com/JVZb6sB.mp4'},
+    {n:'Lemon',                 url:'https://i.imgur.com/qV9GgT3.mp4'},
+    {n:'Ganganm Style',         url:'https://i.imgur.com/D4XDWdc.mp4'},
+    {n:'Geenie in a Bottle',    url:'https://i.imgur.com/FnLHR9c.mp4'},
+    {n:'Whiskey',               url:'https://i.imgur.com/07cII9X.mp4'},
+    {n:'Oops I Did It Again',   url:'https://i.imgur.com/l2KnF86.mp4'},
+    {n:'Spicy Chilli',          url:'https://i.imgur.com/MbYBC6w.mp4'},
+    {n:'20 Push Ups',           url:'https://i.imgur.com/N69Cg9q.mp4'},
+    {n:'Tortilla Slap',         url:'https://i.imgur.com/dWzpOp1.mp4'}
   ]}
 };
 let activeDeck='kcd2';
@@ -1737,6 +1752,33 @@ function RickView(view){
   renderDecks();
 }
 
+// Resolves a card spec into a media descriptor.
+// Supports 3 sources, in priority order:
+//   1. Explicit `url` field on the card object → can be YouTube, .mp4, or any image URL
+//   2. Explicit `youtube` field → just the YouTube ID (cleaner)
+//   3. Local file derived from folder + name + ext (default)
+function resolveCardMedia(c, folder, deckExt){
+  const isObj=typeof c==='object';
+  const name=isObj?c.n:c;
+  const ext=isObj ? (c.ext || deckExt || 'png') : (deckExt || 'png');
+  // YouTube via id
+  if(isObj && c.youtube){
+    const id=c.youtube;
+    return {name, kind:'youtube', src:`https://www.youtube-nocookie.com/embed/${id}?rel=0&autoplay=1&mute=1&loop=1&playlist=${id}&controls=1`, thumb:`https://i.ytimg.com/vi/${id}/hqdefault.jpg`};
+  }
+  // Direct URL (YouTube watch URL, Cloudinary, direct .mp4, etc)
+  if(isObj && c.url){
+    const yt=c.url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    if(yt)return {name, kind:'youtube', src:`https://www.youtube-nocookie.com/embed/${yt[1]}?rel=0&autoplay=1&mute=1&loop=1&playlist=${yt[1]}&controls=1`, thumb:`https://i.ytimg.com/vi/${yt[1]}/hqdefault.jpg`};
+    if(/\.(mp4|webm|mov)(\?|$)/i.test(c.url))return {name, kind:'video', src:c.url};
+    return {name, kind:'image', src:c.url};
+  }
+  // Local fallback
+  const path=`${folder}/${name}.${ext}`;
+  if(['mp4','webm','mov'].includes(ext.toLowerCase()))return {name, kind:'video', src:path};
+  return {name, kind:'image', src:path};
+}
+
 function renderDecks(){
   const tabs=document.getElementById('deckTabs');
   const grid=document.getElementById('deckGrid');
@@ -1746,20 +1788,23 @@ function renderDecks(){
   const d=decks[activeDeck];
   document.getElementById('deckTotal').textContent=d.cards.length;
   grid.innerHTML=d.cards.map((c,i)=>{
-    const isObj=typeof c==='object', name=isObj?c.n:c, ext=isObj?c.ext:'png', isVideo=ext==='mp4';
-    const path=`${d.folder}/${name}.${ext}`;
-    return `<div class="deck-card${isVideo?' is-video':''}" data-path="${path}" data-name="${name}" data-video="${isVideo}">
+    const m=resolveCardMedia(c,d.folder,d.ext);
+    const isVideoLike=m.kind==='video'||m.kind==='youtube';
+    let mediaInner='';
+    if(m.kind==='image')mediaInner=`<img src="${m.src}" alt="${m.name}" loading="lazy">`;
+    else if(m.kind==='video')mediaInner=`<video src="${m.src}" muted loop playsinline preload="metadata"></video><div class="play-ico">▶</div>`;
+    else if(m.kind==='youtube')mediaInner=`<img src="${m.thumb}" alt="${m.name}" loading="lazy"><div class="play-ico">▶</div>`;
+    return `<div class="deck-card${isVideoLike?' is-video':''}" data-kind="${m.kind}" data-src="${m.src}" data-name="${m.name}">
       <span class="num">#${String(i+1).padStart(2,'0')}</span>
-      <div class="media">
-        ${isVideo?`<video src="${path}" muted loop playsinline preload="metadata"></video><div class="play-ico">▶</div>`:`<img src="${path}" alt="${name}" loading="lazy">`}
-      </div>
-      <div class="name">${name}</div>
+      <div class="media">${mediaInner}</div>
+      <div class="name">${m.name}</div>
     </div>`;
   }).join('');
   grid.querySelectorAll('.deck-card').forEach(card=>{
+    const kind=card.dataset.kind;
     const v=card.querySelector('video');
     if(v){card.addEventListener('mouseenter',()=>v.play().catch(()=>{}));card.addEventListener('mouseleave',()=>{v.pause();v.currentTime=0})}
-    card.addEventListener('click',()=>openModal(card.dataset.path,card.dataset.name,card.dataset.video==='true'));
+    card.addEventListener('click',()=>openModal(card.dataset.src,card.dataset.name,kind));
   });
 }
 
@@ -2087,10 +2132,19 @@ document.addEventListener('click',e=>{if(!e.target.closest('.search'))searchResu
 /* ================================================================
    MODAL
    ================================================================ */
-function openModal(path,name,isVideo){
+function openModal(src,name,kind){
   const m=document.getElementById('modal'),b=document.getElementById('modalBody'),n=document.getElementById('modalName');
   n.textContent=name;
-  b.innerHTML=isVideo?`<video src="${path}" controls autoplay loop playsinline></video>`:`<img src="${path}" alt="${name}">`;
+  // Backward compat: if `kind` is a boolean (legacy callers), translate.
+  if(kind===true)kind='video';
+  else if(kind===false||kind==null)kind='image';
+  if(kind==='youtube'){
+    b.innerHTML=`<iframe class="modal-yt" src="${src}" title="${name}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
+  }else if(kind==='video'){
+    b.innerHTML=`<video src="${src}" controls autoplay loop playsinline></video>`;
+  }else{
+    b.innerHTML=`<img src="${src}" alt="${name}">`;
+  }
   m.classList.add('open');
 }
 function closeModal(){const m=document.getElementById('modal'),b=document.getElementById('modalBody');m.classList.remove('open');b.innerHTML=''}
