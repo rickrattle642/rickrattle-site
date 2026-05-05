@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+
+Sitemap: https://rickrattle-site.vercel.app/api/sitemap.xml
