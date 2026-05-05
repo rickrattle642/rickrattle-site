@@ -1,11 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" },
-    { "source": "/news/:slug*", "destination": "/index.html" },
-    { "source": "/tips/:slug*", "destination": "/index.html" },
+    { "source": "/news", "destination": "/index.html" },
+    { "source": "/news/(.*)", "destination": "/index.html" },
+    { "source": "/tips", "destination": "/index.html" },
+    { "source": "/tips/(.*)", "destination": "/index.html" },
     { "source": "/rick", "destination": "/index.html" },
     { "source": "/decks", "destination": "/index.html" }
   ],

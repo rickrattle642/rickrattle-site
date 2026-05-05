@@ -1327,6 +1327,8 @@ const socials = [
 ];
 
 // Easy to edit — add/remove items here. Use placeholder url '#' if not yet listed.
+// Toggle to true when first merch products are live. The section is hidden when false.
+const SHOW_MERCH = false;
 const merch = [
   {slug:'hoodie-beard',  name:'Rattle Beard Hoodie',     price:'€39',  tag:'NEW',     img:'merch/hoodie.jpg', url:'#'},
   {slug:'tee-chaos',     name:'Welcome to Chaos Tee',    price:'€22',  tag:null,      img:'merch/tee-chaos.jpg', url:'#'},
@@ -1782,7 +1784,7 @@ function RickView(view){
         </div>
       </div>
 
-      <div class="section">
+      ${SHOW_MERCH?`<div class="section">
         <div class="section-head">
           <h2 data-i18n="rick.merch.title">${t('rick.merch.title')}</h2>
           <a class="see-all" href="#" data-i18n="rick.merch.see">${t('rick.merch.see')}</a>
@@ -1804,7 +1806,7 @@ function RickView(view){
             </a>
           `).join('')}
         </div>
-      </div>
+      </div>`:''}
 
       <div class="cta-banner">
         <div>
