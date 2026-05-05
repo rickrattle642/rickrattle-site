@@ -233,6 +233,8 @@ button{font-family:inherit}
 .detail-body ul,.detail-body ol{padding-left:20px;margin:0 0 16px}
 .detail-body li{margin-bottom:6px}
 .detail-body strong{color:var(--ink)}
+.game-link{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan);transition:.15s}
+.game-link:hover{color:var(--accent);border-bottom-color:var(--accent);background:rgba(176,38,255,.06)}
 .detail-body code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan)}
 .detail-body blockquote{border-left:3px solid var(--accent);padding:8px 16px;margin:16px 0;color:var(--ink);font-style:italic;background:var(--panel2)}
 .detail-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
@@ -1560,13 +1562,77 @@ function TierCard(tl){
   </a>`;
 }
 
-function renderBlocks(blocks){
+// Game name auto-linking — wraps mentions of game names/aliases in <a href="/news/{slug}">.
+// Aliases sorted longest-first to avoid "Tekken" matching inside "Tekken 8".
+const GAME_LINK_ALIASES={
+  kcd2:['Kingdom Come: Deliverance II','Kingdom Come','Deliverance II','KCD2'],
+  'rocket-league':['Rocket League'],
+  'arc-raiders':['Arc Raiders'],
+  minecraft:['Minecraft'],
+  'grounded-2':['Grounded 2'],
+  'chivalry-2':['Chivalry 2'],
+  'it-takes-two':['It Takes Two'],
+  'split-fiction':['Split Fiction'],
+  'the-finals':['The Finals'],
+  rdr2:['Red Dead Redemption 2','Red Dead Redemption','RDR2'],
+  cs2:['Counter-Strike 2','CS2','CSGO','CS:GO'],
+  eldenring:['Elden Ring'],
+  cyberpunk2077:['Cyberpunk 2077','Cyberpunk'],
+  baldursgate3:["Baldur's Gate 3",'BG3'],
+  'gta-vi':['Grand Theft Auto VI','GTA VI','GTA 6'],
+  helldivers2:['Helldivers 2'],
+  lol:['League of Legends'],
+  valorant:['Valorant','VALORANT'],
+  palworld:['Palworld'],
+  'monster-hunter-wilds':['Monster Hunter Wilds','MH Wilds'],
+  apex:['Apex Legends'],
+  fortnite:['Fortnite'],
+  overwatch2:['Overwatch 2'],
+  'crimson-desert':['Crimson Desert'],
+  'diablo-iv':['Diablo IV','Diablo 4'],
+  'gta-v':['Grand Theft Auto V','GTA V','GTA 5'],
+  marathon:['Marathon'],
+  'marvel-rivals':['Marvel Rivals'],
+  're-requiem':['Resident Evil: Requiem','Resident Evil Requiem','RE: Requiem'],
+  saros:['Saros'],
+  windrose:['Windrose'],
+  'tekken-8':['Tekken 8'],
+  callofduty:['Call of Duty','CoD']
+};
+
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+
+// Pre-compile sorted alias index once.
+const _ALIAS_INDEX=Object.entries(GAME_LINK_ALIASES)
+  .flatMap(([slug,arr])=>arr.map(a=>({alias:a,slug})))
+  .sort((a,b)=>b.alias.length-a.alias.length);
+
+function linkifyGames(text,currentSlug){
+  if(!text||typeof text!=='string')return text||'';
+  let out=text;
+  // Track positions already wrapped to avoid double-linking.
+  const placeholders=[];
+  _ALIAS_INDEX.forEach(({alias,slug})=>{
+    if(slug===currentSlug)return; // don't self-link
+    const re=new RegExp('(?<![\\w/-])('+escRe(alias)+')(?![\\w-])','g');
+    out=out.replace(re,(m)=>{
+      const idx=placeholders.length;
+      placeholders.push(`<a class="game-link" href="/news/${slug}">${m}</a>`);
+      return ' '+idx+' ';
+    });
+  });
+  // restore
+  out=out.replace(/ (\d+) /g,(_,i)=>placeholders[+i]);
+  return out;
+}
+
+function renderBlocks(blocks,currentSlug){
   return blocks.map(b=>{
-    if(b.type==='p')return `<p>${b.text}</p>`;
+    if(b.type==='p')return `<p>${linkifyGames(b.text,currentSlug)}</p>`;
     if(b.type==='h')return `<h3>${b.text}</h3>`;
-    if(b.type==='blockquote')return `<blockquote>${b.text}</blockquote>`;
-    if(b.type==='ul')return `<ul>${b.items.map(i=>`<li>${i}</li>`).join('')}</ul>`;
-    if(b.type==='ol')return `<ol>${b.items.map(i=>`<li>${i}</li>`).join('')}</ol>`;
+    if(b.type==='blockquote')return `<blockquote>${linkifyGames(b.text,currentSlug)}</blockquote>`;
+    if(b.type==='ul')return `<ul>${b.items.map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ul>`;
+    if(b.type==='ol')return `<ol>${b.items.map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ol>`;
     return '';
   }).join('');
 }
@@ -1991,7 +2057,7 @@ function NewsDetail(view,slug){
       <div class="detail-meta"><span class="game">${gameName(a.game)}</span><span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span><span>${a.readTime||3} min</span><span>${a.external?(a.source==='steam'?'STEAM':a.source==='reddit'?'REDDIT':'EXTERNAL'):t('type.article')}</span></div>
       <h1 class="detail-title">${a.title}</h1>
       <p class="detail-sub">${a.summary}</p>
-      <div class="detail-body">${renderBlocks(a.content||[])}</div>
+      <div class="detail-body">${renderBlocks(a.content||[],a.game)}</div>
       ${sourceBlock}
       <div class="detail-tags">${tags}</div>
     </div>
@@ -2003,7 +2069,10 @@ let tipsState={game:games[0].slug, sub:'guides'};
 
 function TipsView(view,r){
   if(r.a && r.b){return TipsDetail(view,r.a,r.b)}
-  if(r.a){tipsState.game=r.a}
+  if(r.a){
+    const matched=games.find(g=>g.slug===r.a);
+    if(matched){tipsState.game=r.a;return GameTipsPage(view,matched)}
+  }
   const game=tipsState.game;
   const gGuides=guides.filter(g=>g.game===game && g.type!=='tierlist');
   const gTiers=tierLists.filter(g=>g.game===game);
@@ -2036,7 +2105,11 @@ function TipsView(view,r){
     </div>
     <div id="tipsContent"></div>
   `;
-  view.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{tipsState.game=b.dataset.g;TipsView(view,r);applyI18n()}));
+  view.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{
+    tipsState.game=b.dataset.g;
+    history.pushState({},'','/tips/'+b.dataset.g);
+    render();
+  }));
   view.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{tipsState.sub=b.dataset.s;TipsView(view,r);applyI18n()}));
 
   const cont=view.querySelector('#tipsContent');
@@ -2068,6 +2141,81 @@ function TipsView(view,r){
   }
 }
 
+// Editorial blurbs for per-game tips landing pages.
+// Overrides per language; falls back to a generic line if missing.
+const TIPS_BLURBS={
+  kcd2:{en:'Kingdom Come: Deliverance II rewards careful preparation. Master perks, combat fundamentals, save windows and questline routing — every detail matters in Bohemia.',pt:'Kingdom Come: Deliverance II recompensa quem se prepara. Perks, combate, saves e routing de questlines — em Bohemia tudo conta.'},
+  'rocket-league':{en:'Rocket League is mechanical depth disguised as cars-with-rockets. Aerial training, rotation patterns, car preferences and ranked discipline — here\'s the playbook.',pt:'Rocket League é profundidade mecânica disfarçada de carros-com-foguetes. Treino aéreo, rotações, escolhas de carro e disciplina em ranked — playbook completo.'},
+  'the-finals':{en:'The Finals demands movement awareness and class synergy. Heavy/Medium/Light builds, weapon meta and ranked tactics — the moves that win tournaments.',pt:'The Finals exige movimento e sinergia de classes. Builds Heavy/Medium/Light, meta de armas e táticas ranked — os moves que ganham torneios.'},
+  'arc-raiders':{en:'Arc Raiders extraction shooting hinges on map knowledge and the 70% loot rule. Routes, drone behaviors, contested zones and clean exfils.',pt:'Arc Raiders depende de conhecimento do mapa e da regra dos 70% de loot. Rotas, comportamento dos drones, zonas contestadas e extrações limpas.'},
+  minecraft:{en:'Minecraft tips and farms — efficient builds, redstone, trading halls, and the loops that scale from survival into late-game.',pt:'Dicas Minecraft — builds eficientes, redstone, trading halls e os loops que escalam de survival até late-game.'},
+  'chivalry-2':{en:'Chivalry 2 is footwork and timing. Drag attacks, parry windows, weapon loadouts and pile-on tactics — climb the leaderboards.',pt:'Chivalry 2 é footwork e timing. Drags, parries, loadouts e táticas de mosh-pit — sobe na leaderboard.'},
+  'tekken-8':{en:'Tekken 8 is the deepest fighting game on the market. Heat system, combos, frame data and matchup notes for the entire roster.',pt:'Tekken 8 é o fighting game mais profundo do mercado. Sistema Heat, combos, frame data e matchup notes para o roster inteiro.'},
+  'callofduty':{en:'Call of Duty meta moves fast. Weapon tier lists, attachment loadouts, map control fundamentals and Warzone strategies.',pt:'O meta do Call of Duty muda rápido. Tier lists de armas, loadouts, controlo de mapa e estratégia em Warzone.'},
+  'gta-vi':{en:'GTA VI prep — what we know, what to expect, early-game routing strategies for whenever the launch lands.',pt:'GTA VI — o que sabemos, o que esperar e routing early-game para o lançamento.'},
+  'eldenring':{en:'Elden Ring builds, boss fight strategies, talisman synergies and incantation/spell tier lists across the entire Lands Between.',pt:'Builds de Elden Ring, estratégias de boss, sinergias de talismãs e tier lists de feitiços por toda a Interterra.'},
+  'cs2':{en:'Counter-Strike 2 fundamentals: economy, utility usage, map callouts and rifle meta. From silver to global elite.',pt:'Fundamentos de Counter-Strike 2: economia, uso de utility, callouts e meta das rifles. De silver a global elite.'},
+  'baldursgate3':{en:"Baldur's Gate 3 builds, multiclass synergies, Honour Mode survival strategies and party comp recommendations.",pt:"Builds de Baldur's Gate 3, sinergias de multiclass, sobrevivência em Honour Mode e composições de party recomendadas."},
+  'helldivers2':{en:'Helldivers 2 stratagem tier lists, primary weapon loadouts and squad role coordination for higher difficulty missions.',pt:'Tier lists de stratagems, loadouts de armas e coordenação de squad para dificuldades mais altas em Helldivers 2.'},
+  'marvel-rivals':{en:'Marvel Rivals hero tier lists, role pairings, ultimate combos and rank climb strategies.',pt:'Tier lists de heróis, pairings de role, combos de ultimate e estratégia de subir rank em Marvel Rivals.'},
+  'diablo-iv':{en:'Diablo IV class builds, season meta, paragon paths and endgame Pit pushing strategies.',pt:'Builds de classe, meta da season, paragon paths e Pit pushing endgame em Diablo IV.'},
+  'palworld':{en:'Palworld base optimization, Pal breeding loops, work suitability assignments and late-game tower fights.',pt:'Otimização de base, loops de breeding de Pals, work suitability e late-game tower fights em Palworld.'}
+};
+
+function GameTipsPage(view,game){
+  const slug=game.slug;
+  const gGuides=guides.filter(g=>g.game===slug && g.type!=='tierlist' && g.type!=='build');
+  const gTiers=tierLists.filter(g=>g.game===slug);
+  const gBuilds=guides.filter(g=>g.game===slug && g.type==='build');
+  const cover=gameHero(slug)||gameThumb(slug);
+  const platforms=(game.platforms||[]).map(p=>PLATFORM_LABEL[p]||p.toUpperCase()).join(' · ');
+  const blurb=(TIPS_BLURBS[slug]||{})[lang]||(TIPS_BLURBS[slug]||{}).en||
+    (lang==='pt'?`Guias, builds e tier lists para ${game.name}. Atualizamos sempre que a meta muda.`:`Guides, builds and tier lists for ${game.name}. Updated whenever the meta shifts.`);
+
+  const sub=tipsState.sub||'guides';
+  let items=[];
+  if(sub==='guides')items=gGuides.map(GuideCard);
+  else if(sub==='tiers')items=gTiers.map(TierCard);
+  else items=gBuilds.map(GuideCard);
+
+  view.innerHTML=`
+    <a class="detail-back" href="/tips">${t('back')}</a>
+    ${cover?`<div class="game-hero" style="background-image:linear-gradient(180deg,transparent 40%,rgba(11,8,19,.95)),url('${cover}')"><div class="game-hero-inner">
+      <div class="page-kicker">${platforms||'TIPS'}</div>
+      <h1 class="game-hero-title">${game.name}</h1>
+      ${game.streamPlayed?`<span class="stream-flag">★ ${lang==='pt'?'JOGADO EM STREAM':'PLAYED ON STREAM'}</span>`:''}
+    </div></div>`:`<h1 class="page-title">${game.name}</h1>`}
+    <div class="game-intro">
+      <p>${blurb}</p>
+    </div>
+    <div class="game-actions">
+      <a class="btn btn-primary" href="/news/${slug}">${lang==='pt'?'Ver últimas notícias':'See latest news'} →</a>
+      ${game.steamAppId?`<a class="btn btn-ghost" href="https://store.steampowered.com/app/${game.steamAppId}" target="_blank" rel="noopener">Steam ↗</a>`:''}
+      ${game.subreddit?`<a class="btn btn-ghost" href="https://reddit.com/r/${game.subreddit}" target="_blank" rel="noopener">r/${game.subreddit} ↗</a>`:''}
+    </div>
+    <div class="subtabs">
+      <button class="subtab${sub==='guides'?' active':''}" data-s="guides"><span>${t('tips.guides')}</span> · ${gGuides.length}</button>
+      <button class="subtab${sub==='tiers'?' active':''}" data-s="tiers"><span>${t('tips.tiers')}</span> · ${gTiers.length}</button>
+      <button class="subtab${sub==='builds'?' active':''}" data-s="builds"><span>${t('tips.builds')}</span> · ${gBuilds.length}</button>
+    </div>
+    ${items.length?`<div class="grid grid-2">${items.join('')}</div>`:`
+      <div class="empty-tips">
+        <div class="empty-icon">📭</div>
+        <h3>${(t('tips.empty.h')||'').replace('{sub}',(sub==='tiers'?t('tips.tiers'):sub==='builds'?t('tips.builds'):t('tips.guides')).toLowerCase()).replace('{game}',game.name)}</h3>
+        <p>${(t('tips.empty.p')||'').replace('{game}',game.name)}</p>
+        <a class="btn btn-cyan" href="/news/${slug}" style="margin-top:14px">${(t('tips.empty.cta')||'See news').replace('news',game.short+' news')}</a>
+      </div>
+    `}
+    <div class="related-row">
+      <h3>${lang==='pt'?'Outros jogos':'Other games'}</h3>
+      <div class="related-chips">
+        ${games.filter(g=>g.slug!==slug).slice(0,8).map(g=>`<a class="chip" href="/tips/${g.slug}">${g.streamPlayed?'★ ':''}${g.short}</a>`).join('')}
+      </div>
+    </div>
+  `;
+  view.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{tipsState.sub=b.dataset.s;GameTipsPage(view,game);applyI18n()}));
+}
+
 function TipsDetail(view,gameSlug,slug){
   const item=guides.find(g=>g.slug===slug)||tierLists.find(g=>g.slug===slug);
   if(!item){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
@@ -2082,7 +2230,7 @@ function TipsDetail(view,gameSlug,slug){
       ${item.summary?`<p class="detail-sub">${item.summary}</p>`:''}
       ${diff?`<div style="margin-bottom:24px">${diff}</div>`:''}
       <div class="detail-body">
-        ${isTier?TierListView(item):renderBlocks(item.content||[])}
+        ${isTier?TierListView(item):renderBlocks(item.content||[],item.game)}
       </div>
     </div>
   `;
