@@ -1636,10 +1636,10 @@ function HomeView(view){
 
 /* -------------------- RICK RATTLE -------------------- */
 const decks={
-  kcd2:{label:'KCD2 · Wheel of Suffering', folder:'Chanel Points/KCD2', ext:'jpg', cards:["Bard's Blessing","Beggar's Curse","Bleeding Pride","Crime & Punishment","Heavy Legs","Horse Tax Unpaid","KCD2 base","No Honor, Only Violence","Peasant's Curse","Possessed by Demons","Rusty Hands"]},
-  rdr2:{label:'RDR2 · Outlaw Deck', folder:'Chanel Points/RDR2', ext:'jpg', cards:["Base","Chain Reaction","Chaos Ride","Cold Blooded","Drunken Cowboy","First Blood","High Noon","Knife Work","Most Wanted","No Escape","No Horse Drifter","No Remedy","Nothing to Hide","Saloon Brawl","Silent Hunter","Turn Yourself In"]},
-  rl:{label:'Rocket League · Madness', folder:'Chanel Points/Rocket League', ext:'png', cards:["Ball Chasing","Be Toxic (Funny)","Boost Only","Camera Chaos","No Ball Cam","No Boost Pickup","No Boost","No Defense","No Jump","One Handed","Own Goal Attempt","Reverse Only","Throw Play"]},
-  irl:{label:'IRL · Action Deck', folder:'Chanel Points/IRL Cards', ext:'png', cards:[
+  kcd2:{label:'KCD2 · Wheel of Suffering', folder:'KCD2', ext:'jpg', cards:["Bard's Blessing","Beggar's Curse","Bleeding Pride","Crime & Punishment","Heavy Legs","Horse Tax Unpaid","KCD2 base","No Honor, Only Violence","Peasant's Curse","Possessed by Demons","Rusty Hands"]},
+  rdr2:{label:'RDR2 · Outlaw Deck', folder:'RDR2', ext:'jpg', cards:["Base","Chain Reaction","Chaos Ride","Cold Blooded","Drunken Cowboy","First Blood","High Noon","Knife Work","Most Wanted","No Escape","No Horse Drifter","No Remedy","Nothing to Hide","Saloon Brawl","Silent Hunter","Turn Yourself In"]},
+  rl:{label:'Rocket League · Madness', folder:'Rocket League', ext:'png', cards:["Ball Chasing","Be Toxic (Funny)","Boost Only","Camera Chaos","No Ball Cam","No Boost Pickup","No Boost","No Defense","No Jump","One Handed","Own Goal Attempt","Reverse Only","Throw Play"]},
+  irl:{label:'IRL · Action Deck', folder:'IRL Cards', ext:'png', cards:[
     // Local images
     'ALL','IM','OCK','OI OY','OIOY',
     // Imgur videos
@@ -1773,8 +1773,9 @@ function resolveCardMedia(c, folder, deckExt){
     if(/\.(mp4|webm|mov)(\?|$)/i.test(c.url))return {name, kind:'video', src:c.url};
     return {name, kind:'image', src:c.url};
   }
-  // Local fallback
-  const path=`${folder}/${name}.${ext}`;
+  // Local fallback — URL-encode each path segment so spaces, apostrophes and ampersands are safe
+  const encodePath=p=>p.split('/').map(encodeURIComponent).join('/');
+  const path=encodePath(`${folder}/${name}.${ext}`);
   if(['mp4','webm','mov'].includes(ext.toLowerCase()))return {name, kind:'video', src:path};
   return {name, kind:'image', src:path};
 }
