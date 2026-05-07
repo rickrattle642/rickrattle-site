@@ -654,7 +654,6 @@ const games = [
   {slug:'eldenring',           name:'Elden Ring',             short:'Elden Ring',   steamAppId:1245620, subreddit:'Eldenring',       platforms:['pc','ps5','xbox']},
   {slug:'cyberpunk2077',       name:'Cyberpunk 2077',         short:'Cyberpunk',    steamAppId:1091500, subreddit:'cyberpunkgame',   platforms:['pc','ps5','xbox']},
   {slug:'baldursgate3',        name:"Baldur's Gate 3",        short:'BG3',          steamAppId:1086940, subreddit:'BaldursGate3',    platforms:['pc','ps5','xbox']},
-  {slug:'gta6',                name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
   {slug:'helldivers2',         name:'Helldivers 2',           short:'Helldivers 2', steamAppId:553850,  subreddit:'Helldivers',      platforms:['pc','ps5']},
   {slug:'lol',                 name:'League of Legends',      short:'LoL',                              subreddit:'leagueoflegends', platforms:['pc']},
   {slug:'valorant',            name:'Valorant',               short:'Valorant',                         subreddit:'VALORANT',        platforms:['pc']},
@@ -901,15 +900,16 @@ const guides = [
     slug:'arc-raiders-extraction-101',
     title:'Arc Raiders: Extraction 101 — Don\'t Die With Your Loot',
     summary:'Reading the map, choosing your route, and the three rules that separate raiders who extract from raiders who get extracted.',
-    game:'arc-raiders', type:'guide', difficulty:'beginner', date:'2026-04-25', readTime:6,
+    game:'arc-raiders', type:'guide', difficulty:'beginner', category:'beginner', author:'Editorial', date:'2026-04-25', readTime:6,
     content:[
-      {type:'p', text:'Extraction shooters live and die on the last 90 seconds. Here\'s the framework that keeps you alive.'},
-      {type:'h', text:'Rule 1 — Pick your extract before you push'},
-      {type:'p', text:'Hot drops are bait. Always know which extract is closest to your spawn and your secondary route if it gets contested.'},
-      {type:'h', text:'Rule 2 — Stop looting at 70%'},
-      {type:'p', text:'When your bag hits 70%, you switch from "looter" to "runner" mentality. Extra rare drops are not worth dying for.'},
-      {type:'h', text:'Rule 3 — Listen more than you shoot'},
-      {type:'p', text:'Audio info > visual info in Arc Raiders. Footsteps, drone whirrs, distant gunfire — all give you positioning data.'}
+      {type:'note', text:'Principles below are stable across extraction shooters and apply to Arc Raiders regardless of which tech test build is current.'},
+      {type:'p', text:'Extraction shooters live and die on the last 90 seconds. Here is the framework that keeps you alive.'},
+      {type:'h2', text:'Rule 1 — Pick your extract before you push'},
+      {type:'p', text:'Hot loot points are bait. Always know which extract is closest to your spawn and your secondary route if it gets contested.'},
+      {type:'h2', text:'Rule 2 — Stop looting at 70%'},
+      {type:'p', text:'When your bag hits 70%, you switch from "looter" to "runner" mindset. Extra rare drops are not worth dying for.'},
+      {type:'h2', text:'Rule 3 — Listen more than you shoot'},
+      {type:'p', text:'Audio info beats visual info in Arc Raiders. Footsteps, ARC patrol drones, distant gunfire — all give you positioning data. Move silent, listen often.'}
     ]
   },
   {
@@ -1082,38 +1082,49 @@ const guides = [
   {
     slug:'arc-raiders-extraction-routing',
     title:'Arc Raiders: Extraction Route Mastery',
-    summary:'The 3-extract triangle that keeps options open — and why solo raiders should always pre-call their exit.',
+    summary:'How to plan extracts before pushing loot zones. The mental model that separates raiders who exfil from raiders who feed kills.',
     game:'arc-raiders', type:'guide', difficulty:'intermediate', category:'strategy', featured:true,
-    date:'2026-04-25', author:'Editorial', readTime:7, patchVersion:'Tech Test 4',
+    date:'2026-04-25', author:'Editorial', readTime:7,
     content:[
-      {type:'p', text:'In Arc Raiders, dying with full bag is the worst outcome. Routing fixes that.'},
+      {type:'note', text:'Arc Raiders is still iterating between tech tests. Names of zones and exact timers may change at launch — focus on the principles, they are stable across extraction shooters.'},
+      {type:'p', text:'The worst outcome in Arc Raiders is dying with a full bag. Routing fixes that.'},
       {type:'h2', text:'The triangle principle'},
-      {type:'p', text:'Always know 3 extracts: your spawn extract (closest), your loot extract (in your loot zone), and your safety extract (on the opposite side of contested zones).'},
-      {type:'tip', text:'Extracts in Arc Raiders cycle their availability. Always check the timer banner top-right before committing to a route.'},
-      {type:'h2', text:'Route example — Buried City'},
-      {type:'steps', items:[
-        {title:'Spawn near Tunnels', text:'Loot Tunnels first (low-risk).'},
-        {title:'Push north towards Plaza only if Tunnels was clean', text:'Plaza is hot but high tier loot.'},
-        {title:'Extract at North Generator OR retreat to Tunnel exit', text:'Both extracts cycle on opposite timers. One is always live.'}
+      {type:'p', text:'Before you commit to any loot zone, mentally pin three extraction points: the spawn extract (closest fallback), the loot extract (inside the zone you intend to push), and the safety extract (on the opposite edge of the map, in case the contested zone goes hot).'},
+      {type:'tip', text:'Extraction availability cycles in Arc Raiders. Always glance at the surface UI for active extract markers before committing to a direction.'},
+      {type:'h2', text:'Surface vs underground decision'},
+      {type:'p', text:'The above-ground portions are exposed to ARC patrols and other raiders. Underground areas are tighter, less PvP-heavy, but loot tier is lower. Plan your loop: surface first while fresh, drop underground when bag is half full.'},
+      {type:'h2', text:'When to abandon loot'},
+      {type:'ul', items:[
+        'Bag is over 70% full — switch from looter to runner mindset',
+        'You hear sustained gunfire near your route — reroute, do not investigate',
+        'ARC alarm has been triggered (audio cue) — extract within 90 seconds or commit to fight'
       ]}
     ]
   },
   {
     slug:'arc-raiders-pvp-loadout',
-    title:'Arc Raiders: PvP Loadout Tier List',
-    summary:'Which weapon combos win 1v1s in raids. Updated for the latest tech test balance pass.',
+    title:'Arc Raiders: PvP Loadout Strategy',
+    summary:'Choosing the right weapon class combo for the engagement range you expect. Principles, not patch-specific numbers.',
     game:'arc-raiders', type:'guide', difficulty:'intermediate', category:'pvp',
-    date:'2026-04-19', author:'Editorial', readTime:6, patchVersion:'Tech Test 4',
+    date:'2026-04-19', author:'Editorial', readTime:6,
     content:[
-      {type:'h2', text:'S-tier loadouts'},
-      {type:'compare', headers:['Loadout A','Loadout B'], rows:[
-        {label:'Primary', a:'Bullpup AR', b:'Pump Shotgun'},
-        {label:'Secondary', a:'Compact SMG', b:'Auto Pistol'},
-        {label:'Best range', a:'Mid (15-30m)', b:'Close (<10m)'},
-        {label:'TTK', a:'0.4s', b:'0.2s burst'},
-        {label:'Mag', a:'30+30', b:'8 shells'}
+      {type:'note', text:'Arc Raiders weapon balance shifts each tech test. This guide focuses on weapon-class strategy that works regardless of specific weapon names available in your patch.'},
+      {type:'h2', text:'Pick the loadout that matches your role'},
+      {type:'p', text:'Solo raiders pushing surface zones, squad anchors, sneak-stealth scavengers — each role has a loadout shape that wins more 1v1s.'},
+      {type:'h2', text:'Loadout shapes'},
+      {type:'compare', headers:['Aggressive Surface','Defensive Holdout','Sneak Scavenger'], rows:[
+        {label:'Primary class', a:'Mid-range automatic', b:'Long-range marksman', c:'Suppressed compact'},
+        {label:'Secondary class', a:'Close-range shotgun', b:'Sidearm pistol', c:'Compound bow / silent'},
+        {label:'Ideal range', a:'10-30 m', b:'40 m+', c:'<15 m, prefer no shot'},
+        {label:'Best for', a:'Open POIs, surface', b:'Rooftops, holdouts', c:'Underground, evasion'}
       ]},
-      {type:'note', text:'Both loadouts assume you have at least Tier 2 ammo. Tier 1 ammo doubles TTK and makes both loadouts viable but not S-tier.'}
+      {type:'h2', text:'Universal rules'},
+      {type:'ul', items:[
+        'Higher-tier ammunition matters more than weapon model — prioritize ammo upgrades over gun upgrades when you can choose',
+        'Always have one weapon optimized against ARC robots (high single-hit damage) AND one against players (sustained DPS)',
+        'Sound discipline beats accuracy — silenced loadouts that never fire often extract richer than loud loadouts that win every fight'
+      ]},
+      {type:'tip', text:'When in doubt, pick the loadout that lets you walk AWAY from a fight. Extraction shooters reward avoidance more than they reward aim.'}
     ]
   },
 
@@ -1160,46 +1171,130 @@ const guides = [
 
   // ========== Diablo IV ==========
   {
-    slug:'diablo4-leveling-1-50',
-    title:'Diablo IV: Fastest 1-50 Leveling Route',
-    summary:'A 6-hour campaign skip that gets you to World Tier 3 with a fully rolled build. Updated for current season.',
+    slug:'diablo4-leveling-1-70',
+    title:'Diablo IV: Fastest 1-70 Leveling Route (Season 13)',
+    summary:'The current Lord of Hatred season leveling path — campaign skip, Helltides rotation and the move to The Pit at max level.',
     game:'diablo-iv', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
-    date:'2026-04-29', lastUpdated:'2026-05-02', author:'Editorial', readTime:8, patchVersion:'Season 8',
+    date:'2026-04-29', lastUpdated:'2026-05-04', author:'Editorial', readTime:8, patchVersion:'Season 13',
     content:[
-      {type:'kv', items:[{k:'Time',v:'~6h'},{k:'Patch',v:'Season 8'},{k:'Recommended class',v:'Sorc / Spiritborn'}]},
+      {type:'note', text:'Season 13 raised the level cap to 70 and added the Warlock and Paladin classes. The leveling tier list highlights Rogue, Spiritborn, Warlock and Paladin as S-tier for fast 1–70 runs.'},
+      {type:'kv', items:[{k:'Time',v:'~6h'},{k:'Patch',v:'Season 13 (Lord of Hatred)'},{k:'Level cap',v:'70'},{k:'S-tier class for leveling',v:'Rogue / Spiritborn / Paladin / Warlock'}]},
       {type:'h2', text:'Step-by-step'},
       {type:'steps', items:[
         {title:'Skip campaign on alt characters', text:'After the first character finishes the campaign, all alts can skip via the same Eternal Realm save.'},
-        {title:'Run dungeons in Fractured Peaks until level 15', text:'Whisper bonuses double XP gains here.'},
-        {title:'Switch to Hawezar Helltides at level 15+', text:'Helltides give level-scaled gear and Aberrant Cinders.'},
-        {title:'Hit level 50 → switch to NM Dungeons', text:'Tier 1 NM dungeons = best XP/h once you have Glyphs.'}
+        {title:'Run dungeons in Fractured Peaks until level 15', text:'Tree of Whispers bonuses double XP gains here.'},
+        {title:'Switch to Helltides at level 15+', text:'Helltides give level-scaled gear and Aberrant Cinders for the Tortured Gift caches.'},
+        {title:'Hit level 50 → Nightmare Dungeons + Glyph leveling', text:'Tier 1 NM Dungeons are the best XP/h once you have Glyphs. Promote your Glyphs as you climb.'},
+        {title:'Level 60+: push Torment difficulty', text:'Each Torment tier multiplies XP and unlocks better drops. Aim for Torment IV by 70.'}
       ]},
-      {type:'tip', text:'Always have an Elixir of Wisdom active — 5% XP buff stacks with the season journey reward of +5%.'},
-      {type:'h2', text:'After 50'},
-      {type:'p', text:'See our Paragon Pathing guide for the next 100 hours of gameplay.'}
+      {type:'tip', text:'Always have an Elixir of Wisdom active — 5% XP buff stacks with the season journey reward.'},
+      {type:'h2', text:'After 70'},
+      {type:'p', text:'Switch focus to Paragon Boards (300 points cap), Lair Bosses for unique drops, and The Pit of the Artificers for endgame tier pushing. See our Paragon and Pit guides for what comes next.'}
     ]
   },
   {
     slug:'diablo4-pit-pushing-meta',
-    title:'Diablo IV: Pit Pushing Meta (Season 8)',
-    summary:'The 3 builds clearing T100+ Pits and the rotation timings that separate top 0.1% from everyone else.',
+    title:'Diablo IV: Pit Pushing Meta (Season 13)',
+    summary:'The endgame push tier list right now — Warlock, Sorcerer and Rogue lead the Pit of the Artificers.',
     game:'diablo-iv', type:'build', difficulty:'advanced', category:'endgame',
-    date:'2026-04-26', author:'Editorial', readTime:11, patchVersion:'Season 8',
+    date:'2026-04-26', lastUpdated:'2026-05-04', author:'Editorial', readTime:11, patchVersion:'Season 13',
     content:[
-      {type:'h2', text:'Top 3 builds'},
-      {type:'compare', headers:['Sorcerer Storm','Spiritborn Quill','Necro Bone'], rows:[
-        {label:'Top Pit cleared', a:'T112', b:'T108', c:'T103'},
-        {label:'Boss DPS', a:'High', b:'Very High', c:'Medium'},
-        {label:'Trash clear', a:'Excellent', b:'Excellent', c:'Good'},
-        {label:'Survivability', a:'Medium', b:'Low', c:'High'}
+      {type:'p', text:'Per the latest community tier rankings, Endgame Push is dominated by Warlock, Sorcerer and Rogue. Below is the head-to-head comparison.'},
+      {type:'h2', text:'Top 3 endgame builds'},
+      {type:'compare', headers:['Warlock','Sorcerer Storm','Rogue'], rows:[
+        {label:'Resource model', a:'Wrath + Dominance (dual)', b:'Mana', c:'Energy + Combo Points'},
+        {label:'Boss DPS', a:'Very High (ramp)', b:'High (sustained)', c:'High (burst)'},
+        {label:'Trash clear', a:'Excellent', b:'Excellent', c:'Excellent'},
+        {label:'Survivability', a:'Medium', b:'Medium', c:'Medium-Low'},
+        {label:'Skill ceiling', a:'High (dual resource)', b:'Medium', c:'High (positioning)'}
       ]},
-      {type:'h2', text:'Rotation example — Sorcerer Storm'},
+      {type:'h2', text:'Sorcerer Storm — opener and rotation'},
+      {type:'p', text:'Storm Sorcerer revolves around Lightning Spear and Ball Lightning, kept alive by Crackling Energy procs and Unstable Currents windows.'},
       {type:'rotation', steps:[
-        {name:'Unstable Currents', cd:'45s', note:'Open with this — buffs all storm spells'},
-        {name:'Lightning Spear (×3)', note:'Builds Crackling Energy'},
-        {name:'Ball Lightning (overlap)', note:'Cast on cooldown, stack 2-3 if mobile'},
-        {name:'Teleport reposition', cd:'8s', note:'Use as defensive AND offensive — proc Aspect of Static Cling'},
-        {name:'Repeat from Lightning Spear', note:'Maintain Crackling Energy stacks at 6+'}
+        {name:'Unstable Currents', cd:'~45s', note:'Open with this — buffs all storm spells during its window'},
+        {name:'Lightning Spear ×3', note:'Generates Crackling Energy, primes the Ball Lightning loop'},
+        {name:'Ball Lightning', note:'Cast on cooldown, stack 2-3 orbs if mobile to chain hits'},
+        {name:'Teleport reposition', cd:'~8s', note:'Use defensively and offensively — keeps Aspect procs rolling'},
+        {name:'Loop back to Lightning Spear', note:'Maintain Crackling Energy at 6+ for sustained Ball Lightning damage'}
+      ]},
+      {type:'h2', text:'Where to test the build'},
+      {type:'ul', items:['The Pit of the Artificers — push tiers as far as gear allows','Lair Bosses for unique drops','Echo of Lilith for the ultimate single-target check']}
+    ]
+  },
+  {
+    slug:'diablo4-auradin-paladin-build',
+    title:'Diablo IV: Auradin Paladin Build (Season 13)',
+    summary:'The aura-stacking Paladin build that turned the new class into a Speed Farming and Endgame Push contender.',
+    game:'diablo-iv', type:'build', difficulty:'intermediate', category:'build', featured:true,
+    date:'2026-05-04', lastUpdated:'2026-05-04', author:'Editorial', readTime:7, patchVersion:'Season 13',
+    content:[
+      {type:'note', text:'Paladin is the new Strength-based class introduced in Season 12 alongside Vessel of Hatred. Auradin (aura-Paladin) is the most popular variant in Season 13 thanks to its tankiness and group buffs.'},
+      {type:'kv', items:[{k:'Class',v:'Paladin'},{k:'Resource',v:'Oath system'},{k:'Best at',v:'Speed Farm + Boss Killing'},{k:'Tier',v:'S (Speed Farm), A (Endgame Push)'}]},
+      {type:'h2', text:'Core skills'},
+      {type:'ul', items:[
+        '<strong>Advance</strong> — gap closer / engage tool',
+        '<strong>Holy Light Aura</strong> — sustain healing',
+        '<strong>Defiance Aura</strong> — damage reduction',
+        '<strong>Fanaticism Aura</strong> — attack speed buff',
+        '<strong>Rally</strong> — group cooldown reduction',
+        '<strong>Falling Star</strong> — main damage finisher'
+      ]},
+      {type:'h2', text:'Stat priority'},
+      {type:'statPriority', stats:[
+        {name:'Strength', priority:1, note:'Main stat — scales holy damage'},
+        {name:'Willpower', priority:2, note:'Generates Oath faster'},
+        {name:'Armor / Resistances', priority:3, note:'Tankiness'},
+        {name:'Crit Chance / Crit Damage', priority:4, note:'Falling Star scaling'}
+      ]},
+      {type:'tip', text:'The Paladin Oath system fills as you take and deal damage. Spend it on Falling Star at peak crowds for the biggest hit windows.'}
+    ]
+  },
+  {
+    slug:'diablo4-warlock-intro',
+    title:'Diablo IV: Warlock — The Dual-Resource Class Explained',
+    summary:'The Warlock arrived with Lord of Hatred and uses two resource pools — Wrath and Dominance. Here is what to know.',
+    game:'diablo-iv', type:'guide', difficulty:'beginner', category:'class', featured:false,
+    date:'2026-05-04', author:'Editorial', readTime:6, patchVersion:'Season 13',
+    content:[
+      {type:'p', text:'The Warlock is a Willpower-based caster added in the Lord of Hatred expansion. It is currently the only class in Diablo IV with a dual-resource system.'},
+      {type:'h2', text:'Wrath vs Dominance'},
+      {type:'compare', headers:['Wrath','Dominance'], rows:[
+        {label:'How it builds', a:'Generated by Basic Skills (like most classes)', b:'Generated through specific build conditions — much harder to come by'},
+        {label:'What it spends on', a:'Standard damage spells', b:'High-impact ultimate-tier abilities'},
+        {label:'Pace', a:'Constant flow', b:'Slow ramp into burst'}
+      ]},
+      {type:'h2', text:'Who should play Warlock'},
+      {type:'ul', items:[
+        'Players who like ramping / build-up gameplay',
+        'Anyone who pushed Endgame on Sorcerer and wants more depth',
+        'Best class for solo Pit pushing in Season 13 (S-tier Endgame Push)'
+      ]},
+      {type:'warning', text:'Warlock has the highest skill ceiling of any current class. Expect a longer learning curve than the original 5 classes.'}
+    ]
+  },
+  {
+    slug:'mh-wilds-artian-weapons-tu4',
+    title:'MH Wilds: Artian Weapons + Armor Transcendence (TU4)',
+    summary:'Title Update 4 introduced craftable Artian weapons and the Armor Transcendence system. Here is the practical setup path.',
+    game:'monster-hunter-wilds', type:'guide', difficulty:'advanced', category:'endgame',
+    date:'2026-05-04', author:'Editorial', readTime:8, patchVersion:'Title Update 4',
+    content:[
+      {type:'note', text:'Title Update 4 added Gogmazios as the new endgame monster, Arch-tempered Jin Dahaad, the Lumenhymn seasonal event, Armor Transcendence and the Gogma Artian weapons line.'},
+      {type:'h2', text:'Artian weapons in one paragraph'},
+      {type:'p', text:'Artian weapons are craftable endgame weapons with rolled stats. Unlike fixed monster weapons, two Artian weapons of the same type can have different stat profiles. Reroll-by-craft is the endgame loop.'},
+      {type:'h2', text:'Setup path'},
+      {type:'steps', items:[
+        {title:'Reach Hunter Rank 31+', text:'Required to access the Artian crafting system.'},
+        {title:'Farm Tempered / Arch-Tempered hunts', text:'Drops the parts needed for Artian crafts. Arch-tempered Jin Dahaad is the most efficient TU4 source.'},
+        {title:'Craft your weapon at the Smithy', text:'Stats roll on craft — keep crafting until you hit a usable spread for your build.'},
+        {title:'Apply Armor Transcendence', text:'TU4 lets you push armor pieces past their normal cap by spending materials. Use this to fill skill gaps left by your Artian roll.'}
+      ]},
+      {type:'tip', text:'Save your best mid-roll Artian as a transition weapon. It is easy to chase a perfect roll and end up under-equipped for the very fights that drop the materials you need.'},
+      {type:'h2', text:'Endgame target hunts'},
+      {type:'ul', items:[
+        'Gogmazios — TU4 marquee monster, drops the Gogma Artian line',
+        'Arch-tempered Jin Dahaad — endgame difficulty hunt',
+        'Arch-tempered Arkveld — added shortly after TU4 launch'
       ]}
     ]
   }
@@ -1331,28 +1426,16 @@ const tierLists = [
     ]
   },
   {
-    slug:'mh-wilds-weapons-2026',
-    title:'Monster Hunter Wilds: Weapon Tier List',
-    summary:'For solo and group hunts. Move count, openings created, comfort factor.',
-    game:'monster-hunter-wilds', featured:false, date:'2026-04-10',
+    slug:'mh-wilds-weapons-tu4',
+    title:'Monster Hunter Wilds: Weapon Tier List (Title Update 4)',
+    summary:'After TU4 weapon buffs and Gogmazios / Arch-tempered Jin Dahaad endgame — solo and group hunt rankings across all 14 weapon types.',
+    game:'monster-hunter-wilds', featured:false, date:'2026-04-10', lastUpdated:'2026-05-04', patchVersion:'Title Update 4', author:'Editorial', category:'endgame',
     tiers:[
-      {tier:'S', items:['Greatsword','Insect Glaive','Long Sword']},
+      {tier:'S', items:['Great Sword','Insect Glaive','Long Sword']},
       {tier:'A', items:['Switch Axe','Charge Blade','Hammer','Hunting Horn']},
       {tier:'B', items:['Bow','Heavy Bowgun','Dual Blades']},
-      {tier:'C', items:['Sword & Shield','Light Bowgun']},
+      {tier:'C', items:['Sword and Shield','Light Bowgun']},
       {tier:'D', items:['Lance','Gunlance']}
-    ]
-  },
-  {
-    slug:'diablo4-classes-s8',
-    title:'Diablo IV Season 8: Class Tier List',
-    summary:'Pit pushing, NM dungeons, end-game viability — ranked.',
-    game:'diablo-iv', featured:true, date:'2026-04-02',
-    tiers:[
-      {tier:'S', items:['Sorcerer','Spiritborn']},
-      {tier:'A', items:['Necromancer','Druid']},
-      {tier:'B', items:['Rogue','Barbarian']},
-      {tier:'C', items:['Paladin (limited build variety)']}
     ]
   },
   {
@@ -1383,14 +1466,14 @@ const tierLists = [
   },
   {
     slug:'arc-raiders-weapons-tier',
-    title:'Arc Raiders: Weapon Tier List (Tech Test 4)',
-    summary:'After the latest balance pass, the meta has shifted toward mid-range engagements.',
-    game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', patchVersion:'Tech Test 4', author:'Editorial',
+    title:'Arc Raiders: Weapon Class Tier List',
+    summary:'How weapon classes rank by versatility against ARC and players. Class-based ranking — works regardless of which exact gun the tech test currently has unlocked.',
+    game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', author:'Editorial',
     tiers:[
-      {tier:'S', items:['Bullpup AR','Pump Shotgun','Compact SMG']},
-      {tier:'A', items:['Marksman Rifle','Hunting Rifle','Auto Pistol']},
-      {tier:'B', items:['SMG','Heavy Pistol','Bolt Action']},
-      {tier:'C', items:['Revolver','Crossbow']}
+      {tier:'S', items:['Mid-range Automatic Rifle','Pump Shotgun (close)','Compound Bow (silent kills)']},
+      {tier:'A', items:['Marksman / Semi-auto Rifle','Suppressed SMG','Light Pistol (sidearm)']},
+      {tier:'B', items:['Heavy SMG','Bolt-action Rifle','Heavy Pistol']},
+      {tier:'C', items:['Revolver','Crossbow (slow reload)']}
     ]
   },
   {
@@ -1406,15 +1489,36 @@ const tierLists = [
     ]
   },
   {
-    slug:'diablo4-classes-tier-s8',
-    title:'Diablo IV: Class Tier List (Season 8)',
-    summary:'Pit pushing, NM dungeons, leveling speed and build variety — all weighted in this ranking.',
-    game:'diablo-iv', category:'class', featured:true, date:'2026-04-26', patchVersion:'Season 8', author:'Editorial',
+    slug:'diablo4-classes-tier-s13',
+    title:'Diablo IV: Class Tier List (Season 13)',
+    summary:'Endgame Push, Speed Farming, Boss Killer and Leveling — overall class strength in the Lord of Hatred season.',
+    game:'diablo-iv', category:'class', featured:true, date:'2026-05-04', lastUpdated:'2026-05-04', patchVersion:'Season 13', author:'Editorial',
     tiers:[
-      {tier:'S', items:['Sorcerer','Spiritborn']},
-      {tier:'A', items:['Necromancer','Druid']},
-      {tier:'B', items:['Rogue','Barbarian']},
-      {tier:'C', items:['Paladin']}
+      {tier:'S', items:['Warlock','Sorcerer','Rogue']},
+      {tier:'A', items:['Spiritborn','Druid','Paladin']},
+      {tier:'B', items:['Necromancer','Barbarian']}
+    ]
+  },
+  {
+    slug:'diablo4-leveling-tier-s13',
+    title:'Diablo IV: Leveling Class Tier List (Season 13)',
+    summary:'Which classes hit Level 70 the fastest right now — based on solo XP throughput and gear independence.',
+    game:'diablo-iv', category:'beginner', date:'2026-05-04', patchVersion:'Season 13', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Rogue','Spiritborn','Warlock','Paladin']},
+      {tier:'A', items:['Druid','Necromancer','Sorcerer']},
+      {tier:'B', items:['Barbarian']}
+    ]
+  },
+  {
+    slug:'diablo4-speed-farm-tier-s13',
+    title:'Diablo IV: Speed Farming Tier List (Season 13)',
+    summary:'Helltides, low-tier Pit, Tree of Whispers — the classes that clear them fastest and grab the most loot per hour.',
+    game:'diablo-iv', category:'endgame', date:'2026-05-04', patchVersion:'Season 13', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Rogue','Sorcerer','Paladin']},
+      {tier:'A', items:['Druid','Spiritborn','Warlock']},
+      {tier:'B', items:['Necromancer','Barbarian']}
     ]
   },
   {
@@ -1712,13 +1816,13 @@ const socials = [
 // Toggle to true when first merch products are live. The section is hidden when false.
 const SHOW_MERCH = true;
 const merch = [
-  {slug:'black-tee-l',         name:'Black Tee — Logo L',         img:'merch/Black Tee - Logo L.png',         url:'#'},
-  {slug:'black-tee-s',         name:'Black Tee — Logo S',         img:'merch/Black Tee - Logo S.png',         url:'#'},
-  {slug:'white-tee-l',         name:'White Tee — Logo L',         img:'merch/White Tee - Logo L.png',         url:'#'},
-  {slug:'white-tee-s',         name:'White Tee — Logo S',         img:'merch/White Tee - Logo S.png',         url:'#'},
-  {slug:'black-mug',           name:'Black Mug',                  img:'merch/Black Mug.png',                  url:'#'},
-  {slug:'black-chilli',        name:'Black Chilli',               img:'merch/Black Chilli.png',               url:'#'},
-  {slug:'black-chilli-nobg',   name:'Black Chilli (No Background)', img:'merch/Black Chilli No Background.png', url:'#'}
+  {slug:'black-tee-l',      name:'Black Tee — Logo L',  img:'merch/Black Tee - Logo L.jpg',   url:'#'},
+  {slug:'black-tee-s',      name:'Black Tee — Logo S',  img:'merch/Black Tee - Logo S.jpg',   url:'#'},
+  {slug:'white-tee-l',      name:'White Tee — Logo L',  img:'merch/White Tee - Logo L.jpg',   url:'#'},
+  {slug:'white-tee-s',      name:'White Tee — Logo S',  img:'merch/White Tee - Logo S.jpg',   url:'#'},
+  {slug:'black-mug',        name:'Black Mug',           img:'merch/Black Mug.jpg',            url:'#'},
+  {slug:'black-chilli-tee', name:'Black Chilli Tee',    img:'merch/Black Chilli Tee.jpg',     url:'#'},
+  {slug:'black-chilli-nb',  name:'Black Chilli NB Tee', img:'merch/Black Chilli NB Tee.jpg',  url:'#'}
 ];
 
 /* ================================================================
