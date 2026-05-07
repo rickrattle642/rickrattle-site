@@ -236,6 +236,113 @@ button{font-family:inherit}
 .game-link{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan);transition:.15s}
 .game-link:hover{color:var(--accent);border-bottom-color:var(--accent);background:rgba(176,38,255,.06)}
 .detail-body code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan)}
+.detail-body .content-h2{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:0;margin:38px 0 14px;color:var(--ink);text-transform:uppercase;letter-spacing:-.5px;border-bottom:2px solid var(--accent);padding-bottom:8px;display:inline-block}
+.detail-body .block-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+
+/* CALLOUTS */
+.callout{display:flex;flex-direction:column;gap:6px;padding:14px 18px;border-radius:10px;margin:18px 0;border-left:4px solid}
+.callout-head{display:flex;gap:8px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px}
+.callout-ico{font-size:14px}
+.callout-body{font-size:14px;line-height:1.6;color:var(--muted2)}
+.callout-note{background:rgba(0,240,255,.07);border-color:var(--cyan)}
+.callout-note .callout-lbl{color:var(--cyan)}
+.callout-tip{background:rgba(76,217,100,.07);border-color:var(--good)}
+.callout-tip .callout-lbl{color:var(--good)}
+.callout-warning{background:rgba(225,29,42,.08);border-color:var(--hot)}
+.callout-warning .callout-lbl{color:var(--hot)}
+
+/* STAT PRIORITY */
+.stat-priority{margin:18px 0;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.stat-row{display:grid;grid-template-columns:32px 1fr 2fr auto;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.stat-row:last-child{border-bottom:none}
+.stat-rank{font-family:'Anton',sans-serif;font-size:22px;color:var(--accent);text-align:center}
+.stat-name{font-weight:700;font-size:14px}
+.stat-bar{height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.stat-bar-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));border-radius:3px}
+.stat-note{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+
+/* ROTATION */
+.rotation{margin:18px 0;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.rotation-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;counter-reset:rot}
+.rotation-list li{display:flex;gap:14px;align-items:flex-start;padding:10px;background:var(--panel2);border-radius:8px;border-left:3px solid var(--accent)}
+.rot-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);background:var(--bg);padding:4px 8px;border:1px solid var(--accent);border-radius:4px;font-weight:700;min-width:36px;text-align:center}
+.rot-name{font-size:14px;font-weight:700;color:var(--ink)}
+.rot-cd{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);background:rgba(0,240,255,.08);padding:2px 6px;margin-left:8px;border-radius:3px}
+.rot-note{font-size:13px;color:var(--muted2);margin-top:4px}
+
+/* GEAR TABLE */
+.gear-list{margin:18px 0}
+.gear-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.gear-table th{text-align:left;padding:10px 14px;background:var(--panel2);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--line)}
+.gear-table td{padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted2)}
+.gear-table tbody tr:last-child td{border-bottom:none}
+.gear-table .gear-slot{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:1px}
+
+/* PROS / CONS */
+.pros-cons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.pros,.cons{padding:16px;border-radius:10px}
+.pros{background:rgba(76,217,100,.06);border:1px solid var(--good)}
+.cons{background:rgba(225,29,42,.06);border:1px solid var(--hot)}
+.pc-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;margin-bottom:10px;text-transform:uppercase}
+.pros .pc-label{color:var(--good)}
+.cons .pc-label{color:var(--hot)}
+.pros ul,.cons ul{margin:0;padding-left:18px;font-size:13px;color:var(--muted2)}
+.pros li,.cons li{margin-bottom:6px}
+@media(max-width:600px){.pros-cons{grid-template-columns:1fr}}
+
+/* COMPARE */
+.compare-block{margin:18px 0}
+.compare-table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.compare-table th{padding:10px 14px;text-align:left;background:var(--panel2);font-family:'Anton',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--line);font-size:13px}
+.compare-table tbody tr:last-child td{border-bottom:none}
+.compare-table .row-label{font-weight:700;color:var(--cyan)}
+
+/* KV */
+.kv-block{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:18px 0;padding:14px;background:var(--panel);border-left:3px solid var(--accent);border-radius:6px}
+.kv-row{display:flex;flex-direction:column;gap:2px}
+.kv-k{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.kv-v{font-weight:700;font-size:14px;color:var(--ink)}
+
+/* STEPS */
+.steps-block{list-style:none;padding:0;margin:18px 0;display:flex;flex-direction:column;gap:14px;counter-reset:step}
+.steps-block li{display:flex;gap:16px;align-items:flex-start;padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+.step-n{font-family:'Anton',sans-serif;font-size:32px;color:var(--accent);min-width:42px;line-height:1}
+.steps-block li > div p{margin:6px 0 0;font-size:13px;color:var(--muted2)}
+
+/* TOC sidebar */
+.detail-with-toc{display:grid;grid-template-columns:1fr 240px;gap:30px;align-items:start}
+.toc-side{position:sticky;top:80px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:10px;font-size:13px;max-height:calc(100vh - 100px);overflow-y:auto}
+.toc-side h4{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin:0 0 12px}
+.toc-side ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.toc-side a{color:var(--muted2);text-decoration:none;border-left:2px solid var(--line);padding:4px 10px;display:block;transition:.15s}
+.toc-side a:hover{color:var(--accent);border-left-color:var(--accent)}
+.toc-side .toc-l1{font-weight:600;color:var(--ink)}
+@media(max-width:900px){.detail-with-toc{grid-template-columns:1fr}.toc-side{position:static;max-height:none}}
+
+/* Detail meta enrichments */
+.patch-tag{display:inline-block;padding:3px 8px;background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;border-radius:3px;margin-right:6px}
+.last-updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan)}
+.author-byline{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--panel2);border-radius:8px;font-size:13px;color:var(--muted2);margin-bottom:18px}
+.author-byline .author-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--cyan))}
+
+/* Category badge on cards */
+.cat-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 7px;border-radius:3px;text-transform:uppercase;font-weight:700}
+.cat-beginner{background:rgba(76,217,100,.15);color:var(--good);border:1px solid var(--good)}
+.cat-endgame{background:rgba(225,29,42,.15);color:var(--hot);border:1px solid var(--hot)}
+.cat-pvp{background:rgba(255,107,0,.15);color:#FF8C42;border:1px solid #FF8C42}
+.cat-build{background:rgba(176,38,255,.15);color:var(--accent);border:1px solid var(--accent)}
+.cat-class{background:rgba(0,240,255,.15);color:var(--cyan);border:1px solid var(--cyan)}
+.cat-strategy{background:rgba(255,220,0,.12);color:#FFDC00;border:1px solid #FFDC00}
+
+/* Category filter row */
+.cat-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.cat-filter .chip{cursor:pointer}
+.cat-filter .chip.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* Related row */
+.related-guides{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.related-guides h3{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;text-transform:uppercase;margin:0 0 14px}
 .detail-body blockquote{border-left:3px solid var(--accent);padding:8px 16px;margin:16px 0;color:var(--ink);font-style:italic;background:var(--panel2)}
 .detail-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
 
@@ -882,6 +989,218 @@ const guides = [
       {type:'h', text:'Layout principle'},
       {type:'p', text:'Keep crafting stations within 12 tiles of each other. Pals lose huge time pathing across long bases.'}
     ]
+  },
+
+  // ========== PHASE B PILOT — Minecraft ==========
+  {
+    slug:'minecraft-first-night-survival',
+    title:'Minecraft: First Night Survival Checklist',
+    summary:'A 10-minute routine that gets you through night one alive — every time. Wood, tools, shelter, food.',
+    game:'minecraft', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-04-30', lastUpdated:'2026-05-01', author:'Editorial', readTime:5, patchVersion:'1.22',
+    content:[
+      {type:'p', text:'Your first Minecraft night is non-negotiable: lock the basics in or face permadeath in hardcore. Here is the proven checklist.'},
+      {type:'kv', items:[{k:'Time to safe',v:'~8 min'},{k:'Difficulty',v:'Beginner'},{k:'Risk',v:'Low'},{k:'Patch',v:'1.22'}]},
+      {type:'h2', text:'Phase 1 — Wood and tools'},
+      {type:'steps', items:[
+        {title:'Punch 5 logs', text:'Any tree. Aim for 5 to cover crafting + tools.'},
+        {title:'Craft 4 planks + crafting table', text:'Place the table where you intend to build base.'},
+        {title:'Make 4 sticks + wooden pickaxe + wooden sword', text:'Pickaxe first — you need stone before night.'},
+      ]},
+      {type:'h2', text:'Phase 2 — Stone upgrade'},
+      {type:'p', text:'Find any exposed stone. Mine 8 cobblestone, upgrade to stone pickaxe + stone sword. Stone tools are 4× faster than wood.'},
+      {type:'tip', text:'If you spot coal in stone, mine 2-3 lumps now. Saves you 5 minutes later.'},
+      {type:'h2', text:'Phase 3 — Shelter and food'},
+      {type:'ul', items:['Dig a 1×2 hole into a hillside','Place a single block to seal the entrance behind you','Punch any animals you saw earlier — cooked meat in the morning']},
+      {type:'h2', text:'Phase 4 — Bed (if possible)'},
+      {type:'p', text:'If you killed 3 sheep, craft a bed. Sleeping skips night entirely. Otherwise just wait inside the hole until sunrise.'},
+      {type:'warning', text:'Don\'t mine straight down — lava pockets in early game are unforgiving. Always stair-mine.'}
+    ]
+  },
+  {
+    slug:'minecraft-trial-chambers-loot-route',
+    title:'Minecraft: Trial Chambers Optimal Loot Route',
+    summary:'The 4-room rotation that maximizes diamonds, ominous trial keys and netherite scrap per hour.',
+    game:'minecraft', type:'guide', difficulty:'intermediate', category:'endgame',
+    date:'2026-04-22', lastUpdated:'2026-04-29', author:'Editorial', readTime:7, patchVersion:'1.22',
+    content:[
+      {type:'p', text:'Trial Chambers replaced the old loot dungeons as the highest GP/h source. The trick is the 4-room rotation.'},
+      {type:'h2', text:'Required gear'},
+      {type:'gear', slots:[
+        {slot:'Helmet', item:'Diamond + Projectile Protection IV', stats:'Wind Charge resist'},
+        {slot:'Chest', item:'Netherite Chestplate', stats:'+8 armor toughness'},
+        {slot:'Weapon', item:'Mace (Density V + Breach IV)', stats:'Best burst DPS'},
+        {slot:'Off-hand', item:'Wind Charges', stats:'Mobility + crowd control'}
+      ]},
+      {type:'h2', text:'The rotation'},
+      {type:'rotation', steps:[
+        {name:'Spawn room sweep', cd:'~30s', note:'Always 1 trial spawner. Cancel waves with cobwebs if overwhelmed.'},
+        {name:'Vault corridor', cd:'~1 min', note:'Loot vaults with regular keys. Save ominous keys for boss room.'},
+        {name:'Breeze chamber', cd:'~45s', note:'Use Wind Charges back at them. They counter their own meta.'},
+        {name:'Ominous vault', cd:'~30s', note:'Final room. Highest tier loot — diamond armor, netherite scrap, mace items.'}
+      ]},
+      {type:'tip', text:'Bring Cobwebs (8+) to instantly cancel any spawner waves you can\'t handle. They despawn the spawner.'}
+    ]
+  },
+
+  // ========== Resident Evil: Requiem ==========
+  {
+    slug:'re-requiem-ammo-economy',
+    title:'Resident Evil: Requiem — Ammo Economy 101',
+    summary:'How to never run out of bullets when the lickers come. Save windows, weapon priority, knife usage.',
+    game:'re-requiem', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-04-18', author:'Editorial', readTime:5,
+    content:[
+      {type:'p', text:'Classic Resident Evil teaches one rule: ammo is currency. Spend it like your life depends on it (because it does).'},
+      {type:'h2', text:'The 3 rules'},
+      {type:'ol', items:['Never shoot a zombie that\'s not blocking you','Always knife stunned enemies (saves bullets)','Save before any door you haven\'t opened']},
+      {type:'h2', text:'Weapon priority'},
+      {type:'statPriority', stats:[
+        {name:'Handgun', priority:1, note:'Default — use for staggers'},
+        {name:'Knife', priority:2, note:'Free damage on staggered'},
+        {name:'Shotgun', priority:3, note:'Bosses + crowd only'},
+        {name:'Magnum', priority:4, note:'Emergencies only'}
+      ]}
+    ]
+  },
+  {
+    slug:'re-requiem-no-damage-run',
+    title:'RE: Requiem — No-Damage Hardcore Walkthrough',
+    summary:'The dodge frames, knife counters and route order that make a clean S+ run achievable.',
+    game:'re-requiem', type:'guide', difficulty:'advanced', category:'endgame',
+    date:'2026-04-12', author:'Editorial', readTime:9,
+    content:[
+      {type:'p', text:'A no-damage run is the ultimate Resident Evil flex. Here is the route that minimizes random encounters.'},
+      {type:'warning', text:'You need a finished playthrough first to unlock infinite ammo on the Magnum. Skipping this step makes the run nearly impossible.'},
+      {type:'h2', text:'Route principles'},
+      {type:'ul', items:['Always backstep + knife — perfect dodge frame is generous in Requiem','Skip every optional collectible run','Save state every 6 minutes max']}
+    ]
+  },
+
+  // ========== Arc Raiders ==========
+  {
+    slug:'arc-raiders-extraction-routing',
+    title:'Arc Raiders: Extraction Route Mastery',
+    summary:'The 3-extract triangle that keeps options open — and why solo raiders should always pre-call their exit.',
+    game:'arc-raiders', type:'guide', difficulty:'intermediate', category:'strategy', featured:true,
+    date:'2026-04-25', author:'Editorial', readTime:7, patchVersion:'Tech Test 4',
+    content:[
+      {type:'p', text:'In Arc Raiders, dying with full bag is the worst outcome. Routing fixes that.'},
+      {type:'h2', text:'The triangle principle'},
+      {type:'p', text:'Always know 3 extracts: your spawn extract (closest), your loot extract (in your loot zone), and your safety extract (on the opposite side of contested zones).'},
+      {type:'tip', text:'Extracts in Arc Raiders cycle their availability. Always check the timer banner top-right before committing to a route.'},
+      {type:'h2', text:'Route example — Buried City'},
+      {type:'steps', items:[
+        {title:'Spawn near Tunnels', text:'Loot Tunnels first (low-risk).'},
+        {title:'Push north towards Plaza only if Tunnels was clean', text:'Plaza is hot but high tier loot.'},
+        {title:'Extract at North Generator OR retreat to Tunnel exit', text:'Both extracts cycle on opposite timers. One is always live.'}
+      ]}
+    ]
+  },
+  {
+    slug:'arc-raiders-pvp-loadout',
+    title:'Arc Raiders: PvP Loadout Tier List',
+    summary:'Which weapon combos win 1v1s in raids. Updated for the latest tech test balance pass.',
+    game:'arc-raiders', type:'guide', difficulty:'intermediate', category:'pvp',
+    date:'2026-04-19', author:'Editorial', readTime:6, patchVersion:'Tech Test 4',
+    content:[
+      {type:'h2', text:'S-tier loadouts'},
+      {type:'compare', headers:['Loadout A','Loadout B'], rows:[
+        {label:'Primary', a:'Bullpup AR', b:'Pump Shotgun'},
+        {label:'Secondary', a:'Compact SMG', b:'Auto Pistol'},
+        {label:'Best range', a:'Mid (15-30m)', b:'Close (<10m)'},
+        {label:'TTK', a:'0.4s', b:'0.2s burst'},
+        {label:'Mag', a:'30+30', b:'8 shells'}
+      ]},
+      {type:'note', text:'Both loadouts assume you have at least Tier 2 ammo. Tier 1 ammo doubles TTK and makes both loadouts viable but not S-tier.'}
+    ]
+  },
+
+  // ========== Crimson Desert ==========
+  {
+    slug:'crimson-desert-combat-stances',
+    title:'Crimson Desert: Combat Stances Explained',
+    summary:'Macduff\'s 4 weapon stances and when to swap. The fundamentals every new player should learn day one.',
+    game:'crimson-desert', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-04-20', author:'Editorial', readTime:6,
+    content:[
+      {type:'p', text:'Crimson Desert\'s combat looks like Sekiro but plays like an action RPG. Stances are the soul of it.'},
+      {type:'h2', text:'The 4 stances'},
+      {type:'ul', items:[
+        '<strong>Greatsword</strong> — slow, heavy, breaks blocks',
+        '<strong>Dual blades</strong> — fast, low damage, builds parry meter',
+        '<strong>Bow</strong> — ranged, weak in close',
+        '<strong>Unarmed</strong> — counter-focused, highest skill ceiling'
+      ]},
+      {type:'tip', text:'Holding the stance-switch button slow-motions the world for ~1.2s. Use this to read attacks and choose the right counter.'}
+    ]
+  },
+  {
+    slug:'crimson-desert-pvp-builds',
+    title:'Crimson Desert: PvP Build Tier List',
+    summary:'After the world bosses, PvP is the reason to log in. Top duelist builds for arena and open-world.',
+    game:'crimson-desert', type:'build', difficulty:'advanced', category:'pvp',
+    date:'2026-04-14', author:'Editorial', readTime:8,
+    content:[
+      {type:'h2', text:'Pyromancer Greatsword'},
+      {type:'statPriority', stats:[
+        {name:'STR', priority:1, note:'Scales greatsword damage'},
+        {name:'AGI', priority:2, note:'Stamina pool'},
+        {name:'INT', priority:3, note:'Pyromancy damage'},
+        {name:'VIT', priority:4, note:'Survivability'}
+      ]},
+      {type:'prosCons', pros:[
+        'Highest damage in 1v1','Cleaves multiple targets','Strong against lighter classes'
+      ], cons:[
+        'Vulnerable to range','Stamina-hungry','Low mobility'
+      ]}
+    ]
+  },
+
+  // ========== Diablo IV ==========
+  {
+    slug:'diablo4-leveling-1-50',
+    title:'Diablo IV: Fastest 1-50 Leveling Route',
+    summary:'A 6-hour campaign skip that gets you to World Tier 3 with a fully rolled build. Updated for current season.',
+    game:'diablo-iv', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-04-29', lastUpdated:'2026-05-02', author:'Editorial', readTime:8, patchVersion:'Season 8',
+    content:[
+      {type:'kv', items:[{k:'Time',v:'~6h'},{k:'Patch',v:'Season 8'},{k:'Recommended class',v:'Sorc / Spiritborn'}]},
+      {type:'h2', text:'Step-by-step'},
+      {type:'steps', items:[
+        {title:'Skip campaign on alt characters', text:'After the first character finishes the campaign, all alts can skip via the same Eternal Realm save.'},
+        {title:'Run dungeons in Fractured Peaks until level 15', text:'Whisper bonuses double XP gains here.'},
+        {title:'Switch to Hawezar Helltides at level 15+', text:'Helltides give level-scaled gear and Aberrant Cinders.'},
+        {title:'Hit level 50 → switch to NM Dungeons', text:'Tier 1 NM dungeons = best XP/h once you have Glyphs.'}
+      ]},
+      {type:'tip', text:'Always have an Elixir of Wisdom active — 5% XP buff stacks with the season journey reward of +5%.'},
+      {type:'h2', text:'After 50'},
+      {type:'p', text:'See our Paragon Pathing guide for the next 100 hours of gameplay.'}
+    ]
+  },
+  {
+    slug:'diablo4-pit-pushing-meta',
+    title:'Diablo IV: Pit Pushing Meta (Season 8)',
+    summary:'The 3 builds clearing T100+ Pits and the rotation timings that separate top 0.1% from everyone else.',
+    game:'diablo-iv', type:'build', difficulty:'advanced', category:'endgame',
+    date:'2026-04-26', author:'Editorial', readTime:11, patchVersion:'Season 8',
+    content:[
+      {type:'h2', text:'Top 3 builds'},
+      {type:'compare', headers:['Sorcerer Storm','Spiritborn Quill','Necro Bone'], rows:[
+        {label:'Top Pit cleared', a:'T112', b:'T108', c:'T103'},
+        {label:'Boss DPS', a:'High', b:'Very High', c:'Medium'},
+        {label:'Trash clear', a:'Excellent', b:'Excellent', c:'Good'},
+        {label:'Survivability', a:'Medium', b:'Low', c:'High'}
+      ]},
+      {type:'h2', text:'Rotation example — Sorcerer Storm'},
+      {type:'rotation', steps:[
+        {name:'Unstable Currents', cd:'45s', note:'Open with this — buffs all storm spells'},
+        {name:'Lightning Spear (×3)', note:'Builds Crackling Energy'},
+        {name:'Ball Lightning (overlap)', note:'Cast on cooldown, stack 2-3 if mobile'},
+        {name:'Teleport reposition', cd:'8s', note:'Use as defensive AND offensive — proc Aspect of Static Cling'},
+        {name:'Repeat from Lightning Spear', note:'Maintain Crackling Energy stacks at 6+'}
+      ]}
+    ]
   }
 ];
 
@@ -1045,6 +1364,68 @@ const tierLists = [
       {tier:'A', items:['Lamball','Pengullet','Fuack','Cremis']},
       {tier:'B', items:['Mau','Daedream','Rushoar']},
       {tier:'C', items:['Tocotoco','Bristla']}
+    ]
+  },
+  // ========== PHASE B PILOT TIER LISTS ==========
+  {
+    slug:'minecraft-enchantments-tier',
+    title:'Minecraft: Enchantments Tier List (1.22)',
+    summary:'Which enchantments are worth your XP and which are traps. Updated for the latest mace and trial spawner balance.',
+    game:'minecraft', category:'endgame', featured:true, date:'2026-04-28', lastUpdated:'2026-05-01', patchVersion:'1.22', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Mending','Unbreaking III','Density V','Sharpness V','Protection IV']},
+      {tier:'A', items:['Looting III','Fortune III','Efficiency V','Breach IV','Wind Burst III']},
+      {tier:'B', items:['Smite V','Bane of Arthropods V','Power V','Fire Aspect II']},
+      {tier:'C', items:['Knockback II','Sweeping Edge III','Loyalty III']},
+      {tier:'D', items:['Frost Walker II','Curse of Vanishing','Curse of Binding']}
+    ]
+  },
+  {
+    slug:'arc-raiders-weapons-tier',
+    title:'Arc Raiders: Weapon Tier List (Tech Test 4)',
+    summary:'After the latest balance pass, the meta has shifted toward mid-range engagements.',
+    game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', patchVersion:'Tech Test 4', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Bullpup AR','Pump Shotgun','Compact SMG']},
+      {tier:'A', items:['Marksman Rifle','Hunting Rifle','Auto Pistol']},
+      {tier:'B', items:['SMG','Heavy Pistol','Bolt Action']},
+      {tier:'C', items:['Revolver','Crossbow']}
+    ]
+  },
+  {
+    slug:'crimson-desert-classes-tier',
+    title:'Crimson Desert: Classes & Stances Tier List',
+    summary:'Solo viability across PvE and PvP — which stances scale into the late game.',
+    game:'crimson-desert', category:'class', date:'2026-04-15', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Greatsword (Pyromancer)','Dual Blades (Whirlwind)']},
+      {tier:'A', items:['Bow (Hawkeye)','Unarmed (Counter)']},
+      {tier:'B', items:['Spear','Sword & Shield']},
+      {tier:'C', items:['Throwing Knives','Crossbow']}
+    ]
+  },
+  {
+    slug:'diablo4-classes-tier-s8',
+    title:'Diablo IV: Class Tier List (Season 8)',
+    summary:'Pit pushing, NM dungeons, leveling speed and build variety — all weighted in this ranking.',
+    game:'diablo-iv', category:'class', featured:true, date:'2026-04-26', patchVersion:'Season 8', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Sorcerer','Spiritborn']},
+      {tier:'A', items:['Necromancer','Druid']},
+      {tier:'B', items:['Rogue','Barbarian']},
+      {tier:'C', items:['Paladin']}
+    ]
+  },
+  {
+    slug:'re-requiem-weapons-tier',
+    title:'Resident Evil: Requiem — Weapon Tier List',
+    summary:'Pre-launch leaks compiled. Will update with full ranking when the game ships.',
+    game:'re-requiem', category:'beginner', date:'2026-04-10', author:'Editorial',
+    tiers:[
+      {tier:'S', items:['Magnum (Endgame)','Knife (Stunlocks)']},
+      {tier:'A', items:['Pump Shotgun','Standard Handgun']},
+      {tier:'B', items:['Submachine Gun','Hunting Rifle']},
+      {tier:'C', items:['Flame Rounds','Acid Rounds']}
     ]
   }
 ];
@@ -1542,11 +1923,14 @@ function ArticleCard(a){
 function GuideCard(g){
   const tier=(g.type==='tierlist')?t('type.tierlist'):(g.type==='build')?t('type.build'):t('type.guide');
   const diff=g.difficulty?`<span class="diff diff-${g.difficulty}">${t('diff.'+g.difficulty)}</span>`:'';
+  const cat=g.category?`<span class="cat-tag cat-${g.category}">${g.category}</span>`:'';
+  const patch=g.patchVersion?`<span class="patch-tag">${g.patchVersion}</span>`:'';
+  const updatedDate=g.lastUpdated||g.date;
   return `<a class="card" href="/tips/${g.game}/${g.slug}">
-    <div class="card-thumb">${thumbHtml(g)}${fallbackHtml(g)}</div>
+    <div class="card-thumb">${cat||(g.featured?`<div class="card-tag featured">FEATURED</div>`:'')}${thumbHtml(g)}${fallbackHtml(g)}</div>
     <div class="card-body">
-      <div class="card-meta"><span class="game">${gameName(g.game)}</span>·<span>${tier}</span>${diff?'·':''}</div>
-      ${diff?`<div>${diff}</div>`:''}
+      <div class="card-meta"><span class="game">${gameName(g.game)}</span>·<span>${tier}</span>${updatedDate?`·<span title="${fmtDate(updatedDate)}">${timeAgo(updatedDate)}</span>`:''}</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${diff}${patch}</div>
       <h3 class="card-title">${g.title}</h3>
       <p class="card-summary">${g.summary||''}</p>
     </div>
@@ -1554,10 +1938,14 @@ function GuideCard(g){
 }
 
 function TierCard(tl){
+  const cat=tl.category?`<span class="cat-tag cat-${tl.category}">${tl.category}</span>`:'';
+  const patch=tl.patchVersion?`<span class="patch-tag">${tl.patchVersion}</span>`:'';
+  const updatedDate=tl.lastUpdated||tl.date;
   return `<a class="card" href="/tips/${tl.game}/${tl.slug}">
-    <div class="card-thumb">${thumbHtml(tl)}${fallbackHtml(tl)}</div>
+    <div class="card-thumb">${cat||(tl.featured?`<div class="card-tag featured">FEATURED</div>`:'')}${thumbHtml(tl)}${fallbackHtml(tl)}</div>
     <div class="card-body">
-      <div class="card-meta"><span class="game">${gameName(tl.game)}</span>·<span>${t('type.tierlist')}</span>·<span title="${fmtDate(tl.date)}">${timeAgo(tl.date)}</span></div>
+      <div class="card-meta"><span class="game">${gameName(tl.game)}</span>·<span>${t('type.tierlist')}</span>·<span title="${fmtDate(updatedDate)}">${timeAgo(updatedDate)}</span></div>
+      ${patch?`<div>${patch}</div>`:''}
       <h3 class="card-title">${tl.title}</h3>
       <p class="card-summary">${tl.summary||''}</p>
     </div>
@@ -1628,15 +2016,65 @@ function linkifyGames(text,currentSlug){
   return out;
 }
 
+// Slugify a heading for TOC anchor.
+function slugifyHeading(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60)}
+
 function renderBlocks(blocks,currentSlug){
   return blocks.map(b=>{
     if(b.type==='p')return `<p>${linkifyGames(b.text,currentSlug)}</p>`;
-    if(b.type==='h')return `<h3>${b.text}</h3>`;
+    if(b.type==='h')return `<h3 id="h-${slugifyHeading(b.text)}">${b.text}</h3>`;
+    if(b.type==='h2')return `<h2 id="h-${slugifyHeading(b.text)}" class="content-h2">${b.text}</h2>`;
     if(b.type==='blockquote')return `<blockquote>${linkifyGames(b.text,currentSlug)}</blockquote>`;
     if(b.type==='ul')return `<ul>${b.items.map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ul>`;
     if(b.type==='ol')return `<ol>${b.items.map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ol>`;
+    // === Rich content blocks ===
+    if(b.type==='note'||b.type==='tip'||b.type==='warning'){
+      const ico=b.type==='warning'?'⚠':b.type==='tip'?'💡':'ⓘ';
+      const lbl=b.type==='warning'?(lang==='pt'?'AVISO':'WARNING'):b.type==='tip'?(lang==='pt'?'DICA':'TIP'):(lang==='pt'?'NOTA':'NOTE');
+      return `<div class="callout callout-${b.type}"><div class="callout-head"><span class="callout-ico">${ico}</span><span class="callout-lbl">${lbl}</span></div><div class="callout-body">${linkifyGames(b.text,currentSlug)}</div></div>`;
+    }
+    if(b.type==='statPriority'){
+      // {type:'statPriority', stats:[{name:'Strength', priority:1, note:'Main stat'}, ...]}
+      const max=Math.max(...b.stats.map(s=>s.priority||1));
+      return `<div class="stat-priority"><div class="block-label">${b.title||(lang==='pt'?'PRIORIDADE DE STATS':'STAT PRIORITY')}</div>${b.stats.map(s=>`<div class="stat-row"><span class="stat-rank">${s.priority||'—'}</span><span class="stat-name">${s.name}</span><div class="stat-bar"><div class="stat-bar-fill" style="width:${((max-(s.priority||1)+1)/max)*100}%"></div></div>${s.note?`<span class="stat-note">${s.note}</span>`:''}</div>`).join('')}</div>`;
+    }
+    if(b.type==='rotation'){
+      // {type:'rotation', steps:[{name:'Buff', cd:'30s', note:'Use first'}, ...]}
+      return `<div class="rotation"><div class="block-label">${b.title||(lang==='pt'?'ROTAÇÃO':'ROTATION')}</div><ol class="rotation-list">${b.steps.map((s,i)=>`<li><span class="rot-num">${String(i+1).padStart(2,'0')}</span><div><strong class="rot-name">${s.name}</strong>${s.cd?`<span class="rot-cd">${s.cd}</span>`:''}${s.note?`<div class="rot-note">${s.note}</div>`:''}</div></li>`).join('')}</ol></div>`;
+    }
+    if(b.type==='gear'){
+      // {type:'gear', slots:[{slot:'Helmet', item:'Crown of...', stats:'+30 STR / +20 VIT'}, ...]}
+      return `<div class="gear-list"><div class="block-label">${b.title||(lang==='pt'?'GEAR RECOMENDADO':'RECOMMENDED GEAR')}</div><table class="gear-table"><thead><tr><th>${lang==='pt'?'Slot':'Slot'}</th><th>${lang==='pt'?'Item':'Item'}</th><th>${lang==='pt'?'Stats':'Stats'}</th></tr></thead><tbody>${b.slots.map(s=>`<tr><td class="gear-slot">${s.slot}</td><td><strong>${s.item}</strong></td><td>${s.stats||''}</td></tr>`).join('')}</tbody></table></div>`;
+    }
+    if(b.type==='prosCons'){
+      // {type:'prosCons', pros:[...], cons:[...]}
+      return `<div class="pros-cons"><div class="pros"><div class="pc-label">${lang==='pt'?'✓ Vantagens':'✓ Pros'}</div><ul>${(b.pros||[]).map(p=>`<li>${linkifyGames(p,currentSlug)}</li>`).join('')}</ul></div><div class="cons"><div class="pc-label">${lang==='pt'?'✗ Desvantagens':'✗ Cons'}</div><ul>${(b.cons||[]).map(c=>`<li>${linkifyGames(c,currentSlug)}</li>`).join('')}</ul></div></div>`;
+    }
+    if(b.type==='compare'){
+      // {type:'compare', headers:['Option A','Option B'], rows:[{label:'Speed', a:'8', b:'6'}, ...]}
+      return `<div class="compare-block"><div class="block-label">${b.title||(lang==='pt'?'COMPARAÇÃO':'COMPARISON')}</div><table class="compare-table"><thead><tr><th></th>${b.headers.map(h=>`<th>${h}</th>`).join('')}</tr></thead><tbody>${b.rows.map(r=>`<tr><td class="row-label">${r.label}</td><td>${r.a||''}</td><td>${r.b||''}</td>${r.c!==undefined?`<td>${r.c}</td>`:''}</tr>`).join('')}</tbody></table></div>`;
+    }
+    if(b.type==='kv'){
+      // Key-value summary: {type:'kv', items:[{k:'Difficulty', v:'Hard'}, ...]}
+      return `<div class="kv-block">${b.items.map(i=>`<div class="kv-row"><span class="kv-k">${i.k}</span><span class="kv-v">${i.v}</span></div>`).join('')}</div>`;
+    }
+    if(b.type==='steps'){
+      // {type:'steps', items:[{title:'Step 1', text:'...'}]}
+      return `<ol class="steps-block">${b.items.map((s,i)=>`<li><span class="step-n">${i+1}</span><div><strong>${s.title}</strong>${s.text?`<p>${linkifyGames(s.text,currentSlug)}</p>`:''}</div></li>`).join('')}</ol>`;
+    }
     return '';
   }).join('');
+}
+
+// Auto-build TOC from h/h2 blocks in content.
+function buildTOC(blocks){
+  const items=[];
+  (blocks||[]).forEach(b=>{
+    if(b.type==='h'||b.type==='h2'){
+      items.push({text:b.text,id:'h-'+slugifyHeading(b.text),level:b.type==='h2'?1:2});
+    }
+  });
+  return items;
 }
 
 function TierListView(tl){
@@ -2164,21 +2602,37 @@ const TIPS_BLURBS={
   'palworld':{en:'Palworld base optimization, Pal breeding loops, work suitability assignments and late-game tower fights.',pt:'Otimização de base, loops de breeding de Pals, work suitability e late-game tower fights em Palworld.'}
 };
 
+// Categorias suportadas — alinhadas com o estilo Maxroll/Icy-Veins.
+const CATEGORIES=['beginner','endgame','pvp','build','class','strategy'];
+const CATEGORY_LABEL={
+  en:{beginner:'Beginner',endgame:'Endgame',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Strategy'},
+  pt:{beginner:'Iniciante',endgame:'Endgame',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Estratégia'}
+};
+
 function GameTipsPage(view,game){
   const slug=game.slug;
-  const gGuides=guides.filter(g=>g.game===slug && g.type!=='tierlist' && g.type!=='build');
+  const allGuides=guides.filter(g=>g.game===slug);
   const gTiers=tierLists.filter(g=>g.game===slug);
-  const gBuilds=guides.filter(g=>g.game===slug && g.type==='build');
+
+  const sub=tipsState.sub||'guides';
+  const cat=tipsState.cat||'all';
+  let pool;
+  if(sub==='guides')pool=allGuides.filter(g=>g.type!=='tierlist'&&g.type!=='build');
+  else if(sub==='tiers')pool=gTiers;
+  else pool=allGuides.filter(g=>g.type==='build');
+  const filtered=cat==='all'?pool:pool.filter(g=>g.category===cat);
+
+  // Featured = first featured item, else first overall, for the hero highlight.
+  const featured=[...allGuides,...gTiers].find(g=>g.featured)||[...allGuides,...gTiers][0];
+  // Categories present in this game's content
+  const presentCats=[...new Set([...allGuides,...gTiers].map(g=>g.category).filter(Boolean))];
+
   const cover=gameHero(slug)||gameThumb(slug);
   const platforms=(game.platforms||[]).map(p=>PLATFORM_LABEL[p]||p.toUpperCase()).join(' · ');
   const blurb=(TIPS_BLURBS[slug]||{})[lang]||(TIPS_BLURBS[slug]||{}).en||
     (lang==='pt'?`Guias, builds e tier lists para ${game.name}. Atualizamos sempre que a meta muda.`:`Guides, builds and tier lists for ${game.name}. Updated whenever the meta shifts.`);
 
-  const sub=tipsState.sub||'guides';
-  let items=[];
-  if(sub==='guides')items=gGuides.map(GuideCard);
-  else if(sub==='tiers')items=gTiers.map(TierCard);
-  else items=gBuilds.map(GuideCard);
+  const items=filtered.map(g=>g.tiers?TierCard(g):GuideCard(g));
 
   view.innerHTML=`
     <a class="detail-back" href="/tips">${t('back')}</a>
@@ -2195,11 +2649,21 @@ function GameTipsPage(view,game){
       ${game.steamAppId?`<a class="btn btn-ghost" href="https://store.steampowered.com/app/${game.steamAppId}" target="_blank" rel="noopener">Steam ↗</a>`:''}
       ${game.subreddit?`<a class="btn btn-ghost" href="https://reddit.com/r/${game.subreddit}" target="_blank" rel="noopener">r/${game.subreddit} ↗</a>`:''}
     </div>
+    ${featured?`
+      <div class="section">
+        <div class="section-head"><h2>${lang==='pt'?'Em destaque':'Featured'}</h2></div>
+        <div class="grid grid-3">${featured.tiers?TierCard(featured):GuideCard(featured)}</div>
+      </div>
+    `:''}
     <div class="subtabs">
-      <button class="subtab${sub==='guides'?' active':''}" data-s="guides"><span>${t('tips.guides')}</span> · ${gGuides.length}</button>
+      <button class="subtab${sub==='guides'?' active':''}" data-s="guides"><span>${t('tips.guides')}</span> · ${allGuides.filter(g=>g.type!=='tierlist'&&g.type!=='build').length}</button>
       <button class="subtab${sub==='tiers'?' active':''}" data-s="tiers"><span>${t('tips.tiers')}</span> · ${gTiers.length}</button>
-      <button class="subtab${sub==='builds'?' active':''}" data-s="builds"><span>${t('tips.builds')}</span> · ${gBuilds.length}</button>
+      <button class="subtab${sub==='builds'?' active':''}" data-s="builds"><span>${t('tips.builds')}</span> · ${allGuides.filter(g=>g.type==='build').length}</button>
     </div>
+    ${presentCats.length?`<div class="cat-filter">
+      <button class="chip${cat==='all'?' active':''}" data-cat="all">${lang==='pt'?'Todas':'All'}</button>
+      ${CATEGORIES.filter(c=>presentCats.includes(c)).map(c=>`<button class="chip cat-${c}${cat===c?' active':''}" data-cat="${c}">${CATEGORY_LABEL[lang]?.[c]||c}</button>`).join('')}
+    </div>`:''}
     ${items.length?`<div class="grid grid-2">${items.join('')}</div>`:`
       <div class="empty-tips">
         <div class="empty-icon">📭</div>
@@ -2215,7 +2679,8 @@ function GameTipsPage(view,game){
       </div>
     </div>
   `;
-  view.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{tipsState.sub=b.dataset.s;GameTipsPage(view,game);applyI18n()}));
+  view.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{tipsState.sub=b.dataset.s;tipsState.cat='all';GameTipsPage(view,game);applyI18n()}));
+  view.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',()=>{tipsState.cat=b.dataset.cat;GameTipsPage(view,game);applyI18n()}));
 }
 
 function TipsDetail(view,gameSlug,slug){
@@ -2223,17 +2688,49 @@ function TipsDetail(view,gameSlug,slug){
   if(!item){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
   const isTier=!!item.tiers;
   const diff=item.difficulty?`<span class="diff diff-${item.difficulty}">${t('diff.'+item.difficulty)}</span>`:'';
+  const cat=item.category?`<span class="cat-tag cat-${item.category}">${item.category}</span>`:'';
+  const patch=item.patchVersion?`<span class="patch-tag">${item.patchVersion}</span>`:'';
   const typeLabel=isTier?t('type.tierlist'):(item.type==='build'?t('type.build'):t('type.guide'));
+  const lastUpdated=item.lastUpdated||item.date;
+  const author=item.author||'Editorial';
+  // Auto-build TOC from h/h2 blocks (only for non-tier-list content)
+  const toc=isTier?[]:buildTOC(item.content||[]);
+  // Related guides: same game, different slug, prefer same category
+  const related=[...guides.filter(g=>g.game===item.game&&g.slug!==item.slug),...tierLists.filter(g=>g.game===item.game&&g.slug!==item.slug)]
+    .sort((a,b)=>{
+      const aSame=a.category===item.category?-1:0;
+      const bSame=b.category===item.category?-1:0;
+      return aSame-bSame;
+    })
+    .slice(0,3);
   view.innerHTML=`
     <a class="detail-back" href="/tips/${gameSlug}">${t('back')}</a>
     <div class="detail">
-      <div class="detail-meta"><span class="game">${gameName(item.game)}</span><span>${typeLabel}</span><span>${fmtDate(item.date)}</span>${item.readTime?`<span>${item.readTime} min</span>`:''}</div>
+      <div class="detail-meta">
+        <span class="game">${gameName(item.game)}</span>
+        <span>${typeLabel}</span>
+        <span class="last-updated" title="${fmtDate(lastUpdated)}">${lang==='pt'?'Atualizado':'Updated'} ${timeAgo(lastUpdated)}</span>
+        ${item.readTime?`<span>${item.readTime} min</span>`:''}
+      </div>
       <h1 class="detail-title">${item.title}</h1>
       ${item.summary?`<p class="detail-sub">${item.summary}</p>`:''}
-      ${diff?`<div style="margin-bottom:24px">${diff}</div>`:''}
-      <div class="detail-body">
-        ${isTier?TierListView(item):renderBlocks(item.content||[],item.game)}
-      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">${diff}${cat}${patch}</div>
+      ${author?`<div class="author-byline"><div class="author-avatar"></div><div><strong>${author}</strong>${item.patchVersion?` · ${lang==='pt'?'para patch':'for patch'} ${item.patchVersion}`:''}</div></div>`:''}
+      ${toc.length>=3?`
+        <div class="detail-with-toc">
+          <div class="detail-body">${isTier?TierListView(item):renderBlocks(item.content||[],item.game)}</div>
+          <aside class="toc-side">
+            <h4>${lang==='pt'?'NESTA PÁGINA':'ON THIS PAGE'}</h4>
+            <ul>${toc.map(i=>`<li><a class="toc-l${i.level}" href="#${i.id}">${i.text}</a></li>`).join('')}</ul>
+          </aside>
+        </div>
+      `:`<div class="detail-body">${isTier?TierListView(item):renderBlocks(item.content||[],item.game)}</div>`}
+      ${related.length?`
+        <div class="related-guides">
+          <h3>${lang==='pt'?'Continuar a ler — '+gameName(item.game):'Keep reading — '+gameName(item.game)}</h3>
+          <div class="grid grid-3">${related.map(r=>r.tiers?TierCard(r):GuideCard(r)).join('')}</div>
+        </div>
+      `:''}
     </div>
   `;
 }
