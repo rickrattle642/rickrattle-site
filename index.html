@@ -1051,35 +1051,84 @@ const guides = [
 
   // ========== Resident Evil: Requiem ==========
   {
-    slug:'re-requiem-ammo-economy',
-    title:'Resident Evil: Requiem — Ammo Economy 101',
-    summary:'How to never run out of bullets when the lickers come. Save windows, weapon priority, knife usage.',
-    game:'re-requiem', type:'guide', difficulty:'beginner', category:'beginner',
-    date:'2026-04-18', author:'Editorial', readTime:5,
+    slug:'re-requiem-best-weapons-grace',
+    title:'RE Requiem: Best Weapons for Grace Ashcroft',
+    summary:'The S&S M232 handgun, the Requiem magnum and the unbreakable Kotetsu — Grace\'s essential loadout per game progression.',
+    game:'re-requiem', type:'build', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-04-18', lastUpdated:'2026-05-04', author:'Editorial', readTime:6,
     content:[
-      {type:'p', text:'Classic Resident Evil teaches one rule: ammo is currency. Spend it like your life depends on it (because it does).'},
-      {type:'h2', text:'The 3 rules'},
-      {type:'ol', items:['Never shoot a zombie that\'s not blocking you','Always knife stunned enemies (saves bullets)','Save before any door you haven\'t opened']},
-      {type:'h2', text:'Weapon priority'},
-      {type:'statPriority', stats:[
-        {name:'Handgun', priority:1, note:'Default — use for staggers'},
-        {name:'Knife', priority:2, note:'Free damage on staggered'},
-        {name:'Shotgun', priority:3, note:'Bosses + crowd only'},
-        {name:'Magnum', priority:4, note:'Emergencies only'}
+      {type:'note', text:'Resident Evil Requiem (RE9) features two playable characters: Grace Ashcroft and Leon Kennedy, each with their own weapon pool.'},
+      {type:'h2', text:'Best handgun — S&S M232'},
+      {type:'p', text:'Found at the Bar and Lounge counter in the Care Center West Wing. With Stabilizer upgrades it consistently staggers normal zombies on weak-point hits, guaranteeing a melee follow-up. Straight upgrade over the starter B934.'},
+      {type:'kv', items:[{k:'Power',v:'1.1'},{k:'Stability',v:'2.5'},{k:'Precision',v:'2.3'},{k:'Rate of Fire',v:'2.3'},{k:'Ammo Capacity',v:'9'}]},
+      {type:'h2', text:'Best magnum — Requiem'},
+      {type:'p', text:'High stopping power and bullet penetration through multiple targets. Re-centers slowly because Grace is inexperienced with weapons, so use it sparingly. One-shots most zombies and reliably stuns The Girl boss (Shadow Ghost).'},
+      {type:'h2', text:'Best melee — Kotetsu (Post-Game)'},
+      {type:'tip', text:'The Kotetsu never breaks. Unlocked after first completion — Grace can swing forever without crafting more knives or scavenging replacements.'}
+    ]
+  },
+  {
+    slug:'re-requiem-best-weapons-leon',
+    title:'RE Requiem: Best Weapons for Leon Kennedy',
+    summary:'Silencer 9, 990-TAC and Classic 70 — Leon\'s campaign loadout, plus post-game upgrades like Clatter Carbine and Mortal Edge.',
+    game:'re-requiem', type:'build', difficulty:'intermediate', category:'build',
+    date:'2026-04-15', lastUpdated:'2026-05-04', author:'Editorial', readTime:7,
+    content:[
+      {type:'h2', text:'Best handgun — Silencer 9'},
+      {type:'p', text:'Bought from the Supply Box in East Raccoon City. When fully upgraded: best balance of damage, stability and instant centering. 17-round magazine handles zombie crowds without re-centering between shots.'},
+      {type:'h2', text:'Best shotgun — 990-TAC'},
+      {type:'p', text:'Also from the East Raccoon City Supply Box. Semi-automatic action makes it the fastest-firing shotgun (vs pump-action alternatives). Upgrades give the tightest spread of any shotgun in the game.'},
+      {type:'h2', text:'Best rifle — Classic 70'},
+      {type:'p', text:'Automatically obtained in Leon\'s section of Care Center Courtyard. Bolt-action with the highest damage per shot. Attach the scope for sniping or remove it + equip the BSAA charm to turn it into a close-range hammer.'},
+      {type:'h2', text:'Post-game upgrades'},
+      {type:'ul', items:[
+        '<strong>Clatter Carbine</strong> — best SMG (40-round mag, top stats across the class)',
+        '<strong>Ghost Grudge</strong> — magnum that re-centers faster than the Requiem · ideal for boss reposition windows',
+        '<strong>Mortal Edge</strong> — melee with lenient parry windows · invaluable for Leon\'s close-quarters encounters',
+        '<strong>Redemption</strong> — break-action pistol firing rifle rounds · pair with Power Shades charm',
+        '<strong>RPG-7</strong> — single-shot one-kill on most targets · best with Infinite Ammo unlocked'
       ]}
     ]
   },
   {
+    slug:'re-requiem-ammo-economy',
+    title:'Resident Evil: Requiem — Ammo Economy 101',
+    summary:'How to make every bullet count across both Grace and Leon\'s sections. Knife parries, save windows, and when to spend the magnum.',
+    game:'re-requiem', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-04-18', author:'Editorial', readTime:5,
+    content:[
+      {type:'p', text:'Classic Resident Evil rule: ammo is currency. Spend it like your life depends on it (because it does).'},
+      {type:'h2', text:'The 3 rules'},
+      {type:'ol', items:['Never shoot a zombie that isn\'t blocking your path','Always knife or melee-finish staggered enemies (saves bullets)','Save at every Ink Ribbon point before opening unfamiliar doors']},
+      {type:'h2', text:'Weapon priority'},
+      {type:'statPriority', stats:[
+        {name:'Handgun (S&S M232 / Silencer 9)', priority:1, note:'Default — for staggers and weak-point shots'},
+        {name:'Knife / Mortal Edge', priority:2, note:'Free damage on staggered enemies + parries'},
+        {name:'Shotgun (990-TAC for Leon)', priority:3, note:'Crowds and close-range bosses'},
+        {name:'Rifle / Classic 70', priority:4, note:'Long-range encounters and bosses'},
+        {name:'Magnum (Requiem / Ghost Grudge)', priority:5, note:'Emergency burst and Mr. X stuns only'}
+      ]},
+      {type:'tip', text:'Charms are equippable buffs. Power Shades raises damage on the Redemption pistol. BSAA charm makes the Classic 70 viable up close. Plan your charm loadout per area.'}
+    ]
+  },
+  {
     slug:'re-requiem-no-damage-run',
-    title:'RE: Requiem — No-Damage Hardcore Walkthrough',
-    summary:'The dodge frames, knife counters and route order that make a clean S+ run achievable.',
+    title:'RE: Requiem — Insanity & No-Damage Run Strategy',
+    summary:'The dodge timings, knife counters and Ink Ribbon discipline that make Insanity Difficulty achievable.',
     game:'re-requiem', type:'guide', difficulty:'advanced', category:'endgame',
     date:'2026-04-12', author:'Editorial', readTime:9,
     content:[
-      {type:'p', text:'A no-damage run is the ultimate Resident Evil flex. Here is the route that minimizes random encounters.'},
-      {type:'warning', text:'You need a finished playthrough first to unlock infinite ammo on the Magnum. Skipping this step makes the run nearly impossible.'},
+      {type:'p', text:'Insanity Difficulty is the ultimate Resident Evil flex. Here is the routing that minimizes random encounters across the campaign.'},
+      {type:'warning', text:'Finish a normal playthrough first to unlock Infinite Ammo on the Magnum and post-game weapons (Clatter Carbine, Ghost Grudge, Mortal Edge, RPG-7). Skipping this makes Insanity nearly impossible.'},
       {type:'h2', text:'Route principles'},
-      {type:'ul', items:['Always backstep + knife — perfect dodge frame is generous in Requiem','Skip every optional collectible run','Save state every 6 minutes max']}
+      {type:'ul', items:[
+        'Backstep + knife perfect-dodge windows are generous in Requiem — abuse them',
+        'Skip every optional Antique Coin / Mr. Raccoon collectible on the Insanity attempt',
+        'Save at every Ink Ribbon — they are limited but plentiful enough',
+        'Memorize boss locations: The Girl, Chunk, Blister Borne, Emily, Titan Spinner, Victor and Garmrs, Mr. X, Plant 43, The Commander, Chef'
+      ]},
+      {type:'h2', text:'Maps in order'},
+      {type:'ol', items:['Wrenwood','Care Center (West Wing → Basement → Courtyard)','Water Treatment Plant','East Raccoon City','Raccoon City Center','Orphanage','ARK']}
     ]
   },
 
@@ -1108,24 +1157,35 @@ const guides = [
   },
   {
     slug:'arc-raiders-pvp-loadout',
-    title:'Arc Raiders: PvP Loadout Strategy',
-    summary:'Choosing the right weapon class combo for the engagement range you expect. Principles, not patch-specific numbers.',
-    game:'arc-raiders', type:'guide', difficulty:'intermediate', category:'pvp',
-    date:'2026-04-19', author:'Editorial', readTime:6,
+    title:'Arc Raiders: Best Budget Loadouts for PvP',
+    summary:'The Ferro+Stitcher meta combo, the Anvil precision build, and the secret-weapon Hammer that wins close-quarters fights.',
+    game:'arc-raiders', type:'build', difficulty:'intermediate', category:'pvp',
+    date:'2026-04-19', lastUpdated:'2026-05-04', author:'Editorial', readTime:7,
     content:[
-      {type:'note', text:'Arc Raiders weapon balance shifts each tech test. This guide focuses on weapon-class strategy that works regardless of specific weapon names available in your patch.'},
-      {type:'h2', text:'Pick the loadout that matches your role'},
-      {type:'p', text:'Solo raiders pushing surface zones, squad anchors, sneak-stealth scavengers — each role has a loadout shape that wins more 1v1s.'},
-      {type:'h2', text:'Loadout shapes'},
-      {type:'compare', headers:['Aggressive Surface','Defensive Holdout','Sneak Scavenger'], rows:[
-        {label:'Primary class', a:'Mid-range automatic', b:'Long-range marksman', c:'Suppressed compact'},
-        {label:'Secondary class', a:'Close-range shotgun', b:'Sidearm pistol', c:'Compound bow / silent'},
-        {label:'Ideal range', a:'10-30 m', b:'40 m+', c:'<15 m, prefer no shot'},
-        {label:'Best for', a:'Open POIs, surface', b:'Rooftops, holdouts', c:'Underground, evasion'}
+      {type:'note', text:'Loadouts below assume Personal Gear runs (1 safe pocket slot). Free Loadouts give basic gear for risk-free runs but no safe pocket.'},
+      {type:'kv', items:[{k:'Resource',v:'Metal Parts + Rubber Parts'},{k:'Always equipped',v:'Hammer (3rd slot)'},{k:'Required',v:'Bandages + Shield Recharger'}]},
+      {type:'h2', text:'The Ferro + Stitcher Combo (budget meta)'},
+      {type:'p', text:'Cheap to craft, forgiving, and sustainable thanks to Scrappy bringing materials between raids. The Ferro hits hard but reloads after every shot — the Stitcher fills the gap.'},
+      {type:'gear', slots:[
+        {slot:'Primary', item:'Ferro', stats:'3-shot kill on light shields · 1 round per reload'},
+        {slot:'Secondary', item:'Stitcher', stats:'Full-auto cleanup'},
+        {slot:'Crafting cost', item:'9× Metal Parts + 12× Rubber Parts', stats:'(both weapons combined)'}
       ]},
+      {type:'h2', text:'Engagement flow'},
+      {type:'rotation', steps:[
+        {name:'Open with Ferro', note:'Land that first precise shot. Big damage, sets the tone.'},
+        {name:'Swap to Stitcher', note:'Don\'t stand still reloading — spray to finish.'},
+        {name:'Reload Ferro between fights', note:'Always top off during downtime.'},
+        {name:'In close-quarters: skip Ferro', note:'Go straight Stitcher when someone rushes — Ferro reloads are too slow.'}
+      ]},
+      {type:'h2', text:'The Anvil Precision (solo hard-hitter)'},
+      {type:'p', text:'Anvil is a hand cannon using Heavy Ammo (6 rounds per magazine). Effective against ARC armor plating AND players. Patient ambushes and long-range picks.'},
+      {type:'h2', text:'The Hammer secret'},
+      {type:'tip', text:'You always have a Hammer in your 3rd weapon slot — can\'t unequip it. Most raiders forget. It deals very high close-combat damage AND swings are AOE: two enemies standing close take damage from a single swing. Drains stamina, so not spammable, but wins fights guns can\'t.'},
       {type:'h2', text:'Universal rules'},
       {type:'ul', items:[
-        'Higher-tier ammunition matters more than weapon model — prioritize ammo upgrades over gun upgrades when you can choose',
+        'Bandages craft 5-at-a-time from 5× cloth and stack to 5 — always max-craft to save inventory slots',
+        'Shields don\'t auto-regen — carry a Shield Recharger or use ARC Powercells from quick-use slot',
         'Always have one weapon optimized against ARC robots (high single-hit damage) AND one against players (sustained DPS)',
         'Sound discipline beats accuracy — silenced loadouts that never fire often extract richer than loud loadouts that win every fight'
       ]},
@@ -1471,14 +1531,15 @@ const tierLists = [
   },
   {
     slug:'arc-raiders-weapons-tier',
-    title:'Arc Raiders: Weapon Class Tier List',
-    summary:'How weapon classes rank by versatility against ARC and players. Class-based ranking — works regardless of which exact gun the tech test currently has unlocked.',
-    game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', author:'Editorial',
+    title:'Arc Raiders: Weapon Tier List',
+    summary:'Budget-to-meta weapon ranking with real guns — Ferro, Stitcher, Anvil and the always-equipped Hammer.',
+    game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', lastUpdated:'2026-05-04', author:'Editorial',
     tiers:[
-      {tier:'S', items:['Mid-range Automatic Rifle','Pump Shotgun (close)','Compound Bow (silent kills)']},
-      {tier:'A', items:['Marksman / Semi-auto Rifle','Suppressed SMG','Light Pistol (sidearm)']},
-      {tier:'B', items:['Heavy SMG','Bolt-action Rifle','Heavy Pistol']},
-      {tier:'C', items:['Revolver','Crossbow (slow reload)']}
+      {tier:'S', items:['Ferro (precision opener)','Stitcher (full-auto cleanup)','Anvil (hand cannon)']},
+      {tier:'A', items:['Hammer (always-equipped melee, AOE)','Compound Bow (silent kills)']},
+      {tier:'B', items:['Mid-range automatic rifles','Suppressed SMGs']},
+      {tier:'C', items:['Heavy pistols','Bolt-action rifles']},
+      {tier:'D', items:['Revolvers','Crossbow (slow reload)']}
     ]
   },
   {
@@ -1528,14 +1589,14 @@ const tierLists = [
   },
   {
     slug:'re-requiem-weapons-tier',
-    title:'Resident Evil: Requiem — Weapon Tier List',
-    summary:'Pre-launch leaks compiled. Will update with full ranking when the game ships.',
-    game:'re-requiem', category:'beginner', date:'2026-04-10', author:'Editorial',
+    title:'RE Requiem: Weapon Tier List (Best per Slot)',
+    summary:'Best-in-slot picks for Grace and Leon — campaign and post-game. Real weapon names with progression notes.',
+    game:'re-requiem', category:'build', date:'2026-04-10', lastUpdated:'2026-05-04', author:'Editorial', featured:true,
     tiers:[
-      {tier:'S', items:['Magnum (Endgame)','Knife (Stunlocks)']},
-      {tier:'A', items:['Pump Shotgun','Standard Handgun']},
-      {tier:'B', items:['Submachine Gun','Hunting Rifle']},
-      {tier:'C', items:['Flame Rounds','Acid Rounds']}
+      {tier:'S', items:['Silencer 9 (Leon handgun)','Classic 70 (Leon rifle)','S&S M232 (Grace handgun)','990-TAC (Leon shotgun)','Requiem (Grace magnum)']},
+      {tier:'A', items:['Clatter Carbine — Post-Game SMG','Ghost Grudge — Post-Game magnum','Mortal Edge — Post-Game melee','Kotetsu — Post-Game melee (unbreakable)']},
+      {tier:'B', items:['Redemption — Post-Game break-action pistol','RPG-7 — Post-Game launcher (with Infinite Ammo)']},
+      {tier:'C', items:['B934 (Grace starter handgun)','Hatchet (basic melee)']}
     ]
   }
 ];
