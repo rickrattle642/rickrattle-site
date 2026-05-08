@@ -1531,15 +1531,15 @@ const tierLists = [
   },
   {
     slug:'arc-raiders-weapons-tier',
-    title:'Arc Raiders: Weapon Tier List',
-    summary:'Budget-to-meta weapon ranking with real guns — Ferro, Stitcher, Anvil and the always-equipped Hammer.',
+    title:'Arc Raiders: Weapon Tier List (Full Roster)',
+    summary:'Every weapon in the Arc Raiders database ranked by ARC effectiveness, rarity and meta usage — Battle Rifles, Assault Rifles, Pistols, SMGs, Shotguns, LMGs, Snipers and Special.',
     game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', lastUpdated:'2026-05-04', author:'Editorial',
     tiers:[
-      {tier:'S', items:['Ferro (precision opener)','Stitcher (full-auto cleanup)','Anvil (hand cannon)']},
-      {tier:'A', items:['Hammer (always-equipped melee, AOE)','Compound Bow (silent kills)']},
-      {tier:'B', items:['Mid-range automatic rifles','Suppressed SMGs']},
-      {tier:'C', items:['Heavy pistols','Bolt-action rifles']},
-      {tier:'D', items:['Revolvers','Crossbow (slow reload)']}
+      {tier:'S', items:['Hullcracker (Epic, explosive launcher)','Equalizer (beam rifle, extreme vs ARC)','Jupiter (Legendary energy sniper)','Aphelion (Legendary energy battle rifle)','Anvil (heavy pistol, very effective vs ARC)','Ferro (heavy break-action, opener meta)']},
+      {tier:'A', items:['Bettina (Epic heavy AR)','Vulcano (Epic semi-auto shotgun)','Renegade (Rare lever-action)','Osprey (Rare scoped bolt-action sniper)','Stitcher (budget SMG meta)','Hammer (always-equipped melee, AOE)']},
+      {tier:'B', items:['Tempest (full-auto AR)','Arpeggio (3-round burst AR)','Il Toro (pump shotgun)','Bobcat (high fire-rate SMG)','Torrente (LMG, sustained fire)']},
+      {tier:'C', items:['Rattler (full-auto AR, 2-bullet reload)','Burletta (semi-auto light pistol)','Venator (double-shot pistol)']},
+      {tier:'D', items:['Kettle (weak vs ARC)','Hairpin (silenced light pistol, weak vs ARC)']}
     ]
   },
   {
@@ -3008,16 +3008,18 @@ applyTheme(localStorage.getItem('rr_theme')||'dark');
 render();
 console.log('[rick-rattle] booted · articles:',articles.length,'· guides:',guides.length,'· tierLists:',tierLists.length,'· games:',games.length);
 
-// warm cache from any cached news + kick off background fetch (silent if cache fresh)
+// 1. Paint instantly from cache for fast first render.
+// 2. ALWAYS fetch fresh in background on every page load (force:true bypasses TTL).
+// 3. Re-render the active view when fresh data arrives.
 (function bootNews(){
   try{
     const c=newsCacheGet();
     if(c && Array.isArray(c)){externalArticles=c;render()}
   }catch(e){console.warn('[bootNews cache]',e)}
-  fetchAllNews()
+  fetchAllNews({force:true})
     .then(()=>{
-      const v=getRoute().view;
-      if(v==='news'||v==='home')render();
+      const r=getRoute();
+      if(r.view==='news'||r.view==='home'||(r.view==='news'&&r.a))render();
     })
     .catch(e=>console.warn('[fetchAllNews]',e));
 })();
