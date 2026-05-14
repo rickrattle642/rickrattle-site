@@ -680,7 +680,9 @@ const games = [
   {slug:'windrose',            name:'Windrose',               short:'Windrose',                         subreddit:'Windrose',        platforms:['pc']},
   {slug:'tekken-8',            name:'Tekken 8',               short:'Tekken 8',     steamAppId:1778820, subreddit:'Tekken',          platforms:['pc','ps5','xbox']},
   {slug:'gta-vi',              name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
-  {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']}
+  {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']},
+  {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        platforms:['pc','ps5','xbox']},
+  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    platforms:['pc','xbox']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -1350,6 +1352,52 @@ const guides = [
       {type:'warning', text:'Warlock has the highest skill ceiling of any current class. Expect a longer learning curve than the original 5 classes.'}
     ]
   },
+  // ========== Destiny 2 ==========
+  {
+    slug:'destiny2-classes-overview',
+    title:'Destiny 2: Class & Subclass Overview',
+    summary:'Titan, Hunter, Warlock — and the five subclass elements (Solar, Arc, Void, Stasis, Strand) that define how each Guardian plays.',
+    game:'destiny-2', type:'guide', difficulty:'beginner', category:'class', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:6, patchVersion:'Edge of Fate',
+    source:['https://mobalytics.gg/destiny-2','https://www.bungie.net/7/en/news'],
+    content:[
+      {type:'note', text:'Destiny 2 is in the Edge of Fate season. Classes did not change but subclass aspects and fragments shift each expansion — always check current build guides before committing infusion materials.'},
+      {type:'h2', text:'The three classes'},
+      {type:'compare', headers:['Titan','Hunter','Warlock'], rows:[
+        {label:'Identity', a:'Tank / aggressive frontliner', b:'Mobile / precision skirmisher', c:'Caster / ability uptime'},
+        {label:'Class ability', a:'Barricades (cover + buffs)', b:'Dodges (reposition + reload)', c:'Rifts (healing or empowering zones)'},
+        {label:'Best at', a:'Endgame survivability, melee combo', b:'Burst damage, stealth, mobility', c:'Sustained DPS, team buffing'}
+      ]},
+      {type:'h2', text:'The five subclass elements'},
+      {type:'ul', items:[
+        '<strong>Solar</strong> — burn damage, healing, restoration',
+        '<strong>Arc</strong> — chain lightning, amplified speed, ionic traces',
+        '<strong>Void</strong> — suppression, weaken, volatile rounds',
+        '<strong>Stasis</strong> — crowd control, freeze, shatter',
+        '<strong>Strand</strong> — suspend, grappling hook, tangles'
+      ]},
+      {type:'tip', text:'Every class can use every element. Match the subclass to your activity: Solar Warlock for healing, Strand Hunter for grapple mobility, Void Titan for survivability.'}
+    ]
+  },
+  {
+    slug:'destiny2-edge-of-fate-beginner',
+    title:'Destiny 2: Edge of Fate — Beginner Path',
+    summary:'New Light or returning Guardian? Here is the route through the current expansion that gets you to endgame fastest.',
+    game:'destiny-2', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-04', author:'Editorial', readTime:5,
+    source:'https://mobalytics.gg/destiny-2',
+    content:[
+      {type:'p', text:'Edge of Fate is the current expansion. If you are new or coming back, follow this priority order.'},
+      {type:'h2', text:'Priority list'},
+      {type:'steps', items:[
+        {title:'Finish the Edge of Fate campaign', text:'Unlocks the new subclass aspects, the seasonal artifact and the season-specific currency.'},
+        {title:'Pillar exotic quests', text:'Pick up the campaign-related exotic quest first — usually the most build-defining drop of the expansion.'},
+        {title:'Pinnacle activities', text:'Once power-capped, switch to weekly Pinnacles to break through to the cap. Vanguard Ops, Crucible, Gambit, Nightfall.'},
+        {title:'Raid or Dungeon farming', text:'Both drop encounter-locked endgame gear. The current dungeon is usually faster solo if you are short on time.'}
+      ]},
+      {type:'tip', text:'The Mobalytics build planner imports your Bungie account and shows what slots you are missing.'}
+    ]
+  },
   {
     slug:'mh-wilds-artian-weapons-tu4',
     title:'MH Wilds: Artian Weapons + Armor Transcendence (TU4)',
@@ -1375,6 +1423,33 @@ const guides = [
         'Arch-tempered Jin Dahaad — endgame difficulty hunt',
         'Arch-tempered Arkveld — added shortly after TU4 launch'
       ]}
+    ]
+  },
+  // ========== Forza Horizon 6 ==========
+  {
+    slug:'forza-horizon-6-tracker',
+    title:'Forza Horizon 6: News, Updates & Pre-Launch Tracker',
+    summary:'Everything Playground Games has shown about Forza Horizon 6 — official news, Steam updates and community discussion threads.',
+    game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:4,
+    source:['https://forza.net/forzahorizon6','https://store.steampowered.com/news/app/2483190','https://forums.forza.net/c/forza-horizon/forza-horizon-6/231'],
+    content:[
+      {type:'note', text:'Forza Horizon 6 is pre-release / early-info phase. This page is a tracker — guides, tier lists and car lists will fill in as Playground Games drops details.'},
+      {type:'h2', text:'Where the official info lives'},
+      {type:'ul', items:[
+        '<strong>Official site</strong> — forza.net/forzahorizon6 · trailers, dev diaries, season notes',
+        '<strong>Steam News</strong> — store.steampowered.com/news/app/2483190 · patches, hotfixes, store updates',
+        '<strong>Forza Forums</strong> — forums.forza.net/c/forza-horizon/forza-horizon-6/231 · community discussions and tune sharing'
+      ]},
+      {type:'h2', text:'What to expect (based on FH5 patterns)'},
+      {type:'ul', items:[
+        'Open-world racing across a new map biome',
+        'Seasonal weather + Festival Playlist returning',
+        'Tune sharing and Designer paint scene (huge in FH community)',
+        'Cross-platform play between PC and Xbox',
+        'Live service: monthly seasons + community challenges'
+      ]},
+      {type:'tip', text:'When the game launches, the auto-fed news section below will pull live updates from Steam and r/ForzaHorizon every page load.'}
     ]
   }
 ];
@@ -1607,6 +1682,32 @@ const tierLists = [
     ]
   },
   {
+    slug:'destiny2-exotic-weapons-pve',
+    title:'Destiny 2: Best Exotic Weapons (PvE — Edge of Fate)',
+    summary:'Top exotic weapons for the current PvE meta — from Gjallarhorn to Witherhoard. Ranked by clear speed, boss damage and versatility.',
+    game:'destiny-2', category:'pvp', featured:true, date:'2026-05-04', lastUpdated:'2026-05-04', patchVersion:'Edge of Fate', author:'Editorial',
+    source:'https://mobalytics.gg/destiny-2/tier-list',
+    tiers:[
+      {tier:'S', items:['Gjallarhorn','Witherhoard','Sunshot','Graviton Lance','Still Hunt','Tractor Cannon','Osteo Striga','Buried Bloodline','Choir of One','Divinity','Dragon\'s Breath','The Navigator']},
+      {tier:'A', items:['Anarchy','Arbalest','Conditional Finality','Outbreak Perfected','Cloudstrike','Le Monarque','Microcosm','Parasite','Touch of Malice','Vex Mythoclast','Whisper of the Worm','Xenophage','Wicked Implement','Eyes of Tomorrow']},
+      {tier:'B', items:['Ace of Spades','Bad Juju','Coldheart','Heartshadow','One Thousand Voices','Sleeper Simulant','Thunderlord','The Fourth Horseman','The Lament','Revision Zero','Traveler\'s Chosen','Two-Tailed Fox']},
+      {tier:'C', items:['Hawkmoon','MIDA Multi-Tool','Telesto','Hard Light','The Last Word','SUROS Regime','Jötunn','Cerberus+1','Worldline Zero']}
+    ]
+  },
+  {
+    slug:'destiny2-class-tier-list',
+    title:'Destiny 2: Class Tier List (Edge of Fate)',
+    summary:'Titan, Hunter and Warlock ranked across PvE endgame, raid utility and PvP performance in the current season.',
+    game:'destiny-2', category:'class', date:'2026-05-04', lastUpdated:'2026-05-04', patchVersion:'Edge of Fate', author:'Editorial',
+    source:['https://skycoach.gg/blog/destiny/articles/destiny-2-best-class-tier-list','https://mobalytics.gg/destiny-2'],
+    tiers:[
+      {tier:'S', items:['Warlock (Solar — well of healing)','Hunter (Strand — grapple + clones)','Titan (Void — overshield meta)']},
+      {tier:'A', items:['Warlock (Stasis — Bleak Watcher turrets)','Hunter (Arc — Combination Blow)','Titan (Solar — Throwing Hammer)']},
+      {tier:'B', items:['Warlock (Arc — Chaos Reach)','Hunter (Void — Invisibility)','Titan (Strand — Suspend builds)']},
+      {tier:'C', items:['Hunter (Solar — Knife Trick)','Titan (Stasis — Behemoth)']}
+    ]
+  },
+  {
     slug:'re-requiem-weapons-tier',
     title:'RE Requiem: Weapon Tier List (Best per Slot)',
     summary:'Best-in-slot picks for Grace and Leon — campaign and post-game. Real weapon names with progression notes.',
@@ -1640,7 +1741,7 @@ const NEWS_CFG = {
 let externalArticles = [];                        // populated by fetchAllNews()
 let newsLoading = false;
 
-const NEWS_CACHE_VERSION=4; // bump to invalidate caches after schema changes
+const NEWS_CACHE_VERSION=5; // bump to invalidate caches after schema changes
 function newsCacheGet(){
   try{
     const raw=localStorage.getItem('rr_news_cache');
@@ -2813,7 +2914,9 @@ const TIPS_BLURBS={
   'helldivers2':{en:'Helldivers 2 stratagem tier lists, primary weapon loadouts and squad role coordination for higher difficulty missions.',pt:'Tier lists de stratagems, loadouts de armas e coordenação de squad para dificuldades mais altas em Helldivers 2.'},
   'marvel-rivals':{en:'Marvel Rivals hero tier lists, role pairings, ultimate combos and rank climb strategies.',pt:'Tier lists de heróis, pairings de role, combos de ultimate e estratégia de subir rank em Marvel Rivals.'},
   'diablo-iv':{en:'Diablo IV class builds, season meta, paragon paths and endgame Pit pushing strategies.',pt:'Builds de classe, meta da season, paragon paths e Pit pushing endgame em Diablo IV.'},
-  'palworld':{en:'Palworld base optimization, Pal breeding loops, work suitability assignments and late-game tower fights.',pt:'Otimização de base, loops de breeding de Pals, work suitability e late-game tower fights em Palworld.'}
+  'palworld':{en:'Palworld base optimization, Pal breeding loops, work suitability assignments and late-game tower fights.',pt:'Otimização de base, loops de breeding de Pals, work suitability e late-game tower fights em Palworld.'},
+  'destiny-2':{en:'Destiny 2 exotic weapon tier lists, Guardian build guides and class subclass synergies (Titan / Hunter / Warlock) across Solar, Arc, Void, Stasis and Strand.',pt:'Tier lists de armas exóticas em Destiny 2, builds de Guardian e sinergias de subclasse (Titan / Hunter / Warlock) entre Solar, Arc, Void, Stasis e Strand.'},
+  'forza-horizon-6':{en:'Forza Horizon 6 news, tunes and route guides as they emerge from Playground Games and the Forza community.',pt:'Notícias, tunes e guias de rota para Forza Horizon 6 à medida que saem da Playground Games e da comunidade Forza.'}
 };
 
 // Categorias suportadas — alinhadas com o estilo Maxroll/Icy-Veins.
