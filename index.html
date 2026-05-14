@@ -145,6 +145,10 @@ button{font-family:inherit}
 .card-tag.source-reddit{background:#1a1a1b;color:#FF4500;border-color:#FF4500}
 
 .news-loading{padding:14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);letter-spacing:2px;border:1px dashed var(--line);border-radius:8px;margin-bottom:18px;animation:pulse 1.6s infinite}
+#newsLoadingBar{display:none;margin-bottom:14px}
+#newsLoadingBar.active{display:block}
+.news-loading-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(90deg,rgba(0,240,255,.08),transparent);border-left:3px solid var(--cyan);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase}
+.news-loading-pulse{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 1.2s infinite}
 
 .source-block{margin:30px 0 14px;padding:18px 20px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 .source-block .source-label{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:1px;text-transform:uppercase}
@@ -345,6 +349,10 @@ button{font-family:inherit}
 .related-guides h3{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:1px;text-transform:uppercase;margin:0 0 14px}
 .detail-body blockquote{border-left:3px solid var(--accent);padding:8px 16px;margin:16px 0;color:var(--ink);font-style:italic;background:var(--panel2)}
 .detail-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+.source-credit{margin-top:24px;padding:12px 16px;background:var(--panel2);border-left:3px solid var(--cyan);border-radius:6px;font-size:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.source-label-mini{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.source-link-mini{color:var(--cyan);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px}
+.source-link-mini:hover{text-decoration:underline}
 
 /* ==================== TIER LIST ==================== */
 .tier-row{display:grid;grid-template-columns:90px 1fr;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:8px;background:var(--panel)}
@@ -1056,6 +1064,7 @@ const guides = [
     summary:'The S&S M232 handgun, the Requiem magnum and the unbreakable Kotetsu — Grace\'s essential loadout per game progression.',
     game:'re-requiem', type:'build', difficulty:'beginner', category:'beginner', featured:true,
     date:'2026-04-18', lastUpdated:'2026-05-04', author:'Editorial', readTime:6,
+    source:'https://game8.co/games/Resident-Evil-Requiem/archives/582266',
     content:[
       {type:'note', text:'Resident Evil Requiem (RE9) features two playable characters: Grace Ashcroft and Leon Kennedy, each with their own weapon pool.'},
       {type:'h2', text:'Best handgun — S&S M232'},
@@ -1073,6 +1082,7 @@ const guides = [
     summary:'Silencer 9, 990-TAC and Classic 70 — Leon\'s campaign loadout, plus post-game upgrades like Clatter Carbine and Mortal Edge.',
     game:'re-requiem', type:'build', difficulty:'intermediate', category:'build',
     date:'2026-04-15', lastUpdated:'2026-05-04', author:'Editorial', readTime:7,
+    source:'https://game8.co/games/Resident-Evil-Requiem/archives/582266',
     content:[
       {type:'h2', text:'Best handgun — Silencer 9'},
       {type:'p', text:'Bought from the Supply Box in East Raccoon City. When fully upgraded: best balance of damage, stability and instant centering. 17-round magazine handles zombie crowds without re-centering between shots.'},
@@ -1161,6 +1171,7 @@ const guides = [
     summary:'The Ferro+Stitcher meta combo, the Anvil precision build, and the secret-weapon Hammer that wins close-quarters fights.',
     game:'arc-raiders', type:'build', difficulty:'intermediate', category:'pvp',
     date:'2026-04-19', lastUpdated:'2026-05-04', author:'Editorial', readTime:7,
+    source:['https://arcraidershub.com/loadouts','https://arcraidershub.com/weapons'],
     content:[
       {type:'note', text:'Loadouts below assume Personal Gear runs (1 safe pocket slot). Free Loadouts give basic gear for risk-free runs but no safe pocket.'},
       {type:'kv', items:[{k:'Resource',v:'Metal Parts + Rubber Parts'},{k:'Always equipped',v:'Hammer (3rd slot)'},{k:'Required',v:'Bandages + Shield Recharger'}]},
@@ -1292,6 +1303,7 @@ const guides = [
     summary:'The aura-stacking Paladin build that turned the new class into a Speed Farming and Endgame Push contender.',
     game:'diablo-iv', type:'build', difficulty:'intermediate', category:'build', featured:true,
     date:'2026-05-04', lastUpdated:'2026-05-04', author:'Editorial', readTime:7, patchVersion:'Season 13',
+    source:'https://www.icy-veins.com/d4/guides/auradin-paladin-build/',
     content:[
       {type:'note', text:'Paladin is the new Strength-based class introduced in Season 12 alongside Vessel of Hatred. Auradin (aura-Paladin) is the most popular variant in Season 13 thanks to its tankiness and group buffs.'},
       {type:'kv', items:[{k:'Class',v:'Paladin'},{k:'Resource',v:'Oath system'},{k:'Best at',v:'Speed Farm + Boss Killing'},{k:'Tier',v:'S (Speed Farm), A (Endgame Push)'}]},
@@ -1320,6 +1332,7 @@ const guides = [
     summary:'The Warlock arrived with Lord of Hatred and uses two resource pools — Wrath and Dominance. Here is what to know.',
     game:'diablo-iv', type:'guide', difficulty:'beginner', category:'class', featured:false,
     date:'2026-05-04', author:'Editorial', readTime:6, patchVersion:'Season 13',
+    source:'https://www.icy-veins.com/d4/guides/class-tier-list',
     content:[
       {type:'p', text:'The Warlock is a Willpower-based caster added in the Lord of Hatred expansion. It is currently the only class in Diablo IV with a dual-resource system.'},
       {type:'h2', text:'Wrath vs Dominance'},
@@ -1343,6 +1356,7 @@ const guides = [
     summary:'Title Update 4 introduced craftable Artian weapons and the Armor Transcendence system. Here is the practical setup path.',
     game:'monster-hunter-wilds', type:'guide', difficulty:'advanced', category:'endgame',
     date:'2026-05-04', author:'Editorial', readTime:8, patchVersion:'Title Update 4',
+    source:'https://www.icy-veins.com/monster-hunter-wilds/',
     content:[
       {type:'note', text:'Title Update 4 added Gogmazios as the new endgame monster, Arch-tempered Jin Dahaad, the Lumenhymn seasonal event, Armor Transcendence and the Gogma Artian weapons line.'},
       {type:'h2', text:'Artian weapons in one paragraph'},
@@ -1495,6 +1509,7 @@ const tierLists = [
     title:'Monster Hunter Wilds: Weapon Tier List (Title Update 4)',
     summary:'After TU4 weapon buffs and Gogmazios / Arch-tempered Jin Dahaad endgame — solo and group hunt rankings across all 14 weapon types.',
     game:'monster-hunter-wilds', featured:false, date:'2026-04-10', lastUpdated:'2026-05-04', patchVersion:'Title Update 4', author:'Editorial', category:'endgame',
+    source:'https://www.icy-veins.com/monster-hunter-wilds/',
     tiers:[
       {tier:'S', items:['Great Sword','Insect Glaive','Long Sword']},
       {tier:'A', items:['Switch Axe','Charge Blade','Hammer','Hunting Horn']},
@@ -1534,6 +1549,7 @@ const tierLists = [
     title:'Arc Raiders: Weapon Tier List (Full Roster)',
     summary:'Every weapon in the Arc Raiders database ranked by ARC effectiveness, rarity and meta usage — Battle Rifles, Assault Rifles, Pistols, SMGs, Shotguns, LMGs, Snipers and Special.',
     game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', lastUpdated:'2026-05-04', author:'Editorial',
+    source:'https://arcraidershub.com/weapons',
     tiers:[
       {tier:'S', items:['Hullcracker (Epic, explosive launcher)','Equalizer (beam rifle, extreme vs ARC)','Jupiter (Legendary energy sniper)','Aphelion (Legendary energy battle rifle)','Anvil (heavy pistol, very effective vs ARC)','Ferro (heavy break-action, opener meta)']},
       {tier:'A', items:['Bettina (Epic heavy AR)','Vulcano (Epic semi-auto shotgun)','Renegade (Rare lever-action)','Osprey (Rare scoped bolt-action sniper)','Stitcher (budget SMG meta)','Hammer (always-equipped melee, AOE)']},
@@ -1559,6 +1575,7 @@ const tierLists = [
     title:'Diablo IV: Class Tier List (Season 13)',
     summary:'Endgame Push, Speed Farming, Boss Killer and Leveling — overall class strength in the Lord of Hatred season.',
     game:'diablo-iv', category:'class', featured:true, date:'2026-05-04', lastUpdated:'2026-05-04', patchVersion:'Season 13', author:'Editorial',
+    source:'https://www.icy-veins.com/d4/guides/class-tier-list',
     tiers:[
       {tier:'S', items:['Warlock','Sorcerer','Rogue']},
       {tier:'A', items:['Spiritborn','Druid','Paladin']},
@@ -1570,6 +1587,7 @@ const tierLists = [
     title:'Diablo IV: Leveling Class Tier List (Season 13)',
     summary:'Which classes hit Level 70 the fastest right now — based on solo XP throughput and gear independence.',
     game:'diablo-iv', category:'beginner', date:'2026-05-04', patchVersion:'Season 13', author:'Editorial',
+    source:'https://www.icy-veins.com/d4/guides/class-tier-list',
     tiers:[
       {tier:'S', items:['Rogue','Spiritborn','Warlock','Paladin']},
       {tier:'A', items:['Druid','Necromancer','Sorcerer']},
@@ -1581,6 +1599,7 @@ const tierLists = [
     title:'Diablo IV: Speed Farming Tier List (Season 13)',
     summary:'Helltides, low-tier Pit, Tree of Whispers — the classes that clear them fastest and grab the most loot per hour.',
     game:'diablo-iv', category:'endgame', date:'2026-05-04', patchVersion:'Season 13', author:'Editorial',
+    source:'https://www.icy-veins.com/d4/guides/class-tier-list',
     tiers:[
       {tier:'S', items:['Rogue','Sorcerer','Paladin']},
       {tier:'A', items:['Druid','Spiritborn','Warlock']},
@@ -1592,6 +1611,7 @@ const tierLists = [
     title:'RE Requiem: Weapon Tier List (Best per Slot)',
     summary:'Best-in-slot picks for Grace and Leon — campaign and post-game. Real weapon names with progression notes.',
     game:'re-requiem', category:'build', date:'2026-04-10', lastUpdated:'2026-05-04', author:'Editorial', featured:true,
+    source:'https://game8.co/games/Resident-Evil-Requiem/archives/582266',
     tiers:[
       {tier:'S', items:['Silencer 9 (Leon handgun)','Classic 70 (Leon rifle)','S&S M232 (Grace handgun)','990-TAC (Leon shotgun)','Requiem (Grace magnum)']},
       {tier:'A', items:['Clatter Carbine — Post-Game SMG','Ghost Grudge — Post-Game magnum','Mortal Edge — Post-Game melee','Kotetsu — Post-Game melee (unbreakable)']},
@@ -1835,24 +1855,40 @@ async function fetchAllNews({force=false}={}){
     if(c){externalArticles=c;return c}
   }
   newsLoading=true;
-  const tasks=[];
+  // notify UI listeners (NewsView shows loading bar)
+  document.querySelectorAll('[data-news-loading]').forEach(el=>{el.classList.add('active')});
+
+  // Wrap each task with named logging so we see which ones fail.
+  const named=[];
   for(const g of games){
-    if(g.steamAppId)tasks.push(fetchSteamNews(g).catch(e=>{console.warn('steam',g.slug,e.message);return[]}));
-    if(g.subreddit) tasks.push(fetchRedditPosts(g).catch(e=>{console.warn('reddit',g.slug,e.message);return[]}));
+    if(g.steamAppId)named.push({label:`steam:${g.slug}`,p:fetchSteamNews(g).catch(e=>{console.warn('[steam]',g.slug,e.message);return[]})});
+    if(g.subreddit) named.push({label:`reddit:${g.slug}`,p:fetchRedditPosts(g).catch(e=>{console.warn('[reddit]',g.slug,e.message);return[]})});
   }
   for(const f of generalFeeds){
-    tasks.push(fetchGeneralReddit(f).catch(e=>{console.warn('general',f.slug,e.message);return[]}));
+    named.push({label:`general:${f.slug}`,p:fetchGeneralReddit(f).catch(e=>{console.warn('[general]',f.slug,e.message);return[]})});
   }
   for(const f of platformFeeds){
-    tasks.push(fetchRssFeed(f).catch(e=>{console.warn('rss',f.label,e.message);return[]}));
+    named.push({label:`rss:${f.label}`,p:fetchRssFeed(f).catch(e=>{console.warn('[rss]',f.label,e.message);return[]})});
   }
-  const results=(await Promise.all(tasks)).flat();
+
+  const settled=await Promise.all(named.map(async n=>{
+    const r=await n.p;
+    return {label:n.label, count:r.length, items:r};
+  }));
+  const results=settled.flatMap(s=>s.items);
+  const succeeded=settled.filter(s=>s.count>0).length;
+  console.log(`[fetchAllNews] ${succeeded}/${settled.length} sources returned data · total ${results.length} articles`);
+  if(succeeded<settled.length*0.3){
+    console.warn('[fetchAllNews] less than 30% of sources succeeded — likely a cold start or rate-limit, will be retried next visit');
+  }
+
   // de-dupe by slug
   const seen=new Set();
   externalArticles=results.filter(a=>{if(seen.has(a.slug))return false;seen.add(a.slug);return true});
   externalArticles.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
   newsCacheSet(externalArticles);
   newsLoading=false;
+  document.querySelectorAll('[data-news-loading]').forEach(el=>{el.classList.remove('active')});
   return externalArticles;
 }
 
@@ -2570,7 +2606,12 @@ function NewsView(view,r){
         ${allTags.map(tg=>`<button class="chip${newsFilter.tag===tg?' active':''}" data-ft="${tg}">#${tg}</button>`).join('')}
       </div>
     </div>`:''}
-    <div id="newsLoadingBar"></div>
+    <div id="newsLoadingBar" data-news-loading class="${newsLoading?'active':''}">
+      <div class="news-loading-bar">
+        <span class="news-loading-pulse"></span>
+        <span>${lang==='pt'?'A carregar feeds em direto…':'Loading live feeds…'}</span>
+      </div>
+    </div>
     <div id="newsListWrap">
       ${f.length?`<div class="grid grid-2">${f.map(ArticleCard).join('')}</div>`:`<div class="empty" data-i18n="news.search.empty">${t('news.search.empty')}</div>`}
     </div>
@@ -2898,6 +2939,15 @@ function TipsDetail(view,gameSlug,slug){
           </aside>
         </div>
       `:`<div class="detail-body">${isTier?TierListView(item):renderBlocks(item.content||[],item.game)}</div>`}
+      ${item.source?`
+        <div class="source-credit">
+          <span class="source-label-mini">${lang==='pt'?'Inspirado em':'Inspired by'}</span>
+          ${(Array.isArray(item.source)?item.source:[item.source]).map(s=>{
+            const host=(s.match(/^https?:\/\/([^\/]+)/)||[])[1]||s;
+            return `<a href="${s.startsWith('http')?s:'https://'+s}" target="_blank" rel="noopener nofollow" class="source-link-mini">${host}</a>`;
+          }).join(' · ')}
+        </div>
+      `:''}
       ${related.length?`
         <div class="related-guides">
           <h3>${lang==='pt'?'Continuar a ler — '+gameName(item.game):'Keep reading — '+gameName(item.game)}</h3>
@@ -3008,20 +3058,31 @@ applyTheme(localStorage.getItem('rr_theme')||'dark');
 render();
 console.log('[rick-rattle] booted · articles:',articles.length,'· guides:',guides.length,'· tierLists:',tierLists.length,'· games:',games.length);
 
-// 1. Paint instantly from cache for fast first render.
+// 1. Paint instantly from cache for fast first render (if cache exists).
 // 2. ALWAYS fetch fresh in background on every page load (force:true bypasses TTL).
-// 3. Re-render the active view when fresh data arrives.
+// 3. Re-render the active view when fresh data arrives — regardless of which view.
+// 4. If first fetch returns very few articles (cold start / network noise), retry once after 4s.
 (function bootNews(){
   try{
     const c=newsCacheGet();
     if(c && Array.isArray(c)){externalArticles=c;render()}
   }catch(e){console.warn('[bootNews cache]',e)}
-  fetchAllNews({force:true})
-    .then(()=>{
-      const r=getRoute();
-      if(r.view==='news'||r.view==='home'||(r.view==='news'&&r.a))render();
-    })
-    .catch(e=>console.warn('[fetchAllNews]',e));
+
+  const doFetch=async(reason)=>{
+    try{
+      const result=await fetchAllNews({force:true});
+      console.log(`[bootNews] ${reason}: ${result.length} external articles loaded`);
+      render(); // always re-render after fetch — cheap, all views benefit
+      return result;
+    }catch(e){console.warn('[bootNews fetch]',e);return []}
+  };
+
+  doFetch('initial').then(first=>{
+    // Retry once if the initial pull looks like a partial/cold-start failure (<15 items).
+    if(first.length<15){
+      setTimeout(()=>doFetch('retry-after-coldstart'),4000);
+    }
+  });
 })();
 
 // visit counter — never block render on this
