@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 
 Disallow: /api/
+Allow: /api/sitemap.xml
 
 Sitemap: https://rickrattle.com/api/sitemap.xml
