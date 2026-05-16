@@ -3,4 +3,4 @@ Allow: /
 
 Disallow: /api/
 
-Sitemap: https://rickrattle-site.vercel.app/api/sitemap.xml
+Sitemap: https://rickrattle.com/api/sitemap.xml
