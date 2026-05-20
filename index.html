@@ -186,6 +186,8 @@ button{font-family:inherit}
 .hero-side-head .live-mini{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--hot);letter-spacing:2px;display:flex;align-items:center;gap:6px}
 .embed{aspect-ratio:16/9;background:#000}
 .embed iframe{width:100%;height:100%;border:0;display:block}
+.twitch-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#000;color:#fff;text-align:center;padding:24px}
+.twitch-fallback p{margin:0;color:var(--muted);font-size:14px;font-family:'JetBrains Mono',monospace;letter-spacing:1px}
 
 .section{margin-bottom:38px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;gap:10px;flex-wrap:wrap}
@@ -1813,22 +1815,27 @@ function timeAgo(dateStr){
 }
 
 // Detects production env (vercel/etc) — use serverless API to avoid CORS.
-const HAS_API = (location.protocol==='https:' || location.hostname.endsWith('.vercel.app')) && location.hostname!=='localhost';
+// HTTPS + non-localhost host → assume Vercel serverless functions available.
+const HAS_API = (location.protocol==='https:' && location.hostname!=='localhost');
 
-async function fetchJsonApi(path){
-  const r=await fetch(path);
-  if(!r.ok)throw new Error('API '+r.status);
-  return r.json();
+// Fetch with timeout to prevent stuck tasks blocking Promise.allSettled.
+async function fetchJsonApi(path, timeoutMs=12000){
+  const controller=new AbortController();
+  const t=setTimeout(()=>controller.abort(),timeoutMs);
+  try{
+    const r=await fetch(path,{signal:controller.signal});
+    if(!r.ok)throw new Error('API '+r.status);
+    return await r.json();
+  }finally{clearTimeout(t)}
 }
 
 async function fetchSteamNews(game){
-  // Try Vercel serverless proxy first (production); fall back to public proxy chain.
+  // Production: use /api/steam-news. Never fall back to direct upstream from browser (CORS).
   if(HAS_API){
-    try{
-      const data=await fetchJsonApi(`/api/steam-news?appid=${game.steamAppId}&count=${NEWS_CFG.steamCount}`);
-      return mapSteamItems(data,game);
-    }catch(e){console.warn('[steam api]',game.slug,e.message)}
+    const data=await fetchJsonApi(`/api/steam-news?appid=${game.steamAppId}&count=${NEWS_CFG.steamCount}`);
+    return mapSteamItems(data,game);
   }
+  // Local dev only: try public CORS proxies (best-effort).
   const url=`https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/?appid=${game.steamAppId}&count=${NEWS_CFG.steamCount}&maxlength=600&format=json`;
   const txt=await fetchWithProxy(url);
   const data=JSON.parse(txt);
@@ -1858,10 +1865,10 @@ function mapSteamItems(data,game){
 async function fetchRedditPosts(game){
   let data;
   if(HAS_API){
-    try{ data=await fetchJsonApi(`/api/reddit?subreddit=${game.subreddit}&limit=15`); }
-    catch(e){console.warn('[reddit api]',game.slug,e.message)}
-  }
-  if(!data){
+    // Production: only /api/reddit. Reddit blocks browser CORS, so no direct fallback.
+    data=await fetchJsonApi(`/api/reddit?subreddit=${game.subreddit}&limit=15`);
+  }else{
+    // Local dev fallback only.
     const url=`https://www.reddit.com/r/${game.subreddit}/hot.json?limit=15&raw_json=1`;
     const txt=await fetchWithProxy(url);
     data=JSON.parse(txt);
@@ -1893,10 +1900,8 @@ async function fetchRedditPosts(game){
 async function fetchGeneralReddit(feed){
   let data;
   if(HAS_API){
-    try{ data=await fetchJsonApi(`/api/reddit?subreddit=${feed.subreddit}&limit=25`); }
-    catch(e){console.warn('[reddit api]',feed.slug,e.message)}
-  }
-  if(!data){
+    data=await fetchJsonApi(`/api/reddit?subreddit=${feed.subreddit}&limit=25`);
+  }else{
     const url=`https://www.reddit.com/r/${feed.subreddit}/hot.json?limit=25&raw_json=1`;
     const txt=await fetchWithProxy(url);
     data=JSON.parse(txt);
@@ -1956,38 +1961,57 @@ async function fetchAllNews({force=false}={}){
     if(c){externalArticles=c;return c}
   }
   newsLoading=true;
-  // notify UI listeners (NewsView shows loading bar)
   document.querySelectorAll('[data-news-loading]').forEach(el=>{el.classList.add('active')});
 
-  // Wrap each task with named logging so we see which ones fail.
+  // Each task is named and isolated — one failure cannot break others.
   const named=[];
   for(const g of games){
-    if(g.steamAppId)named.push({label:`steam:${g.slug}`,p:fetchSteamNews(g).catch(e=>{console.warn('[steam]',g.slug,e.message);return[]})});
-    if(g.subreddit) named.push({label:`reddit:${g.slug}`,p:fetchRedditPosts(g).catch(e=>{console.warn('[reddit]',g.slug,e.message);return[]})});
+    if(g.steamAppId)named.push({label:`steam:${g.slug}`,p:()=>fetchSteamNews(g)});
+    if(g.subreddit) named.push({label:`reddit:${g.slug}`,p:()=>fetchRedditPosts(g)});
   }
   for(const f of generalFeeds){
-    named.push({label:`general:${f.slug}`,p:fetchGeneralReddit(f).catch(e=>{console.warn('[general]',f.slug,e.message);return[]})});
+    named.push({label:`general:${f.slug}`,p:()=>fetchGeneralReddit(f)});
   }
   for(const f of platformFeeds){
-    named.push({label:`rss:${f.label}`,p:fetchRssFeed(f).catch(e=>{console.warn('[rss]',f.label,e.message);return[]})});
+    named.push({label:`rss:${f.label}`,p:()=>fetchRssFeed(f)});
   }
 
-  const settled=await Promise.all(named.map(async n=>{
-    const r=await n.p;
-    return {label:n.label, count:r.length, items:r};
-  }));
-  const results=settled.flatMap(s=>s.items);
-  const succeeded=settled.filter(s=>s.count>0).length;
-  console.log(`[fetchAllNews] ${succeeded}/${settled.length} sources returned data · total ${results.length} articles`);
-  if(succeeded<settled.length*0.3){
-    console.warn('[fetchAllNews] less than 30% of sources succeeded — likely a cold start or rate-limit, will be retried next visit');
-  }
+  // Promise.allSettled — never throws, always waits for all to finish or timeout.
+  const settled=await Promise.allSettled(named.map(n=>n.p()));
+  const results=[];
+  let ok=0, fail=0;
+  settled.forEach((s,i)=>{
+    if(s.status==='fulfilled' && Array.isArray(s.value)){
+      results.push(...s.value);
+      if(s.value.length>0)ok++;
+    }else{
+      fail++;
+      const msg=s.reason?.message||s.reason||'unknown';
+      // Compact log — one line per failure, no full stack trace
+      console.warn(`[fetch fail] ${named[i].label}: ${msg}`);
+    }
+  });
 
-  // de-dupe by slug
+  // De-dupe by slug, sort newest first
   const seen=new Set();
-  externalArticles=results.filter(a=>{if(seen.has(a.slug))return false;seen.add(a.slug);return true});
-  externalArticles.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-  newsCacheSet(externalArticles);
+  const fresh=results.filter(a=>{if(seen.has(a.slug))return false;seen.add(a.slug);return true});
+  fresh.sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+
+  // STABILITY GUARD: don't overwrite a healthy cache with a partial failure.
+  // If fresh fetch is significantly smaller than what we already have, keep current.
+  const prevCount=externalArticles.length;
+  const freshCount=fresh.length;
+  const threshold=Math.max(prevCount*0.6, 20);
+  const summary=`${ok}/${settled.length} sources · ${freshCount} articles (prev ${prevCount}, fail ${fail})`;
+
+  if(freshCount>=threshold || prevCount===0){
+    externalArticles=fresh;
+    newsCacheSet(externalArticles);
+    console.log(`[fetchAllNews] ✓ accepted · ${summary}`);
+  }else{
+    console.warn(`[fetchAllNews] ✗ rejected partial fetch · ${summary} · keeping previous cache`);
+  }
+
   newsLoading=false;
   document.querySelectorAll('[data-news-loading]').forEach(el=>{el.classList.remove('active')});
   return externalArticles;
@@ -2427,7 +2451,17 @@ function HomeView(view){
           <span class="live-mini"><span class="live-dot"></span><span data-i18n="home.live.tag">${t('home.live.tag')}</span></span>
         </div>
         <div class="embed">
-          <iframe src="https://player.twitch.tv/?channel=rick__rattle&parent=localhost&parent=rickrattle.tv&parent=rickrattle-site.vercel.app&muted=true" allowfullscreen></iframe>
+          ${(()=>{
+            // Dynamic parent param — only authorize hosts that Twitch will accept.
+            const host=location.hostname;
+            const allowed=['rickrattle.com','www.rickrattle.com','rickrattle.tv'];
+            const parent=allowed.includes(host)?host:'rickrattle.com';
+            return `<iframe src="https://player.twitch.tv/?channel=rick__rattle&parent=${parent}&muted=true" allowfullscreen onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='flex')"></iframe>
+            <div class="twitch-fallback" style="display:none">
+              <p>${lang==='pt'?'Live indisponível neste browser.':'Live unavailable in this browser.'}</p>
+              <a class="btn btn-primary" href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener">${lang==='pt'?'Ver na Twitch':'Watch on Twitch'} ↗</a>
+            </div>`;
+          })()}
         </div>
       </div>
     </div>
