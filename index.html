@@ -21,7 +21,7 @@
 <meta name="twitter:description" id="seoTwitterDesc" content="Gaming news, tips and tier lists.">
 <meta name="twitter:image" id="seoTwitterImage" content="/logo.png">
 <script type="application/ld+json" id="seoJsonLd">
-{"@context":"https://schema.org","@type":"WebSite","name":"Rick Rattle Gaming Hub","url":"https://rickrattle.tv/","potentialAction":{"@type":"SearchAction","target":"https://rickrattle.tv/?q={query}","query-input":"required name=query"}}
+{"@context":"https://schema.org","@type":"WebSite","name":"Rick Rattle Gaming Hub","url":"https://rickrattle.com/","potentialAction":{"@type":"SearchAction","target":"https://rickrattle.com/?q={query}","query-input":"required name=query"}}
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -2129,15 +2129,20 @@ let externalArticles = [];                        // populated by fetchAllNews()
 let newsLoading = false;
 
 const NEWS_CACHE_VERSION=8; // bump to invalidate caches after schema changes
-function newsCacheGet(){
+const MAX_STALE_MS=7*24*60*60*1000; // 7 days — hard ceiling so we never serve ancient data
+// Stale-while-revalidate: always return cache (up to MAX_STALE_MS) even past cacheTTL;
+// callers paint instantly and the background fetch refreshes silently.
+function newsCacheGet({allowStale=true}={}){
   try{
     const raw=localStorage.getItem('rr_news_cache');
     if(!raw)return null;
     const parsed=JSON.parse(raw);
     if(parsed.v!==NEWS_CACHE_VERSION){localStorage.removeItem('rr_news_cache');return null}
     const {ts,data}=parsed;
-    if(Date.now()-ts > NEWS_CFG.cacheTTL)return null;
     if(!Array.isArray(data))return null;
+    const age=Date.now()-ts;
+    if(age > MAX_STALE_MS){localStorage.removeItem('rr_news_cache');return null}
+    if(!allowStale && age > NEWS_CFG.cacheTTL)return null;
     return data;
   }catch{localStorage.removeItem('rr_news_cache');return null}
 }
@@ -2203,8 +2208,10 @@ function timeAgo(dateStr){
 // HTTPS + non-localhost host → assume Vercel serverless functions available.
 const HAS_API = (location.protocol==='https:' && location.hostname!=='localhost');
 
-// Fetch with timeout to prevent stuck tasks blocking Promise.allSettled.
-async function fetchJsonApi(path, timeoutMs=12000){
+// Fetch with timeout + retry x1 to prevent stuck tasks blocking Promise.allSettled.
+// Aggressive 4s timeout: with ~50 parallel requests, slower per-request timeouts compound badly.
+// One retry covers cold-start / transient 429/5xx noise without blowing the budget.
+async function _fetchOnce(path, timeoutMs){
   const controller=new AbortController();
   const t=setTimeout(()=>controller.abort(),timeoutMs);
   try{
@@ -2212,6 +2219,15 @@ async function fetchJsonApi(path, timeoutMs=12000){
     if(!r.ok)throw new Error('API '+r.status);
     return await r.json();
   }finally{clearTimeout(t)}
+}
+async function fetchJsonApi(path, timeoutMs=4000){
+  try{
+    return await _fetchOnce(path,timeoutMs);
+  }catch(e){
+    // One silent retry after 350ms — handles transient 429/5xx/abort spikes.
+    await new Promise(r=>setTimeout(r,350));
+    return await _fetchOnce(path,timeoutMs);
+  }
 }
 
 async function fetchSteamNews(game){
@@ -2342,8 +2358,16 @@ async function fetchRssFeed(feed){
 
 async function fetchAllNews({force=false}={}){
   if(!force){
-    const c=newsCacheGet();
-    if(c){externalArticles=c;return c}
+    // Stale-while-revalidate: serve cache instantly. If older than TTL, trigger background refresh.
+    const fresh=newsCacheGet({allowStale:false});
+    if(fresh){externalArticles=fresh;return fresh}
+    const stale=newsCacheGet({allowStale:true});
+    if(stale){
+      externalArticles=stale;
+      // Fire-and-forget refresh — silent fail, never blocks caller.
+      if(!newsLoading){setTimeout(()=>{fetchAllNews({force:true}).catch(()=>{})},0)}
+      return stale;
+    }
   }
   newsLoading=true;
   document.querySelectorAll('[data-news-loading]').forEach(el=>{el.classList.add('active')});
@@ -2554,8 +2578,12 @@ const SEO_COPY={
   }
 };
 
+// Hardcoded canonical origin — keeps SEO consistent whether user lands on
+// rickrattle.com, www.rickrattle.com, or a vercel preview URL. Prevents
+// "Page with redirect" warnings caused by canonical/sitemap host mismatches.
+const CANONICAL_ORIGIN='https://rickrattle.com';
 function updateSEO(r){
-  const baseUrl=location.origin+location.pathname;
+  const baseUrl=CANONICAL_ORIGIN+location.pathname;
   const copy=SEO_COPY[lang]||SEO_COPY.en;
   let title=copy.siteTitle;
   let desc=copy.siteDesc;
@@ -2609,7 +2637,7 @@ function updateBreadcrumbJsonLd(r){
       "@type":"ListItem",
       "position":i+1,
       "name":c.label,
-      "item":location.origin+c.href
+      "item":CANONICAL_ORIGIN+c.href
     }))
   };
   if(!el){el=document.createElement('script');el.type='application/ld+json';el.id=id;document.head.appendChild(el)}
@@ -2914,6 +2942,43 @@ function TierListView(tl){
 /* ================================================================
    VIEWS
    ================================================================ */
+// ---- Twitch embed singleton ----
+// Player is heavy + Twitch rate-limits playlist requests (429) under remounts.
+// We create the iframe ONCE per session and re-attach it on subsequent renders.
+// Moving an iframe via appendChild preserves contentWindow → no reload, no 429.
+let __twitchIframe = null;
+function mountTwitchEmbed(){
+  const host=document.getElementById('twitchEmbedHost');
+  if(!host)return;
+  if(!__twitchIframe){
+    const hostname=location.hostname;
+    const allowed=['rickrattle.com','www.rickrattle.com'];
+    const parent=allowed.includes(hostname)?hostname:'rickrattle.com';
+    const f=document.createElement('iframe');
+    f.src=`https://player.twitch.tv/?channel=rick__rattle&parent=${parent}&muted=true`;
+    f.allow='autoplay; fullscreen';
+    f.setAttribute('allowfullscreen','');
+    f.setAttribute('frameborder','0');
+    f.addEventListener('error',()=>{
+      f.style.display='none';
+      const fb=host.querySelector('.twitch-fallback');
+      if(fb)fb.style.display='flex';
+    });
+    __twitchIframe=f;
+  }
+  // Re-attach (no-op if already child); appendChild moves DOM without reloading the iframe.
+  if(__twitchIframe.parentNode!==host)host.appendChild(__twitchIframe);
+  // Ensure fallback element exists alongside iframe.
+  if(!host.querySelector('.twitch-fallback')){
+    const fb=document.createElement('div');
+    fb.className='twitch-fallback';
+    fb.style.display='none';
+    fb.innerHTML=`<p>${lang==='pt'?'Live indisponível.':'Live unavailable.'}</p>
+      <a class="btn btn-primary" href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener">${lang==='pt'?'Ver na Twitch':'Watch on Twitch'} ↗</a>`;
+    host.appendChild(fb);
+  }
+}
+
 function HomeView(view){
   const all=getAllArticles();
   // Sort helper: featured first, then newest→oldest (lastUpdated > date)
@@ -2952,19 +3017,7 @@ function HomeView(view){
           <strong data-i18n="home.live.title">${t('home.live.title')}</strong>
           <span class="live-mini"><span class="live-dot"></span><span data-i18n="home.live.tag">${t('home.live.tag')}</span></span>
         </div>
-        <div class="embed">
-          ${(()=>{
-            // Dynamic parent param — only authorize hosts that Twitch will accept.
-            const host=location.hostname;
-            const allowed=['rickrattle.com','www.rickrattle.com','rickrattle.tv'];
-            const parent=allowed.includes(host)?host:'rickrattle.com';
-            return `<iframe src="https://player.twitch.tv/?channel=rick__rattle&parent=${parent}&muted=true" allowfullscreen onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='flex')"></iframe>
-            <div class="twitch-fallback" style="display:none">
-              <p>${lang==='pt'?'Live indisponível neste browser.':'Live unavailable in this browser.'}</p>
-              <a class="btn btn-primary" href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener">${lang==='pt'?'Ver na Twitch':'Watch on Twitch'} ↗</a>
-            </div>`;
-          })()}
-        </div>
+        <div class="embed" id="twitchEmbedHost"></div>
       </div>
     </div>
 
@@ -2983,6 +3036,8 @@ function HomeView(view){
       <div class="grid grid-3">${featTiers.map(TierCard).join('')}</div>
     </div>
   `;
+  // Mount Twitch iframe singleton (preserved across re-renders to avoid 429s).
+  mountTwitchEmbed();
 }
 
 /* -------------------- RICK RATTLE -------------------- */
