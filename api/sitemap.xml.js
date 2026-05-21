@@ -18,7 +18,12 @@ const GAME_SLUGS = [
 const MANUAL_ARTICLE_SLUGS = [
   'kcd2-patch-1-3-horse-overhaul','rl-season-evolution-recap','finals-season-3-weapons-leaked',
   'arc-raiders-tech-test-results','minecraft-tricky-trials-recap','chivalry-2-content-roadmap',
-  'gaming-handheld-market-2026','esports-2026-prize-pool-record','subscription-fatigue-gaming','crossplay-state-2026'
+  'gaming-handheld-market-2026','esports-2026-prize-pool-record','subscription-fatigue-gaming','crossplay-state-2026',
+  // Phase 3B editorial
+  'goty-2026-race-wide-open','hidden-gems-2026-played-by-nobody','best-vintage-games-2026',
+  'games-aging-surprisingly-well','forgotten-masterpieces-7-underrated','future-contenders-2027-watchlist',
+  // Phase 3F platforms
+  'ps-plus-2026-monthly-highlights','xbox-game-pass-2026-roadmap'
 ];
 
 const MANUAL_TIPS_SLUGS = [
