@@ -9,7 +9,13 @@ const ALLOW_HOSTS = [
   'www.pcgamer.com',
   'www.eurogamer.net',
   'www.rockpapershotgun.com',
-  'www.gamesindustry.biz'
+  'www.gamesindustry.biz',
+  'gamerant.com',
+  'www.gamespot.com',
+  'www.ign.com',
+  'feeds.ign.com',
+  'www.polygon.com',
+  'kotaku.com'
 ];
 
 function pick(el, ...names) {

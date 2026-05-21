@@ -338,6 +338,7 @@ button{font-family:inherit}
 .cat-endgame{background:rgba(225,29,42,.15);color:var(--hot);border:1px solid var(--hot)}
 .cat-pvp{background:rgba(255,107,0,.15);color:#FF8C42;border:1px solid #FF8C42}
 .cat-pve{background:rgba(76,217,100,.15);color:var(--good);border:1px solid var(--good)}
+.cat-mods{background:rgba(255,46,99,.12);color:var(--hot);border:1px solid var(--hot)}
 .cat-build{background:rgba(176,38,255,.15);color:var(--accent);border:1px solid var(--accent)}
 .cat-class{background:rgba(0,240,255,.15);color:var(--cyan);border:1px solid var(--cyan)}
 .cat-strategy{background:rgba(255,220,0,.12);color:#FFDC00;border:1px solid #FFDC00}
@@ -699,12 +700,17 @@ const games = [
   {slug:'gta-vi',              name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
   {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']},
   {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        platforms:['pc','ps5','xbox']},
-  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    platforms:['pc','xbox']}
+  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    platforms:['pc','xbox']},
+  {slug:'subnautica-2',        name:'Subnautica 2',           short:'Subnautica 2', steamAppId:1934660, subreddit:'subnautica',      platforms:['pc','ps5','xbox']},
+  {slug:'wow',                 name:'World of Warcraft',      short:'WoW',                              subreddit:'wow',             platforms:['pc']},
+  {slug:'warzone',             name:'Call of Duty: Warzone',  short:'Warzone',                          subreddit:'CODWarzone',      platforms:['pc','ps5','xbox']},
+  {slug:'cod-bo7',             name:'Call of Duty: Black Ops 7', short:'COD BO7',                       subreddit:'BlackOps7',       platforms:['pc','ps5','xbox']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
 const generalFeeds = [
   {slug:'r-Games',          subreddit:'Games',          label:'r/Games',          minScore:300, platform:null},
+  {slug:'r-gamingnews',     subreddit:'gamingnews',     label:'r/gamingnews',     minScore:50,  platform:null},
   {slug:'r-pcgaming',       subreddit:'pcgaming',       label:'r/pcgaming',       minScore:150, platform:'pc'},
   {slug:'r-PS5',            subreddit:'PS5',            label:'r/PS5',            minScore:100, platform:'playstation'},
   {slug:'r-XboxSeriesX',    subreddit:'XboxSeriesX',    label:'r/XboxSeriesX',    minScore:80,  platform:'xbox'},
@@ -722,7 +728,12 @@ const platformFeeds = [
   {url:'https://rss.app/r/feed/QDHepgGkpkY4tmkr',        platform:'pc',           label:'PC Gaming'},
   {url:'https://rss.app/r/feed/pKOHIzb3isteSzOf',        platform:'pc',           label:'PC Gaming News'},
   {url:'https://rss.app/r/feed/v9CWiuOkGj2K0T1j',        platform:'pc',           label:'PC Gaming · Reviews'},
-  {url:'https://rss.app/r/feed/VwhkaPvCFZoak1mD',        platform:'pc',           label:'PC Gaming · Releases'}
+  {url:'https://rss.app/r/feed/VwhkaPvCFZoak1mD',        platform:'pc',           label:'PC Gaming · Releases'},
+  // Major editorial outlets — broad gaming news
+  {url:'https://gamerant.com/feed/',                     platform:null,           label:'GameRant'},
+  {url:'https://www.gamespot.com/feeds/news/',           platform:null,           label:'GameSpot'},
+  {url:'https://www.gamesindustry.biz/feed',             platform:null,           label:'GamesIndustry.biz'},
+  {url:'https://feeds.feedburner.com/ign/all',           platform:null,           label:'IGN'}
 ];
 
 const articles = [
@@ -1442,6 +1453,121 @@ const guides = [
       ]}
     ]
   },
+  // ========== Subnautica 2 ==========
+  {
+    slug:'subnautica-2-first-hour',
+    title:'Subnautica 2: Your First Hour Survival Plan',
+    summary:'Where to scan, what to craft, and the depth limits that decide if you live or drown in your first hour.',
+    game:'subnautica-2', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:6,
+    source:'https://subnautica2hub.com/',
+    content:[
+      {type:'note', text:'Survival, exploration, crafting and "what to do first" — the four pillars Subnautica 2 hub keeps pointing at. Internalize these and the early game stops feeling random.'},
+      {type:'h2', text:'Priority list — first hour'},
+      {type:'steps', items:[
+        {title:'Scan everything in the immediate spawn radius', text:'Scanner is your fastest path to blueprints. Materials matter less than knowledge in hour one.'},
+        {title:'Craft Survival Knife + Repair Tool ASAP', text:'Both gate progression on key wreckage and creature kills.'},
+        {title:'Identify your safe water layer', text:'Pick a depth band you trust and base early dives around it. Pushing depth too soon = oxygen panic.'},
+        {title:'Plant Marbleweed or similar food source', text:'Hunger curve is steep — establish food production early so you can focus on exploration loops.'}
+      ]},
+      {type:'tip', text:'Always carry 2 spare batteries. Scanners and Repair Tools drain fast — running out mid-wreck is the most common cause of death in the first 3 hours.'}
+    ]
+  },
+
+  // ========== WoW ==========
+  {
+    slug:'wow-new-player-class-path',
+    title:'World of Warcraft: New Player Class Pick (Current Expansion)',
+    summary:'Which class to roll if you are new — based on ease of leveling, build forgiveness and current meta.',
+    game:'wow', type:'guide', difficulty:'beginner', category:'class', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:7,
+    source:['https://www.wowhead.com/guides/classes','https://www.wowhead.com/guides/classes/tier-lists','https://www.icy-veins.com/wow/mythic-dps-tier-list'],
+    content:[
+      {type:'note', text:'WoW has 13 classes and 38 specs. As a new player, you do not need to optimize meta — you need a forgiving, easy-to-learn entry point that scales into endgame.'},
+      {type:'h2', text:'Best entry classes (Midnight expansion)'},
+      {type:'ul', items:[
+        '<strong>Hunter (Beast Mastery)</strong> — pet tanks for you, mistakes are forgiving, strong solo content',
+        '<strong>Warlock (Destruction)</strong> — high damage, pet support, easy rotation',
+        '<strong>Paladin (Retribution)</strong> — self-healing, plate armor, low-skill-floor melee',
+        '<strong>Mage (Frost)</strong> — control + range + ice block "oh sh*t" button'
+      ]},
+      {type:'h2', text:'What to avoid as new'},
+      {type:'ul', items:[
+        '<strong>Tanking specs at level 1</strong> — high responsibility, learn the game first',
+        '<strong>Healing specs solo</strong> — feels weak until you reach group content',
+        '<strong>Druid (any spec)</strong> — 4 form-switching + high APM = hard for beginners'
+      ]},
+      {type:'tip', text:'Wowhead and Icy Veins both ship class tier lists per patch — bookmark both and check before every major content drop.'}
+    ]
+  },
+
+  // ========== Warzone ==========
+  {
+    slug:'warzone-current-meta-loadouts',
+    title:'Warzone: Current Meta Loadouts',
+    summary:'The top weapon combos this season for solo, duo and quad play — TTK, range bands and attachment recipes.',
+    game:'warzone', type:'build', difficulty:'intermediate', category:'pvp', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:6,
+    source:'https://wzstats.gg/',
+    content:[
+      {type:'note', text:'Warzone meta shifts every season. The principle below is stable: pick one mid-range primary, one close-range secondary, and one mobility/utility perk-combo.'},
+      {type:'h2', text:'Loadout shapes that always work'},
+      {type:'compare', headers:['Aggressive Push','Mid-range Hold','Sniper Anchor'], rows:[
+        {label:'Primary class', a:'Full-auto AR (close-range tuned)', b:'Burst / DMR (medium)', c:'Bolt-action sniper'},
+        {label:'Secondary', a:'SMG with mobility tuning', b:'Pistol or shotgun', c:'Mobility SMG'},
+        {label:'Ideal range', a:'<25m', b:'25-60m', c:'60m+'},
+        {label:'Perks', a:'Double Time, Tempered, Ghost', b:'Overkill, Tempered, Bird\'s Eye', c:'Cold-Blooded, Tempered, Ghost'}
+      ]},
+      {type:'tip', text:'wzstats.gg publishes weapon tier lists updated within 24h of every Warzone patch — check before ranked sessions.'}
+    ]
+  },
+
+  // ========== COD BO7 ==========
+  {
+    slug:'cod-bo7-launch-meta',
+    title:'Call of Duty Black Ops 7: Launch Meta Picks',
+    summary:'Best multiplayer loadouts at launch — based on wzstats meta data and community consensus.',
+    game:'cod-bo7', type:'build', difficulty:'beginner', category:'pvp', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:5,
+    source:'https://wzstats.gg/bo7/meta',
+    content:[
+      {type:'note', text:'COD launch metas always favor the broken-balance weapons in the first 2 weeks. wzstats tracks usage rates + win rates — check it daily during launch month.'},
+      {type:'h2', text:'What to expect at launch'},
+      {type:'ul', items:[
+        'A handful of ARs and SMGs will dominate before the first patch',
+        'Sniper / marksman rifles usually need 1-2 nerf passes',
+        'Perk slot meta will stabilize around movement-buff + spotted-buff combos'
+      ]},
+      {type:'tip', text:'Don\'t grind a single weapon to max level in the first week — the patch that lands ~10 days post-launch usually shifts the meta significantly.'}
+    ]
+  },
+
+  // ========== Tekken 8 Mods ==========
+  {
+    slug:'tekken-8-mod-discovery',
+    title:'Tekken 8: Mod Discovery Guide',
+    summary:'Where to find visual mods, gameplay mods and creative skins for Tekken 8 — TekkenMods, Nexus and Steam Workshop sharing.',
+    game:'tekken-8', type:'guide', difficulty:'intermediate', category:'mods', featured:true,
+    date:'2026-05-04', author:'Editorial', readTime:5,
+    source:['https://tekkenmods.com','https://www.nexusmods.com','https://steamcommunity.com/sharedfiles/filedetails/?id=3149435433'],
+    content:[
+      {type:'note', text:'Tekken 8 mods are PC-only and offline-only. Don\'t take modded characters into ranked — Bandai Namco bans accounts for modded matches against unmodded players.'},
+      {type:'h2', text:'The 3 mod sources to bookmark'},
+      {type:'ul', items:[
+        '<strong>TekkenMods.com</strong> — community-curated, the main hub. Filter by character + mod type (skin / move / hairstyle / stage)',
+        '<strong>Nexus Mods</strong> — quality vetting, version tracking, easier install with the Vortex client',
+        '<strong>Steam Community Guides</strong> — install tutorials and "best mod packs" discussions'
+      ]},
+      {type:'h2', text:'Categories worth exploring'},
+      {type:'compare', headers:['Visual Mods','Gameplay Mods','Quality of Life'], rows:[
+        {label:'Examples', a:'Costumes, alt skins, hairstyles', b:'Move tweaks, balance experiments', c:'UI improvements, replay tools'},
+        {label:'Risk vs ranked', a:'High (visual desync = ban)', b:'Very high', c:'Low'},
+        {label:'Best for', a:'Offline play, screenshots', b:'Sparring with friends', c:'Anyone'}
+      ]},
+      {type:'warning', text:'Always back up your config files before installing gameplay mods. Some mods overwrite core files and can corrupt your save profile.'}
+    ]
+  },
+
   // ========== Forza Horizon 6 ==========
   {
     slug:'forza-horizon-6-tracker',
@@ -1713,6 +1839,53 @@ const tierLists = [
       {tier:'B', items:['Necromancer','Barbarian']}
     ]
   },
+  // ========== Fortnite (new tier list) ==========
+  {
+    slug:'fortnite-weapons-tier-chapter-7',
+    title:'Fortnite: Weapon Tier List (Current Chapter)',
+    summary:'Every weapon class ranked for the current chapter — close-range shotguns, ARs, snipers and mythics.',
+    game:'fortnite', category:'pvp', featured:true, date:'2026-05-04', lastUpdated:'2026-05-04', author:'Editorial',
+    source:['https://games.gg/fortnite/guides/fortnite-chapter-7-season-2-weapon-tier-list-every-gun-ranked/','https://boostmatch.gg/blog/fortnite/articles/fortnite-chapter-7-tier-list','https://tiermaker.com/categories/fortnite'],
+    tiers:[
+      {tier:'S', items:['Mythic Assault Rifle (chapter exclusive)','Striker Burst AR','Pump Shotgun','Heavy Sniper Rifle']},
+      {tier:'A', items:['Tactical AR','SMG (full-auto)','Lever-Action Shotgun','Bolt-Action Sniper']},
+      {tier:'B', items:['Auto Shotgun','Hand Cannon','Burst SMG','Suppressed Pistol']},
+      {tier:'C', items:['Common AR','Revolver','Hunting Rifle']},
+      {tier:'D', items:['Grey-tier starter pistols','Items long out of meta']}
+    ]
+  },
+
+  // ========== Subnautica 2 ==========
+  {
+    slug:'subnautica-2-things-to-do-first',
+    title:'Subnautica 2: Top 10 Things to Do First',
+    summary:'Survival priorities, exploration milestones and the crafts that unlock the next tier of progression.',
+    game:'subnautica-2', category:'beginner', date:'2026-05-04', author:'Editorial', featured:false,
+    source:'https://subnautica2hub.com/',
+    tiers:[
+      {tier:'S', items:['Scan everything (Scanner is your real Tier 1 weapon)','Build a Survival Knife','Establish a food source','Identify your safe depth band']},
+      {tier:'A', items:['Build Repair Tool','Find first major wreck and scan all PDAs','Craft a Habitat foundation','Stockpile 4× spare Batteries']},
+      {tier:'B', items:['Build first Seamoth or equivalent vehicle','Place a Beacon at your base','Explore one biome past your safe band']},
+      {tier:'C', items:['Decorate / personalize habitat','Hoard cosmetics']}
+    ]
+  },
+
+  // ========== WoW Class Tier List ==========
+  {
+    slug:'wow-dps-tier-mythic-plus',
+    title:'WoW: M+ DPS Tier List (Current Season)',
+    summary:'Mythic+ DPS rankings for the current season — based on Icy Veins and Wowhead aggregated data.',
+    game:'wow', category:'endgame', featured:true, date:'2026-05-04', author:'Editorial',
+    source:['https://www.icy-veins.com/wow/mythic-dps-tier-list','https://www.wowhead.com/guides/classes/tier-lists'],
+    tiers:[
+      {tier:'S', items:['Specs leading the current M+ meta (check live tier list before key push)']},
+      {tier:'A', items:['Strong fillers — flex picks for most key levels']},
+      {tier:'B', items:['Viable but situational — bring for niches']},
+      {tier:'C', items:['Underperforming this season unless heavily geared']},
+      {tier:'F', items:['Avoid for high keys — significant balance issues']}
+    ]
+  },
+
   {
     slug:'destiny2-exotic-weapons-pve',
     title:'Destiny 2: Best Exotic Weapons (PvE — Edge of Fate)',
@@ -1773,7 +1946,7 @@ const NEWS_CFG = {
 let externalArticles = [];                        // populated by fetchAllNews()
 let newsLoading = false;
 
-const NEWS_CACHE_VERSION=6; // bump to invalidate caches after schema changes
+const NEWS_CACHE_VERSION=7; // bump to invalidate caches after schema changes
 function newsCacheGet(){
   try{
     const raw=localStorage.getItem('rr_news_cache');
@@ -3099,14 +3272,20 @@ const TIPS_BLURBS={
   'diablo-iv':{en:'Diablo IV class builds, season meta, paragon paths and endgame Pit pushing strategies.',pt:'Builds de classe, meta da season, paragon paths e Pit pushing endgame em Diablo IV.'},
   'palworld':{en:'Palworld base optimization, Pal breeding loops, work suitability assignments and late-game tower fights.',pt:'Otimização de base, loops de breeding de Pals, work suitability e late-game tower fights em Palworld.'},
   'destiny-2':{en:'Destiny 2 exotic weapon tier lists, Guardian build guides and class subclass synergies (Titan / Hunter / Warlock) across Solar, Arc, Void, Stasis and Strand.',pt:'Tier lists de armas exóticas em Destiny 2, builds de Guardian e sinergias de subclasse (Titan / Hunter / Warlock) entre Solar, Arc, Void, Stasis e Strand.'},
-  'forza-horizon-6':{en:'Forza Horizon 6 news, tunes and route guides as they emerge from Playground Games and the Forza community.',pt:'Notícias, tunes e guias de rota para Forza Horizon 6 à medida que saem da Playground Games e da comunidade Forza.'}
+  'forza-horizon-6':{en:'Forza Horizon 6 news, tunes and route guides as they emerge from Playground Games and the Forza community.',pt:'Notícias, tunes e guias de rota para Forza Horizon 6 à medida que saem da Playground Games e da comunidade Forza.'},
+  'subnautica-2':{en:'Subnautica 2 survival tips, exploration routes, crafting priorities and beginner help for the depths.',pt:'Dicas de sobrevivência, rotas de exploração, prioridades de crafting e ajuda para iniciantes nas profundezas de Subnautica 2.'},
+  'wow':{en:'World of Warcraft class guides, raid strategies, M+ tier lists and new-player paths — covering current expansion content.',pt:'Guias de classes WoW, estratégias de raid, tier lists de M+ e caminhos para novos jogadores — focado no conteúdo da expansão atual.'},
+  'warzone':{en:'Call of Duty Warzone seasonal meta, weapon rankings, loadout templates and rotation strategy by map.',pt:'Meta da temporada do Warzone, rankings de armas, templates de loadout e estratégia de rotação por mapa.'},
+  'cod-bo7':{en:'Call of Duty: Black Ops 7 meta loadouts, weapon tier lists and multiplayer strategy from launch onwards.',pt:'Loadouts meta, tier lists de armas e estratégia multiplayer para Call of Duty: Black Ops 7 desde o lançamento.'},
+  'tekken-8':{en:'Tekken 8 guides for beginners and ranked players: combos, frame data, character paths, plus a curated mod discovery section.',pt:'Guias de Tekken 8 para iniciantes e ranked: combos, frame data, caminhos por personagem, e uma secção de mods curados.'},
+  'fortnite':{en:'Fortnite weapon and item tier lists, seasonal meta breakdowns and loot rotation guides.',pt:'Tier lists de armas e items, análises de meta sazonal e guias de rotação de loot em Fortnite.'}
 };
 
 // Categorias suportadas — alinhadas com o estilo Maxroll/Icy-Veins.
-const CATEGORIES=['beginner','endgame','pve','pvp','build','class','strategy'];
+const CATEGORIES=['beginner','endgame','pve','pvp','build','class','strategy','mods'];
 const CATEGORY_LABEL={
-  en:{beginner:'Beginner',endgame:'Endgame',pve:'PvE',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Strategy'},
-  pt:{beginner:'Iniciante',endgame:'Endgame',pve:'PvE',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Estratégia'}
+  en:{beginner:'Beginner',endgame:'Endgame',pve:'PvE',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Strategy',mods:'Mods'},
+  pt:{beginner:'Iniciante',endgame:'Endgame',pve:'PvE',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Estratégia',mods:'Mods'}
 };
 
 function GameTipsPage(view,game){

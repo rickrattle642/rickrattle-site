@@ -11,7 +11,8 @@ const GAME_SLUGS = [
   'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
   'cs2','eldenring','cyberpunk2077','baldursgate3','gta-vi','helldivers2','lol','valorant','palworld','monster-hunter-wilds',
   'apex','fortnite','overwatch2','crimson-desert','diablo-iv','gta-v','marathon','marvel-rivals','re-requiem','saros','windrose',
-  'tekken-8','callofduty','destiny-2','forza-horizon-6'
+  'tekken-8','callofduty','destiny-2','forza-horizon-6',
+  'subnautica-2','wow','warzone','cod-bo7'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -51,6 +52,14 @@ const MANUAL_TIPS_SLUGS = [
   {game:'destiny-2', slug:'destiny2-classes-overview'},
   {game:'destiny-2', slug:'destiny2-edge-of-fate-beginner'},
   {game:'forza-horizon-6', slug:'forza-horizon-6-tracker'},
+  {game:'subnautica-2', slug:'subnautica-2-first-hour'},
+  {game:'subnautica-2', slug:'subnautica-2-things-to-do-first'},
+  {game:'wow', slug:'wow-new-player-class-path'},
+  {game:'wow', slug:'wow-dps-tier-mythic-plus'},
+  {game:'warzone', slug:'warzone-current-meta-loadouts'},
+  {game:'cod-bo7', slug:'cod-bo7-launch-meta'},
+  {game:'tekken-8', slug:'tekken-8-mod-discovery'},
+  {game:'fortnite', slug:'fortnite-weapons-tier-chapter-7'},
   // tier lists
   {game:'rocket-league', slug:'rl-cars-spring-2026'},
   {game:'the-finals', slug:'finals-weapons-current'},
