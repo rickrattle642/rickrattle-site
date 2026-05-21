@@ -337,9 +337,19 @@ button{font-family:inherit}
 .cat-beginner{background:rgba(76,217,100,.15);color:var(--good);border:1px solid var(--good)}
 .cat-endgame{background:rgba(225,29,42,.15);color:var(--hot);border:1px solid var(--hot)}
 .cat-pvp{background:rgba(255,107,0,.15);color:#FF8C42;border:1px solid #FF8C42}
+.cat-pve{background:rgba(76,217,100,.15);color:var(--good);border:1px solid var(--good)}
 .cat-build{background:rgba(176,38,255,.15);color:var(--accent);border:1px solid var(--accent)}
 .cat-class{background:rgba(0,240,255,.15);color:var(--cyan);border:1px solid var(--cyan)}
 .cat-strategy{background:rgba(255,220,0,.12);color:#FFDC00;border:1px solid #FFDC00}
+
+/* Editorial prefix badges */
+.prefix-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;font-weight:700;text-transform:uppercase;width:fit-content;margin-bottom:2px}
+.prefix-rattle-take{background:rgba(176,38,255,.14);color:var(--accent);border:1px solid var(--accent)}
+.prefix-meta-watch{background:rgba(225,29,42,.12);color:var(--hot);border:1px solid var(--hot)}
+.prefix-worth-watching{background:rgba(0,240,255,.10);color:var(--cyan);border:1px solid var(--cyan)}
+.prefix-quick-read{background:rgba(255,220,0,.12);color:#FFDC00;border:1px solid #FFDC00}
+.prefix-stream-test{background:rgba(76,217,100,.12);color:var(--good);border:1px solid var(--good)}
+.prefix-community-pulse{background:rgba(255,107,0,.12);color:#FF8C42;border:1px solid #FF8C42}
 
 /* Category filter row */
 .cat-filter{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
@@ -720,7 +730,7 @@ const articles = [
     slug:'kcd2-patch-1-3-horse-overhaul',
     title:'KCD2 Patch 1.3: Horse Overhaul and New Side Quests',
     summary:'Warhorse rolls out a chunky update with reworked horse handling, two new questlines, and balance changes to combat stamina.',
-    game:'kcd2', tags:['patch','update'], featured:true, date:'2026-04-28', readTime:4,
+    game:'kcd2', tags:['patch','update'], featured:true, date:'2026-04-28', readTime:4, prefix:'meta-watch',
     content:[
       {type:'p', text:'Warhorse Studios released Patch 1.3 for Kingdom Come: Deliverance II this week, focusing on long-requested fixes to horse handling and adding two new side questlines tied to the Trosky region.'},
       {type:'h', text:'Horse handling rework'},
@@ -736,7 +746,7 @@ const articles = [
     slug:'rl-season-evolution-recap',
     title:'Rocket League Season Evolution: What Made the Cut',
     summary:'New maps, the rotation reshuffle, and why competitive players are split on the Volt Mutator.',
-    game:'rocket-league', tags:['esports','update'], featured:true, date:'2026-04-22', readTime:6,
+    game:'rocket-league', tags:['esports','update'], featured:true, date:'2026-04-22', readTime:6, prefix:'community-pulse',
     content:[
       {type:'p', text:'The latest competitive season rolled out with three reworked maps and one mutator that has pros divided.'},
       {type:'h', text:'Map changes'},
@@ -752,7 +762,7 @@ const articles = [
     slug:'finals-season-3-weapons-leaked',
     title:'The Finals: Season 3 Weapons Leaked Ahead of Reveal',
     summary:'Datamined assets point to a new heavy-class shotgun and a precision rifle for medium build.',
-    game:'the-finals', tags:['leak','update'], featured:false, date:'2026-04-19', readTime:3,
+    game:'the-finals', tags:['leak','update'], featured:false, date:'2026-04-19', readTime:3, prefix:'worth-watching',
     content:[
       {type:'p', text:'Datamined files from the latest patch have surfaced what appear to be Season 3 weapons. Embark Studios has not commented.'},
       {type:'h', text:'What\'s in the files'},
@@ -764,7 +774,7 @@ const articles = [
     slug:'arc-raiders-tech-test-results',
     title:'Arc Raiders Tech Test: What We Learned',
     summary:'Embark\'s extraction shooter showed strong server stability but raised questions about loot density.',
-    game:'arc-raiders', tags:['playtest'], featured:true, date:'2026-04-14', readTime:5,
+    game:'arc-raiders', tags:['playtest'], featured:true, date:'2026-04-14', readTime:5, prefix:'stream-test',
     content:[
       {type:'p', text:'The recent Arc Raiders tech test gave players a deeper look at the extraction shooter\'s endgame loop. Server performance was the standout — 99.2% stability across the testing window.'},
       {type:'h', text:'Loot economy'},
@@ -777,7 +787,7 @@ const articles = [
     slug:'minecraft-tricky-trials-recap',
     title:'Minecraft Tricky Trials: Mob Vote Aftermath',
     summary:'The community\'s reaction to the latest mob, the new structure type, and how the trial spawner changes farms.',
-    game:'minecraft', tags:['update','community'], featured:false, date:'2026-04-08', readTime:4,
+    game:'minecraft', tags:['update','community'], featured:false, date:'2026-04-08', readTime:4, prefix:'community-pulse',
     content:[
       {type:'p', text:'The Tricky Trials update landed with the usual mix of celebration and constructive complaint.'},
       {type:'h', text:'Trial Chambers'},
@@ -790,7 +800,7 @@ const articles = [
     slug:'chivalry-2-content-roadmap',
     title:'Chivalry 2 Roadmap: Castle Sieges and New Faction',
     summary:'Torn Banner outlines six months of content, including a new map type and the long-rumored "Iron Company" faction.',
-    game:'chivalry-2', tags:['roadmap'], featured:false, date:'2026-04-02', readTime:3,
+    game:'chivalry-2', tags:['roadmap'], featured:false, date:'2026-04-02', readTime:3, prefix:'quick-read',
     content:[
       {type:'p', text:'Torn Banner has published the next six-month content roadmap for Chivalry 2.'},
       {type:'h', text:'New mode'},
@@ -804,7 +814,7 @@ const articles = [
     slug:'gaming-handheld-market-2026',
     title:'The Handheld Wars: Steam Deck OLED 2, ROG Ally X, MSI Claw — Who\'s Winning?',
     summary:'Three years into the modern handheld PC gaming era, the market has matured. We compare battery life, library compatibility and price-to-performance.',
-    game:'general', tags:['hardware','industry'], featured:true, date:'2026-04-26', readTime:8,
+    game:'general', tags:['hardware','industry'], featured:true, date:'2026-04-26', readTime:8, prefix:'rattle-take',
     content:[
       {type:'p', text:'The handheld PC gaming market is no longer a curiosity. Steam Deck OLED Gen 2, ASUS ROG Ally X, and MSI Claw 8 have each carved out a niche. Here\'s where each one wins and loses.'},
       {type:'h', text:'Battery life winner: Steam Deck OLED Gen 2'},
@@ -819,7 +829,7 @@ const articles = [
     slug:'esports-2026-prize-pool-record',
     title:'Esports 2026 Prize Pools Hit All-Time High',
     summary:'Combined prize pools across major esports titles have crossed the $400M mark, driven by Saudi League partnerships.',
-    game:'general', tags:['esports','industry'], featured:false, date:'2026-04-21', readTime:5,
+    game:'general', tags:['esports','industry'], featured:false, date:'2026-04-21', readTime:5, prefix:'worth-watching',
     content:[
       {type:'p', text:'Esports prize pools in 2026 have crossed the $400M mark across all major titles, the highest in history.'},
       {type:'h', text:'Top 5 by prize pool'},
@@ -832,7 +842,7 @@ const articles = [
     slug:'subscription-fatigue-gaming',
     title:'Are We Hitting Gaming Subscription Fatigue?',
     summary:'Game Pass, PS Plus Premium, EA Play, Ubisoft+, GeForce Now — the bills are stacking up. Where does this go from here?',
-    game:'general', tags:['industry','opinion'], featured:false, date:'2026-04-15', readTime:6,
+    game:'general', tags:['industry','opinion'], featured:false, date:'2026-04-15', readTime:6, prefix:'rattle-take',
     content:[
       {type:'p', text:'There are now seven major gaming subscription services in 2026. Subscribing to all of them costs more than buying 4-5 full-price games per year.'},
       {type:'h', text:'The math'},
@@ -846,7 +856,7 @@ const articles = [
     slug:'crossplay-state-2026',
     title:'The State of Crossplay in 2026: Where We Stand',
     summary:'Five years after major holdouts caved, crossplay is the default. But not everywhere. A platform-by-platform check.',
-    game:'general', tags:['industry'], featured:false, date:'2026-04-09', readTime:5,
+    game:'general', tags:['industry'], featured:false, date:'2026-04-09', readTime:5, prefix:'quick-read',
     content:[
       {type:'p', text:'In 2026, crossplay is no longer a feature — it\'s expected. But there are still gaps.'},
       {type:'h', text:'The leaders'},
@@ -1626,18 +1636,33 @@ const tierLists = [
       {tier:'D', items:['Frost Walker II','Curse of Vanishing','Curse of Binding']}
     ]
   },
+  // PvE and PvP are treated as separate SEO entities — own slug, own page, own tier list.
   {
-    slug:'arc-raiders-weapons-tier',
-    title:'Arc Raiders: Weapon Tier List (Full Roster)',
-    summary:'Every weapon in the Arc Raiders database ranked by ARC effectiveness, rarity and meta usage — Battle Rifles, Assault Rifles, Pistols, SMGs, Shotguns, LMGs, Snipers and Special.',
-    game:'arc-raiders', category:'pvp', featured:true, date:'2026-04-22', lastUpdated:'2026-05-04', author:'Editorial',
-    source:'https://arcraidershub.com/weapons',
+    slug:'arc-raiders-pve-weapon-tier-list',
+    title:'Arc Raiders: PvE Weapon Tier List (vs ARC)',
+    summary:'Best weapons for PvE — survivability, ARC armor efficiency, farming runs and utility. Hullcracker, Anvil and Renegade lead the meta.',
+    game:'arc-raiders', category:'pve', featured:true, date:'2026-05-04', lastUpdated:'2026-05-04', author:'Editorial',
+    source:['https://www.thegamer.com/arc-raiders-best-pve-weapons-tier-list-hullcracker-anvil-renegade-guide/','https://wzstats.gg/arc-raiders/meta','https://arcraidershub.com/weapons'],
     tiers:[
-      {tier:'S', items:['Hullcracker (Epic, explosive launcher)','Equalizer (beam rifle, extreme vs ARC)','Jupiter (Legendary energy sniper)','Aphelion (Legendary energy battle rifle)','Anvil (heavy pistol, very effective vs ARC)','Ferro (heavy break-action, opener meta)']},
-      {tier:'A', items:['Bettina (Epic heavy AR)','Vulcano (Epic semi-auto shotgun)','Renegade (Rare lever-action)','Osprey (Rare scoped bolt-action sniper)','Stitcher (budget SMG meta)','Hammer (always-equipped melee, AOE)']},
-      {tier:'B', items:['Tempest (full-auto AR)','Arpeggio (3-round burst AR)','Il Toro (pump shotgun)','Bobcat (high fire-rate SMG)','Torrente (LMG, sustained fire)']},
-      {tier:'C', items:['Rattler (full-auto AR, 2-bullet reload)','Burletta (semi-auto light pistol)','Venator (double-shot pistol)']},
-      {tier:'D', items:['Kettle (weak vs ARC)','Hairpin (silenced light pistol, weak vs ARC)']}
+      {tier:'S', items:['Hullcracker (explosive, very effective vs ARC armor)','Anvil (heavy pistol, 40% damage, very effective vs ARC)','Renegade (lever-action rifle, high single-target burst)','Jupiter (Legendary energy sniper, very effective vs ARC)']},
+      {tier:'A', items:['Aphelion (Legendary energy battle rifle)','Equalizer (beam rifle, extreme vs ARC armor + limbs)','Ferro (heavy break-action, opener meta)','Bettina (Epic heavy AR)','Osprey (Rare scoped bolt-action)']},
+      {tier:'B', items:['Vulcano (Epic semi-auto shotgun)','Tempest (full-auto AR)','Il Toro (pump shotgun, large spread)','Torrente (LMG, sustained farm clears)']},
+      {tier:'C', items:['Stitcher (full-auto SMG, weak vs ARC armor)','Bobcat (high fire-rate SMG, weak vs ARC)','Arpeggio (3-burst AR)','Rattler (2-bullet reload penalty)']},
+      {tier:'D', items:['Kettle (weak vs ARC)','Hairpin (silenced light pistol, weak vs ARC)','Burletta (light pistol, no ARC stopping power)','Venator (PvP-focused double-shot, weak in PvE)']}
+    ]
+  },
+  {
+    slug:'arc-raiders-pvp-weapon-tier-list',
+    title:'Arc Raiders: PvP Weapon Tier List (vs Raiders)',
+    summary:'Best weapons for PvP — TTK, mobility, recoil control and competitive duels. Venator, Renegade and Stitcher lead the meta.',
+    game:'arc-raiders', category:'pvp', featured:true, date:'2026-05-04', lastUpdated:'2026-05-04', author:'Editorial',
+    source:['https://www.thegamer.com/arc-raiders-pvp-weapon-tier-list-venator-renegade-stitcher-guide/','https://wzstats.gg/arc-raiders/meta','https://arcraidershub.com/weapons'],
+    tiers:[
+      {tier:'S', items:['Venator (semi-auto double-shot pistol, fast TTK)','Renegade (lever-action, high damage + accuracy)','Stitcher (full-auto SMG, budget meta)']},
+      {tier:'A', items:['Ferro (precision opener, 3-shot kill on light shields)','Anvil (high-damage handcannon, headshot meta)','Vulcano (Epic semi-auto shotgun)','Burletta (fast-fire light pistol)','Hairpin (silenced stealth pick)']},
+      {tier:'B', items:['Tempest (full-auto AR, controllable recoil)','Rattler (full-auto AR, 2-bullet reload)','Bobcat (high fire-rate SMG)','Il Toro (pump shotgun, close-range)','Hammer (always-equipped, AOE melee surprise)']},
+      {tier:'C', items:['Bettina (slow fire rate vs players)','Osprey (sniper, hard scope vs mobile targets)','Arpeggio (3-burst, predictable spacing)']},
+      {tier:'D', items:['Hullcracker (only detonates on ARC, useless on raiders)','Equalizer (beam rifle, too heavy for PvP)','Torrente (LMG, slow agility)','Jupiter (legendary sniper, slow handling)','Kettle (weak)','Aphelion (energy sniper, slow handling for duels)']}
     ]
   },
   {
@@ -1748,7 +1773,7 @@ const NEWS_CFG = {
 let externalArticles = [];                        // populated by fetchAllNews()
 let newsLoading = false;
 
-const NEWS_CACHE_VERSION=5; // bump to invalidate caches after schema changes
+const NEWS_CACHE_VERSION=6; // bump to invalidate caches after schema changes
 function newsCacheGet(){
   try{
     const raw=localStorage.getItem('rr_news_cache');
@@ -2329,6 +2354,22 @@ function fallbackHtml(item){
 }
 
 const PLATFORM_LABEL={xbox:'Xbox',playstation:'PlayStation',pc:'PC',nintendo:'Nintendo'};
+// Rotating editorial prefix system — adds personality + shareability + signals article style at a glance.
+const PREFIX_LABELS={
+  'rattle-take':    {emoji:'🎮', en:'Rick Rattle Take',     pt:'Take do Rick',           hint:'Opinion / personal angle'},
+  'meta-watch':     {emoji:'🔥', en:'Meta Watch',           pt:'Meta Watch',             hint:'What changes the meta'},
+  'worth-watching': {emoji:'👀', en:'Worth Watching',       pt:'Vale a Pena Ver',        hint:'Trends + things to track'},
+  'quick-read':     {emoji:'⚡', en:'Quick Read',            pt:'Leitura Rápida',         hint:'2-3 min read, no fluff'},
+  'stream-test':    {emoji:'🎯', en:'Stream Test Candidate',pt:'Candidato a Stream Test',hint:'Will Rick try this live?'},
+  'community-pulse':{emoji:'🧠', en:'Community Pulse',      pt:'Pulso da Comunidade',    hint:'What players are saying'}
+};
+function prefixBadge(prefix){
+  if(!prefix||!PREFIX_LABELS[prefix])return '';
+  const p=PREFIX_LABELS[prefix];
+  const label=p[lang]||p.en;
+  return `<span class="prefix-badge prefix-${prefix}" title="${p.hint}">${p.emoji} ${label}</span>`;
+}
+
 function ArticleCard(a){
   const tags=(a.tags||[]).filter(x=>x).slice(0,3).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
   let badge='';
@@ -2341,6 +2382,7 @@ function ArticleCard(a){
   return `<a class="card" href="/news/${a.slug}" data-route>
     <div class="card-thumb">${badge}${thumbHtml(a)}${fallbackHtml(a)}</div>
     <div class="card-body">
+      ${prefixBadge(a.prefix)}
       <div class="card-meta"><span class="game">${display}</span>·<span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span>·<span>${a.readTime||3} min</span></div>
       <h3 class="card-title">${a.title}</h3>
       <p class="card-summary">${a.summary}</p>
@@ -3061,10 +3103,10 @@ const TIPS_BLURBS={
 };
 
 // Categorias suportadas — alinhadas com o estilo Maxroll/Icy-Veins.
-const CATEGORIES=['beginner','endgame','pvp','build','class','strategy'];
+const CATEGORIES=['beginner','endgame','pve','pvp','build','class','strategy'];
 const CATEGORY_LABEL={
-  en:{beginner:'Beginner',endgame:'Endgame',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Strategy'},
-  pt:{beginner:'Iniciante',endgame:'Endgame',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Estratégia'}
+  en:{beginner:'Beginner',endgame:'Endgame',pve:'PvE',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Strategy'},
+  pt:{beginner:'Iniciante',endgame:'Endgame',pve:'PvE',pvp:'PvP',build:'Builds',class:'Classes',strategy:'Estratégia'}
 };
 
 function GameTipsPage(view,game){
