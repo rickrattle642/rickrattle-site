@@ -740,6 +740,31 @@ const platformFeeds = [
   {url:'https://feeds.feedburner.com/ign/all',           platform:null,           label:'IGN'}
 ];
 
+/* ============================================================
+   CONTENT RULES — read before adding new entries below
+   ------------------------------------------------------------
+   SLUG / URL RULE (future content only):
+   - Never use abbreviations in slugs. Prefer full names.
+     ✅ slug:'rocket-league-season-15-meta'
+     ❌ slug:'rl-s15-meta'
+     ✅ slug:'kingdom-come-deliverance-2-patch-1-3'
+     ❌ slug:'kcd2-patch-1-3'   (legacy entries kept — DO NOT rename)
+   - Words separated by hyphens. Lowercase only. No diacritics.
+   - Game segment uses the canonical game slug from the `games` array.
+   - Slug must remain stable once published — Google has indexed it.
+     If a typo slips through, add a sitemap entry or 301 instead of renaming.
+
+   EDITORIAL LABEL (`prefix`) — identity, not SEO:
+   - Pick from: rattle-take | meta-watch | worth-watching | quick-read |
+     stream-test | community-pulse
+   - Renders below the breadcrumb on the article page.
+   - Does NOT appear in URL, canonical, or breadcrumb trail.
+
+   DATA-FIRST RULE (homepage / layout):
+   - Do NOT redesign homepage, move featured sections, restructure mobile,
+     create mixed-content rows, or redesign the welcome section until
+     Search Console data is in. Decisions on layout wait for real traffic.
+   ============================================================ */
 const articles = [
   {
     slug:'kcd2-patch-1-3-horse-overhaul',
