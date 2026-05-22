@@ -193,13 +193,14 @@ button{font-family:inherit}
 /* Live-gated Twitch card states */
 .twitch-placeholder{position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 0%,#1a0a2a 100%);animation:twPulse 1.4s ease-in-out infinite}
 @keyframes twPulse{0%,100%{opacity:.6}50%{opacity:.85}}
-.twitch-offline{position:absolute;inset:0;display:block;text-decoration:none;color:inherit;overflow:hidden}
-.twitch-offline-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(.7)}
-.twitch-offline-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.55) 100%)}
-.twitch-offline-badge{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted);border:1px solid var(--line);padding:5px 11px;border-radius:99px;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
-.twitch-offline-cta{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px;color:#fff;font-weight:600}
+.twitch-offline{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-decoration:none;color:inherit;overflow:hidden}
+.twitch-offline-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(176,38,255,.18) 0%,rgba(10,10,15,1) 70%),linear-gradient(135deg,#0a0a0f 0%,#1a0a2a 100%)}
+.twitch-offline-logo{position:relative;width:38%;max-width:160px;height:auto;opacity:.85;filter:drop-shadow(0 0 24px rgba(176,38,255,.45));transition:.25s ease}
+.twitch-offline-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:18px;pointer-events:none}
+.twitch-offline-badge{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted);border:1px solid var(--line);padding:5px 11px;border-radius:99px;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);align-self:flex-end}
+.twitch-offline-cta{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px;color:#fff;font-weight:600;text-align:center}
 .twitch-offline:hover .twitch-offline-cta{color:var(--accent)}
-.twitch-offline:hover .twitch-offline-thumb{filter:brightness(.55) saturate(.8)}
+.twitch-offline:hover .twitch-offline-logo{opacity:1;transform:scale(1.04);filter:drop-shadow(0 0 32px rgba(176,38,255,.65))}
 
 .section{margin-bottom:38px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;gap:10px;flex-wrap:wrap}
@@ -3055,13 +3056,13 @@ async function mountTwitchEmbed(){
     return;
   }
 
-  // OFFLINE — render static card. No iframe, no 429s, no embed errors.
+  // OFFLINE — render static card with Rick Rattle logo. No iframe, no 429s, no embed errors.
   host.dataset.tw='offline';
-  const thumb=`https://static-cdn.jtvnw.net/previews-ttv/live_user_${TWITCH_CHANNEL}-640x360.jpg`;
   const offlineLabel=lang==='pt'?'OFFLINE':'OFFLINE';
   const ctaLabel=lang==='pt'?'Ver canal na Twitch':'Visit channel on Twitch';
   host.innerHTML=`<a class="twitch-offline" href="https://www.twitch.tv/${TWITCH_CHANNEL}" target="_blank" rel="noopener" aria-label="Twitch channel — offline">
-    <img class="twitch-offline-thumb" src="${thumb}" alt="" loading="lazy" onerror="this.style.display='none'">
+    <div class="twitch-offline-bg"></div>
+    <img class="twitch-offline-logo" src="/logo.png" alt="Rick Rattle" loading="lazy">
     <div class="twitch-offline-overlay">
       <span class="twitch-offline-badge">${offlineLabel}</span>
       <span class="twitch-offline-cta">${ctaLabel} ↗</span>
