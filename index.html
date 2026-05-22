@@ -186,10 +186,20 @@ button{font-family:inherit}
 .hero-side-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
 .hero-side-head strong{font-family:'Bebas Neue',sans-serif;letter-spacing:2px;font-size:15px}
 .hero-side-head .live-mini{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--hot);letter-spacing:2px;display:flex;align-items:center;gap:6px}
-.embed{aspect-ratio:16/9;background:#000}
+.embed{aspect-ratio:16/9;background:#000;position:relative;overflow:hidden;border-radius:8px}
 .embed iframe{width:100%;height:100%;border:0;display:block}
 .twitch-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#000;color:#fff;text-align:center;padding:24px}
 .twitch-fallback p{margin:0;color:var(--muted);font-size:14px;font-family:'JetBrains Mono',monospace;letter-spacing:1px}
+/* Live-gated Twitch card states */
+.twitch-placeholder{position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 0%,#1a0a2a 100%);animation:twPulse 1.4s ease-in-out infinite}
+@keyframes twPulse{0%,100%{opacity:.6}50%{opacity:.85}}
+.twitch-offline{position:absolute;inset:0;display:block;text-decoration:none;color:inherit;overflow:hidden}
+.twitch-offline-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.45) saturate(.7)}
+.twitch-offline-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.55) 100%)}
+.twitch-offline-badge{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--muted);border:1px solid var(--line);padding:5px 11px;border-radius:99px;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
+.twitch-offline-cta{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:1px;color:#fff;font-weight:600}
+.twitch-offline:hover .twitch-offline-cta{color:var(--accent)}
+.twitch-offline:hover .twitch-offline-thumb{filter:brightness(.55) saturate(.8)}
 
 .section{margin-bottom:38px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;gap:10px;flex-wrap:wrap}
@@ -2977,36 +2987,86 @@ function TierListView(tl){
 // We create the iframe ONCE per session and re-attach it on subsequent renders.
 // Moving an iframe via appendChild preserves contentWindow → no reload, no 429.
 let __twitchIframe = null;
-function mountTwitchEmbed(){
+const TWITCH_STATUS_TTL = 60_000;           // 60s — matches edge cache
+const TWITCH_CHANNEL = 'rick__rattle';
+
+// Read cached liveness from sessionStorage (per-tab). Returns null on miss/expired.
+function readTwitchStatusCache(){
+  try{
+    const raw=sessionStorage.getItem('rr_twitch_status');
+    if(!raw)return null;
+    const p=JSON.parse(raw);
+    if(Date.now()-p.ts > TWITCH_STATUS_TTL)return null;
+    return p.data;
+  }catch{return null}
+}
+function writeTwitchStatusCache(data){
+  try{sessionStorage.setItem('rr_twitch_status',JSON.stringify({ts:Date.now(),data}))}catch{}
+}
+
+async function fetchTwitchStatus(){
+  const cached=readTwitchStatusCache();
+  if(cached)return cached;
+  try{
+    const r=await fetch(`/api/twitch-live?channel=${TWITCH_CHANNEL}`);
+    if(!r.ok)return {live:false};
+    const data=await r.json();
+    writeTwitchStatusCache(data);
+    return data;
+  }catch{
+    return {live:false};
+  }
+}
+
+function buildTwitchIframe(){
+  const hostname=location.hostname;
+  const allowed=['rickrattle.com','www.rickrattle.com'];
+  const parent=allowed.includes(hostname)?hostname:'rickrattle.com';
+  const f=document.createElement('iframe');
+  f.src=`https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${parent}&muted=true`;
+  f.allow='autoplay; fullscreen';
+  // Single fullscreen mechanism — using `allow="fullscreen"` only (removes the DOM warning).
+  f.setAttribute('frameborder','0');
+  f.style.width='100%';
+  f.style.height='100%';
+  return f;
+}
+
+// Live-gated mount: iframe only attaches if Helix reports the channel as live.
+// Offline → static thumbnail card with CTA to the channel (zero Twitch network noise).
+async function mountTwitchEmbed(){
   const host=document.getElementById('twitchEmbedHost');
   if(!host)return;
-  if(!__twitchIframe){
-    const hostname=location.hostname;
-    const allowed=['rickrattle.com','www.rickrattle.com'];
-    const parent=allowed.includes(hostname)?hostname:'rickrattle.com';
-    const f=document.createElement('iframe');
-    f.src=`https://player.twitch.tv/?channel=rick__rattle&parent=${parent}&muted=true`;
-    f.allow='autoplay; fullscreen';
-    f.setAttribute('allowfullscreen','');
-    f.setAttribute('frameborder','0');
-    f.addEventListener('error',()=>{
-      f.style.display='none';
-      const fb=host.querySelector('.twitch-fallback');
-      if(fb)fb.style.display='flex';
-    });
-    __twitchIframe=f;
+
+  // Paint a low-cost placeholder immediately to avoid CLS while we check.
+  if(!host.dataset.tw){
+    host.dataset.tw='loading';
+    host.innerHTML='<div class="twitch-placeholder"></div>';
   }
-  // Re-attach (no-op if already child); appendChild moves DOM without reloading the iframe.
-  if(__twitchIframe.parentNode!==host)host.appendChild(__twitchIframe);
-  // Ensure fallback element exists alongside iframe.
-  if(!host.querySelector('.twitch-fallback')){
-    const fb=document.createElement('div');
-    fb.className='twitch-fallback';
-    fb.style.display='none';
-    fb.innerHTML=`<p>${lang==='pt'?'Live indisponível.':'Live unavailable.'}</p>
-      <a class="btn btn-primary" href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener">${lang==='pt'?'Ver na Twitch':'Watch on Twitch'} ↗</a>`;
-    host.appendChild(fb);
+
+  const status=await fetchTwitchStatus();
+
+  if(status && status.live){
+    // LIVE — mount iframe (singleton: preserves contentWindow on re-navigation).
+    if(!__twitchIframe)__twitchIframe=buildTwitchIframe();
+    host.innerHTML='';
+    host.dataset.tw='live';
+    host.appendChild(__twitchIframe);
+    return;
   }
+
+  // OFFLINE — render static card. No iframe, no 429s, no embed errors.
+  host.dataset.tw='offline';
+  const thumb=`https://static-cdn.jtvnw.net/previews-ttv/live_user_${TWITCH_CHANNEL}-640x360.jpg`;
+  const offlineLabel=lang==='pt'?'OFFLINE':'OFFLINE';
+  const ctaLabel=lang==='pt'?'Ver canal na Twitch':'Visit channel on Twitch';
+  host.innerHTML=`<a class="twitch-offline" href="https://www.twitch.tv/${TWITCH_CHANNEL}" target="_blank" rel="noopener" aria-label="Twitch channel — offline">
+    <img class="twitch-offline-thumb" src="${thumb}" alt="" loading="lazy" onerror="this.style.display='none'">
+    <div class="twitch-offline-overlay">
+      <span class="twitch-offline-badge">${offlineLabel}</span>
+      <span class="twitch-offline-cta">${ctaLabel} ↗</span>
+    </div>
+  </a>`;
 }
 
 function HomeView(view){
