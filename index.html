@@ -674,6 +674,24 @@ const T = {
 let lang = localStorage.getItem('rr_lang')||'en';
 function t(k){return T[lang][k]||k}
 
+/* Content translation helper.
+   Article fields (title, summary, p/h2/note text, ul/ol items) accept either:
+     - a plain string  → used as-is (legacy / EN-only content)
+     - a {en, pt} object → picks the current lang, falls back to EN, then PT
+   This is backward-compatible: articles without PT versions keep showing EN. */
+function tr(v){
+  if(v==null)return '';
+  if(typeof v==='string')return v;
+  if(typeof v==='object'){
+    return v[lang] || v.en || v.pt || '';
+  }
+  return String(v);
+}
+function trItems(arr){
+  if(!Array.isArray(arr))return [];
+  return arr.map(tr);
+}
+
 /* ================================================================
    DATA MODEL
    ================================================================ */
@@ -922,36 +940,36 @@ const articles = [
   // ============================================================
   {
     slug:'goty-2026-race-wide-open',
-    title:'GOTY 2026: The Race Is Wider Than Anyone Predicted',
-    summary:'GTA VI finally shipped. Pragmata stunned everyone. Resident Evil 9 Requiem split critics. With the Game Awards 2026 window (Nov 2025–Nov 2026) half-open, here are the actual frontrunners — not the 2025 leftovers.',
+    title:{en:'GOTY 2026: The Race Is Wider Than Anyone Predicted', pt:'GOTY 2026: A Corrida Está Mais Aberta do que Qualquer Um Previu'},
+    summary:{en:'GTA VI finally shipped. Pragmata stunned everyone. Resident Evil 9 Requiem split critics. With the Game Awards 2026 window (Nov 2025–Nov 2026) half-open, here are the actual frontrunners — not the 2025 leftovers.', pt:'O GTA VI finalmente saiu. O Pragmata apanhou toda a gente de surpresa. O Resident Evil 9 Requiem dividiu críticas. Com a janela do Game Awards 2026 (Nov 2025–Nov 2026) a meio, ficam aqui os candidatos reais — não os restos de 2025.'},
     game:'general', tags:['goty','industry','community'], featured:true, date:'2026-05-22', lastUpdated:'2026-05-22', readTime:7, prefix:'meta-watch',
     source:['https://www.polygon.com/game-of-the-year-goty-game-awards-2026-frontrunners/','https://thegameawards.com/'],
     content:[
-      {type:'note', text:'Game Awards 2026 eligibility runs roughly from November 2025 to mid-November 2026. Anything that shipped before that window (KCD2, Silksong, Clair Obscur, Death Stranding 2 — all 2025 releases) is fighting for GOTY 2025, not 2026.'},
-      {type:'p', text:'Half the gaming internet is still confusing GOTY 2025 and GOTY 2026. The 2025 frontrunners (Kingdom Come 2, Silksong, Clair Obscur: Expedition 33, Death Stranding 2) all shipped before the GA 2026 cutoff. Their conversation is over. The 2026 race only really started in late November 2025 — and it has been wild.'},
-      {type:'h2', text:'The five real frontrunners'},
+      {type:'note', text:{en:'Game Awards 2026 eligibility runs roughly from November 2025 to mid-November 2026. Anything that shipped before that window (KCD2, Silksong, Clair Obscur, Death Stranding 2 — all 2025 releases) is fighting for GOTY 2025, not 2026.', pt:'A elegibilidade do Game Awards 2026 vai sensivelmente de Novembro de 2025 a meados de Novembro de 2026. Tudo o que saiu antes dessa janela (KCD2, Silksong, Clair Obscur, Death Stranding 2 — todos lançamentos de 2025) está a competir pelo GOTY 2025, não pelo 2026.'}},
+      {type:'p', text:{en:'Half the gaming internet is still confusing GOTY 2025 and GOTY 2026. The 2025 frontrunners (Kingdom Come 2, Silksong, Clair Obscur: Expedition 33, Death Stranding 2) all shipped before the GA 2026 cutoff. Their conversation is over. The 2026 race only really started in late November 2025 — and it has been wild.', pt:'Metade da internet gaming ainda está a confundir GOTY 2025 e GOTY 2026. Os favoritos de 2025 (Kingdom Come 2, Silksong, Clair Obscur: Expedition 33, Death Stranding 2) saíram todos antes do cut-off do GA 2026. Essa conversa já acabou. A corrida de 2026 só começou mesmo no final de Novembro de 2025 — e tem sido brutal.'}},
+      {type:'h2', text:{en:'The five real frontrunners', pt:'Os cinco candidatos a sério'}},
       {type:'ul', items:[
-        '<strong>Grand Theft Auto VI</strong> (Rockstar, May 26 2026) — the most expensive single-player release ever made. Whatever the reviews say, it dictates the rest of the conversation. If it lands, it wins. Full stop.',
-        '<strong>Pragmata</strong> (Capcom, 2026) — Capcom\'s long-delayed sci-fi mystery finally shipped and people are calling it the cleanest mech-and-puzzle hybrid since Soma. The dark-horse pick if GTA VI slips into a "too big to win" backlash.',
-        '<strong>Resident Evil 9: Requiem</strong> (Capcom, 2026) — first-person survival horror back to its Village peak. The dual nomination (Pragmata + RE9) makes Capcom the studio of the year regardless.',
-        '<strong>Forza Horizon 6</strong> (Playground Games, May 19 2026) — Japan setting, Wristbands progression revival, 550+ cars. The first FH that feels like it learned from Forbidden West and Tears of the Kingdom about open-world pacing.',
-        '<strong>Subnautica 2</strong> (Unknown Worlds, 2026) — the original was a 2018 cult classic. The sequel is the kind of underwater game-of-the-year nominee that breaks brackets.'
+        {en:'<strong>Grand Theft Auto VI</strong> (Rockstar, May 26 2026) — the most expensive single-player release ever made. Whatever the reviews say, it dictates the rest of the conversation. If it lands, it wins. Full stop.', pt:'<strong>Grand Theft Auto VI</strong> (Rockstar, 26 Mai 2026) — o lançamento single-player mais caro alguma vez feito. Digam o que disserem as reviews, ele dita o resto da conversa. Se aterra bem, ganha. Ponto final.'},
+        {en:'<strong>Pragmata</strong> (Capcom, 2026) — Capcom\'s long-delayed sci-fi mystery finally shipped and people are calling it the cleanest mech-and-puzzle hybrid since Soma. The dark-horse pick if GTA VI slips into a "too big to win" backlash.', pt:'<strong>Pragmata</strong> (Capcom, 2026) — o mistério sci-fi adiado durante anos pela Capcom finalmente saiu e dizem que é o híbrido mech-puzzle mais limpo desde o Soma. O outsider se o GTA VI cair num backlash "demasiado grande para ganhar".'},
+        {en:'<strong>Resident Evil 9: Requiem</strong> (Capcom, 2026) — first-person survival horror back to its Village peak. The dual nomination (Pragmata + RE9) makes Capcom the studio of the year regardless.', pt:'<strong>Resident Evil 9: Requiem</strong> (Capcom, 2026) — survival horror em primeira pessoa de volta ao auge do Village. A dupla nomeação (Pragmata + RE9) torna a Capcom estúdio do ano, dê lá no que der.'},
+        {en:'<strong>Forza Horizon 6</strong> (Playground Games, May 19 2026) — Japan setting, Wristbands progression revival, 550+ cars. The first FH that feels like it learned from Forbidden West and Tears of the Kingdom about open-world pacing.', pt:'<strong>Forza Horizon 6</strong> (Playground Games, 19 Mai 2026) — cenário no Japão, regresso da progressão de Wristbands, 550+ carros. O primeiro FH que parece ter aprendido com Forbidden West e Tears of the Kingdom sobre ritmo de mundo aberto.'},
+        {en:'<strong>Subnautica 2</strong> (Unknown Worlds, 2026) — the original was a 2018 cult classic. The sequel is the kind of underwater game-of-the-year nominee that breaks brackets.', pt:'<strong>Subnautica 2</strong> (Unknown Worlds, 2026) — o original foi um clássico de culto de 2018. A sequela é o tipo de candidato underwater a GOTY que estraga os bolões.'}
       ]},
-      {type:'h2', text:'The dark horses (do not sleep)'},
+      {type:'h2', text:{en:'The dark horses (do not sleep)', pt:'Os outsiders (não te distraias)'}},
       {type:'ul', items:[
-        '<strong>Wuchang: Fallen Feathers</strong> — Soulslike with Ming dynasty setting. Sold absurdly well in Asia.',
-        '<strong>The Outer Worlds 2</strong> — Obsidian returning to first-person RPG with rumored simulationist depth.',
-        '<strong>Lego Batman: Legacy of the Dark Knight</strong> — first Lego Batman in a decade. Reviews are calling it the best Lego game ever made.',
-        '<strong>Saros</strong> — Housemarque post-Returnal. The team has GOTY pedigree.',
-        '<strong>Borderlands 4</strong> — if Gearbox actually shipped a clean launch this time, it is in the conversation by default.'
+        {en:'<strong>Wuchang: Fallen Feathers</strong> — Soulslike with Ming dynasty setting. Sold absurdly well in Asia.', pt:'<strong>Wuchang: Fallen Feathers</strong> — Soulslike com cenário da dinastia Ming. Vendeu absurdamente bem na Ásia.'},
+        {en:'<strong>The Outer Worlds 2</strong> — Obsidian returning to first-person RPG with rumored simulationist depth.', pt:'<strong>The Outer Worlds 2</strong> — Obsidian de volta ao RPG em primeira pessoa com rumores de profundidade simulacionista.'},
+        {en:'<strong>Lego Batman: Legacy of the Dark Knight</strong> — first Lego Batman in a decade. Reviews are calling it the best Lego game ever made.', pt:'<strong>Lego Batman: Legacy of the Dark Knight</strong> — primeiro Lego Batman em uma década. As reviews dizem que é o melhor jogo Lego de sempre.'},
+        {en:'<strong>Saros</strong> — Housemarque post-Returnal. The team has GOTY pedigree.', pt:'<strong>Saros</strong> — Housemarque pós-Returnal. A equipa tem pedigree de GOTY.'},
+        {en:'<strong>Borderlands 4</strong> — if Gearbox actually shipped a clean launch this time, it is in the conversation by default.', pt:'<strong>Borderlands 4</strong> — se desta vez a Gearbox conseguiu um launch limpo, entra na conversa por defeito.'}
       ]},
-      {type:'blockquote', text:'"GOTY 2026 is not about which game wins — it is about whether GTA VI invented a new category that nothing else can compete in." — common take across Polygon and r/TheGameAwards'},
-      {type:'h2', text:'Where does the meta land?'},
-      {type:'p', text:'Three plausible scenarios as of May 2026: 1) GTA VI scores 96+ on Metacritic and clears the entire bracket — the consensus pick by August. 2) GTA VI is great but divisive (live-service controversies, online-mandatory features) and a "purer" single-player game like Pragmata or RE9 sneaks in. 3) Forza Horizon 6 surprises by being the only game everyone on the jury panel actually finished — and wins on broad appeal.'},
-      {type:'h2', text:'What is fair to predict in May?'},
-      {type:'p', text:'Nothing. Summer Game Fest 2026 has not even happened yet. Half the GA 2026 nominees are not announced. Pre-November surprises are the rule, not the exception. Bookmark this — I update the take after each major release window (June, September, November).'},
-      {type:'tip', text:'For the most current GOTY race tracking, Polygon\'s frontrunners list is the best updated source: polygon.com/game-of-the-year-goty-game-awards-2026-frontrunners'},
-      {type:'p', text:'What is your GOTY 2026 prediction so far? Hit the next stream and tell chat.'}
+      {type:'blockquote', text:{en:'"GOTY 2026 is not about which game wins — it is about whether GTA VI invented a new category that nothing else can compete in." — common take across Polygon and r/TheGameAwards', pt:'"O GOTY 2026 não é sobre qual o jogo que ganha — é sobre se o GTA VI inventou uma categoria nova onde mais nada consegue competir." — opinião recorrente na Polygon e no r/TheGameAwards'}},
+      {type:'h2', text:{en:'Where does the meta land?', pt:'Onde é que o meta aterra?'}},
+      {type:'p', text:{en:'Three plausible scenarios as of May 2026: 1) GTA VI scores 96+ on Metacritic and clears the entire bracket — the consensus pick by August. 2) GTA VI is great but divisive (live-service controversies, online-mandatory features) and a "purer" single-player game like Pragmata or RE9 sneaks in. 3) Forza Horizon 6 surprises by being the only game everyone on the jury panel actually finished — and wins on broad appeal.', pt:'Três cenários plausíveis em Maio de 2026: 1) GTA VI faz 96+ no Metacritic e arrasa tudo — consenso até Agosto. 2) GTA VI é grande mas divisivo (polémicas de live-service, features online obrigatórias) e um jogo single-player "mais puro" como Pragmata ou RE9 entra por trás. 3) Forza Horizon 6 surpreende por ser o único que toda a gente no júri realmente acabou — e ganha pelo apelo amplo.'}},
+      {type:'h2', text:{en:'What is fair to predict in May?', pt:'O que é justo prever em Maio?'}},
+      {type:'p', text:{en:'Nothing. Summer Game Fest 2026 has not even happened yet. Half the GA 2026 nominees are not announced. Pre-November surprises are the rule, not the exception. Bookmark this — I update the take after each major release window (June, September, November).', pt:'Nada. O Summer Game Fest 2026 ainda nem aconteceu. Metade dos nomeados do GA 2026 ainda nem foram anunciados. Surpresas até Novembro são a regra, não a excepção. Faz bookmark — actualizo o take a seguir a cada grande janela de lançamentos (Junho, Setembro, Novembro).'}},
+      {type:'tip', text:{en:'For the most current GOTY race tracking, Polygon\'s frontrunners list is the best updated source: polygon.com/game-of-the-year-goty-game-awards-2026-frontrunners', pt:'Para o tracking mais actual da corrida ao GOTY, a lista de frontrunners da Polygon é a melhor fonte actualizada: polygon.com/game-of-the-year-goty-game-awards-2026-frontrunners'}},
+      {type:'p', text:{en:'What is your GOTY 2026 prediction so far? Hit the next stream and tell chat.', pt:'Qual é a tua previsão para o GOTY 2026? Aparece na próxima stream e diz ao chat.'}}
     ]
   },
   {
@@ -1071,108 +1089,108 @@ const articles = [
   // ============================================================
   {
     slug:'ps-plus-2026-monthly-highlights',
-    title:'PS Plus 2026: Monthly Drops Tracker (Essential, Extra, Premium)',
-    summary:'Every PS Plus month of 2026 broken down by tier and verdict. Updated when each new drop hits — bookmark this page.',
+    title:{en:'PS Plus 2026: Monthly Drops Tracker (Essential, Extra, Premium)', pt:'PS Plus 2026: Tracker Mensal de Drops (Essential, Extra, Premium)'},
+    summary:{en:'Every PS Plus month of 2026 broken down by tier and verdict. Updated when each new drop hits — bookmark this page.', pt:'Cada mês de PS Plus 2026 dividido por tier e veredicto. Actualizado a cada novo drop — faz bookmark.'},
     game:'general', platform:'playstation', tags:['ps-plus','platform','recommendations'], featured:true, date:'2026-05-22', lastUpdated:'2026-05-22', readTime:7, prefix:'meta-watch',
     source:['https://blog.playstation.com/category/playstation-plus/','https://psprices.com/region-pt/collection/ps-plus-monthly?platform=PS5'],
     content:[
-      {type:'note', text:'This page tracks the PS Plus 2026 calendar month-by-month. Essential games are claimable forever (as long as you keep PS Plus active). Extra/Premium games rotate in and out. The Editorial verdicts are what is actually worth installing — not what Sony marketed hardest.'},
-      {type:'h2', text:'How to read each month'},
+      {type:'note', text:{en:'This page tracks the PS Plus 2026 calendar month-by-month. Essential games are claimable forever (as long as you keep PS Plus active). Extra/Premium games rotate in and out. The Editorial verdicts are what is actually worth installing — not what Sony marketed hardest.', pt:'Esta página acompanha o calendário PS Plus 2026 mês a mês. Os jogos Essential ficam teus para sempre (enquanto mantiveres o PS Plus activo). Os do Extra/Premium entram e saem da rotação. Os veredictos editoriais aqui são o que vale mesmo a pena instalar — não o que a Sony mais publicitou.'}},
+      {type:'h2', text:{en:'How to read each month', pt:'Como ler cada mês'}},
       {type:'ul', items:[
-        '<strong>Essential (€8.99/mo tier)</strong> — 3 games claimable for the month. Keep forever if you stay subscribed.',
-        '<strong>Extra (€13.99/mo)</strong> — adds a rotating catalog (~400 games). New additions each month, rarely day-one.',
-        '<strong>Premium (€16.99/mo)</strong> — Extra + PS1/PS2/PSP classics + cloud streaming for PS3.'
+        {en:'<strong>Essential (€8.99/mo tier)</strong> — 3 games claimable for the month. Keep forever if you stay subscribed.', pt:'<strong>Essential (€8.99/mês)</strong> — 3 jogos resgatáveis no mês. Ficam contigo para sempre enquanto mantiveres a subscrição.'},
+        {en:'<strong>Extra (€13.99/mo)</strong> — adds a rotating catalog (~400 games). New additions each month, rarely day-one.', pt:'<strong>Extra (€13.99/mês)</strong> — junta um catálogo rotativo (~400 jogos). Novos cada mês, raramente day-one.'},
+        {en:'<strong>Premium (€16.99/mo)</strong> — Extra + PS1/PS2/PSP classics + cloud streaming for PS3.', pt:'<strong>Premium (€16.99/mês)</strong> — Extra + clássicos PS1/PS2/PSP + cloud streaming para PS3.'}
       ]},
-      {type:'h2', text:'May 2026'},
-      {type:'p', text:'<strong>Essential:</strong> The most reliable 3-game month of the year so far. Mix of action and indie — claim all three regardless.'},
-      {type:'p', text:'<strong>Extra additions:</strong> Solid month for backlog catching up. The headline drops are large-publisher titles that left the rotation 12-18 months ago and came back as discoverability bait.'},
-      {type:'p', text:'<strong>Rick Verdict:</strong> If you only have time for one this month — start with the Essential headliner, then check the Extra additions for one hidden gem before the rotation moves on.'},
-      {type:'h2', text:'April 2026'},
-      {type:'p', text:'A weaker Essential month overshadowed by big Extra additions. The Extra drops were the real news.'},
-      {type:'h2', text:'March 2026'},
-      {type:'p', text:'A strong indie-heavy Essential month. Less star power, more weird-and-interesting — easy to overlook but punches above its weight.'},
-      {type:'h2', text:'February 2026'},
-      {type:'p', text:'Notable for the first major day-one Extra addition of the year. Sony is escalating their day-one strategy in 2026.'},
-      {type:'h2', text:'January 2026'},
-      {type:'p', text:'Standard new-year softball drop. Two safe picks, one experimental. The experimental one ended up being the surprise hit.'},
-      {type:'h2', text:'How to never miss a drop'},
+      {type:'h2', text:{en:'May 2026', pt:'Maio 2026'}},
+      {type:'p', text:{en:'<strong>Essential:</strong> The most reliable 3-game month of the year so far. Mix of action and indie — claim all three regardless.', pt:'<strong>Essential:</strong> O mês de 3 jogos mais sólido do ano até agora. Mistura de acção e indie — resgata os três, custe o que custar.'}},
+      {type:'p', text:{en:'<strong>Extra additions:</strong> Solid month for backlog catching up. The headline drops are large-publisher titles that left the rotation 12-18 months ago and came back as discoverability bait.', pt:'<strong>Adições Extra:</strong> Mês sólido para limpar backlog. Os destaques são títulos de grande publisher que saíram da rotação há 12-18 meses e voltaram como isco de descoberta.'}},
+      {type:'p', text:{en:'<strong>Rick Verdict:</strong> If you only have time for one this month — start with the Essential headliner, then check the Extra additions for one hidden gem before the rotation moves on.', pt:'<strong>Take do Rick:</strong> Se só tens tempo para um este mês — começa pelo cabeça de cartaz do Essential, depois espreita o Extra à procura de uma jóia escondida antes da rotação mexer.'}},
+      {type:'h2', text:{en:'April 2026', pt:'Abril 2026'}},
+      {type:'p', text:{en:'A weaker Essential month overshadowed by big Extra additions. The Extra drops were the real news.', pt:'Mês Essential mais fraco, eclipsado por grandes adições no Extra. Os drops Extra é que foram a verdadeira notícia.'}},
+      {type:'h2', text:{en:'March 2026', pt:'Março 2026'}},
+      {type:'p', text:{en:'A strong indie-heavy Essential month. Less star power, more weird-and-interesting — easy to overlook but punches above its weight.', pt:'Mês Essential forte e cheio de indies. Menos estrelas, mais estranho-mas-interessante — fácil de passar ao lado, mas bate acima do peso.'}},
+      {type:'h2', text:{en:'February 2026', pt:'Fevereiro 2026'}},
+      {type:'p', text:{en:'Notable for the first major day-one Extra addition of the year. Sony is escalating their day-one strategy in 2026.', pt:'Marcado pela primeira grande adição day-one do ano no Extra. A Sony está a apostar mais a sério em day-ones em 2026.'}},
+      {type:'h2', text:{en:'January 2026', pt:'Janeiro 2026'}},
+      {type:'p', text:{en:'Standard new-year softball drop. Two safe picks, one experimental. The experimental one ended up being the surprise hit.', pt:'Drop standard de início de ano. Duas escolhas seguras, uma experimental. A experimental acabou por ser a surpresa do mês.'}},
+      {type:'h2', text:{en:'How to never miss a drop', pt:'Como nunca falhar um drop'}},
       {type:'ul', items:[
-        'PlayStation Blog announces drops first Tuesday of each month: blog.playstation.com/category/playstation-plus',
-        'psprices.com tracks PT-region pricing if you need to compare subscribe vs buy outright',
-        'Reddit r/PlayStationPlus surfaces hidden gems within hours of the drop'
+        {en:'PlayStation Blog announces drops first Tuesday of each month: blog.playstation.com/category/playstation-plus', pt:'O PlayStation Blog anuncia os drops na primeira terça-feira de cada mês: blog.playstation.com/category/playstation-plus'},
+        {en:'psprices.com tracks PT-region pricing if you need to compare subscribe vs buy outright', pt:'O psprices.com tem preços da região PT se quiseres comparar subscrever vs comprar à parte'},
+        {en:'Reddit r/PlayStationPlus surfaces hidden gems within hours of the drop', pt:'O r/PlayStationPlus no Reddit destaca as jóias escondidas em poucas horas após o drop'}
       ]},
-      {type:'tip', text:'Always claim every Essential game even if you do not play it. As long as your PS Plus stays active, you keep it forever — and if you ever cancel for a month, you lose access to all unclaimed-but-active titles. Claiming costs you nothing.'},
-      {type:'p', text:'This article is refreshed at the start of every month. Specific game names per month come from the official PlayStation Blog announcement — linked above as the primary source.'}
+      {type:'tip', text:{en:'Always claim every Essential game even if you do not play it. As long as your PS Plus stays active, you keep it forever — and if you ever cancel for a month, you lose access to all unclaimed-but-active titles. Claiming costs you nothing.', pt:'Resgata sempre todos os Essential mesmo que não os jogues. Enquanto o PS Plus estiver activo, ficam contigo para sempre — e se cancelares um mês que seja, perdes acesso a tudo o que não tenhas resgatado. Resgatar não te custa nada.'}},
+      {type:'p', text:{en:'This article is refreshed at the start of every month. Specific game names per month come from the official PlayStation Blog announcement — linked above as the primary source.', pt:'Este artigo é actualizado no início de cada mês. Os nomes específicos por mês vêm do anúncio oficial no PlayStation Blog — linkado em cima como fonte primária.'}}
     ]
   },
   {
     slug:'xbox-game-pass-2026-roadmap',
-    title:'Xbox Game Pass 2026: Month-by-Month Drop Tracker',
-    summary:'Every confirmed Game Pass addition in 2026, organised by month with editorial verdicts. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — all here.',
+    title:{en:'Xbox Game Pass 2026: Month-by-Month Drop Tracker', pt:'Xbox Game Pass 2026: Tracker Mês a Mês de Drops'},
+    summary:{en:'Every confirmed Game Pass addition in 2026, organised by month with editorial verdicts. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — all here.', pt:'Todas as adições confirmadas ao Game Pass em 2026, organizadas por mês com veredicto editorial. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — está tudo aqui.'},
     game:'general', platform:'xbox', tags:['game-pass','platform','recommendations'], featured:true, date:'2026-05-22', lastUpdated:'2026-05-22', readTime:9, prefix:'meta-watch',
     source:['https://www.purexbox.com/guides/xbox-game-pass-in-2026-the-full-list-of-everything-announced-so-far','https://news.xbox.com/en-us/category/xbox-game-pass/'],
     content:[
-      {type:'note', text:'Game Pass Ultimate (€17.99/mo) is the only tier with full coverage — console, PC, Cloud, EA Play, day-one releases. Game Pass Standard (€14.99) is console-only and skips day-one. The XGP Premium label below marks the day-one releases included only on Ultimate.'},
-      {type:'h2', text:'May 2026 — the heaviest month of the year'},
+      {type:'note', text:{en:'Game Pass Ultimate (€17.99/mo) is the only tier with full coverage — console, PC, Cloud, EA Play, day-one releases. Game Pass Standard (€14.99) is console-only and skips day-one. The XGP Premium label below marks the day-one releases included only on Ultimate.', pt:'O Game Pass Ultimate (€17.99/mês) é o único tier com cobertura total — consola, PC, Cloud, EA Play, lançamentos day-one. O Game Pass Standard (€14.99) é só consola e fica de fora dos day-ones. A etiqueta XGP Premium em baixo marca os day-ones disponíveis só no Ultimate.'}},
+      {type:'h2', text:{en:'May 2026 — the heaviest month of the year', pt:'Maio 2026 — o mês mais pesado do ano'}},
       {type:'ul', items:[
-        '<strong>Forza Horizon 6</strong> (May 19, day-one) — the headline. Japan setting, Wristbands progression, 550+ cars.',
-        '<strong>DOOM: The Dark Ages</strong> (May 14, XGP Premium) — medieval Doom. id Software returning to their strongest form.',
-        '<strong>Subnautica 2</strong> (May 14, day-one) — the cult sequel finally here. Game Pass exclusive launch.',
-        '<strong>Wuchang: Fallen Feathers</strong> (May 6, XGP Premium) — Ming dynasty soulslike that overperformed in Asia.',
-        '<strong>The Outer Worlds: Spacer\'s Choice Edition</strong> (May 27) — Obsidian RPG ahead of TOW2.',
-        'Remnant 2, Wheel World, Wildgate, Final Fantasy V, Mixtape, Pigeon Simulator, Echo Generation 2'
+        {en:'<strong>Forza Horizon 6</strong> (May 19, day-one) — the headline. Japan setting, Wristbands progression, 550+ cars.', pt:'<strong>Forza Horizon 6</strong> (19 Mai, day-one) — o destaque. Cenário no Japão, progressão Wristbands, 550+ carros.'},
+        {en:'<strong>DOOM: The Dark Ages</strong> (May 14, XGP Premium) — medieval Doom. id Software returning to their strongest form.', pt:'<strong>DOOM: The Dark Ages</strong> (14 Mai, XGP Premium) — Doom medieval. id Software de volta à sua melhor forma.'},
+        {en:'<strong>Subnautica 2</strong> (May 14, day-one) — the cult sequel finally here. Game Pass exclusive launch.', pt:'<strong>Subnautica 2</strong> (14 Mai, day-one) — a sequela de culto finalmente chegou. Lançamento exclusivo Game Pass.'},
+        {en:'<strong>Wuchang: Fallen Feathers</strong> (May 6, XGP Premium) — Ming dynasty soulslike that overperformed in Asia.', pt:'<strong>Wuchang: Fallen Feathers</strong> (6 Mai, XGP Premium) — soulslike da dinastia Ming que superou expectativas na Ásia.'},
+        {en:'<strong>The Outer Worlds: Spacer\'s Choice Edition</strong> (May 27) — Obsidian RPG ahead of TOW2.', pt:'<strong>The Outer Worlds: Spacer\'s Choice Edition</strong> (27 Mai) — RPG da Obsidian a aquecer para o TOW2.'},
+        {en:'Remnant 2, Wheel World, Wildgate, Final Fantasy V, Mixtape, Pigeon Simulator, Echo Generation 2', pt:'Remnant 2, Wheel World, Wildgate, Final Fantasy V, Mixtape, Pigeon Simulator, Echo Generation 2'}
       ]},
-      {type:'p', text:'<strong>Rick Verdict:</strong> If you let your Game Pass lapse, reactivate this month. The combination of Forza 6 + Subnautica 2 + Doom Dark Ages on a single sub is one of the best month-of-content in Game Pass history.'},
-      {type:'h2', text:'April 2026 — JRPG of the year showed up'},
+      {type:'p', text:{en:'<strong>Rick Verdict:</strong> If you let your Game Pass lapse, reactivate this month. The combination of Forza 6 + Subnautica 2 + Doom Dark Ages on a single sub is one of the best month-of-content in Game Pass history.', pt:'<strong>Take do Rick:</strong> Se deixaste o Game Pass cair, reactiva já este mês. A combinação de Forza 6 + Subnautica 2 + Doom Dark Ages numa única sub é dos melhores meses de sempre do Game Pass.'}},
+      {type:'h2', text:{en:'April 2026 — JRPG of the year showed up', pt:'Abril 2026 — o JRPG do ano apareceu'}},
       {type:'ul', items:[
-        '<strong>Clair Obscur: Expedition 33</strong> (April 2, XGP Premium) — French JRPG that took critics by surprise. Locks in a GOTY 2025 nomination.',
-        '<strong>Hades 2</strong> (April 14) — Supergiant\'s sequel finally out of early access.',
-        '<strong>Oblivion Remastered</strong> (April 16, XGP Premium) — Bethesda revisiting the Elder Scrolls classic.',
-        '<strong>Football Manager 26</strong> (April 13) + Console version — biggest FM launch ever.',
-        '<strong>Call of Duty: Modern Warfare</strong> (April 17) — Microsoft slowly adding the older COD library.',
-        'NBA 2K26, FBC: Firebreak, Replaced, The Thaumaturge, Tiny Bookshop, Trepang2'
+        {en:'<strong>Clair Obscur: Expedition 33</strong> (April 2, XGP Premium) — French JRPG that took critics by surprise. Locks in a GOTY 2025 nomination.', pt:'<strong>Clair Obscur: Expedition 33</strong> (2 Abr, XGP Premium) — JRPG francês que apanhou os críticos de surpresa. Garante uma nomeação para GOTY 2025.'},
+        {en:'<strong>Hades 2</strong> (April 14) — Supergiant\'s sequel finally out of early access.', pt:'<strong>Hades 2</strong> (14 Abr) — a sequela da Supergiant finalmente saída do early access.'},
+        {en:'<strong>Oblivion Remastered</strong> (April 16, XGP Premium) — Bethesda revisiting the Elder Scrolls classic.', pt:'<strong>Oblivion Remastered</strong> (16 Abr, XGP Premium) — Bethesda a voltar ao clássico Elder Scrolls.'},
+        {en:'<strong>Football Manager 26</strong> (April 13) + Console version — biggest FM launch ever.', pt:'<strong>Football Manager 26</strong> (13 Abr) + versão de consola — o maior lançamento de sempre da série FM.'},
+        {en:'<strong>Call of Duty: Modern Warfare</strong> (April 17) — Microsoft slowly adding the older COD library.', pt:'<strong>Call of Duty: Modern Warfare</strong> (17 Abr) — a Microsoft a adicionar lentamente a biblioteca COD mais antiga.'},
+        {en:'NBA 2K26, FBC: Firebreak, Replaced, The Thaumaturge, Tiny Bookshop, Trepang2', pt:'NBA 2K26, FBC: Firebreak, Replaced, The Thaumaturge, Tiny Bookshop, Trepang2'}
       ]},
-      {type:'h2', text:'March 2026 — the Silksong + KCD2 month'},
+      {type:'h2', text:{en:'March 2026 — the Silksong + KCD2 month', pt:'Março 2026 — o mês do Silksong + KCD2'}},
       {type:'ul', items:[
-        '<strong>Hollow Knight: Silksong</strong> (March 12, XGP Premium) — after years of memes, day-one Game Pass.',
-        '<strong>Kingdom Come Deliverance 2</strong> (March 3) — Warhorse\'s simulation RPG hit on Game Pass.',
-        '<strong>South of Midnight</strong> (March 18, XGP Premium) — Compulsion Games\' Southern Gothic adventure.',
-        '<strong>The Alters</strong> (March 18, XGP Premium) — 11 Bit\'s clone-survival sci-fi.',
-        '<strong>Cyberpunk 2077</strong> (March 10) — CDPR\'s open-world finally on Game Pass.',
-        '<strong>Disco Elysium: The Final Cut</strong> (March 19), Like a Dragon: Infinite Wealth (March 24), Absolum, Planet of Lana 2, EA Sports F1 25'
+        {en:'<strong>Hollow Knight: Silksong</strong> (March 12, XGP Premium) — after years of memes, day-one Game Pass.', pt:'<strong>Hollow Knight: Silksong</strong> (12 Mar, XGP Premium) — depois de anos de memes, chegou day-one no Game Pass.'},
+        {en:'<strong>Kingdom Come Deliverance 2</strong> (March 3) — Warhorse\'s simulation RPG hit on Game Pass.', pt:'<strong>Kingdom Come Deliverance 2</strong> (3 Mar) — o RPG-simulação da Warhorse chegou ao Game Pass.'},
+        {en:'<strong>South of Midnight</strong> (March 18, XGP Premium) — Compulsion Games\' Southern Gothic adventure.', pt:'<strong>South of Midnight</strong> (18 Mar, XGP Premium) — aventura Southern Gothic da Compulsion Games.'},
+        {en:'<strong>The Alters</strong> (March 18, XGP Premium) — 11 Bit\'s clone-survival sci-fi.', pt:'<strong>The Alters</strong> (18 Mar, XGP Premium) — sci-fi de sobrevivência com clones da 11 Bit.'},
+        {en:'<strong>Cyberpunk 2077</strong> (March 10) — CDPR\'s open-world finally on Game Pass.', pt:'<strong>Cyberpunk 2077</strong> (10 Mar) — o open-world da CDPR finalmente no Game Pass.'},
+        {en:'<strong>Disco Elysium: The Final Cut</strong> (March 19), Like a Dragon: Infinite Wealth (March 24), Absolum, Planet of Lana 2, EA Sports F1 25', pt:'<strong>Disco Elysium: The Final Cut</strong> (19 Mar), Like a Dragon: Infinite Wealth (24 Mar), Absolum, Planet of Lana 2, EA Sports F1 25'}
       ]},
-      {type:'h2', text:'February 2026 — Avowed and the catalog filler'},
+      {type:'h2', text:{en:'February 2026 — Avowed and the catalog filler', pt:'Fevereiro 2026 — Avowed e o enchimento de catálogo'}},
       {type:'ul', items:[
-        '<strong>Avowed</strong> (Feb 17, XGP Premium) — Obsidian\'s first-person fantasy RPG.',
-        '<strong>Avatar: Frontiers of Pandora</strong> (Feb 17) — Ubisoft\'s open-world adventure on Game Pass.',
-        '<strong>The Witcher 3 Complete Edition</strong> (Feb 19) — finally added to console.',
-        '<strong>Kingdom Come: Deliverance</strong> (Feb 13) — the original, ahead of KCD2.',
-        '<strong>High On Life 2</strong> (Feb 13) — Squanch sequel.',
-        '<strong>Like a Dragon: Pirate Yakuza in Hawaii</strong> (Feb 3), Diablo 2: Resurrected (Feb 12), Madden NFL 26 (Feb 5)'
+        {en:'<strong>Avowed</strong> (Feb 17, XGP Premium) — Obsidian\'s first-person fantasy RPG.', pt:'<strong>Avowed</strong> (17 Fev, XGP Premium) — RPG fantasia em primeira pessoa da Obsidian.'},
+        {en:'<strong>Avatar: Frontiers of Pandora</strong> (Feb 17) — Ubisoft\'s open-world adventure on Game Pass.', pt:'<strong>Avatar: Frontiers of Pandora</strong> (17 Fev) — aventura open-world da Ubisoft no Game Pass.'},
+        {en:'<strong>The Witcher 3 Complete Edition</strong> (Feb 19) — finally added to console.', pt:'<strong>The Witcher 3 Complete Edition</strong> (19 Fev) — finalmente adicionado a consola.'},
+        {en:'<strong>Kingdom Come: Deliverance</strong> (Feb 13) — the original, ahead of KCD2.', pt:'<strong>Kingdom Come: Deliverance</strong> (13 Fev) — o original, a aquecer para o KCD2.'},
+        {en:'<strong>High On Life 2</strong> (Feb 13) — Squanch sequel.', pt:'<strong>High On Life 2</strong> (13 Fev) — sequela da Squanch.'},
+        {en:'<strong>Like a Dragon: Pirate Yakuza in Hawaii</strong> (Feb 3), Diablo 2: Resurrected (Feb 12), Madden NFL 26 (Feb 5)', pt:'<strong>Like a Dragon: Pirate Yakuza in Hawaii</strong> (3 Fev), Diablo 2: Resurrected (12 Fev), Madden NFL 26 (5 Fev)'}
       ]},
-      {type:'h2', text:'January 2026 — the year started strong'},
+      {type:'h2', text:{en:'January 2026 — the year started strong', pt:'Janeiro 2026 — o ano começou forte'}},
       {type:'ul', items:[
-        '<strong>Atomfall</strong> (Jan 7, XGP Premium) — Rebellion\'s post-apocalyptic British countryside survival.',
-        '<strong>Star Wars Outlaws</strong> (Jan 13) — Ubisoft\'s Star Wars open world.',
-        '<strong>Resident Evil Village</strong> (Jan 20) — RE8 back in rotation ahead of RE9 Requiem.',
-        '<strong>Warhammer 40K: Space Marine 2</strong> (Jan 29) + Master Crafted Edition (Jan 7, Premium) — the 2024 hit.',
-        '<strong>Death Stranding Director\'s Cut</strong> (Jan 21) — Kojima\'s Xbox debut on Game Pass.',
-        'Talos Principle 2, Final Fantasy 1, Rematch, MIO: Memories in Orbit, Ninja Gaiden Ragebound'
+        {en:'<strong>Atomfall</strong> (Jan 7, XGP Premium) — Rebellion\'s post-apocalyptic British countryside survival.', pt:'<strong>Atomfall</strong> (7 Jan, XGP Premium) — sobrevivência pós-apocalíptica no campo britânico, da Rebellion.'},
+        {en:'<strong>Star Wars Outlaws</strong> (Jan 13) — Ubisoft\'s Star Wars open world.', pt:'<strong>Star Wars Outlaws</strong> (13 Jan) — o open world de Star Wars da Ubisoft.'},
+        {en:'<strong>Resident Evil Village</strong> (Jan 20) — RE8 back in rotation ahead of RE9 Requiem.', pt:'<strong>Resident Evil Village</strong> (20 Jan) — RE8 de volta à rotação a aquecer para o RE9 Requiem.'},
+        {en:'<strong>Warhammer 40K: Space Marine 2</strong> (Jan 29) + Master Crafted Edition (Jan 7, Premium) — the 2024 hit.', pt:'<strong>Warhammer 40K: Space Marine 2</strong> (29 Jan) + Master Crafted Edition (7 Jan, Premium) — o hit de 2024.'},
+        {en:'<strong>Death Stranding Director\'s Cut</strong> (Jan 21) — Kojima\'s Xbox debut on Game Pass.', pt:'<strong>Death Stranding Director\'s Cut</strong> (21 Jan) — a estreia do Kojima na Xbox via Game Pass.'},
+        {en:'Talos Principle 2, Final Fantasy 1, Rematch, MIO: Memories in Orbit, Ninja Gaiden Ragebound', pt:'Talos Principle 2, Final Fantasy 1, Rematch, MIO: Memories in Orbit, Ninja Gaiden Ragebound'}
       ]},
-      {type:'h2', text:'Coming later in 2026 (announced day-one)'},
+      {type:'h2', text:{en:'Coming later in 2026 (announced day-one)', pt:'A caminho ainda em 2026 (anunciados day-one)'}},
       {type:'ul', items:[
-        '<strong>Fable</strong> (TBD) — Playground Games\' Fable revival, day-one on Game Pass.',
-        '<strong>Gears of War: E-Day</strong> (TBD) — The Coalition\'s Gears prequel.',
-        '<strong>Halo: Campaign Evolved</strong> (TBD) — 343i (Halo Studios) Halo CE remake.',
-        '<strong>Stranger Than Heaven</strong> (Winter 2026) — RGG Studio new IP.',
-        '<strong>Persona 4 Revival</strong> (TBD) — confirmed Game Pass day-one.',
-        '<strong>Final Fantasy VI</strong> (June 2), Jurassic World Evolution 3 (June 2), Wuthering Waves (July), Beast of Reincarnation (Aug)',
-        '<strong>Resonance: A Plague Tale Legacy</strong> (TBD) — Asobo\'s next Plague Tale on Game Pass.',
-        '<strong>Minecraft Dungeons 2</strong> (TBD), Cities: Skylines 2 (TBD), Manor Lords console release (TBD)'
+        {en:'<strong>Fable</strong> (TBD) — Playground Games\' Fable revival, day-one on Game Pass.', pt:'<strong>Fable</strong> (TBD) — o reboot do Fable pela Playground Games, day-one no Game Pass.'},
+        {en:'<strong>Gears of War: E-Day</strong> (TBD) — The Coalition\'s Gears prequel.', pt:'<strong>Gears of War: E-Day</strong> (TBD) — a prequela de Gears da The Coalition.'},
+        {en:'<strong>Halo: Campaign Evolved</strong> (TBD) — 343i (Halo Studios) Halo CE remake.', pt:'<strong>Halo: Campaign Evolved</strong> (TBD) — o remake do Halo CE pelos 343i (Halo Studios).'},
+        {en:'<strong>Stranger Than Heaven</strong> (Winter 2026) — RGG Studio new IP.', pt:'<strong>Stranger Than Heaven</strong> (Inverno 2026) — novo IP do RGG Studio.'},
+        {en:'<strong>Persona 4 Revival</strong> (TBD) — confirmed Game Pass day-one.', pt:'<strong>Persona 4 Revival</strong> (TBD) — day-one no Game Pass confirmado.'},
+        {en:'<strong>Final Fantasy VI</strong> (June 2), Jurassic World Evolution 3 (June 2), Wuthering Waves (July), Beast of Reincarnation (Aug)', pt:'<strong>Final Fantasy VI</strong> (2 Jun), Jurassic World Evolution 3 (2 Jun), Wuthering Waves (Jul), Beast of Reincarnation (Ago)'},
+        {en:'<strong>Resonance: A Plague Tale Legacy</strong> (TBD) — Asobo\'s next Plague Tale on Game Pass.', pt:'<strong>Resonance: A Plague Tale Legacy</strong> (TBD) — o próximo Plague Tale da Asobo no Game Pass.'},
+        {en:'<strong>Minecraft Dungeons 2</strong> (TBD), Cities: Skylines 2 (TBD), Manor Lords console release (TBD)', pt:'<strong>Minecraft Dungeons 2</strong> (TBD), Cities: Skylines 2 (TBD), Manor Lords versão consola (TBD)'}
       ]},
-      {type:'h2', text:'The 2026 pattern'},
-      {type:'p', text:'Microsoft is hitting the day-one promise harder than ever. Three of the biggest games of the year — Forza Horizon 6, Subnautica 2, and Doom: The Dark Ages — all dropped on Game Pass Ultimate at launch. Add Silksong, Avowed, Atomfall, FBC: Firebreak, Hades 2, Oblivion Remastered, Clair Obscur and Wuchang as confirmed day-one Ultimate additions, and the math becomes obvious: Game Pass Ultimate now costs less than buying 2 of these games full price.'},
-      {type:'tip', text:'Game Pass Ultimate also covers EA Play (FIFA, Madden, NHL, Skate) and PC Game Pass with separate libraries. One subscription = 5 different game libraries. The Pure Xbox tracker (linked in sources above) is the live monthly source.'}
+      {type:'h2', text:{en:'The 2026 pattern', pt:'O padrão de 2026'}},
+      {type:'p', text:{en:'Microsoft is hitting the day-one promise harder than ever. Three of the biggest games of the year — Forza Horizon 6, Subnautica 2, and Doom: The Dark Ages — all dropped on Game Pass Ultimate at launch. Add Silksong, Avowed, Atomfall, FBC: Firebreak, Hades 2, Oblivion Remastered, Clair Obscur and Wuchang as confirmed day-one Ultimate additions, and the math becomes obvious: Game Pass Ultimate now costs less than buying 2 of these games full price.', pt:'A Microsoft está a cumprir a promessa do day-one como nunca. Três dos maiores jogos do ano — Forza Horizon 6, Subnautica 2 e Doom: The Dark Ages — entraram todos no Game Pass Ultimate no lançamento. Junta o Silksong, Avowed, Atomfall, FBC: Firebreak, Hades 2, Oblivion Remastered, Clair Obscur e Wuchang como adições day-one confirmadas no Ultimate, e a conta fica óbvia: o Game Pass Ultimate custa menos do que comprar 2 destes jogos a preço cheio.'}},
+      {type:'tip', text:{en:'Game Pass Ultimate also covers EA Play (FIFA, Madden, NHL, Skate) and PC Game Pass with separate libraries. One subscription = 5 different game libraries. The Pure Xbox tracker (linked in sources above) is the live monthly source.', pt:'O Game Pass Ultimate também cobre o EA Play (FIFA, Madden, NHL, Skate) e o PC Game Pass com bibliotecas separadas. Uma subscrição = 5 bibliotecas diferentes. O tracker da Pure Xbox (linkado nas fontes acima) é a fonte mensal mais actualizada.'}}
     ]
   }
 ];
@@ -1870,262 +1888,262 @@ const guides = [
   // ========== Forza Horizon 6 ==========
   {
     slug:'forza-horizon-6-tracker',
-    title:'Forza Horizon 6: Launch Hub — Updates, Seasons & Where to Find Everything',
-    summary:'Live since May 19, 2026. Where Playground Games posts season notes, Steam patches, and where the Forza community talks tunes and routes.',
+    title:{en:'Forza Horizon 6: Launch Hub — Updates, Seasons & Where to Find Everything', pt:'Forza Horizon 6: Hub de Lançamento — Updates, Temporadas e Onde Encontrar Tudo'},
+    summary:{en:'Live since May 19, 2026. Where Playground Games posts season notes, Steam patches, and where the Forza community talks tunes and routes.', pt:'No ar desde 19 de Maio de 2026. Onde a Playground Games publica notas de temporada, patches Steam, e onde a comunidade Forza fala de tunes e rotas.'},
     game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
     date:'2026-05-19', lastUpdated:'2026-05-22', author:'Editorial', readTime:4,
     source:['https://forza.net/news/forza-horizon-6-progression','https://store.steampowered.com/news/app/2483190','https://forums.forza.net/c/forza-horizon/forza-horizon-6/231'],
     content:[
-      {type:'note', text:'Forza Horizon 6 launched May 19, 2026 on Xbox Series X|S, PC and Game Pass Ultimate (day-one). PS5 release later in 2026. Premium Edition members got early access starting May 15.'},
-      {type:'h2', text:'Where the official info lives'},
+      {type:'note', text:{en:'Forza Horizon 6 launched May 19, 2026 on Xbox Series X|S, PC and Game Pass Ultimate (day-one). PS5 release later in 2026. Premium Edition members got early access starting May 15.', pt:'O Forza Horizon 6 lançou a 19 de Maio de 2026 em Xbox Series X|S, PC e Game Pass Ultimate (day-one). Versão PS5 mais tarde em 2026. Quem tinha Premium Edition teve acesso antecipado a partir de 15 de Maio.'}},
+      {type:'h2', text:{en:'Where the official info lives', pt:'Onde está a informação oficial'}},
       {type:'ul', items:[
-        '<strong>Official site</strong> — forza.net · season notes, dev blogs, Festival Playlist updates',
-        '<strong>Steam News</strong> — store.steampowered.com/news/app/2483190 · patches and hotfixes',
-        '<strong>Forza Forums</strong> — forums.forza.net/c/forza-horizon/forza-horizon-6/231 · tune sharing and community routes'
+        {en:'<strong>Official site</strong> — forza.net · season notes, dev blogs, Festival Playlist updates', pt:'<strong>Site oficial</strong> — forza.net · notas de temporada, blogs dos developers, updates da Festival Playlist'},
+        {en:'<strong>Steam News</strong> — store.steampowered.com/news/app/2483190 · patches and hotfixes', pt:'<strong>Steam News</strong> — store.steampowered.com/news/app/2483190 · patches e hotfixes'},
+        {en:'<strong>Forza Forums</strong> — forums.forza.net/c/forza-horizon/forza-horizon-6/231 · tune sharing and community routes', pt:'<strong>Forza Forums</strong> — forums.forza.net/c/forza-horizon/forza-horizon-6/231 · partilha de tunes e rotas da comunidade'}
       ]},
-      {type:'h2', text:'Rick Rattle FH6 guides on this site'},
+      {type:'h2', text:{en:'Rick Rattle FH6 guides on this site', pt:'Guias FH6 do Rick Rattle neste site'}},
       {type:'ul', items:[
-        '<strong>Easy Money</strong> — fast credit-earning playbook from launch day',
-        '<strong>Credit & Skill Point Farm</strong> — Share Codes that actually work',
-        '<strong>Best Cars per Race Type</strong> — Road / Dirt / Cross Country / Street',
-        '<strong>Beginner Tips & Tricks</strong> — the 10 things to do in your first 3 hours',
-        '<strong>Three Pathways of Progression</strong> — Wristbands, Stamps, Horizon Play explained'
+        {en:'<strong>Easy Money</strong> — fast credit-earning playbook from launch day', pt:'<strong>Dinheiro Fácil</strong> — playbook de credits rápidos desde o dia do lançamento'},
+        {en:'<strong>Credit & Skill Point Farm</strong> — Share Codes that actually work', pt:'<strong>Farm de Credits & Skill Points</strong> — Share Codes que realmente funcionam'},
+        {en:'<strong>Best Cars per Race Type</strong> — Road / Dirt / Cross Country / Street', pt:'<strong>Melhores Carros por Tipo de Corrida</strong> — Road / Dirt / Cross Country / Street'},
+        {en:'<strong>Beginner Tips & Tricks</strong> — the 10 things to do in your first 3 hours', pt:'<strong>Dicas e Truques para Iniciantes</strong> — as 10 coisas a fazer nas primeiras 3 horas'},
+        {en:'<strong>Three Pathways of Progression</strong> — Wristbands, Stamps, Horizon Play explained', pt:'<strong>Os Três Caminhos de Progressão</strong> — Wristbands, Stamps, Horizon Play explicados'}
       ]},
-      {type:'tip', text:'The auto-fed news section below pulls live updates from Steam and r/ForzaHorizon every page load. Bookmark this hub.'}
+      {type:'tip', text:{en:'The auto-fed news section below pulls live updates from Steam and r/ForzaHorizon every page load. Bookmark this hub.', pt:'A secção de notícias automática em baixo puxa updates ao vivo do Steam e r/ForzaHorizon a cada carregamento. Faz bookmark deste hub.'}}
     ]
   },
   {
     slug:'forza-horizon-6-easy-money',
-    title:'Forza Horizon 6: How to Earn Money Fast (Credits, Super Wheelspins, Skill Points)',
-    summary:'Seven verified methods to fill your bank in Forza Horizon 6 — from difficulty multipliers to the Colossus grind, plus the Skill Point conversion trick.',
+    title:{en:'Forza Horizon 6: How to Earn Money Fast (Credits, Super Wheelspins, Skill Points)', pt:'Forza Horizon 6: Como Ganhar Dinheiro Rápido (Credits, Super Wheelspins, Skill Points)'},
+    summary:{en:'Seven verified methods to fill your bank in Forza Horizon 6 — from difficulty multipliers to the Colossus grind, plus the Skill Point conversion trick.', pt:'Sete métodos verificados para encher a tua conta em Forza Horizon 6 — desde multiplicadores de dificuldade ao grind do Colossus, mais o truque da conversão de Skill Points.'},
     game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
     date:'2026-05-22', lastUpdated:'2026-05-22', author:'Editorial', readTime:8, patchVersion:'Launch (1.0)',
     source:'https://www.redbull.com/int-en/forza-horizon-6-earning-money',
     content:[
-      {type:'note', text:'Forza Horizon 6 throws a lot of credits at you in the first 5 hours, then the curve slows. These methods front-load the curve so you can buy what you actually want.'},
-      {type:'p', text:'Want the Koenigsegg Jesko or the 2025 Toyota GR GT Prototype? You will need to grind. Here are the seven verified ways to fill your bank in Forza Horizon 6.'},
-      {type:'h2', text:'1. Turn up the difficulty — earn up to 125% extra'},
-      {type:'p', text:'Disabling driving aids and raising AI difficulty stacks a credit multiplier that goes up to +125%. Combine with longer races (which always pay more than sprints) and your bank fills fast. If FH6 prompts you to raise difficulty mid-session, say yes.'},
-      {type:'tip', text:'Pick a level you can still win. Finishing last with high difficulty earns less than dominating at lower difficulty.'},
-      {type:'h2', text:'2. Complete the Collection Journal'},
-      {type:'p', text:'Two new Journal categories reward you for exploring Japan — photo challenges, story missions, bracelet events, online matches. Stamps unlock Barn Find rumors and new homes. You earn money almost passively. The trick: remember to actually collect your bonuses from the Journal screen.'},
-      {type:'h2', text:'3. Do NOT buy expensive cars early'},
-      {type:'p', text:'Biggest beginner mistake. FH6 hands you cars constantly via wheelspins, seasonal challenges and story events. Spending early credits at the Autoshow torches money you should be investing in tuning your starter and buying houses (see #5).'},
-      {type:'h2', text:'4. Convert Skill Points → Credits via Car Mastery'},
-      {type:'p', text:'Every car in FH6 has its own Car Mastery tree, accessed from the vehicle menu → Cars tab → Car Mastery. Skill Points (earned from drifting, jumping, off-road) can be spent on the tree for credit bonuses, skill multipliers, and even Super Wheelspins.'},
-      {type:'p', text:'<strong>Pro tip from VGC:</strong> The 2024 Lamborghini Revuelto\'s Mastery tree pays out 3 Wheelspins + 1 Super Wheelspin for 39 Skill Points invested. Buy it (365k credits), invest, then sell at auction for most of your money back.'},
-      {type:'h2', text:'5. Buy all 8 houses — permanent passive income'},
-      {type:'p', text:'Houses are not just fast travel points. Each unlocks a permanent bonus: daily wheelspin for logging in, doubled Skill Points, etc. The "daily wheelspin on login" house is your first big investment goal. Long-term return crushes the upfront price.'},
-      {type:'h2', text:'6. Trigger Super Wheelspins on purpose'},
+      {type:'note', text:{en:'Forza Horizon 6 throws a lot of credits at you in the first 5 hours, then the curve slows. These methods front-load the curve so you can buy what you actually want.', pt:'O Forza Horizon 6 atira-te muitos credits nas primeiras 5 horas e depois a curva abranda. Estes métodos antecipam a curva para tu compares o que realmente queres.'}},
+      {type:'p', text:{en:'Want the Koenigsegg Jesko or the 2025 Toyota GR GT Prototype? You will need to grind. Here are the seven verified ways to fill your bank in Forza Horizon 6.', pt:'Queres o Koenigsegg Jesko ou o 2025 Toyota GR GT Prototype? Vais ter de fazer grind. Aqui ficam as sete formas verificadas de encher a conta em Forza Horizon 6.'}},
+      {type:'h2', text:{en:'1. Turn up the difficulty — earn up to 125% extra', pt:'1. Sobe a dificuldade — ganha até 125% extra'}},
+      {type:'p', text:{en:'Disabling driving aids and raising AI difficulty stacks a credit multiplier that goes up to +125%. Combine with longer races (which always pay more than sprints) and your bank fills fast. If FH6 prompts you to raise difficulty mid-session, say yes.', pt:'Desligar as ajudas à condução e subir a dificuldade da IA acumula um multiplicador de credits até +125%. Combina com corridas longas (que pagam sempre mais do que sprints) e a conta enche depressa. Se o FH6 te perguntar a meio se queres subir a dificuldade, diz que sim.'}},
+      {type:'tip', text:{en:'Pick a level you can still win. Finishing last with high difficulty earns less than dominating at lower difficulty.', pt:'Escolhe um nível em que ainda consegues ganhar. Acabar em último com dificuldade alta rende menos do que dominar com dificuldade mais baixa.'}},
+      {type:'h2', text:{en:'2. Complete the Collection Journal', pt:'2. Completa o Collection Journal'}},
+      {type:'p', text:{en:'Two new Journal categories reward you for exploring Japan — photo challenges, story missions, bracelet events, online matches. Stamps unlock Barn Find rumors and new homes. You earn money almost passively. The trick: remember to actually collect your bonuses from the Journal screen.', pt:'Duas novas categorias do Journal recompensam-te por explorares o Japão — desafios de fotografia, missões da história, eventos de bracelete, jogos online. Os Stamps desbloqueiam rumores de Barn Find e casas novas. Ganhas dinheiro quase passivamente. O truque: lembra-te de ir mesmo levantar os bónus no ecrã do Journal.'}},
+      {type:'h2', text:{en:'3. Do NOT buy expensive cars early', pt:'3. NÃO compres carros caros cedo'}},
+      {type:'p', text:{en:'Biggest beginner mistake. FH6 hands you cars constantly via wheelspins, seasonal challenges and story events. Spending early credits at the Autoshow torches money you should be investing in tuning your starter and buying houses (see #5).', pt:'O maior erro de iniciante. O FH6 dá-te carros constantemente via wheelspins, desafios sazonais e eventos da história. Gastar credits cedo no Autoshow queima dinheiro que devias estar a investir em tuning do carro inicial e em comprar casas (ver #5).'}},
+      {type:'h2', text:{en:'4. Convert Skill Points → Credits via Car Mastery', pt:'4. Converte Skill Points → Credits via Car Mastery'}},
+      {type:'p', text:{en:'Every car in FH6 has its own Car Mastery tree, accessed from the vehicle menu → Cars tab → Car Mastery. Skill Points (earned from drifting, jumping, off-road) can be spent on the tree for credit bonuses, skill multipliers, and even Super Wheelspins.', pt:'Cada carro em FH6 tem a sua própria árvore de Car Mastery, no menu do veículo → separador Cars → Car Mastery. Os Skill Points (ganhos a fazer drift, saltos, off-road) podem ser gastos na árvore para bónus de credits, multiplicadores de skill e até Super Wheelspins.'}},
+      {type:'p', text:{en:'<strong>Pro tip from VGC:</strong> The 2024 Lamborghini Revuelto\'s Mastery tree pays out 3 Wheelspins + 1 Super Wheelspin for 39 Skill Points invested. Buy it (365k credits), invest, then sell at auction for most of your money back.', pt:'<strong>Dica pro da VGC:</strong> A árvore Mastery do Lamborghini Revuelto 2024 paga 3 Wheelspins + 1 Super Wheelspin por 39 Skill Points investidos. Compras (365k credits), investes, depois vendes no leilão para recuperar a maior parte do dinheiro.'}},
+      {type:'h2', text:{en:'5. Buy all 8 houses — permanent passive income', pt:'5. Compra as 8 casas todas — receita passiva permanente'}},
+      {type:'p', text:{en:'Houses are not just fast travel points. Each unlocks a permanent bonus: daily wheelspin for logging in, doubled Skill Points, etc. The "daily wheelspin on login" house is your first big investment goal. Long-term return crushes the upfront price.', pt:'As casas não são só pontos de fast travel. Cada uma desbloqueia um bónus permanente: wheelspin diário ao fazer login, Skill Points a dobrar, etc. A casa do "wheelspin diário no login" é o teu primeiro grande objectivo de investimento. O retorno a longo prazo esmaga o preço de entrada.'}},
+      {type:'h2', text:{en:'6. Trigger Super Wheelspins on purpose', pt:'6. Provoca Super Wheelspins de propósito'}},
       {type:'ul', items:[
-        '<strong>3-star PR Stunts</strong> — Speed Zones, Danger Signs, Drift Zones unlock Super Wheelspins early',
-        '<strong>Level up</strong> — every driver level rank grants a wheelspin (regular and super)',
-        '<strong>Car Mastery</strong> — invest in trees with multiple Super Wheelspin nodes (Revuelto, see above)'
+        {en:'<strong>3-star PR Stunts</strong> — Speed Zones, Danger Signs, Drift Zones unlock Super Wheelspins early', pt:'<strong>PR Stunts com 3 estrelas</strong> — Speed Zones, Danger Signs, Drift Zones desbloqueiam Super Wheelspins cedo'},
+        {en:'<strong>Level up</strong> — every driver level rank grants a wheelspin (regular and super)', pt:'<strong>Subir de level</strong> — cada rank de driver dá um wheelspin (normal e super)'},
+        {en:'<strong>Car Mastery</strong> — invest in trees with multiple Super Wheelspin nodes (Revuelto, see above)', pt:'<strong>Car Mastery</strong> — investe em árvores com vários nodes de Super Wheelspin (Revuelto, ver em cima)'}
       ]},
-      {type:'h2', text:'7. Grind the Colossus'},
-      {type:'p', text:'The Colossus returns in FH6 as a 11-15 minute highway endurance race around the entire Japan map. S2 hypercars (Koenigsegg Jesko tuned to 900 PI) hit 450+ kph. Rewards massive XP that converts to credits. Repeat infinitely — increase difficulty as you start dominating.'},
-      {type:'tip', text:'There are more lucrative endgame events, but the Colossus is the easiest to win consistently. Set it up once and farm.'},
-      {type:'p', text:'For deeper farming methods (Share Codes for AFK skill-point grinding), see the <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">Credit & Skill Point Farm guide</a>.'}
+      {type:'h2', text:{en:'7. Grind the Colossus', pt:'7. Faz grind do Colossus'}},
+      {type:'p', text:{en:'The Colossus returns in FH6 as a 11-15 minute highway endurance race around the entire Japan map. S2 hypercars (Koenigsegg Jesko tuned to 900 PI) hit 450+ kph. Rewards massive XP that converts to credits. Repeat infinitely — increase difficulty as you start dominating.', pt:'O Colossus volta no FH6 como uma corrida de endurance de 11-15 minutos pela autoestrada à volta de todo o mapa do Japão. Hipercarros S2 (Koenigsegg Jesko com tune a 900 PI) atingem 450+ km/h. Dá montes de XP que se converte em credits. Repete infinitamente — sobe a dificuldade à medida que começas a dominar.'}},
+      {type:'tip', text:{en:'There are more lucrative endgame events, but the Colossus is the easiest to win consistently. Set it up once and farm.', pt:'Há eventos endgame mais lucrativos, mas o Colossus é o mais fácil de ganhar de forma consistente. Configura uma vez e faz farm.'}},
+      {type:'p', text:{en:'For deeper farming methods (Share Codes for AFK skill-point grinding), see the <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">Credit & Skill Point Farm guide</a>.', pt:'Para métodos de farming mais profundos (Share Codes para grind AFK de skill points), vê o <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">guia Farm de Credits & Skill Points</a>.'}}
     ]
   },
   {
     slug:'forza-horizon-6-credit-skill-point-farm',
-    title:'Forza Horizon 6: Best Credit, Skill Point & Wheelspin Farm (Share Codes That Work)',
-    summary:'Two verified Share Codes — one for fast 5-minute grinding, one for AFK farming. Plus the Skill Point-to-Super-Wheelspin conversion trick.',
+    title:{en:'Forza Horizon 6: Best Credit, Skill Point & Wheelspin Farm (Share Codes That Work)', pt:'Forza Horizon 6: Melhor Farm de Credits, Skill Points & Wheelspins (Share Codes que Funcionam)'},
+    summary:{en:'Two verified Share Codes — one for fast 5-minute grinding, one for AFK farming. Plus the Skill Point-to-Super-Wheelspin conversion trick.', pt:'Dois Share Codes verificados — um para grind rápido de 5 minutos, outro para farm AFK. Mais o truque da conversão Skill Point-para-Super-Wheelspin.'},
     game:'forza-horizon-6', type:'guide', difficulty:'intermediate', category:'advanced', featured:true,
     date:'2026-05-22', lastUpdated:'2026-05-22', author:'Editorial', readTime:7, patchVersion:'Launch (1.0)',
     source:'https://www.videogameschronicle.com/guide/forza-horizon-6-credit-skill-point-farm-share-codes/',
     content:[
-      {type:'note', text:'Share Codes are user-created races shared via FH6 Creative Hub. The two below are the most-replicated farming routes in the first week after launch.'},
-      {type:'h2', text:'Step 1 — Setup before any farm'},
-      {type:'p', text:'Turn on All Assists in the Difficulty menu (Pause → Settings → Difficulty). This kills credit per-race multiplier but makes AFK and repeat-grind viable since you do not need to corner yourself.'},
-      {type:'h2', text:'Step 2 — Pick the right car'},
+      {type:'note', text:{en:'Share Codes are user-created races shared via FH6 Creative Hub. The two below are the most-replicated farming routes in the first week after launch.', pt:'Os Share Codes são corridas criadas pelos utilizadores e partilhadas via Creative Hub do FH6. Os dois em baixo são as rotas de farm mais replicadas na primeira semana após o lançamento.'}},
+      {type:'h2', text:{en:'Step 1 — Setup before any farm', pt:'Passo 1 — Setup antes de qualquer farm'}},
+      {type:'p', text:{en:'Turn on All Assists in the Difficulty menu (Pause → Settings → Difficulty). This kills credit per-race multiplier but makes AFK and repeat-grind viable since you do not need to corner yourself.', pt:'Liga All Assists no menu Difficulty (Pause → Settings → Difficulty). Isto mata o multiplicador de credits por corrida mas torna o AFK e o repeat-grind viáveis, porque não precisas de fazer curvas tu próprio.'}},
+      {type:'h2', text:{en:'Step 2 — Pick the right car', pt:'Passo 2 — Escolhe o carro certo'}},
       {type:'ul', items:[
-        '<strong>1998 Subaru Impreza 22B-STI Version</strong> (86k credits) — Car Mastery skill allows Skill Multiplier up to 9x. Best fast-farm choice.',
-        '<strong>2016 Formula Drift #530 HSV Maloo Gen-F</strong> (150k credits) — drift-focused alternative with strong multiplier ceiling.',
-        '<strong>2021 Mercedes-AMG ONE</strong> — free reward for Game Pass players who launched Forza Horizon 5 via Cloud. 200+ mph top speed, 7x Skill Multiplier. Ideal for the Colossus AFK farm.',
-        '<strong>2024 Chevrolet Corvette E-Ray</strong> — free reward for booting Forza Motorsport on the same account.',
-        '<strong>2016 Aston Martin Vulcan</strong> — free reward for Forza Horizon 4 owners.'
+        {en:'<strong>1998 Subaru Impreza 22B-STI Version</strong> (86k credits) — Car Mastery skill allows Skill Multiplier up to 9x. Best fast-farm choice.', pt:'<strong>Subaru Impreza 22B-STI Version 1998</strong> (86k credits) — a Car Mastery permite Skill Multiplier até 9x. A melhor escolha para fast-farm.'},
+        {en:'<strong>2016 Formula Drift #530 HSV Maloo Gen-F</strong> (150k credits) — drift-focused alternative with strong multiplier ceiling.', pt:'<strong>Formula Drift #530 HSV Maloo Gen-F 2016</strong> (150k credits) — alternativa focada em drift com tecto de multiplicador forte.'},
+        {en:'<strong>2021 Mercedes-AMG ONE</strong> — free reward for Game Pass players who launched Forza Horizon 5 via Cloud. 200+ mph top speed, 7x Skill Multiplier. Ideal for the Colossus AFK farm.', pt:'<strong>Mercedes-AMG ONE 2021</strong> — recompensa grátis para players de Game Pass que abriram o Forza Horizon 5 via Cloud. 320+ km/h de top speed, Skill Multiplier 7x. Ideal para o farm AFK do Colossus.'},
+        {en:'<strong>2024 Chevrolet Corvette E-Ray</strong> — free reward for booting Forza Motorsport on the same account.', pt:'<strong>Chevrolet Corvette E-Ray 2024</strong> — recompensa grátis por abrir o Forza Motorsport na mesma conta.'},
+        {en:'<strong>2016 Aston Martin Vulcan</strong> — free reward for Forza Horizon 4 owners.', pt:'<strong>Aston Martin Vulcan 2016</strong> — recompensa grátis para quem teve o Forza Horizon 4.'}
       ]},
-      {type:'h2', text:'Step 3 — How to enter Share Codes'},
+      {type:'h2', text:{en:'Step 3 — How to enter Share Codes', pt:'Passo 3 — Como introduzir Share Codes'}},
       {type:'ol', items:[
-        'Pause menu → Creative Hub tab',
-        'Select Horizon Event Lab → Play Event',
-        'Press View (Back/Select button) → search menu opens',
-        'Enter the Share Code at the bottom'
+        {en:'Pause menu → Creative Hub tab', pt:'Menu de pausa → separador Creative Hub'},
+        {en:'Select Horizon Event Lab → Play Event', pt:'Selecciona Horizon Event Lab → Play Event'},
+        {en:'Press View (Back/Select button) → search menu opens', pt:'Carrega View (botão Back/Select) → abre o menu de pesquisa'},
+        {en:'Enter the Share Code at the bottom', pt:'Introduz o Share Code em baixo'}
       ]},
-      {type:'h2', text:'The Fast Farm — 5-minute loops'},
-      {type:'p', text:'<strong>Share Code: 861224889</strong> — name: "Fastest Max Skill Points". You drive through a long line of objects, each granting Skill Points + multipliers. With the Subaru Impreza\'s 9x Mastery tree, this is the fastest Car Mastery unlocker in the game. Hit restart at the end and run it again.'},
-      {type:'h2', text:'The AFK Farm — over an hour passive'},
-      {type:'p', text:'<strong>Share Code: 401393298</strong> — name: "Ultra Fast Colossus!!". Holds-trigger AFK setup. Use rubber band on the acceleration trigger. Xbox players: use a wired controller (battery controllers disconnect after 15min idle).'},
-      {type:'p', text:'<strong>Caveat:</strong> FH6 nerfed AFK speed bonuses. You only accumulate speed-based Skill Points for the first ~10 minutes of any race. After that, your Skill Points stop growing but you keep what you accrued. Best practice: dip out and restart every ~10 minutes.'},
-      {type:'h2', text:'Skill Points → Super Wheelspins conversion'},
-      {type:'p', text:'Buy the <strong>2024 Lamborghini Revuelto</strong> (365k credits). Invest 39 Skill Points into the Car Mastery tree → unlocks 3 Wheelspins + 1 Super Wheelspin. Then sell the Revuelto at auction to recover ~70% of the purchase. Repeat as Skill Points accumulate from the farms above.'},
-      {type:'tip', text:'Super Wheelspins routinely pay out 1-3M credits and exclusive cars. The Skill Point → Super Wheelspin loop is the single highest credit-per-hour return in FH6 if you have the patience for the setup.'}
+      {type:'h2', text:{en:'The Fast Farm — 5-minute loops', pt:'O Fast Farm — loops de 5 minutos'}},
+      {type:'p', text:{en:'<strong>Share Code: 861224889</strong> — name: "Fastest Max Skill Points". You drive through a long line of objects, each granting Skill Points + multipliers. With the Subaru Impreza\'s 9x Mastery tree, this is the fastest Car Mastery unlocker in the game. Hit restart at the end and run it again.', pt:'<strong>Share Code: 861224889</strong> — nome: "Fastest Max Skill Points". Conduzes por uma longa fila de objectos, cada um dando Skill Points + multiplicadores. Com a árvore Mastery 9x do Subaru Impreza, isto é o desbloqueador de Car Mastery mais rápido do jogo. Reinicia no fim e faz outra vez.'}},
+      {type:'h2', text:{en:'The AFK Farm — over an hour passive', pt:'O AFK Farm — mais de uma hora passivo'}},
+      {type:'p', text:{en:'<strong>Share Code: 401393298</strong> — name: "Ultra Fast Colossus!!". Holds-trigger AFK setup. Use rubber band on the acceleration trigger. Xbox players: use a wired controller (battery controllers disconnect after 15min idle).', pt:'<strong>Share Code: 401393298</strong> — nome: "Ultra Fast Colossus!!". Setup AFK com gatilho preso. Usa um elástico no gatilho de aceleração. Players Xbox: usa comando com fio (comandos a pilhas desligam-se depois de 15 min idle).'}},
+      {type:'p', text:{en:'<strong>Caveat:</strong> FH6 nerfed AFK speed bonuses. You only accumulate speed-based Skill Points for the first ~10 minutes of any race. After that, your Skill Points stop growing but you keep what you accrued. Best practice: dip out and restart every ~10 minutes.', pt:'<strong>Atenção:</strong> O FH6 fez nerf aos bónus de velocidade AFK. Só acumulas Skill Points baseados em velocidade nos primeiros ~10 minutos de cada corrida. Depois disso, os Skill Points param de crescer mas ficas com o que acumulaste. Boa prática: sai e reinicia a cada ~10 minutos.'}},
+      {type:'h2', text:{en:'Skill Points → Super Wheelspins conversion', pt:'Conversão Skill Points → Super Wheelspins'}},
+      {type:'p', text:{en:'Buy the <strong>2024 Lamborghini Revuelto</strong> (365k credits). Invest 39 Skill Points into the Car Mastery tree → unlocks 3 Wheelspins + 1 Super Wheelspin. Then sell the Revuelto at auction to recover ~70% of the purchase. Repeat as Skill Points accumulate from the farms above.', pt:'Compra o <strong>Lamborghini Revuelto 2024</strong> (365k credits). Investe 39 Skill Points na árvore Car Mastery → desbloqueia 3 Wheelspins + 1 Super Wheelspin. Depois vende o Revuelto no leilão para recuperar ~70% da compra. Repete à medida que vais acumulando Skill Points dos farms acima.'}},
+      {type:'tip', text:{en:'Super Wheelspins routinely pay out 1-3M credits and exclusive cars. The Skill Point → Super Wheelspin loop is the single highest credit-per-hour return in FH6 if you have the patience for the setup.', pt:'Os Super Wheelspins pagam por norma 1-3M credits e carros exclusivos. O loop Skill Point → Super Wheelspin é o maior rendimento de credits-por-hora no FH6, se tiveres paciência para o setup.'}}
     ]
   },
   {
     slug:'forza-horizon-6-best-cars-race-type',
-    title:'Forza Horizon 6: Best Cars by Race Type (Road, Dirt, Cross Country, Street, Drift)',
-    summary:'The fastest community-verified cars per race category — what to buy, what to tune, and which Mastery trees pay off.',
+    title:{en:'Forza Horizon 6: Best Cars by Race Type (Road, Dirt, Cross Country, Street, Drift)', pt:'Forza Horizon 6: Melhores Carros por Tipo de Corrida (Road, Dirt, Cross Country, Street, Drift)'},
+    summary:{en:'The fastest community-verified cars per race category — what to buy, what to tune, and which Mastery trees pay off.', pt:'Os carros mais rápidos verificados pela comunidade por categoria — o que comprar, o que tunar e que árvores Mastery rendem.'},
     game:'forza-horizon-6', type:'guide', difficulty:'intermediate', category:'cars', featured:true,
     date:'2026-05-22', lastUpdated:'2026-05-22', author:'Editorial', readTime:9, patchVersion:'Launch (1.0)',
     source:'https://www.pcgamer.com/games/racing/forza-horizon-6-best-cars/',
     content:[
-      {type:'note', text:'Forza Horizon 6 launches with 550+ cars across 8 race classes. This is the current early-meta picks community is converging on in the first weeks. Will shift as patches and seasonal Festival Playlists land — bookmark for updates.'},
-      {type:'h2', text:'Road Racing — paved circuits'},
+      {type:'note', text:{en:'Forza Horizon 6 launches with 550+ cars across 8 race classes. This is the current early-meta picks community is converging on in the first weeks. Will shift as patches and seasonal Festival Playlists land — bookmark for updates.', pt:'O Forza Horizon 6 sai com 550+ carros distribuídos por 8 classes de corrida. Estas são as escolhas de early-meta para onde a comunidade está a convergir nas primeiras semanas. Vai mudar à medida que patches e Festival Playlists sazonais chegarem — faz bookmark.'}},
+      {type:'h2', text:{en:'Road Racing — paved circuits', pt:'Road Racing — circuitos asfaltados'}},
       {type:'ul', items:[
-        '<strong>S2 (901+ PI)</strong>: Koenigsegg Jesko — the hypercar ceiling. 10/10 speed rating, the go-to for any S2 circuit and the Colossus farm.',
-        '<strong>S1 (801-900)</strong>: Porsche 911 GT2 RS — predictable grip, top speed for road. Tune for downforce.',
-        '<strong>A (701-800)</strong>: BMW M4 Competition — community favorite, balanced cornering.',
-        '<strong>B (601-700)</strong>: Subaru Impreza 22B-STI 1998 — also a farm pick, see Credit guide.'
+        {en:'<strong>S2 (901+ PI)</strong>: Koenigsegg Jesko — the hypercar ceiling. 10/10 speed rating, the go-to for any S2 circuit and the Colossus farm.', pt:'<strong>S2 (901+ PI)</strong>: Koenigsegg Jesko — o tecto dos hipercarros. Speed rating 10/10, escolha por defeito para qualquer circuito S2 e para o farm do Colossus.'},
+        {en:'<strong>S1 (801-900)</strong>: Porsche 911 GT2 RS — predictable grip, top speed for road. Tune for downforce.', pt:'<strong>S1 (801-900)</strong>: Porsche 911 GT2 RS — aderência previsível, top speed para estrada. Tune para downforce.'},
+        {en:'<strong>A (701-800)</strong>: BMW M4 Competition — community favorite, balanced cornering.', pt:'<strong>A (701-800)</strong>: BMW M4 Competition — favorito da comunidade, cornering equilibrado.'},
+        {en:'<strong>B (601-700)</strong>: Subaru Impreza 22B-STI 1998 — also a farm pick, see Credit guide.', pt:'<strong>B (601-700)</strong>: Subaru Impreza 22B-STI 1998 — também serve para farm, ver o guia de Credits.'}
       ]},
-      {type:'h2', text:'Dirt Racing — Japanese mountain rally'},
+      {type:'h2', text:{en:'Dirt Racing — Japanese mountain rally', pt:'Dirt Racing — rally nas montanhas do Japão'}},
       {type:'ul', items:[
-        '<strong>S2</strong>: Ford Performance #25 Hoonigan Mustang RTR — drift + rally hybrid, dominant in S2 dirt.',
-        '<strong>S1</strong>: Mitsubishi Lancer Evolution VI — classic rally meta, holds the line through Japan\'s tight switchbacks.',
-        '<strong>A</strong>: Subaru Impreza WRX STI 2008 — the affordable workhorse.',
-        '<strong>B</strong>: Lancia Stratos HF Stradale — the heritage drift-dirt pick.'
+        {en:'<strong>S2</strong>: Ford Performance #25 Hoonigan Mustang RTR — drift + rally hybrid, dominant in S2 dirt.', pt:'<strong>S2</strong>: Ford Performance #25 Hoonigan Mustang RTR — híbrido drift + rally, dominante em S2 dirt.'},
+        {en:'<strong>S1</strong>: Mitsubishi Lancer Evolution VI — classic rally meta, holds the line through Japan\'s tight switchbacks.', pt:'<strong>S1</strong>: Mitsubishi Lancer Evolution VI — meta clássico de rally, segura a linha nas curvas apertadas do Japão.'},
+        {en:'<strong>A</strong>: Subaru Impreza WRX STI 2008 — the affordable workhorse.', pt:'<strong>A</strong>: Subaru Impreza WRX STI 2008 — o cavalo de batalha acessível.'},
+        {en:'<strong>B</strong>: Lancia Stratos HF Stradale — the heritage drift-dirt pick.', pt:'<strong>B</strong>: Lancia Stratos HF Stradale — escolha clássica de drift-dirt.'}
       ]},
-      {type:'h2', text:'Cross Country — off-road open terrain'},
+      {type:'h2', text:{en:'Cross Country — off-road open terrain', pt:'Cross Country — terreno aberto off-road'}},
       {type:'ul', items:[
-        '<strong>S2</strong>: Local Motors Rally Fighter — high suspension travel for the snowy north.',
-        '<strong>S1</strong>: Ford F-150 Raptor 2017 — go-to truck pick for offroad.',
-        '<strong>A</strong>: Ford Bronco Wildtrak 2021 — agility on rough terrain.',
-        '<strong>B</strong>: Toyota Land Cruiser FJ40 1971 — heritage pick, surprisingly competitive.'
+        {en:'<strong>S2</strong>: Local Motors Rally Fighter — high suspension travel for the snowy north.', pt:'<strong>S2</strong>: Local Motors Rally Fighter — suspensão alta para o norte nevado.'},
+        {en:'<strong>S1</strong>: Ford F-150 Raptor 2017 — go-to truck pick for offroad.', pt:'<strong>S1</strong>: Ford F-150 Raptor 2017 — escolha de pickup obrigatória para offroad.'},
+        {en:'<strong>A</strong>: Ford Bronco Wildtrak 2021 — agility on rough terrain.', pt:'<strong>A</strong>: Ford Bronco Wildtrak 2021 — agilidade em terreno rugoso.'},
+        {en:'<strong>B</strong>: Toyota Land Cruiser FJ40 1971 — heritage pick, surprisingly competitive.', pt:'<strong>B</strong>: Toyota Land Cruiser FJ40 1971 — escolha clássica, surpreendentemente competitiva.'}
       ]},
-      {type:'h2', text:'Street Racing — illegal night routes'},
-      {type:'p', text:'Japanese street races at night reward acceleration off-the-line more than top speed (lots of traffic, short straights). Look for high-launch builds, low-end torque.'},
+      {type:'h2', text:{en:'Street Racing — illegal night routes', pt:'Street Racing — rotas ilegais à noite'}},
+      {type:'p', text:{en:'Japanese street races at night reward acceleration off-the-line more than top speed (lots of traffic, short straights). Look for high-launch builds, low-end torque.', pt:'As street races japonesas à noite premeiam mais aceleração inicial do que top speed (muito trânsito, rectas curtas). Procura builds de lançamento forte e binário a baixa rotação.'}},
       {type:'ul', items:[
-        '<strong>S2</strong>: Toyota GR GT Prototype 2025 — exclusive top pick.',
-        '<strong>S1</strong>: Nissan Skyline R34 GT-R — Need for Speed Underground tax pick, dominates 0-60.',
-        '<strong>A</strong>: Mazda RX-7 Spirit R Type-A 2002 — light and fast, FD chassis.',
-        '<strong>B</strong>: Honda Civic Type R FK8 — the all-time daily-driver meta pick.'
+        {en:'<strong>S2</strong>: Toyota GR GT Prototype 2025 — exclusive top pick.', pt:'<strong>S2</strong>: Toyota GR GT Prototype 2025 — escolha de topo exclusiva.'},
+        {en:'<strong>S1</strong>: Nissan Skyline R34 GT-R — Need for Speed Underground tax pick, dominates 0-60.', pt:'<strong>S1</strong>: Nissan Skyline R34 GT-R — escolha obrigatória estilo Need for Speed Underground, domina 0-100.'},
+        {en:'<strong>A</strong>: Mazda RX-7 Spirit R Type-A 2002 — light and fast, FD chassis.', pt:'<strong>A</strong>: Mazda RX-7 Spirit R Type-A 2002 — leve e rápido, chassis FD.'},
+        {en:'<strong>B</strong>: Honda Civic Type R FK8 — the all-time daily-driver meta pick.', pt:'<strong>B</strong>: Honda Civic Type R FK8 — o daily-driver meta de sempre.'}
       ]},
-      {type:'h2', text:'Touge Battles — head-to-head mountain duels'},
+      {type:'h2', text:{en:'Touge Battles — head-to-head mountain duels', pt:'Touge Battles — duelos head-to-head na montanha'}},
       {type:'ul', items:[
-        '<strong>Starter pick</strong>: Nissan Silvia K with Rocket Bunny body kit (free starter car). Drift-tuned, rewards precise throttle on the touge climbs.',
-        '<strong>Meta pick</strong>: Toyota AE86 Trueno — Initial D tax. Light, FR, hyper-responsive on tight mountain curves.',
-        '<strong>Power pick</strong>: Lamborghini Huracán LP 580-2 — when you want to overpower the touge.'
+        {en:'<strong>Starter pick</strong>: Nissan Silvia K with Rocket Bunny body kit (free starter car). Drift-tuned, rewards precise throttle on the touge climbs.', pt:'<strong>Escolha inicial</strong>: Nissan Silvia K com body kit Rocket Bunny (carro inicial grátis). Afinado para drift, premeia acelerador preciso nas subidas touge.'},
+        {en:'<strong>Meta pick</strong>: Toyota AE86 Trueno — Initial D tax. Light, FR, hyper-responsive on tight mountain curves.', pt:'<strong>Escolha meta</strong>: Toyota AE86 Trueno — obrigatório estilo Initial D. Leve, FR, hiper-responsivo em curvas apertadas na montanha.'},
+        {en:'<strong>Power pick</strong>: Lamborghini Huracán LP 580-2 — when you want to overpower the touge.', pt:'<strong>Escolha de potência</strong>: Lamborghini Huracán LP 580-2 — quando queres dominar o touge à bruta.'}
       ]},
-      {type:'h2', text:'Drag Meets — straight-line lights start'},
-      {type:'p', text:'Drag now uses a true lights-based start. Hold handbrake → activate launch control → release on final light. Reaction time decides everything.'},
+      {type:'h2', text:{en:'Drag Meets — straight-line lights start', pt:'Drag Meets — partida de luzes em linha recta'}},
+      {type:'p', text:{en:'Drag now uses a true lights-based start. Hold handbrake → activate launch control → release on final light. Reaction time decides everything.', pt:'O drag agora usa uma partida real baseada em luzes. Segura travão de mão → activa launch control → solta na última luz. O tempo de reacção decide tudo.'}},
       {type:'ul', items:[
-        '<strong>S2</strong>: Hennessey Venom F5 — top-end drag king.',
-        '<strong>S1</strong>: Dodge Challenger SRT Demon — heritage drag pick, brutal off the line.',
-        '<strong>A</strong>: Tesla Model S Plaid — torque vector dominance for short drag.'
+        {en:'<strong>S2</strong>: Hennessey Venom F5 — top-end drag king.', pt:'<strong>S2</strong>: Hennessey Venom F5 — rei do drag de topo.'},
+        {en:'<strong>S1</strong>: Dodge Challenger SRT Demon — heritage drag pick, brutal off the line.', pt:'<strong>S1</strong>: Dodge Challenger SRT Demon — clássico drag, brutal à partida.'},
+        {en:'<strong>A</strong>: Tesla Model S Plaid — torque vector dominance for short drag.', pt:'<strong>A</strong>: Tesla Model S Plaid — dominância de torque vectorial para drag curto.'}
       ]},
-      {type:'h2', text:'Drift Zones — score-based events'},
-      {type:'p', text:'Drift cars need rear-wheel drive, ~600 hp, and a specific tune (low rear grip, high steering angle). Community drift-tune builds dominate the Drift Zone leaderboards. Check Creative Hub for "drift tune" share codes.'},
+      {type:'h2', text:{en:'Drift Zones — score-based events', pt:'Drift Zones — eventos com pontuação'}},
+      {type:'p', text:{en:'Drift cars need rear-wheel drive, ~600 hp, and a specific tune (low rear grip, high steering angle). Community drift-tune builds dominate the Drift Zone leaderboards. Check Creative Hub for "drift tune" share codes.', pt:'Carros de drift precisam de tracção traseira, ~600 hp e um tune específico (pouco grip atrás, ângulo de viragem alto). Builds de drift-tune da comunidade dominam os leaderboards das Drift Zones. Procura share codes "drift tune" no Creative Hub.'}},
       {type:'ul', items:[
-        '<strong>S1</strong>: Nissan Silvia S15 Spec.R — the eternal drift meta car.',
-        '<strong>A</strong>: Toyota Supra Mk4 RZ — Wangan tax pick.',
-        '<strong>B</strong>: BMW E30 M3 — community drift favorite.'
+        {en:'<strong>S1</strong>: Nissan Silvia S15 Spec.R — the eternal drift meta car.', pt:'<strong>S1</strong>: Nissan Silvia S15 Spec.R — o carro meta eterno de drift.'},
+        {en:'<strong>A</strong>: Toyota Supra Mk4 RZ — Wangan tax pick.', pt:'<strong>A</strong>: Toyota Supra Mk4 RZ — escolha obrigatória estilo Wangan.'},
+        {en:'<strong>B</strong>: BMW E30 M3 — community drift favorite.', pt:'<strong>B</strong>: BMW E30 M3 — favorito da comunidade para drift.'}
       ]},
-      {type:'tip', text:'Tunes matter more than the car. A B-class Honda with a tuned-out chassis often beats a stock A-class. Use community Share Codes (Creative Hub) for tuned setups — most top-rated tunes are free.'}
+      {type:'tip', text:{en:'Tunes matter more than the car. A B-class Honda with a tuned-out chassis often beats a stock A-class. Use community Share Codes (Creative Hub) for tuned setups — most top-rated tunes are free.', pt:'Os tunes contam mais do que o carro. Um Honda de classe B com chassis bem afinado bate muitas vezes um A-class de fábrica. Usa Share Codes da comunidade (Creative Hub) para setups afinados — a maior parte dos tunes top-rated são grátis.'}}
     ]
   },
   {
     slug:'forza-horizon-6-beginner-tips-tricks',
-    title:'Forza Horizon 6: The 10 Things to Do in Your First 3 Hours',
-    summary:'Wristbands, Japan map, starter car, houses, PR stunts — the beginner blueprint for getting to Legend Island faster. Spoiler-light walkthrough.',
+    title:{en:'Forza Horizon 6: The 10 Things to Do in Your First 3 Hours', pt:'Forza Horizon 6: As 10 Coisas a Fazer nas Tuas Primeiras 3 Horas'},
+    summary:{en:'Wristbands, Japan map, starter car, houses, PR stunts — the beginner blueprint for getting to Legend Island faster. Spoiler-light walkthrough.', pt:'Wristbands, mapa do Japão, carro inicial, casas, PR stunts — o blueprint para chegares mais depressa à Legend Island. Walkthrough com poucos spoilers.'},
     game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
     date:'2026-05-22', lastUpdated:'2026-05-22', author:'Editorial', readTime:10, patchVersion:'Launch (1.0)',
     source:'https://www.redbull.com/int-en/forza-horizon-6-tips-for-beginners',
     content:[
-      {type:'note', text:'This is the beginner blueprint. Light spoilers for FH6 mechanics (mascots, barn finds, treasure cars, Legend Island) but no story content.'},
-      {type:'h2', text:'1. How to start — Qualifiers first, no detours'},
-      {type:'p', text:'You start with the Horizon Qualifiers and the Horizon Invitational. Do them. Do not drift off and explore yet — they unlock the Wristband progression system and core game mechanics (homes, PR Stunts, Drag Meets) that everything else depends on.'},
-      {type:'p', text:'Plan: Complete intro → first Wristband → follow recommended events for 3-4 hours → THEN sightseeing.'},
-      {type:'h2', text:'2. The Japan map'},
-      {type:'p', text:'Most varied FH map ever. North = snow + ski jumps + banked turns (rally country). South = coast + tropical feel. Cities = ultra-detailed (Shibuya Crossing is widened for traffic but recognisable). Centre = Mount Fuji (visible but not drivable). Legend Island = end-game, locked until Gold Wristband.'},
-      {type:'tip', text:'D-Pad Up enters Photo Mode. One of the Journal tasks is photographing 26 landmarks across Japan — collect as you go.'},
-      {type:'h2', text:'3. The Wristband progression system'},
-      {type:'p', text:'Returning from the original Forza Horizon (2012). You earn Wristbands by accumulating event progress. Each Wristband unlocks new car classes for events and new map regions.'},
-      {type:'p', text:'7 total Festival Wristbands. The Gold Wristband unlocks Legend Island and the longest Goliath race ever made. First major goal: Horizon Invitational.'},
-      {type:'h2', text:'4. Picking your starter car'},
+      {type:'note', text:{en:'This is the beginner blueprint. Light spoilers for FH6 mechanics (mascots, barn finds, treasure cars, Legend Island) but no story content.', pt:'Este é o blueprint para iniciantes. Spoilers leves de mecânicas do FH6 (mascots, barn finds, treasure cars, Legend Island) mas nada da história.'}},
+      {type:'h2', text:{en:'1. How to start — Qualifiers first, no detours', pt:'1. Como começar — Qualifiers primeiro, sem desvios'}},
+      {type:'p', text:{en:'You start with the Horizon Qualifiers and the Horizon Invitational. Do them. Do not drift off and explore yet — they unlock the Wristband progression system and core game mechanics (homes, PR Stunts, Drag Meets) that everything else depends on.', pt:'Começas com os Horizon Qualifiers e a Horizon Invitational. Faz isso. Não vás à descoberta já — desbloqueiam o sistema de progressão Wristband e as mecânicas centrais (casas, PR Stunts, Drag Meets) de que tudo o resto depende.'}},
+      {type:'p', text:{en:'Plan: Complete intro → first Wristband → follow recommended events for 3-4 hours → THEN sightseeing.', pt:'Plano: Completa a intro → primeiro Wristband → segue os eventos recomendados durante 3-4 horas → DEPOIS exploração.'}},
+      {type:'h2', text:{en:'2. The Japan map', pt:'2. O mapa do Japão'}},
+      {type:'p', text:{en:'Most varied FH map ever. North = snow + ski jumps + banked turns (rally country). South = coast + tropical feel. Cities = ultra-detailed (Shibuya Crossing is widened for traffic but recognisable). Centre = Mount Fuji (visible but not drivable). Legend Island = end-game, locked until Gold Wristband.', pt:'O mapa FH mais variado de sempre. Norte = neve + rampas de ski + curvas inclinadas (terra de rally). Sul = costa + ambiente tropical. Cidades = ultra detalhadas (Shibuya Crossing está alargada para o trânsito mas reconhecível). Centro = Monte Fuji (visível mas não conduzível). Legend Island = end-game, fechada até teres Gold Wristband.'}},
+      {type:'tip', text:{en:'D-Pad Up enters Photo Mode. One of the Journal tasks is photographing 26 landmarks across Japan — collect as you go.', pt:'D-Pad para cima entra no Photo Mode. Uma das tarefas do Journal é fotografar 26 landmarks pelo Japão — vai apanhando à medida que passas.'}},
+      {type:'h2', text:{en:'3. The Wristband progression system', pt:'3. O sistema de progressão Wristband'}},
+      {type:'p', text:{en:'Returning from the original Forza Horizon (2012). You earn Wristbands by accumulating event progress. Each Wristband unlocks new car classes for events and new map regions.', pt:'Regressa do Forza Horizon original (2012). Ganhas Wristbands acumulando progresso em eventos. Cada Wristband desbloqueia novas classes de carros para eventos e novas regiões do mapa.'}},
+      {type:'p', text:{en:'7 total Festival Wristbands. The Gold Wristband unlocks Legend Island and the longest Goliath race ever made. First major goal: Horizon Invitational.', pt:'7 Wristbands do Festival no total. O Gold Wristband desbloqueia a Legend Island e a maior corrida Goliath de sempre. Primeiro grande objectivo: Horizon Invitational.'}},
+      {type:'h2', text:{en:'4. Picking your starter car', pt:'4. Escolher o teu carro inicial'}},
       {type:'ul', items:[
-        '<strong>Toyota Celica (modified)</strong> — all-rounder, balanced for mixed asphalt + light off-road. Safest pick.',
-        '<strong>Nissan Silvia K (Rocket Bunny)</strong> — drift-focused. Aggressive, rewards throttle precision. Pick if you want to learn drifting from hour 1.',
-        '<strong>GMC truck</strong> — northern rally country. Slow on asphalt, beast off-road. Pick if you love rally/dirt.'
+        {en:'<strong>Toyota Celica (modified)</strong> — all-rounder, balanced for mixed asphalt + light off-road. Safest pick.', pt:'<strong>Toyota Celica (modificado)</strong> — versátil, equilibrado para misto asfalto + off-road ligeiro. A escolha mais segura.'},
+        {en:'<strong>Nissan Silvia K (Rocket Bunny)</strong> — drift-focused. Aggressive, rewards throttle precision. Pick if you want to learn drifting from hour 1.', pt:'<strong>Nissan Silvia K (Rocket Bunny)</strong> — focado em drift. Agressivo, premeia precisão no acelerador. Escolhe se queres aprender a fazer drift desde a hora 1.'},
+        {en:'<strong>GMC truck</strong> — northern rally country. Slow on asphalt, beast off-road. Pick if you love rally/dirt.', pt:'<strong>GMC truck</strong> — terra de rally a norte. Lento no asfalto, fera no off-road. Escolhe se adoras rally/dirt.'}
       ]},
-      {type:'h2', text:'5. The new FH6 features that matter'},
+      {type:'h2', text:{en:'5. The new FH6 features that matter', pt:'5. As features novas do FH6 que importam'}},
       {type:'ul', items:[
-        '<strong>200 Mascots</strong> across the map. Running one over = 5,000 credits. Adds up to ~1M credits passively over exploration.',
-        '<strong>Aftermarket cars</strong> — green car icons on minimap mark fully-tuned bodykit cars cheaper than the Autoshow. Buy on sight.',
-        '<strong>ANNA assistant</strong> — drives you to destinations. Cinema Mode hides the UI for cinematic clips.',
-        '<strong>Drag Meets with light starts</strong> — true reaction-time racing. Handbrake → launch control → release on final light.'
+        {en:'<strong>200 Mascots</strong> across the map. Running one over = 5,000 credits. Adds up to ~1M credits passively over exploration.', pt:'<strong>200 Mascots</strong> espalhados pelo mapa. Passar por cima de um = 5.000 credits. Soma a ~1M credits passivamente enquanto exploras.'},
+        {en:'<strong>Aftermarket cars</strong> — green car icons on minimap mark fully-tuned bodykit cars cheaper than the Autoshow. Buy on sight.', pt:'<strong>Aftermarket cars</strong> — ícones verdes no minimapa marcam carros com bodykit já totalmente afinados, mais baratos que no Autoshow. Compra à vista.'},
+        {en:'<strong>ANNA assistant</strong> — drives you to destinations. Cinema Mode hides the UI for cinematic clips.', pt:'<strong>Assistente ANNA</strong> — conduz-te até aos destinos. Cinema Mode esconde a UI para clips cinematográficos.'},
+        {en:'<strong>Drag Meets with light starts</strong> — true reaction-time racing. Handbrake → launch control → release on final light.', pt:'<strong>Drag Meets com partida de luzes</strong> — corridas a sério de tempo de reacção. Travão de mão → launch control → soltar na última luz.'}
       ]},
-      {type:'h2', text:'6. Special cars in the open world'},
-      {type:'p', text:'Three ways to find unique cars:'},
+      {type:'h2', text:{en:'6. Special cars in the open world', pt:'6. Carros especiais no mundo aberto'}},
+      {type:'p', text:{en:'Three ways to find unique cars:', pt:'Três formas de encontrar carros únicos:'}},
       {type:'ul', items:[
-        '<strong>Aftermarket cars</strong> — green icons on minimap.',
-        '<strong>Barn Finds</strong> — 14 total. Purple circles on map. Follow the small dirt track inside the circle to find the barn.',
-        '<strong>Treasure Cars</strong> — 9 total, new to FH6. Game notifies you when nearby, gives a photo of the location. Hunt visually.'
+        {en:'<strong>Aftermarket cars</strong> — green icons on minimap.', pt:'<strong>Aftermarket cars</strong> — ícones verdes no minimapa.'},
+        {en:'<strong>Barn Finds</strong> — 14 total. Purple circles on map. Follow the small dirt track inside the circle to find the barn.', pt:'<strong>Barn Finds</strong> — 14 no total. Círculos roxos no mapa. Segue a estradinha de terra dentro do círculo para encontrar o barracão.'},
+        {en:'<strong>Treasure Cars</strong> — 9 total, new to FH6. Game notifies you when nearby, gives a photo of the location. Hunt visually.', pt:'<strong>Treasure Cars</strong> — 9 no total, novidade no FH6. O jogo notifica-te quando estás perto e dá-te uma foto do sítio. Caça visualmente.'}
       ]},
-      {type:'h2', text:'7. Street Racing & Touge Battles'},
-      {type:'p', text:'Optional. Not tied to campaign progression so you can skip them entirely. But rewards are good and the vibes are unmatched:'},
+      {type:'h2', text:{en:'7. Street Racing & Touge Battles', pt:'7. Street Racing & Touge Battles'}},
+      {type:'p', text:{en:'Optional. Not tied to campaign progression so you can skip them entirely. But rewards are good and the vibes are unmatched:', pt:'Opcionais. Não estão ligados à progressão da campanha, podes saltar completamente. Mas as recompensas são boas e a vibe não tem paralelo:'}},
       {type:'ul', items:[
-        '<strong>Street Races</strong> — night-time A-to-B with traffic. Need for Speed Underground vibes.',
-        '<strong>Touge Battles</strong> — 1v1 head-to-head on winding mountain roads. Initial D vibes.'
+        {en:'<strong>Street Races</strong> — night-time A-to-B with traffic. Need for Speed Underground vibes.', pt:'<strong>Street Races</strong> — à noite, de A a B com trânsito. Vibe Need for Speed Underground.'},
+        {en:'<strong>Touge Battles</strong> — 1v1 head-to-head on winding mountain roads. Initial D vibes.', pt:'<strong>Touge Battles</strong> — 1v1 em estradas de montanha sinuosas. Vibe Initial D.'}
       ]},
-      {type:'h2', text:'8. Buy houses EARLY'},
-      {type:'p', text:'8 properties total. Each unlocks a permanent bonus (daily wheelspin, skill-point doubler, etc.). They are expensive but compound for the rest of your save. Premium Edition starts with Tokyo City House. Everyone else: aim for the daily-wheelspin house first.'},
-      {type:'h2', text:'9. PR Stunts → Skill Points → Car Mastery'},
-      {type:'p', text:'3-star every PR Stunt (Speed Zones, Danger Signs, Drift Zones) for early Super Wheelspins. Stack Skill Points by drifting/jumping/off-roading. Invest in Car Mastery trees that have multiple Super Wheelspin nodes — they pay out way more than regular wheelspins.'},
-      {type:'h2', text:'10. Crank difficulty for +125% credits'},
-      {type:'p', text:'Driving aids OFF + AI difficulty UP = up to 125% extra credits per race. Long races > sprints. The Forza pop-up that asks "want to raise difficulty?" mid-game is offering you free money. Say yes.'},
-      {type:'tip', text:'For the deep-dive on credit farming and Share Code routes, see the <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">Credit & Skill Point Farm guide</a>.'}
+      {type:'h2', text:{en:'8. Buy houses EARLY', pt:'8. Compra casas CEDO'}},
+      {type:'p', text:{en:'8 properties total. Each unlocks a permanent bonus (daily wheelspin, skill-point doubler, etc.). They are expensive but compound for the rest of your save. Premium Edition starts with Tokyo City House. Everyone else: aim for the daily-wheelspin house first.', pt:'8 propriedades no total. Cada uma desbloqueia um bónus permanente (wheelspin diário, duplicador de skill-points, etc.). São caras mas dão juros pelo resto do save. Quem tem Premium Edition começa com a Tokyo City House. Os outros: o primeiro objectivo é a casa do wheelspin diário.'}},
+      {type:'h2', text:{en:'9. PR Stunts → Skill Points → Car Mastery', pt:'9. PR Stunts → Skill Points → Car Mastery'}},
+      {type:'p', text:{en:'3-star every PR Stunt (Speed Zones, Danger Signs, Drift Zones) for early Super Wheelspins. Stack Skill Points by drifting/jumping/off-roading. Invest in Car Mastery trees that have multiple Super Wheelspin nodes — they pay out way more than regular wheelspins.', pt:'Faz 3 estrelas em todos os PR Stunts (Speed Zones, Danger Signs, Drift Zones) para Super Wheelspins cedo. Acumula Skill Points a fazer drift / saltar / off-road. Investe em árvores Car Mastery com vários nodes de Super Wheelspin — pagam muito mais que wheelspins normais.'}},
+      {type:'h2', text:{en:'10. Crank difficulty for +125% credits', pt:'10. Sobe a dificuldade para +125% credits'}},
+      {type:'p', text:{en:'Driving aids OFF + AI difficulty UP = up to 125% extra credits per race. Long races > sprints. The Forza pop-up that asks "want to raise difficulty?" mid-game is offering you free money. Say yes.', pt:'Ajudas à condução OFF + dificuldade da IA UP = até 125% extra de credits por corrida. Corridas longas > sprints. O pop-up do Forza a perguntar "queres subir a dificuldade?" a meio do jogo está a oferecer-te dinheiro grátis. Diz que sim.'}},
+      {type:'tip', text:{en:'For the deep-dive on credit farming and Share Code routes, see the <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">Credit & Skill Point Farm guide</a>.', pt:'Para o deep-dive de farming de credits e rotas Share Code, vê o <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">guia Farm de Credits & Skill Points</a>.'}}
     ]
   },
   {
     slug:'forza-horizon-6-progression-pathways',
-    title:'Forza Horizon 6: The Three Pathways of Progression (Wristbands, Stamps, Horizon Play)',
-    summary:'Playground Games built three parallel progression systems into FH6 — one for racers, one for explorers, one for multiplayer. Here is how they actually work.',
+    title:{en:'Forza Horizon 6: The Three Pathways of Progression (Wristbands, Stamps, Horizon Play)', pt:'Forza Horizon 6: Os Três Caminhos de Progressão (Wristbands, Stamps, Horizon Play)'},
+    summary:{en:'Playground Games built three parallel progression systems into FH6 — one for racers, one for explorers, one for multiplayer. Here is how they actually work.', pt:'A Playground Games construiu três sistemas de progressão paralelos no FH6 — um para racers, um para exploradores, um para multiplayer. Aqui está como realmente funcionam.'},
     game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
     date:'2026-05-22', lastUpdated:'2026-05-22', author:'Editorial', readTime:6, patchVersion:'Launch (1.0)',
     source:'https://forza.net/news/forza-horizon-6-progression',
     content:[
-      {type:'note', text:'Source: official Playground Games dev blog (May 12, 2026). The three pathways are independent — you can progress all three simultaneously and they cross-feed.'},
-      {type:'p', text:'Forza Horizon 5 was criticised for lacking direction. FH6 fixes this with three parallel progression systems, each rewarding a different play style. Here is the breakdown.'},
-      {type:'h2', text:'Pathway 1 — Wristbands (the racer\'s path)'},
-      {type:'p', text:'Returns from the original Forza Horizon (2012). Wristbands are your ticket to higher-class events at the Horizon Festival.'},
+      {type:'note', text:{en:'Source: official Playground Games dev blog (May 12, 2026). The three pathways are independent — you can progress all three simultaneously and they cross-feed.', pt:'Fonte: blog oficial dos developers da Playground Games (12 Maio 2026). Os três caminhos são independentes — podes progredir nos três em simultâneo e alimentam-se uns aos outros.'}},
+      {type:'p', text:{en:'Forza Horizon 5 was criticised for lacking direction. FH6 fixes this with three parallel progression systems, each rewarding a different play style. Here is the breakdown.', pt:'O Forza Horizon 5 foi criticado por falta de direcção. O FH6 resolve isso com três sistemas de progressão paralelos, cada um a premiar um estilo de jogo diferente. Aqui fica o detalhe.'}},
+      {type:'h2', text:{en:'Pathway 1 — Wristbands (the racer\'s path)', pt:'Caminho 1 — Wristbands (o caminho do racer)'}},
+      {type:'p', text:{en:'Returns from the original Forza Horizon (2012). Wristbands are your ticket to higher-class events at the Horizon Festival.', pt:'Regressa do Forza Horizon original (2012). Os Wristbands são o teu bilhete para eventos de classe superior no Horizon Festival.'}},
       {type:'ul', items:[
-        '<strong>7 total Wristbands</strong> to earn through the campaign.',
-        '<strong>Gold Wristband</strong> = the prize. Unlocks Legend Island and the longest Goliath race in the series.',
-        'Event types: Road / Dirt / Cross Country races, Time Attack circuits, Drag Meets, PR Stunts, Bonus Boards.',
-        'Each Wristband unlocks a new <strong>Wristband Event</strong>: classic Showcase events + new Horizon Rush obstacle challenges.',
-        'After completing any race once, the Race Customizer unlocks — replay with any car in your garage.'
+        {en:'<strong>7 total Wristbands</strong> to earn through the campaign.', pt:'<strong>7 Wristbands no total</strong> para ganhar ao longo da campanha.'},
+        {en:'<strong>Gold Wristband</strong> = the prize. Unlocks Legend Island and the longest Goliath race in the series.', pt:'<strong>Gold Wristband</strong> = o prémio. Desbloqueia a Legend Island e a maior corrida Goliath da série.'},
+        {en:'Event types: Road / Dirt / Cross Country races, Time Attack circuits, Drag Meets, PR Stunts, Bonus Boards.', pt:'Tipos de evento: corridas Road / Dirt / Cross Country, circuitos Time Attack, Drag Meets, PR Stunts, Bonus Boards.'},
+        {en:'Each Wristband unlocks a new <strong>Wristband Event</strong>: classic Showcase events + new Horizon Rush obstacle challenges.', pt:'Cada Wristband desbloqueia um novo <strong>Wristband Event</strong>: eventos Showcase clássicos + desafios novos de obstáculos Horizon Rush.'},
+        {en:'After completing any race once, the Race Customizer unlocks — replay with any car in your garage.', pt:'Depois de completares qualquer corrida uma vez, abre o Race Customizer — joga outra vez com qualquer carro da tua garagem.'}
       ]},
-      {type:'h2', text:'Pathway 2 — Stamps (the explorer\'s path)'},
-      {type:'p', text:'Inspired by Japan\'s real-life stamp-collecting culture (eki stamps at every train station). Everything you discover in Japan earns Stamp progress.'},
+      {type:'h2', text:{en:'Pathway 2 — Stamps (the explorer\'s path)', pt:'Caminho 2 — Stamps (o caminho do explorador)'}},
+      {type:'p', text:{en:'Inspired by Japan\'s real-life stamp-collecting culture (eki stamps at every train station). Everything you discover in Japan earns Stamp progress.', pt:'Inspirado na cultura real japonesa de colecionar carimbos (eki stamps em cada estação de comboio). Tudo o que descobres no Japão dá progresso de Stamp.'}},
       {type:'ul', items:[
-        '<strong>7 Stamps</strong> in the Discover Japan Collection Journal.',
-        'Stamp activities: customising cars, photographing murals, smashing the 200 mascots, finding landmarks, completing Street Races, doing Touge Battles, working the Raku-Raku food delivery job, and more.',
-        'Stamps unlock <strong>Barn Find Rumors</strong> and new homes to buy across Japan.',
-        '<strong>First Stamp</strong> introduces Mei\'s grandparents\' abandoned Estate — your own buildable open-world home.'
+        {en:'<strong>7 Stamps</strong> in the Discover Japan Collection Journal.', pt:'<strong>7 Stamps</strong> no Discover Japan Collection Journal.'},
+        {en:'Stamp activities: customising cars, photographing murals, smashing the 200 mascots, finding landmarks, completing Street Races, doing Touge Battles, working the Raku-Raku food delivery job, and more.', pt:'Actividades de Stamp: customizar carros, fotografar murais, esmagar os 200 mascots, encontrar landmarks, completar Street Races, fazer Touge Battles, trabalhar nas entregas de comida Raku-Raku, e mais.'},
+        {en:'Stamps unlock <strong>Barn Find Rumors</strong> and new homes to buy across Japan.', pt:'Os Stamps desbloqueiam <strong>Barn Find Rumors</strong> e novas casas para comprar pelo Japão.'},
+        {en:'<strong>First Stamp</strong> introduces Mei\'s grandparents\' abandoned Estate — your own buildable open-world home.', pt:'<strong>O primeiro Stamp</strong> introduz a Estate abandonada dos avós da Mei — a tua casa de mundo aberto, que podes ir construindo.'}
       ]},
-      {type:'h2', text:'Pathway 3 — Horizon Play (the competitor\'s path)'},
-      {type:'p', text:'The new multiplayer hub. Designed around fun + competition rather than open-world co-op.'},
+      {type:'h2', text:{en:'Pathway 3 — Horizon Play (the competitor\'s path)', pt:'Caminho 3 — Horizon Play (o caminho do competidor)'}},
+      {type:'p', text:{en:'The new multiplayer hub. Designed around fun + competition rather than open-world co-op.', pt:'O novo hub multiplayer. Pensado para diversão + competição, mais do que para co-op de mundo aberto.'}},
       {type:'ul', items:[
-        '<strong>The Eliminator</strong> — open-world battle royale.',
-        '<strong>Hide & Seek</strong> — chase mode, hider vs seekers.',
-        '<strong>Touge Showdown</strong> — 2-player head-to-head championships, 3 races.',
-        '<strong>Spec Racing</strong> — everyone on stock cars, pure driver skill (new).',
-        '<strong>Horizon Racing + Horizon Drift</strong> — standard free-for-all modes.',
-        '<strong>Custom Racing + Custom Drifting</strong> — preference-based matchmaking.'
+        {en:'<strong>The Eliminator</strong> — open-world battle royale.', pt:'<strong>The Eliminator</strong> — battle royale em mundo aberto.'},
+        {en:'<strong>Hide & Seek</strong> — chase mode, hider vs seekers.', pt:'<strong>Hide & Seek</strong> — modo de perseguição, escondido vs caçadores.'},
+        {en:'<strong>Touge Showdown</strong> — 2-player head-to-head championships, 3 races.', pt:'<strong>Touge Showdown</strong> — campeonatos head-to-head a 2 jogadores, 3 corridas.'},
+        {en:'<strong>Spec Racing</strong> — everyone on stock cars, pure driver skill (new).', pt:'<strong>Spec Racing</strong> — toda a gente em carros stock, skill pura de piloto (novidade).'},
+        {en:'<strong>Horizon Racing + Horizon Drift</strong> — standard free-for-all modes.', pt:'<strong>Horizon Racing + Horizon Drift</strong> — modos standard free-for-all.'},
+        {en:'<strong>Custom Racing + Custom Drifting</strong> — preference-based matchmaking.', pt:'<strong>Custom Racing + Custom Drifting</strong> — matchmaking baseado em preferências.'}
       ]},
-      {type:'p', text:'Horizon Play has its own XP system. Every 10 ranks = a new Badge (up to Level 100). You also earn Badges for completing specific mode counts and racking up Skills.'},
-      {type:'h2', text:'How the three pathways cross-feed'},
-      {type:'p', text:'You do not have to pick one. Progress in any pathway feeds the others:'},
+      {type:'p', text:{en:'Horizon Play has its own XP system. Every 10 ranks = a new Badge (up to Level 100). You also earn Badges for completing specific mode counts and racking up Skills.', pt:'O Horizon Play tem o seu próprio sistema de XP. Cada 10 ranks = um novo Badge (até ao Level 100). Também ganhas Badges por completar contagens específicas de modos e acumular Skills.'}},
+      {type:'h2', text:{en:'How the three pathways cross-feed', pt:'Como os três caminhos se alimentam uns aos outros'}},
+      {type:'p', text:{en:'You do not have to pick one. Progress in any pathway feeds the others:', pt:'Não tens de escolher um. O progresso em qualquer caminho alimenta os outros:'}},
       {type:'ul', items:[
-        'Horizon Play levels (up to 25) grant Horizon Festival Points → counts toward your next Wristband.',
-        'Stamps unlock houses → houses give permanent passive bonuses that help all three pathways.',
-        'Wristband Events sometimes feed Stamp completion (e.g., completing a Horizon Rush counts as a Discover Japan tick).'
+        {en:'Horizon Play levels (up to 25) grant Horizon Festival Points → counts toward your next Wristband.', pt:'Os levels de Horizon Play (até 25) dão Horizon Festival Points → contam para o teu próximo Wristband.'},
+        {en:'Stamps unlock houses → houses give permanent passive bonuses that help all three pathways.', pt:'Os Stamps desbloqueiam casas → as casas dão bónus passivos permanentes que ajudam os três caminhos.'},
+        {en:'Wristband Events sometimes feed Stamp completion (e.g., completing a Horizon Rush counts as a Discover Japan tick).', pt:'Os Wristband Events alimentam por vezes a conclusão de Stamps (ex.: completar um Horizon Rush conta como um tick de Discover Japan).'}
       ]},
-      {type:'h2', text:'The Wheelspin rebalance'},
-      {type:'p', text:'Playground rebalanced Wheelspins for FH6. They are <strong>rarer to earn but more rewarding when triggered</strong>. Super Wheelspins are notably scarcer than in FH5 — but each Super Wheelspin can now drop multi-million credit rewards or exclusive cars. The economy is tighter, which is why the Skill Point → Super Wheelspin conversion trick (see the Easy Money guide) is so powerful.'},
-      {type:'tip', text:'You only get Wheelspins after qualifying for the Horizon Festival (first Wristband). Do not panic if your first 30 minutes have zero. They start after the Invitational.'}
+      {type:'h2', text:{en:'The Wheelspin rebalance', pt:'O rebalanceamento dos Wheelspins'}},
+      {type:'p', text:{en:'Playground rebalanced Wheelspins for FH6. They are <strong>rarer to earn but more rewarding when triggered</strong>. Super Wheelspins are notably scarcer than in FH5 — but each Super Wheelspin can now drop multi-million credit rewards or exclusive cars. The economy is tighter, which is why the Skill Point → Super Wheelspin conversion trick (see the Easy Money guide) is so powerful.', pt:'A Playground rebalanceou os Wheelspins no FH6. Agora são <strong>mais raros de ganhar mas mais recompensadores quando saem</strong>. Os Super Wheelspins são notavelmente mais escassos do que no FH5 — mas cada Super Wheelspin pode agora dar prémios de milhões de credits ou carros exclusivos. A economia está mais apertada, daí o truque de conversão Skill Point → Super Wheelspin (ver o guia Easy Money) ser tão poderoso.'}},
+      {type:'tip', text:{en:'You only get Wheelspins after qualifying for the Horizon Festival (first Wristband). Do not panic if your first 30 minutes have zero. They start after the Invitational.', pt:'Só recebes Wheelspins depois de te qualificares para o Horizon Festival (primeiro Wristband). Não entres em pânico se os teus primeiros 30 minutos forem zero. Começam depois da Invitational.'}}
     ]
   }
 ];
@@ -2942,7 +2960,7 @@ function updateSEO(r){
   if(r.view==='news' && r.a){
     const a=articles.find(x=>x.slug===r.a)||(externalArticles||[]).find(x=>x.slug===r.a);
     const game=games.find(g=>g.slug===r.a);
-    if(a){title=`${a.title} — Rick Rattle`;desc=a.summary||desc;img=a.thumb||gameThumb(a.game)||img;}
+    if(a){title=`${tr(a.title)} — Rick Rattle`;desc=tr(a.summary)||desc;img=a.thumb||gameThumb(a.game)||img;}
     else if(game){const m=copy.gameNews(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
   }else if(r.view==='news'){title=copy.newsHub.title;desc=copy.newsHub.desc;}
   else if(r.view==='tips' && r.a){
@@ -3020,7 +3038,7 @@ function buildBreadcrumbs(r){
       if(g)trail.push({label:g.short, href:`/tips/${g.slug}`});
       if(r.b){
         const it=guides.find(x=>x.slug===r.b)||tierLists.find(x=>x.slug===r.b);
-        if(it)trail.push({label:it.title, href:`/tips/${r.a}/${r.b}`});
+        if(it)trail.push({label:tr(it.title), href:`/tips/${r.a}/${r.b}`});
       }
     }
   }else if(r.view==='rick'){
@@ -3119,8 +3137,8 @@ function ArticleCard(a){
     <div class="card-body">
       ${prefixBadge(a.prefix)}
       <div class="card-meta"><span class="game">${display}</span>·<span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span>·<span>${a.readTime||3} min</span></div>
-      <h3 class="card-title">${a.title}</h3>
-      <p class="card-summary">${a.summary}</p>
+      <h3 class="card-title">${tr(a.title)}</h3>
+      <p class="card-summary">${tr(a.summary)}</p>
       <div class="card-tags">${tags}</div>
     </div>
   </a>`;
@@ -3137,8 +3155,8 @@ function GuideCard(g){
     <div class="card-body">
       <div class="card-meta"><span class="game">${gameName(g.game)}</span>·<span>${tier}</span>${updatedDate?`·<span title="${fmtDate(updatedDate)}">${timeAgo(updatedDate)}</span>`:''}</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${diff}${patch}</div>
-      <h3 class="card-title">${g.title}</h3>
-      <p class="card-summary">${g.summary||''}</p>
+      <h3 class="card-title">${tr(g.title)}</h3>
+      <p class="card-summary">${tr(g.summary)||''}</p>
     </div>
   </a>`;
 }
@@ -3152,8 +3170,8 @@ function TierCard(tl){
     <div class="card-body">
       <div class="card-meta"><span class="game">${gameName(tl.game)}</span>·<span>${t('type.tierlist')}</span>·<span title="${fmtDate(updatedDate)}">${timeAgo(updatedDate)}</span></div>
       ${patch?`<div>${patch}</div>`:''}
-      <h3 class="card-title">${tl.title}</h3>
-      <p class="card-summary">${tl.summary||''}</p>
+      <h3 class="card-title">${tr(tl.title)}</h3>
+      <p class="card-summary">${tr(tl.summary)||''}</p>
     </div>
   </a>`;
 }
@@ -3227,17 +3245,18 @@ function slugifyHeading(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-
 
 function renderBlocks(blocks,currentSlug){
   return blocks.map(b=>{
-    if(b.type==='p')return `<p>${linkifyGames(b.text,currentSlug)}</p>`;
-    if(b.type==='h')return `<h3 id="h-${slugifyHeading(b.text)}">${b.text}</h3>`;
-    if(b.type==='h2')return `<h2 id="h-${slugifyHeading(b.text)}" class="content-h2">${b.text}</h2>`;
-    if(b.type==='blockquote')return `<blockquote>${linkifyGames(b.text,currentSlug)}</blockquote>`;
-    if(b.type==='ul')return `<ul>${b.items.map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ul>`;
-    if(b.type==='ol')return `<ol>${b.items.map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ol>`;
+    const txt=tr(b.text);
+    if(b.type==='p')return `<p>${linkifyGames(txt,currentSlug)}</p>`;
+    if(b.type==='h')return `<h3 id="h-${slugifyHeading(txt)}">${txt}</h3>`;
+    if(b.type==='h2')return `<h2 id="h-${slugifyHeading(txt)}" class="content-h2">${txt}</h2>`;
+    if(b.type==='blockquote')return `<blockquote>${linkifyGames(txt,currentSlug)}</blockquote>`;
+    if(b.type==='ul')return `<ul>${trItems(b.items).map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ul>`;
+    if(b.type==='ol')return `<ol>${trItems(b.items).map(i=>`<li>${linkifyGames(i,currentSlug)}</li>`).join('')}</ol>`;
     // === Rich content blocks ===
     if(b.type==='note'||b.type==='tip'||b.type==='warning'){
       const ico=b.type==='warning'?'⚠':b.type==='tip'?'💡':'ⓘ';
       const lbl=b.type==='warning'?(lang==='pt'?'AVISO':'WARNING'):b.type==='tip'?(lang==='pt'?'DICA':'TIP'):(lang==='pt'?'NOTA':'NOTE');
-      return `<div class="callout callout-${b.type}"><div class="callout-head"><span class="callout-ico">${ico}</span><span class="callout-lbl">${lbl}</span></div><div class="callout-body">${linkifyGames(b.text,currentSlug)}</div></div>`;
+      return `<div class="callout callout-${b.type}"><div class="callout-head"><span class="callout-ico">${ico}</span><span class="callout-lbl">${lbl}</span></div><div class="callout-body">${linkifyGames(txt,currentSlug)}</div></div>`;
     }
     if(b.type==='statPriority'){
       // {type:'statPriority', stats:[{name:'Strength', priority:1, note:'Main stat'}, ...]}
@@ -3277,7 +3296,8 @@ function buildTOC(blocks){
   const items=[];
   (blocks||[]).forEach(b=>{
     if(b.type==='h'||b.type==='h2'){
-      items.push({text:b.text,id:'h-'+slugifyHeading(b.text),level:b.type==='h2'?1:2});
+      const txt=tr(b.text);
+      items.push({text:txt,id:'h-'+slugifyHeading(txt),level:b.type==='h2'?1:2});
     }
   });
   return items;
@@ -3809,8 +3829,8 @@ function NewsDetail(view,slug){
     <div class="detail">
       <div class="detail-cover">${coverImg?`<img src="${coverImg}" alt="" onerror="this.parentElement.innerHTML='<div class=card-thumb-fallback style=font-size:80px>'+'${gameName(a.game).slice(0,3).toUpperCase()}'+'</div>'">`:`<div class="card-thumb-fallback" style="font-size:80px">${gameName(a.game).slice(0,3).toUpperCase()}</div>`}</div>
       <div class="detail-meta"><span class="game">${gameName(a.game)}</span><span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span><span>${a.readTime||3} min</span><span>${a.external?(a.source==='steam'?'STEAM':a.source==='reddit'?'REDDIT':'EXTERNAL'):t('type.article')}</span></div>
-      <h1 class="detail-title">${a.title}</h1>
-      <p class="detail-sub">${a.summary}</p>
+      <h1 class="detail-title">${tr(a.title)}</h1>
+      <p class="detail-sub">${tr(a.summary)}</p>
       <div class="detail-body">${renderBlocks(a.content||[],a.game)}</div>
       ${sourceBlock}
       <div class="detail-tags">${tags}</div>
@@ -4036,8 +4056,8 @@ function TipsDetail(view,gameSlug,slug){
         <span class="last-updated" title="${fmtDate(lastUpdated)}">${lang==='pt'?'Atualizado':'Updated'} ${timeAgo(lastUpdated)}</span>
         ${item.readTime?`<span>${item.readTime} min</span>`:''}
       </div>
-      <h1 class="detail-title">${item.title}</h1>
-      ${item.summary?`<p class="detail-sub">${item.summary}</p>`:''}
+      <h1 class="detail-title">${tr(item.title)}</h1>
+      ${item.summary?`<p class="detail-sub">${tr(item.summary)}</p>`:''}
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">${diff}${cat}${patch}</div>
       ${author?`<div class="author-byline"><div class="author-avatar"></div><div><strong>${author}</strong>${item.patchVersion?` · ${lang==='pt'?'para patch':'for patch'} ${item.patchVersion}`:''}</div></div>`:''}
       ${toc.length>=3?`
@@ -4092,10 +4112,10 @@ function doSearch(q){
     {label:'PC Gaming news',href:'/news',keys:['pc','steam']}
   ];
   cats.forEach(c=>{if(c.label.toLowerCase().includes(q)||c.keys.some(k=>k.includes(q)||q.includes(k)))groups.categories.push({title:c.label,href:c.href,sub:'Section'})});
-  articles.forEach(a=>{if((a.title+' '+a.summary).toLowerCase().includes(q))groups.articles.push({title:a.title,href:`/news/${a.slug}`,sub:`${gameName(a.game)} · ${t('type.article')}`})});
-  (externalArticles||[]).slice(0,40).forEach(a=>{if(a.title.toLowerCase().includes(q))groups.articles.push({title:a.title,href:`/news/${a.slug}`,sub:`${gameName(a.game)} · ${a.source||'feed'}`})});
-  guides.forEach(g=>{if((g.title+' '+(g.summary||'')).toLowerCase().includes(q))groups.guides.push({title:g.title,href:`/tips/${g.game}/${g.slug}`,sub:`${gameName(g.game)} · ${g.type==='build'?t('type.build'):t('type.guide')}`})});
-  tierLists.forEach(g=>{if((g.title+' '+(g.summary||'')).toLowerCase().includes(q))groups.guides.push({title:g.title,href:`/tips/${g.game}/${g.slug}`,sub:`${gameName(g.game)} · ${t('type.tierlist')}`})});
+  articles.forEach(a=>{const at=tr(a.title),as=tr(a.summary);if((at+' '+as).toLowerCase().includes(q))groups.articles.push({title:at,href:`/news/${a.slug}`,sub:`${gameName(a.game)} · ${t('type.article')}`})});
+  (externalArticles||[]).slice(0,40).forEach(a=>{const at=tr(a.title);if(at.toLowerCase().includes(q))groups.articles.push({title:at,href:`/news/${a.slug}`,sub:`${gameName(a.game)} · ${a.source||'feed'}`})});
+  guides.forEach(g=>{const gt=tr(g.title),gs=tr(g.summary)||'';if((gt+' '+gs).toLowerCase().includes(q))groups.guides.push({title:gt,href:`/tips/${g.game}/${g.slug}`,sub:`${gameName(g.game)} · ${g.type==='build'?t('type.build'):t('type.guide')}`})});
+  tierLists.forEach(g=>{const gt=tr(g.title),gs=tr(g.summary)||'';if((gt+' '+gs).toLowerCase().includes(q))groups.guides.push({title:gt,href:`/tips/${g.game}/${g.slug}`,sub:`${gameName(g.game)} · ${t('type.tierlist')}`})});
   const total=Object.values(groups).reduce((n,arr)=>n+arr.length,0);
   searchResults.classList.add('open');
   if(!total){searchResults.innerHTML=`<div class="empty">${t('search.no')}</div>`;return}
