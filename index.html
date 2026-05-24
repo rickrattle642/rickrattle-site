@@ -538,6 +538,29 @@ button{font-family:inherit}
 .empty-tips h3{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0;margin:0 0 6px;text-transform:none;color:var(--ink)}
 .empty-tips > p{color:var(--muted);font-size:14px;margin:0 0 4px;max-width:520px}
 
+/* ==================== SITE FOOTER ==================== */
+/* Lightweight, inherits site variables. Renders on every route. */
+.site-footer{margin:60px 28px 28px;padding:28px 0 0;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace}
+.site-footer-grid{display:flex;flex-wrap:wrap;gap:32px 48px;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.site-footer-col{min-width:140px}
+.site-footer-col h5{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:2px;color:var(--muted);margin:0 0 10px;text-transform:uppercase;font-weight:400}
+.site-footer-col ul{list-style:none;margin:0;padding:0}
+.site-footer-col li{margin:0 0 6px}
+.site-footer-col a{color:var(--muted2);text-decoration:none;font-size:12px;letter-spacing:.5px;transition:color .15s}
+.site-footer-col a:hover{color:var(--accent)}
+.site-footer-brand{display:flex;flex-direction:column;gap:10px;max-width:280px}
+.site-footer-brand .ft-name{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:1px;color:var(--ink)}
+.site-footer-brand .ft-tag{font-size:11px;color:var(--muted);letter-spacing:1px;line-height:1.5}
+.site-footer-socials{display:flex;gap:10px;margin-top:4px}
+.site-footer-socials a{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border:1px solid var(--line);border-radius:8px;color:var(--muted2);transition:.15s}
+.site-footer-socials a:hover{color:var(--accent);border-color:var(--accent)}
+.site-footer-bottom{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--line);font-size:11px;color:var(--muted);letter-spacing:1px}
+@media(max-width:600px){
+  .site-footer{margin:48px 16px 18px}
+  .site-footer-grid{gap:24px 32px}
+  .site-footer-col{min-width:110px}
+}
+
 /* ==================== RESPONSIVE ==================== */
 @media(max-width:900px){
   .main{margin-left:0}
@@ -600,6 +623,7 @@ button{font-family:inherit}
       </div>
     </div>
     <div class="content" id="view"></div>
+    <footer class="site-footer" id="siteFooter" aria-label="Site footer"></footer>
   </div>
 </div>
 
@@ -2944,7 +2968,12 @@ const routes = {
   home:HomeView,
   rick:RickView,
   news:NewsView,
-  tips:TipsView
+  tips:TipsView,
+  about:AboutView,
+  contact:ContactView,
+  terms:TermsView,
+  'privacy-policy':PrivacyView,
+  'cookie-policy':CookieView
 };
 
 // SEO copy templates per language. Add/edit translations here to fully localize meta data.
@@ -2955,15 +2984,25 @@ const SEO_COPY={
     newsHub:{title:'Gaming News — Rick Rattle', desc:'Latest gaming news from Steam, Reddit, Xbox, PlayStation and PC. Filter by platform, game or source.'},
     tipsHub:{title:'Gaming Tips — Rick Rattle', desc:'Guides, builds and tier lists across the games we play. Updated regularly.'},
     rick:{title:'The Channel — Rick Rattle', desc:'Variety streamer running interactive chaos sessions. Join the Twitch live show.'},
+    about:{title:'About — Rick Rattle', desc:'Rick Rattle is a small, honest gaming hub built around a Twitch community. Learn what the project is about and what you\'ll find here.'},
+    contact:{title:'Contact — Rick Rattle', desc:'Get in touch — feedback, bug reports, collaborations and community contact for rickrattle.com.'},
+    terms:{title:'Terms & Conditions — Rick Rattle', desc:'Plain-language terms of use for rickrattle.com — acceptable use, IP, disclaimers and contact.'},
+    privacy:{title:'Privacy Policy — Rick Rattle', desc:'GDPR-friendly privacy policy for rickrattle.com — what we collect, what we don\'t, and how third-party embeds work.'},
+    cookies:{title:'Cookie Policy — Rick Rattle', desc:'Cookies and localStorage entries used on rickrattle.com, what each one does, and how to disable them.'},
     gameNews:g=>({title:`${g.name} News — Rick Rattle`, desc:`Latest ${g.short} news, patches, updates and community discussion.`}),
     gameTips:g=>({title:`${g.name} Tips, Guides & Tier Lists — Rick Rattle`, desc:`Guides, builds and tier lists for ${g.name}. Curated for ${g.platforms?.join(', ')||'all platforms'}.`})
   },
   pt:{
     siteTitle:'Rick Rattle — Gaming Hub',
     siteDesc:'Notícias, guias e tier lists de KCD2, Rocket League, The Finals, Destiny 2, Diablo IV, Tekken 8, Forza Horizon 6 e muito mais.',
-    newsHub:{title:'Notícias de Gaming — Rick Rattle', desc:'Últimas notícias gaming do Steam, Reddit, Xbox, PlayStation e PC. Filtra por plataforma, jogo ou fonte.'},
+    newsHub:{title:'Notícias de Gaming — Rick Rattle', desc:'Últimas notícias gaming do Steam, Reddit, Xbox, PlayStation e PC. Filtra por jogo, tag ou fonte.'},
     tipsHub:{title:'Dicas de Gaming — Rick Rattle', desc:'Guias, builds e tier lists para os jogos que jogamos. Atualizado regularmente.'},
     rick:{title:'O Canal — Rick Rattle', desc:'Streamer variety com sessões interativas de caos. Junta-te à live na Twitch.'},
+    about:{title:'Sobre — Rick Rattle', desc:'Rick Rattle é um gaming hub pequeno e honesto construído à volta de uma comunidade Twitch. Vê do que o projeto trata e o que vais encontrar aqui.'},
+    contact:{title:'Contacto — Rick Rattle', desc:'Entra em contacto — feedback, bug reports, colaborações e comunidade rickrattle.com.'},
+    terms:{title:'Termos e Condições — Rick Rattle', desc:'Termos de uso em linguagem clara para rickrattle.com — uso aceitável, propriedade intelectual, disclaimers e contacto.'},
+    privacy:{title:'Política de Privacidade — Rick Rattle', desc:'Política de privacidade alinhada com o RGPD para rickrattle.com — o que recolhemos, o que não, e como funcionam embeds de terceiros.'},
+    cookies:{title:'Política de Cookies — Rick Rattle', desc:'Cookies e localStorage usados em rickrattle.com, o que cada um faz e como desativar.'},
     gameNews:g=>({title:`Notícias de ${g.name} — Rick Rattle`, desc:`Últimas notícias, patches e discussão da comunidade ${g.short}.`}),
     gameTips:g=>({title:`Dicas, Guias e Tier Lists ${g.name} — Rick Rattle`, desc:`Guias, builds e tier lists para ${g.name}. Curado para ${g.platforms?.join(', ')||'todas as plataformas'}.`})
   }
@@ -2990,6 +3029,11 @@ function updateSEO(r){
     if(game){const m=copy.gameTips(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
   }else if(r.view==='tips'){title=copy.tipsHub.title;desc=copy.tipsHub.desc;}
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
+  else if(r.view==='about' && copy.about){title=copy.about.title;desc=copy.about.desc;}
+  else if(r.view==='contact' && copy.contact){title=copy.contact.title;desc=copy.contact.desc;}
+  else if(r.view==='terms' && copy.terms){title=copy.terms.title;desc=copy.terms.desc;}
+  else if(r.view==='privacy-policy' && copy.privacy){title=copy.privacy.title;desc=copy.privacy.desc;}
+  else if(r.view==='cookie-policy' && copy.cookies){title=copy.cookies.title;desc=copy.cookies.desc;}
   document.title=title;
   document.documentElement.lang=lang;
   const set=(id,v,attr='content')=>{const el=document.getElementById(id);if(el)el.setAttribute(attr,v);};
@@ -3065,8 +3109,82 @@ function buildBreadcrumbs(r){
     }
   }else if(r.view==='rick'){
     trail.push({label:'Rick Rattle', href:'/rick'});
+  }else if(r.view==='about'){
+    trail.push({label:PT?'Sobre':'About', href:'/about'});
+  }else if(r.view==='contact'){
+    trail.push({label:PT?'Contacto':'Contact', href:'/contact'});
+  }else if(r.view==='terms'){
+    trail.push({label:PT?'Termos e Condições':'Terms & Conditions', href:'/terms'});
+  }else if(r.view==='privacy-policy'){
+    trail.push({label:PT?'Política de Privacidade':'Privacy Policy', href:'/privacy-policy'});
+  }else if(r.view==='cookie-policy'){
+    trail.push({label:PT?'Política de Cookies':'Cookie Policy', href:'/cookie-policy'});
   }
   return trail;
+}
+
+function renderFooter(){
+  const el=document.getElementById('siteFooter');
+  if(!el)return;
+  const L = {
+    en:{
+      tag:'Gaming news, guides and tier lists from people who actually play the games.',
+      explore:'Explore', site:'Site', legal:'Legal',
+      home:'Home', news:'News', tips:'Tips', rick:'The Channel',
+      about:'About', contact:'Contact',
+      terms:'Terms & Conditions', privacy:'Privacy Policy', cookies:'Cookie Policy',
+      copy:`© ${new Date().getFullYear()} Rick Rattle. All trademarks belong to their respective owners.`
+    },
+    pt:{
+      tag:'Notícias gaming, guias e tier lists feitos por quem joga mesmo os jogos.',
+      explore:'Explorar', site:'Site', legal:'Legal',
+      home:'Início', news:'Notícias', tips:'Dicas', rick:'O Canal',
+      about:'Sobre', contact:'Contacto',
+      terms:'Termos e Condições', privacy:'Política de Privacidade', cookies:'Política de Cookies',
+      copy:`© ${new Date().getFullYear()} Rick Rattle. Todas as marcas pertencem aos respetivos donos.`
+    }
+  };
+  const c = L[lang]||L.en;
+  el.innerHTML = `
+    <div class="site-footer-grid">
+      <div class="site-footer-brand">
+        <div class="ft-name">RICK RATTLE</div>
+        <div class="ft-tag">${c.tag}</div>
+        <div class="site-footer-socials">
+          <a href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener" title="Twitch" aria-label="Twitch"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M4.265 3 3 6.667v13.111h4.5V22h2.532l2.235-2.222h3.764L21 14.444V3H4.265Zm15.014 10.667-3 2.889H12l-2.235 2.222v-2.222H6.531V4.444h12.748v9.223ZM17 7.444h-1.531v4.445H17V7.444Zm-4.235 0h-1.53v4.445h1.53V7.444Z"/></svg></a>
+          <a href="https://discord.gg/bptZUJtGgD" target="_blank" rel="noopener" title="Discord" aria-label="Discord"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.79 19.79 0 0 0 16.558 3a13.6 13.6 0 0 0-.617 1.265 18.27 18.27 0 0 0-5.487 0A12.6 12.6 0 0 0 9.836 3a19.74 19.74 0 0 0-3.76 1.37C2.583 9.55 1.62 14.59 2.1 19.55a19.9 19.9 0 0 0 6.073 3.07c.49-.67.927-1.385 1.302-2.137a12.9 12.9 0 0 1-2.05-.985c.172-.126.34-.258.502-.394a14.2 14.2 0 0 0 12.146 0c.164.137.332.27.504.394-.654.388-1.34.717-2.052.987.375.752.811 1.466 1.3 2.135a19.86 19.86 0 0 0 6.075-3.07c.564-5.74-.964-10.738-4.083-15.181ZM8.02 16.5c-1.18 0-2.157-1.08-2.157-2.41 0-1.33.952-2.42 2.157-2.42 1.215 0 2.184 1.1 2.157 2.42 0 1.33-.95 2.41-2.157 2.41Zm7.96 0c-1.18 0-2.157-1.08-2.157-2.41 0-1.33.952-2.42 2.157-2.42 1.215 0 2.184 1.1 2.157 2.42 0 1.33-.94 2.41-2.157 2.41Z"/></svg></a>
+        </div>
+      </div>
+      <div class="site-footer-col">
+        <h5>${c.explore}</h5>
+        <ul>
+          <li><a href="/home">${c.home}</a></li>
+          <li><a href="/news">${c.news}</a></li>
+          <li><a href="/tips">${c.tips}</a></li>
+          <li><a href="/rick">${c.rick}</a></li>
+        </ul>
+      </div>
+      <div class="site-footer-col">
+        <h5>${c.site}</h5>
+        <ul>
+          <li><a href="/about">${c.about}</a></li>
+          <li><a href="/contact">${c.contact}</a></li>
+        </ul>
+      </div>
+      <div class="site-footer-col">
+        <h5>${c.legal}</h5>
+        <ul>
+          <li><a href="/terms">${c.terms}</a></li>
+          <li><a href="/privacy-policy">${c.privacy}</a></li>
+          <li><a href="/cookie-policy">${c.cookies}</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer-bottom">
+      <div>${c.copy}</div>
+      <div>rickrattle.com</div>
+    </div>
+  `;
 }
 
 function render(){
@@ -3081,6 +3199,7 @@ function render(){
     view.innerHTML=`<div class="empty"><strong>⚠ Render error in "${r.view}"</strong><br><br><code style="font-size:11px;color:var(--hot)">${err.message}</code><br><br><a class="btn btn-ghost" href="/home" onclick="location.reload()">Reload</a></div>`;
   }
   renderSidebar();
+  try{renderFooter()}catch(e){console.warn('[footer]',e)}
   try{applyI18n()}catch(e){console.warn('[i18n]',e)}
   try{updateSEO(r)}catch(e){console.warn('[seo]',e)}
   window.scrollTo({top:0,behavior:'instant'});
@@ -3659,6 +3778,185 @@ function renderDecks(){
     card.addEventListener('click',()=>openModal(card.dataset.src,card.dataset.name,kind));
   });
 }
+
+/* ================================================================
+   STATIC PAGES (About / Contact / Legal)
+   ================================================================
+   Each view is a pure HTML render — no fetches, no side-effects.
+   Content uses tr() for EN/PT, matching the rest of the site. */
+
+const STATIC_PAGES_COPY = {
+  terms:{
+    kicker:{en:'// LEGAL', pt:'// LEGAL'},
+    title:{en:'Terms & Conditions', pt:'Termos e Condições'},
+    sub:{en:'Plain-language rules for using rickrattle.com. By browsing the site you agree to these terms.', pt:'Regras em linguagem clara para usar rickrattle.com. Ao navegar no site aceitas estes termos.'},
+    updated:{en:'Last updated: May 2026', pt:'Última atualização: maio de 2026'},
+    sections:[
+      {h:{en:'Welcome', pt:'Bem-vindo'},
+       p:{en:'Rick Rattle is a gaming hub: news aggregation, guides, tier lists, editorial content and community discussion around the games we play. By using this site you agree to the terms below. If you don\'t agree, please don\'t use the site.',
+          pt:'Rick Rattle é um gaming hub: agregação de notícias, guias, tier lists, conteúdo editorial e discussão da comunidade sobre os jogos que jogamos. Ao usar este site aceitas os termos abaixo. Se não concordas, por favor não uses o site.'}},
+      {h:{en:'Acceptable use', pt:'Uso aceitável'},
+       p:{en:'Use the site for personal, non-commercial reading. Don\'t scrape it at scale, don\'t republish full articles without credit, don\'t try to break it, exploit it or use it to harass anyone in the community.',
+          pt:'Usa o site para leitura pessoal e não-comercial. Não faças scraping em massa, não republiques artigos inteiros sem crédito, não tentes partir, explorar ou usar o site para assediar ninguém na comunidade.'}},
+      {h:{en:'Content is informational', pt:'Conteúdo informativo'},
+       p:{en:'Guides, tier lists and editorial pieces reflect a point in time and are written by a small team plus community contributors. Game balance changes constantly — what\'s S-tier today may be C-tier next patch. Treat everything as informed opinion, not gospel.',
+          pt:'Guias, tier lists e peças editoriais refletem um momento no tempo e são escritos por uma equipa pequena mais contribuidores da comunidade. O balance dos jogos muda constantemente — o que é S-tier hoje pode ser C-tier no próximo patch. Trata tudo como opinião informada, não palavra sagrada.'}},
+      {h:{en:'External links', pt:'Links externos'},
+       p:{en:'We link out to Steam, Reddit, YouTube, Twitch, dev studios, news sites and other community resources. We don\'t control those sites and aren\'t responsible for their content, policies or downtime. Click at your own discretion.',
+          pt:'Fazemos link para Steam, Reddit, YouTube, Twitch, estúdios, sites de notícias e outros recursos da comunidade. Não controlamos esses sites e não somos responsáveis pelo conteúdo, políticas ou downtime deles. Clica por tua conta e risco.'}},
+      {h:{en:'Intellectual property', pt:'Propriedade intelectual'},
+       p:{en:'Game names, logos, screenshots and trademarks belong to their respective owners (CDPR, Capcom, FromSoftware, Psyonix, Embark, Mojang, Activision, Sony, Microsoft, etc.). They\'re used here for editorial/news commentary under fair use. Original editorial, design and code on rickrattle.com belong to Rick Rattle — ask before reposting in full.',
+          pt:'Nomes de jogos, logos, screenshots e marcas pertencem aos respetivos donos (CDPR, Capcom, FromSoftware, Psyonix, Embark, Mojang, Activision, Sony, Microsoft, etc.). São usados aqui para comentário editorial/notícias sob fair use. Editorial original, design e código em rickrattle.com pertencem ao Rick Rattle — pede autorização antes de repostar na íntegra.'}},
+      {h:{en:'No warranties', pt:'Sem garantias'},
+       p:{en:'The site is provided "as is". We work hard to keep it stable and accurate, but we can\'t promise zero downtime, zero typos or zero outdated tier rankings. Don\'t make irreversible real-money decisions based on a single guide here — verify with patch notes and your own runs.',
+          pt:'O site é fornecido "como está". Trabalhamos para o manter estável e preciso, mas não podemos garantir zero downtime, zero gralhas ou zero rankings desatualizados. Não tomes decisões irreversíveis com dinheiro real baseado num único guia daqui — verifica com patch notes e com as tuas próprias runs.'}},
+      {h:{en:'Liability', pt:'Responsabilidade'},
+       p:{en:'To the maximum extent allowed by law, Rick Rattle is not liable for any indirect or consequential damages from using the site — lost time, lost ranked points, lost in-game currency, or anything beyond our reasonable control.',
+          pt:'Até ao máximo permitido por lei, o Rick Rattle não é responsável por danos indiretos ou consequenciais decorrentes do uso do site — tempo perdido, ranked points perdidos, currency in-game perdida, ou qualquer coisa fora do nosso controlo razoável.'}},
+      {h:{en:'Changes', pt:'Alterações'},
+       p:{en:'These terms can change. The "last updated" date at the top reflects when. Continued use after a change means you accept the new version.',
+          pt:'Estes termos podem mudar. A data de "última atualização" no topo reflete quando. O uso contínuo após uma alteração significa que aceitas a nova versão.'}},
+      {h:{en:'Contact', pt:'Contacto'},
+       p:{en:'Questions about these terms? Email rickrattle642@gmail.com or use the Contact page.',
+          pt:'Dúvidas sobre estes termos? Envia email para rickrattle642@gmail.com ou usa a página de Contacto.'}}
+    ]
+  },
+  privacy:{
+    kicker:{en:'// LEGAL', pt:'// LEGAL'},
+    title:{en:'Privacy Policy', pt:'Política de Privacidade'},
+    sub:{en:'What we collect, what we don\'t, and what third-party embeds may collect. Written in plain English (and Portuguese) — no legalese.', pt:'O que recolhemos, o que não recolhemos, e o que embeds de terceiros podem recolher. Escrito em linguagem clara — sem juridiquês.'},
+    updated:{en:'Last updated: May 2026', pt:'Última atualização: maio de 2026'},
+    sections:[
+      {h:{en:'TL;DR', pt:'Resumo rápido'},
+       p:{en:'We don\'t sell your data. We don\'t run intrusive trackers. We use lightweight analytics to see what content is popular, and we embed Twitch / YouTube / Reddit content from third parties that have their own policies. You can block cookies in your browser and the site will still work.',
+          pt:'Não vendemos os teus dados. Não corremos trackers invasivos. Usamos analytics leves para ver que conteúdo é popular, e fazemos embed de conteúdo Twitch / YouTube / Reddit de terceiros que têm as suas próprias políticas. Podes bloquear cookies no browser e o site continua a funcionar.'}},
+      {h:{en:'Who runs the site', pt:'Quem gere o site'},
+       p:{en:'rickrattle.com is operated by Rick Rattle (the streamer/editorial) as an independent gaming hub. There\'s no parent company, no investor data-sharing, no ad network reselling profiles.',
+          pt:'rickrattle.com é operado pelo Rick Rattle (streamer/editorial) como gaming hub independente. Não há empresa-mãe, sem partilha de dados com investidores, sem rede de anúncios a revender perfis.'}},
+      {h:{en:'What we collect ourselves', pt:'O que recolhemos diretamente'},
+       p:{en:'Anonymous page-view counters (so we know which articles people actually read) and basic server logs from the hosting provider (Vercel) — IP address, user-agent, request time. Server logs are retained short-term by the host for abuse prevention; we don\'t use them to profile individuals.',
+          pt:'Contadores de visitas anónimos (para sabermos que artigos as pessoas leem) e logs básicos do servidor da hospedagem (Vercel) — endereço IP, user-agent, hora do pedido. Logs são mantidos a curto prazo pela hospedagem para prevenção de abuso; não os usamos para perfilar individuos.'}},
+      {h:{en:'Analytics', pt:'Analytics'},
+       p:{en:'We may use a privacy-respecting analytics tool (e.g. Vercel Analytics or similar) that aggregates traffic patterns without building cross-site profiles. No third-party advertising pixels.',
+          pt:'Podemos usar uma ferramenta de analytics que respeite a privacidade (ex. Vercel Analytics ou similar) que agrega padrões de tráfego sem construir perfis cross-site. Sem pixels de publicidade de terceiros.'}},
+      {h:{en:'Third-party embeds', pt:'Embeds de terceiros'},
+       p:{en:'When you view a page with a Twitch player, a YouTube trailer, a Reddit thread snapshot or a social link, those third parties can set their own cookies and see your IP. Their privacy is governed by their own policies — Twitch, YouTube/Google, Reddit, Discord. We only mount these embeds when needed (the Twitch player, for example, only loads when the channel is actually live).',
+          pt:'Quando vês uma página com player Twitch, trailer YouTube, snapshot de thread Reddit ou link social, esses terceiros podem definir os próprios cookies e ver o teu IP. A privacidade deles é regida pelas próprias políticas — Twitch, YouTube/Google, Reddit, Discord. Só montamos esses embeds quando necessário (o player Twitch, por exemplo, só carrega quando o canal está realmente live).'}},
+      {h:{en:'Cookies', pt:'Cookies'},
+       p:{en:'We use a minimal number of cookies / localStorage entries for preferences (theme: dark/light, language: EN/PT) and the visit counter. See the Cookie Policy for the full list. You can clear cookies in your browser at any time — the site will reset to defaults.',
+          pt:'Usamos um número mínimo de cookies / entradas localStorage para preferências (tema: escuro/claro, idioma: EN/PT) e o contador de visitas. Vê a Política de Cookies para a lista completa. Podes limpar cookies no browser a qualquer momento — o site repõe-se nos defaults.'}},
+      {h:{en:'Your rights (GDPR)', pt:'Os teus direitos (RGPD)'},
+       p:{en:'If you\'re in the EU/UK, you have the right to access, correct or delete personal data we hold about you, and to object to processing. Since we don\'t maintain user accounts and don\'t collect personally identifying info beyond what\'s above, in practice this usually means asking the hosting provider to purge server logs containing your IP. Email rickrattle642@gmail.com and we\'ll help.',
+          pt:'Se estás na UE/Reino Unido, tens o direito de aceder, corrigir ou eliminar dados pessoais que tenhamos sobre ti, e de te opor ao processamento. Como não mantemos contas de utilizador e não recolhemos informação pessoalmente identificável para além do referido acima, na prática isto significa pedir à hospedagem para purgar logs do servidor com o teu IP. Envia email para rickrattle642@gmail.com e ajudamos.'}},
+      {h:{en:'Children', pt:'Crianças'},
+       p:{en:'The site isn\'t directed at children under 13. We don\'t knowingly collect data from children. If you believe a child has interacted with the site in a way that involves personal data, contact us and we\'ll act on it.',
+          pt:'O site não é dirigido a crianças com menos de 13 anos. Não recolhemos conscientemente dados de crianças. Se acreditas que uma criança interagiu com o site de uma forma envolvendo dados pessoais, contacta-nos e agimos.'}},
+      {h:{en:'Contact', pt:'Contacto'},
+       p:{en:'Privacy questions: rickrattle642@gmail.com.',
+          pt:'Dúvidas de privacidade: rickrattle642@gmail.com.'}}
+    ]
+  },
+  cookies:{
+    kicker:{en:'// LEGAL', pt:'// LEGAL'},
+    title:{en:'Cookie Policy', pt:'Política de Cookies'},
+    sub:{en:'The small files we (and third parties) store in your browser, what each does, and how to turn them off.', pt:'Os pequenos ficheiros que nós (e terceiros) guardamos no teu browser, o que cada um faz, e como desligar.'},
+    updated:{en:'Last updated: May 2026', pt:'Última atualização: maio de 2026'},
+    sections:[
+      {h:{en:'What is a cookie?', pt:'O que é um cookie?'},
+       p:{en:'A cookie (or localStorage entry) is a small piece of data your browser stores so a site can remember things between visits — like your preferred theme, language or whether you\'ve seen a banner. We use the minimum needed for the site to feel right.',
+          pt:'Um cookie (ou entrada localStorage) é um pequeno bocado de dados que o teu browser guarda para que um site se lembre de coisas entre visitas — como o tema preferido, idioma ou se já viste um banner. Usamos o mínimo necessário para o site funcionar como deve ser.'}},
+      {h:{en:'Functional (set by us)', pt:'Funcionais (definidos por nós)'},
+       p:{en:'rr_lang — remembers your language choice (EN or PT). rr_theme — remembers light/dark mode. rr_visits — local counter for the eye icon in the sidebar. None of these identify you personally.',
+          pt:'rr_lang — guarda o teu idioma (EN ou PT). rr_theme — guarda modo claro/escuro. rr_visits — contador local para o ícone do olho na sidebar. Nenhum destes te identifica pessoalmente.'}},
+      {h:{en:'Analytics', pt:'Analytics'},
+       p:{en:'If enabled, a privacy-respecting analytics tool may set a short-lived cookie or use a similar mechanism to count unique visits without tracking you across other sites.',
+          pt:'Se ativo, uma ferramenta de analytics que respeite a privacidade pode definir um cookie de curta duração ou usar mecanismo similar para contar visitas únicas sem te seguir através de outros sites.'}},
+      {h:{en:'Third-party embeds', pt:'Embeds de terceiros'},
+       p:{en:'When a page loads a Twitch player, a YouTube video, a Reddit thread, a Discord widget or similar, those services set their own cookies — typically for session, language, and content recommendations. We can\'t control or read those cookies; they\'re governed by Twitch, Google/YouTube, Reddit and Discord respectively.',
+          pt:'Quando uma página carrega um player Twitch, vídeo YouTube, thread Reddit, widget Discord ou similar, esses serviços definem os próprios cookies — tipicamente para sessão, idioma e recomendações. Não conseguimos controlar nem ler esses cookies; são geridos pela Twitch, Google/YouTube, Reddit e Discord respetivamente.'}},
+      {h:{en:'How to disable', pt:'Como desativar'},
+       p:{en:'Every modern browser lets you block cookies globally or per-site (Chrome: Settings → Privacy → Cookies; Firefox: Preferences → Privacy & Security; Safari: Preferences → Privacy; Edge: Settings → Cookies). You can also use private/incognito mode. The site will still load — you\'ll just lose your theme/language preference between visits.',
+          pt:'Todos os browsers modernos te deixam bloquear cookies globalmente ou por site (Chrome: Definições → Privacidade → Cookies; Firefox: Preferências → Privacidade e Segurança; Safari: Preferências → Privacidade; Edge: Definições → Cookies). Também podes usar modo privado/incógnito. O site continua a carregar — só perdes a preferência de tema/idioma entre visitas.'}},
+      {h:{en:'Contact', pt:'Contacto'},
+       p:{en:'Cookie questions: rickrattle642@gmail.com.',
+          pt:'Dúvidas sobre cookies: rickrattle642@gmail.com.'}}
+    ]
+  },
+  about:{
+    kicker:{en:'// THE PROJECT', pt:'// O PROJETO'},
+    title:{en:'About Rick Rattle', pt:'Sobre o Rick Rattle'},
+    sub:{en:'A small gaming hub built by someone who actually plays the games — and a community that\'s along for the ride.', pt:'Um gaming hub pequeno feito por alguém que joga mesmo os jogos — e uma comunidade que vem na boleia.'},
+    updated:null,
+    sections:[
+      {h:{en:'What this is', pt:'O que isto é'},
+       p:{en:'Rick Rattle started as a Twitch channel where the chat literally decides what happens on screen — interactive chaos, IRL forfeits, wheel-of-suffering builds, ranked grinding gone sideways. The site is the natural extension: a place to post news, guides and tier lists for the games we actually play on stream, plus the wider gaming scene we care about.',
+          pt:'O Rick Rattle começou como canal Twitch onde o chat decide literalmente o que acontece no ecrã — caos interativo, forfeits IRL, builds de wheel-of-suffering, ranked grinding que correu mal. O site é a extensão natural: um sítio para publicar notícias, guias e tier lists dos jogos que jogamos realmente na stream, mais a cena gaming mais ampla que nos interessa.'}},
+      {h:{en:'What you\'ll find here', pt:'O que vais encontrar aqui'},
+       p:{en:'Daily news pulled from Steam, Reddit and editorial sources — filtered, deduped and labelled. Hand-written guides for the games we live in: KCD2, Rocket League, The Finals, Elden Ring, Diablo IV, Destiny 2, Monster Hunter Wilds, Forza Horizon 6, RE Requiem, Crimson Desert, Subnautica 2 and whatever else the rotation throws at us. Tier lists that get updated when meta actually shifts — not for SEO clicks.',
+          pt:'Notícias diárias do Steam, Reddit e fontes editoriais — filtradas, dedupadas e etiquetadas. Guias escritos à mão para os jogos em que vivemos: KCD2, Rocket League, The Finals, Elden Ring, Diablo IV, Destiny 2, Monster Hunter Wilds, Forza Horizon 6, RE Requiem, Crimson Desert, Subnautica 2 e o que mais a rotação atirar. Tier lists atualizadas quando o meta mexe mesmo — não por cliques SEO.'}},
+      {h:{en:'Survival, retro, multiplayer chaos', pt:'Survival, retro, caos multiplayer'},
+       p:{en:'The taste here leans toward: deep survival games (Subnautica 2, KCD2, Palworld), things that age surprisingly well (Skyrim, GTA V, RDR2, Elden Ring), and any multiplayer mode where the lobby can go off the rails. If a game is fun with five mates in a Discord call, it\'s on the radar.',
+          pt:'O gosto aqui inclina-se para: survival games profundos (Subnautica 2, KCD2, Palworld), coisas que envelhecem surpreendentemente bem (Skyrim, GTA V, RDR2, Elden Ring), e qualquer modo multiplayer onde a lobby pode descarrilar. Se um jogo é divertido com cinco amigos em Discord call, está no radar.'}},
+      {h:{en:'The goal', pt:'O objetivo'},
+       p:{en:'Build a small, honest gaming hub that respects the reader. No clickbait headlines. No "Top 10 things you didn\'t know" filler. No AI slop. Just real content from people who play the games, and a community where the conversation is actually fun.',
+          pt:'Construir um gaming hub pequeno e honesto que respeita o leitor. Sem headlines clickbait. Sem "Top 10 coisas que não sabias" para encher. Sem AI slop. Apenas conteúdo real de pessoas que jogam os jogos, e uma comunidade onde a conversa é mesmo divertida.'}},
+      {h:{en:'Join in', pt:'Junta-te'},
+       p:{en:'Watch the stream on Twitch, jump in the Discord, send corrections, suggest games for the rotation, or just lurk. Everyone\'s welcome — beginners, veterans, casuals, sweat lords. The only rule is don\'t be a dick.',
+          pt:'Vê a stream na Twitch, salta para o Discord, manda correções, sugere jogos para a rotação, ou só lurka. Toda a gente é bem-vinda — iniciantes, veteranos, casuais, sweat lords. A única regra é não seres parvo.'}}
+    ]
+  },
+  contact:{
+    kicker:{en:'// HIT THE INBOX', pt:'// INBOX ABERTA'},
+    title:{en:'Contact', pt:'Contacto'},
+    sub:{en:'Feedback, bug reports, collabs, corrections, game suggestions, hate mail — pick your weapon.', pt:'Feedback, bug reports, colabs, correções, sugestões de jogos, ou só queres dizer olá — escolhe a arma.'},
+    updated:null,
+    sections:[
+      {h:{en:'Email', pt:'Email'},
+       p:{en:'For anything that needs a written record (collabs, copyright takedowns, corrections, GDPR requests, business): <a href="mailto:rickrattle642@gmail.com" class="game-link">rickrattle642@gmail.com</a>. Replies usually within a few days — slower during stream weeks.',
+          pt:'Para qualquer coisa que precise de registo escrito (colabs, takedowns de copyright, correções, pedidos RGPD, business): <a href="mailto:rickrattle642@gmail.com" class="game-link">rickrattle642@gmail.com</a>. Respostas tipicamente em poucos dias — mais lento durante semanas de stream pesada.'}},
+      {h:{en:'Live community', pt:'Comunidade live'},
+       p:{en:'The fastest way to reach me and the crew is the Discord — <a href="https://discord.gg/bptZUJtGgD" target="_blank" rel="noopener" class="game-link">discord.gg/bptZUJtGgD</a>. Channels for game-specific chat, guide feedback, stream announcements and general gaming chaos.',
+          pt:'A forma mais rápida de chegar a mim e à crew é o Discord — <a href="https://discord.gg/bptZUJtGgD" target="_blank" rel="noopener" class="game-link">discord.gg/bptZUJtGgD</a>. Canais para chat específico de jogos, feedback de guias, anúncios da stream e caos gaming geral.'}},
+      {h:{en:'Twitch chat', pt:'Twitch chat'},
+       p:{en:'If I\'m live, the chat is the most chaotic but also fastest channel: <a href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener" class="game-link">twitch.tv/rick__rattle</a>. Card pulls, dares, debate about whether the new patch is cooked — all welcome.',
+          pt:'Se estou live, o chat é o canal mais caótico mas também o mais rápido: <a href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener" class="game-link">twitch.tv/rick__rattle</a>. Card pulls, desafios, debates sobre se o novo patch está cozinhado — tudo aceite.'}},
+      {h:{en:'What I\'d love to hear', pt:'O que gostava de ouvir'},
+       p:{en:'Spotted a wrong tier ranking? Got a sharper guide for a game we cover? Game you want added to the rotation? Bug on the site? Send it. The hub gets better when readers push back.',
+          pt:'Apanhaste um tier errado? Tens um guia mais afinado para um jogo que cobrimos? Jogo que queres adicionar à rotação? Bug no site? Manda. O hub fica melhor quando os leitores empurram.'}},
+      {h:{en:'Collabs & business', pt:'Colabs & business'},
+       p:{en:'Devs, publishers, fellow creators — for keys, code reviews, sponsored streams, content collabs or anything else, email is the way. Be specific about the game/title and timeline.',
+          pt:'Devs, publishers, outros criadores — para keys, code reviews, streams patrocinadas, colabs de conteúdo ou outras coisas, o email é o caminho. Sê específico sobre jogo/título e timeline.'}}
+    ]
+  }
+};
+
+function StaticPageView(view, pageKey){
+  const p = STATIC_PAGES_COPY[pageKey];
+  if(!p){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return;}
+  const updatedLine = p.updated ? `<div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:2px;margin-bottom:24px">${tr(p.updated)}</div>` : '';
+  const sectionsHtml = p.sections.map(s => `
+    <h3>${tr(s.h)}</h3>
+    <p>${tr(s.p)}</p>
+  `).join('');
+  view.innerHTML = `
+    <div class="page-head">
+      <div>
+        <div class="page-kicker">${tr(p.kicker)}</div>
+        <h1 class="page-title">${tr(p.title)}</h1>
+        <p class="page-sub">${tr(p.sub)}</p>
+      </div>
+    </div>
+    <div class="detail-body" style="max-width:780px">
+      ${updatedLine}
+      ${sectionsHtml}
+    </div>
+  `;
+}
+function TermsView(view){ StaticPageView(view,'terms'); }
+function PrivacyView(view){ StaticPageView(view,'privacy'); }
+function CookieView(view){ StaticPageView(view,'cookies'); }
+function AboutView(view){ StaticPageView(view,'about'); }
+function ContactView(view){ StaticPageView(view,'contact'); }
 
 /* -------------------- NEWS -------------------- */
 let newsFilter={scope:'all',game:'all',tag:'all',source:'all'};

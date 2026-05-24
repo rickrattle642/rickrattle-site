@@ -5,7 +5,7 @@
 
 const CANONICAL_HOST = 'https://rickrattle.com';
 
-const STATIC_PATHS = ['/', '/news', '/tips', '/rick'];
+const STATIC_PATHS = ['/', '/news', '/tips', '/rick', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
 
 const GAME_SLUGS = [
   'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
@@ -103,9 +103,25 @@ function urlEntry(loc, priority='0.7', changefreq='weekly') {
   </url>`;
 }
 
+// Per-path SEO weighting. Legal/about/contact get lower priority + monthly changefreq.
+const STATIC_META = {
+  '/':                {priority:'1.0', changefreq:'daily'},
+  '/news':            {priority:'0.9', changefreq:'daily'},
+  '/tips':            {priority:'0.9', changefreq:'daily'},
+  '/rick':            {priority:'0.9', changefreq:'weekly'},
+  '/about':           {priority:'0.6', changefreq:'monthly'},
+  '/contact':         {priority:'0.5', changefreq:'monthly'},
+  '/terms':           {priority:'0.3', changefreq:'yearly'},
+  '/privacy-policy':  {priority:'0.3', changefreq:'yearly'},
+  '/cookie-policy':   {priority:'0.3', changefreq:'yearly'}
+};
+
 export default function handler(req, res) {
   const urls = [
-    ...STATIC_PATHS.map(p => urlEntry(p, p === '/' ? '1.0' : '0.9', 'daily')),
+    ...STATIC_PATHS.map(p => {
+      const m = STATIC_META[p] || {priority:'0.7', changefreq:'weekly'};
+      return urlEntry(p, m.priority, m.changefreq);
+    }),
     ...GAME_SLUGS.flatMap(slug => [
       urlEntry(`/news/${slug}`, '0.8', 'daily'),
       urlEntry(`/tips/${slug}`, '0.7', 'weekly')
