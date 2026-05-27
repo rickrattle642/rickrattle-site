@@ -129,7 +129,13 @@ const MANUAL_TIPS_SLUGS = [
   {game:'escape-from-tarkov', slug:'eft-best-pc-settings'},
   {game:'escape-from-tarkov', slug:'eft-weapon-choice-guide'},
   {game:'escape-from-tarkov', slug:'eft-achievements-guide'},
-  {game:'escape-from-tarkov', slug:'eft-money-making-guide'}
+  {game:'escape-from-tarkov', slug:'eft-money-making-guide'},
+  // Phase 5 — SEO-targeted guides (queries already getting GSC impressions)
+  {game:'forza-horizon-6', slug:'forza-horizon-6-faq'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-colossus-unlock-guide'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-raku-raku-xp'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-seasonal-objective-cars'},
+  {game:'arc-raiders', slug:'arc-raiders-ttk-weapon-tier'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
