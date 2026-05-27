@@ -12,7 +12,9 @@ const GAME_SLUGS = [
   'cs2','eldenring','cyberpunk2077','baldursgate3','gta-vi','helldivers2','lol','valorant','palworld','monster-hunter-wilds',
   'apex','fortnite','overwatch2','crimson-desert','diablo-iv','gta-v','marathon','marvel-rivals','re-requiem','saros','windrose',
   'tekken-8','callofduty','destiny-2','forza-horizon-6',
-  'subnautica-2','wow','warzone','cod-bo7'
+  'subnautica-2','wow','warzone','cod-bo7',
+  // Phase 4 — community-requested catalogue additions
+  'dota-2','007-first-light','escape-from-tarkov'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -92,7 +94,42 @@ const MANUAL_TIPS_SLUGS = [
   {game:'crimson-desert', slug:'crimson-desert-classes-tier'},
   {game:'re-requiem', slug:'re-requiem-weapons-tier'},
   {game:'destiny-2', slug:'destiny2-exotic-weapons-pve'},
-  {game:'destiny-2', slug:'destiny2-class-tier-list'}
+  {game:'destiny-2', slug:'destiny2-class-tier-list'},
+  // Phase 4 — added FH6 guides
+  {game:'forza-horizon-6', slug:'forza-horizon-6-complete-walkthrough'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-tips-and-tricks'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-barn-finds'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-car-list'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-easy-car-unlock'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-afk-xp-grind'},
+  // Phase 4 — Dota 2
+  {game:'dota-2', slug:'dota-2-beginner-fundamentals'},
+  {game:'dota-2', slug:'dota-2-hero-guides-hub'},
+  {game:'dota-2', slug:'dota-2-stratz-hero-builds'},
+  // Phase 4 — LoL
+  {game:'lol', slug:'lol-alistar-comprehensive-guide'},
+  {game:'lol', slug:'lol-smolder-guide'},
+  {game:'lol', slug:'lol-kindred-jungle-guide'},
+  {game:'lol', slug:'lol-pyke-echoes-from-the-deep'},
+  {game:'lol', slug:'lol-aatrox-grandmaster-guide'},
+  {game:'lol', slug:'lol-fiora-handbook'},
+  {game:'lol', slug:'lol-probuilds-meta'},
+  {game:'lol', slug:'lol-champion-tier-list'},
+  // Phase 4 — 007 First Light
+  {game:'007-first-light', slug:'007-first-light-essential-tips'},
+  {game:'007-first-light', slug:'007-first-light-chapters-progress'},
+  {game:'007-first-light', slug:'007-first-light-beginner-guide'},
+  {game:'007-first-light', slug:'007-first-light-walkthrough'},
+  {game:'007-first-light', slug:'007-first-light-best-weapons'},
+  {game:'007-first-light', slug:'007-first-light-stealth-tips'},
+  {game:'007-first-light', slug:'007-first-light-gadget-usage'},
+  // Phase 4 — Escape from Tarkov
+  {game:'escape-from-tarkov', slug:'eft-the-guide-quest'},
+  {game:'escape-from-tarkov', slug:'eft-the-guide-requirements'},
+  {game:'escape-from-tarkov', slug:'eft-best-pc-settings'},
+  {game:'escape-from-tarkov', slug:'eft-weapon-choice-guide'},
+  {game:'escape-from-tarkov', slug:'eft-achievements-guide'},
+  {game:'escape-from-tarkov', slug:'eft-money-making-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {

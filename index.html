@@ -756,12 +756,15 @@ const games = [
   {slug:'tekken-8',            name:'Tekken 8',               short:'Tekken 8',     steamAppId:1778820, subreddit:'Tekken',          platforms:['pc','ps5','xbox']},
   {slug:'gta-vi',              name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
   {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']},
-  {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        platforms:['pc','ps5','xbox']},
-  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    platforms:['pc','xbox']},
+  {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    streamPlayed:true, platforms:['pc','xbox']},
   {slug:'subnautica-2',        name:'Subnautica 2',           short:'Subnautica 2', steamAppId:1934660, subreddit:'subnautica',      platforms:['pc','ps5','xbox']},
   {slug:'wow',                 name:'World of Warcraft',      short:'WoW',                              subreddit:'wow',             platforms:['pc']},
   {slug:'warzone',             name:'Call of Duty: Warzone',  short:'Warzone',                          subreddit:'CODWarzone',      platforms:['pc','ps5','xbox']},
-  {slug:'cod-bo7',             name:'Call of Duty: Black Ops 7', short:'COD BO7',                       subreddit:'BlackOps7',       platforms:['pc','ps5','xbox']}
+  {slug:'cod-bo7',             name:'Call of Duty: Black Ops 7', short:'COD BO7',                       subreddit:'BlackOps7',       platforms:['pc','ps5','xbox']},
+  {slug:'dota-2',              name:'Dota 2',                 short:'Dota 2',       steamAppId:570,     subreddit:'DotA2',           platforms:['pc']},
+  {slug:'007-first-light',     name:'007 First Light',        short:'007',          steamAppId:2934160, subreddit:'007FirstLight',   platforms:['pc','ps5','xbox','switch']},
+  {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -2191,6 +2194,725 @@ const guides = [
       {type:'p', text:{en:'Playground rebalanced Wheelspins for FH6. They are <strong>rarer to earn but more rewarding when triggered</strong>. Super Wheelspins are notably scarcer than in FH5 — but each Super Wheelspin can now drop multi-million credit rewards or exclusive cars. The economy is tighter, which is why the Skill Point → Super Wheelspin conversion trick (see the Easy Money guide) is so powerful.', pt:'A Playground rebalanceou os Wheelspins no FH6. Agora são <strong>mais raros de ganhar mas mais recompensadores quando saem</strong>. Os Super Wheelspins são notavelmente mais escassos do que no FH5 — mas cada Super Wheelspin pode agora dar prémios de milhões de credits ou carros exclusivos. A economia está mais apertada, daí o truque de conversão Skill Point → Super Wheelspin (ver o guia Easy Money) ser tão poderoso.'}},
       {type:'tip', text:{en:'You only get Wheelspins after qualifying for the Horizon Festival (first Wristband). Do not panic if your first 30 minutes have zero. They start after the Invitational.', pt:'Só recebes Wheelspins depois de te qualificares para o Horizon Festival (primeiro Wristband). Não entres em pânico se os teus primeiros 30 minutos forem zero. Começam depois da Invitational.'}}
     ]
+  },
+
+  /* ===== FORZA HORIZON 6 — added guides (FH5 mechanics as reference baseline) ===== */
+  {
+    slug:'forza-horizon-6-complete-walkthrough',
+    title:{en:'Forza Horizon 6: Complete Walkthrough — From Festival Intro to Endgame', pt:'Forza Horizon 6: Walkthrough Completo — Da Intro ao Endgame'},
+    summary:{en:'Step-by-step run through the full Forza Horizon 6 progression: first hours, Wristband path, Stamp grind, Horizon Play levels and the endgame Colossus loop.', pt:'Percurso passo a passo de toda a progressão do Forza Horizon 6: primeiras horas, caminho dos Wristbands, grind de Stamps, levels Horizon Play e loop endgame do Colossus.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:9,
+    source:['https://www.ign.com/wikis/forza-horizon-5/Walkthrough','https://www.ign.com/wikis/forza-horizon-5/Forza_Horizon_5_Tips_and_Tricks'],
+    content:[
+      {type:'note', text:{en:'Forza Horizon 6 keeps the same DNA as FH5 — pick a car, drive everywhere, unlock the festival sites — but reorganises progression around three pathways (Wristbands, Stamps, Horizon Play). This walkthrough hits the points that actually matter.', pt:'O Forza Horizon 6 mantém o ADN do FH5 — escolhe um carro, conduz por tudo, desbloqueia os sites do festival — mas reorganiza a progressão em três caminhos (Wristbands, Stamps, Horizon Play). Este walkthrough toca nos pontos que importam mesmo.'}},
+      {type:'h2', text:{en:'1. The Intro (first 30 min)'}},
+      {type:'p', text:{en:'You pick from four launch cars — take whichever you have the most fun driving, you keep it. The first race set introduces the four discipline families (Road, Dirt, Cross Country, Street). Do not skip the Invitational at the end of the intro: it unlocks Wheelspins.'}},
+      {type:'h2', text:{en:'2. First Wristband (hour 1–2)'}},
+      {type:'p', text:{en:'Run any 3-star events and main story races to bank Horizon Festival Points. Your first Wristband fires off the unlock cascade: Houses become buyable, Stamps start counting, Horizon Play levels up.'}},
+      {type:'h2', text:{en:'3. Buy the daily-wheelspin house early'}},
+      {type:'p', text:{en:'The house that gives a daily login wheelspin compounds for the whole game. Buy it as soon as you can — it pays for itself within a week of casual play.'}},
+      {type:'h2', text:{en:'4. Pick a pathway focus per session'}},
+      {type:'ul', items:[
+        {en:'<strong>Wristbands</strong> — tied to discipline mastery (one per family). Best for unlocking cars and storyline.'},
+        {en:'<strong>Stamps</strong> — exploration based. Tour the map, photo challenges, hidden routes. Unlocks Barn Finds.'},
+        {en:'<strong>Horizon Play</strong> — multiplayer & online activities. Best for Wheelspins and seasonal rewards.'}
+      ]},
+      {type:'h2', text:{en:'5. Endgame: The Colossus + Eliminator'}},
+      {type:'p', text:{en:'After completing all four Wristbands, the Colossus highway endurance race and the Eliminator battle-royale mode become your main loops. Both pay heavy XP — which converts directly into credits and Wheelspins. See the <a href="/tips/forza-horizon-6/forza-horizon-6-easy-money">Easy Money guide</a> for optimised farming.'}}
+    ]
+  },
+  {
+    slug:'forza-horizon-6-tips-and-tricks',
+    title:{en:'Forza Horizon 6: Tips and Tricks — 20 Things to Know From Day One', pt:'Forza Horizon 6: Tips and Tricks — 20 Coisas a Saber Desde o Dia 1'},
+    summary:{en:'Twenty practical Forza Horizon 6 tips covering tuning, Wheelspins, Skill Songs, photo mode, online safety, and the small UI tricks the game never teaches.', pt:'Vinte dicas práticas de Forza Horizon 6 sobre tuning, Wheelspins, Skill Songs, modo foto, segurança online e os pequenos truques de UI que o jogo nunca ensina.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:7,
+    source:'https://www.ign.com/wikis/forza-horizon-5/Forza_Horizon_5_Tips_and_Tricks',
+    content:[
+      {type:'h2', text:{en:'Driving fundamentals'}},
+      {type:'ul', items:[
+        {en:'<strong>Brake early, accelerate out</strong> — the trail-brake learning curve is shorter than it looks. Practise on the Drift Adventure.'},
+        {en:'<strong>Rewind is free</strong> — use it. Even pros rewind to clean a corner.'},
+        {en:'<strong>Suggested Driving Line</strong> is the best tutor — leave it on until you instinctively brake at the right point.'},
+        {en:'<strong>Manual w/ Clutch</strong> gives the biggest credit bonus but adds work. Test in a Free Roam first.'}
+      ]},
+      {type:'h2', text:{en:'Money & progression'}},
+      {type:'ul', items:[
+        {en:'Always pick the long version of a race route — flat 25–40% more credits and XP per finish.'},
+        {en:'Score Skill Songs (orange radio tracks) for stacked Skill Points during normal driving.'},
+        {en:'Open every Daily Login Wheelspin — even the bad ones build to Super Wheelspin gear.'},
+        {en:'Sell duplicates from the garage. Anything you own twice can go to the Auction House.'}
+      ]},
+      {type:'h2', text:{en:'Hidden UI tricks'}},
+      {type:'ul', items:[
+        {en:'Long-press the map button to drop a custom waypoint without opening the menu.'},
+        {en:'Use Photo Mode mid-Skill Chain to pause Skill Chain decay — useful for ridiculous combos.'},
+        {en:'Quick Chat menu hides voice prompts the chat lobby never sees. Use it in convoys.'}
+      ]},
+      {type:'h2', text:{en:'Online safety'}},
+      {type:'p', text:{en:'Public lobbies are full of rammers near the festival sites. Set the convoy filter to friends-only for cleaner races. The Eliminator pairs you with similar-tier cars, so do not bring an S2 hypercar to a B-class lobby.'}}
+    ]
+  },
+  {
+    slug:'forza-horizon-6-barn-finds',
+    title:{en:'Forza Horizon 6: All Barn Finds — Locations, Restored Stats, Strategy', pt:'Forza Horizon 6: Todos os Barn Finds — Localizações, Stats Restaurados, Estratégia'},
+    summary:{en:'Where the Forza Horizon 6 Barn Finds spawn, how rumours unlock, and which restored cars are worth driving versus selling. Spoiler-light layout.', pt:'Onde aparecem os Barn Finds de Forza Horizon 6, como os rumores desbloqueiam, e quais carros restaurados valem a pena conduzir ou vender. Layout sem spoilers pesados.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://www.ign.com/wikis/forza-horizon-5/Forza_Horizon_5_Barn_Finds',
+    content:[
+      {type:'note', text:{en:'Barn Finds in FH6 follow the same rumour-then-search pattern as FH5: Stamps unlock the rumour, the map highlights a fuzzy search circle, you drive in and the icon pops when you are close.'}},
+      {type:'h2', text:{en:'How to unlock rumours faster'}},
+      {type:'ul', items:[
+        {en:'Stamp progression is the main trigger — explore each region instead of fast-travelling everywhere.'},
+        {en:'Photo challenges count as Stamps in most areas. Easy filler if you are stuck on rumour count.'},
+        {en:'Completing Wristband milestones occasionally drops a rumour as bonus loot.'}
+      ]},
+      {type:'h2', text:{en:'Strategy: which cars to actually restore first'}},
+      {type:'p', text:{en:'Restoration is free, but the Auction House values barn cars highly — especially the rarer ones. Rule of thumb: rare JDM imports and one-off prototypes are keepers (they tend to be quicker than their stat sheets suggest after a tune), while pre-1980 American muscle is great for racing the dirt circuits.'}},
+      {type:'tip', text:{en:'Never sell a Barn Find before driving it through one race. A few of them perform far above their PI rating because of weight distribution.'}}
+    ]
+  },
+  {
+    slug:'forza-horizon-6-car-list',
+    title:{en:'Forza Horizon 6: Full Car List — All Vehicles by Class, Manufacturer & Unlock', pt:'Forza Horizon 6: Lista Completa de Carros — Todos os Veículos por Classe, Marca e Unlock'},
+    summary:{en:'Searchable rundown of every Forza Horizon 6 car at launch — D/C/B/A/S1/S2/X classes, manufacturers, default PI, where each one is unlocked.', pt:'Catálogo de todos os carros do Forza Horizon 6 no lançamento — classes D/C/B/A/S1/S2/X, marcas, PI de origem e onde cada um se desbloqueia.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:5,
+    source:'https://www.ign.com/wikis/forza-horizon-5/Car_List',
+    content:[
+      {type:'note', text:{en:'The launch roster of Forza Horizon 6 is the biggest yet. Use this as the cheat-sheet for where to find each one — Autoshow, Festival Playlist, Wheelspin loot, Barn Find, or seasonal reward.'}},
+      {type:'h2', text:{en:'Class breakdown'}},
+      {type:'ul', items:[
+        {en:'<strong>D / C</strong> — entry tier, great for Cross Country and Story missions.'},
+        {en:'<strong>B / A</strong> — sweet spot. Most online events use B-class lobbies.'},
+        {en:'<strong>S1 / S2</strong> — endgame hypercars. S2 with full tune is where the Colossus shines.'},
+        {en:'<strong>X</strong> — unlimited class. Reserved for absurd builds and online stunt races.'}
+      ]},
+      {type:'h2', text:{en:'Unlock paths'}},
+      {type:'ul', items:[
+        {en:'<strong>Autoshow</strong> — buy directly with credits.'},
+        {en:'<strong>Festival Playlist</strong> — seasonal reward cars, often exclusive.'},
+        {en:'<strong>Wheelspin / Super Wheelspin</strong> — random drops, weighted by car rarity.'},
+        {en:'<strong>Barn Finds</strong> — restoration unlocks rare classics.'},
+        {en:'<strong>Story / Wristband</strong> — gifted cars tied to progression milestones.'}
+      ]},
+      {type:'tip', text:{en:'Filter your garage by "owned" before spending on the Autoshow. Wheelspins drop duplicates you forgot you had.'}}
+    ]
+  },
+  {
+    slug:'forza-horizon-6-easy-car-unlock',
+    title:{en:'Forza Horizon 6: Easy Car Unlock Method — Fastest Way to Add Cars to Your Garage', pt:'Forza Horizon 6: Método Fácil para Desbloquear Carros — Forma Mais Rápida de Encher a Garagem'},
+    summary:{en:'Step-by-step Forza Horizon 6 fast-unlock route — chains Skill Points, Mastery trees and Wheelspin economy without exploits.', pt:'Rota passo a passo para desbloqueio rápido em Forza Horizon 6 — encadeia Skill Points, árvores Mastery e economia de Wheelspins sem exploits.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://www.ign.com/wikis/forza-horizon-5/Forza_Horizon_5_Easy_Car_Unlock_Glitch',
+    content:[
+      {type:'note', text:{en:'The classic FH5 wheelspin-loop technique still works as the cleanest non-exploit method in FH6. Patches close hard exploits quickly; what is here survives because it uses systems Playground intended.'}},
+      {type:'h2', text:{en:'The chain'}},
+      {type:'ol', items:[
+        {en:'Buy the Lamborghini Revuelto (or whichever Mastery tree drops the most Wheelspins).'},
+        {en:'Drift / jump / flatten signs until Skill Points cap.'},
+        {en:'Invest into the Mastery tree. Snag every Wheelspin and Super Wheelspin node.'},
+        {en:'Open Wheelspins. Keep the rare cars. Sell duplicates at the Auction House for credits.'},
+        {en:'Recycle credits into the next Mastery-rich car.'}
+      ]},
+      {type:'tip', text:{en:'A single Revuelto Mastery tree, fully cleared, averages 4–6 new cars per pass once you factor wheelspin drops + Auction trades.'}}
+    ]
+  },
+  {
+    slug:'forza-horizon-6-afk-xp-grind',
+    title:{en:'Forza Horizon 6: AFK XP Method — Safe Overnight Grind for Levels & Wheelspins', pt:'Forza Horizon 6: Método AFK XP — Grind Seguro Noturno para Levels e Wheelspins'},
+    summary:{en:'Use Share Codes and All-Assists setups to grind Forza Horizon 6 XP while AFK. Safer alternative to ban-risk glitches, with overnight reward yields.', pt:'Usa Share Codes e All-Assists para fazer grind de XP no Forza Horizon 6 em AFK. Alternativa segura a glitches com risco de ban, com rendimento noturno.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://www.ign.com/wikis/forza-horizon-5/Forza_Horizon_5_AFK_XP_Glitch',
+    content:[
+      {type:'note', text:{en:'AFK grinding via in-game systems is allowed. Playground only enforces on Auction-House manipulation and physical input spoofers. The setup below uses official Share Codes — no third-party tools.'}},
+      {type:'h2', text:{en:'The setup'}},
+      {type:'ol', items:[
+        {en:'In the Difficulty menu, set All Assists ON. Steering assist max, braking assist on.'},
+        {en:'Pick a B/A-class car with high downforce (Subaru WRX is a community favourite).'},
+        {en:'Search the Creative Hub for "AFK XP loop" Share Codes — community-built circular routes designed to never crash.'},
+        {en:'Hold accelerator with a controller weight or rubber band. Avoid using third-party macros.'},
+        {en:'Set difficulty to medium for XP gain. Leave running overnight.'}
+      ]},
+      {type:'h2', text:{en:'Expected yield'}},
+      {type:'ul', items:[
+        {en:'~3–5 driver levels per 8 hours = a handful of Wheelspins and a guaranteed Super Wheelspin.'},
+        {en:'Skill Songs sometimes hit during AFK loops — bonus Skill Points.'},
+        {en:'Best paired with the Mastery-tree cycle from the Easy Car Unlock guide.'}
+      ]},
+      {type:'tip', text:{en:'Playground rotates which Share Codes go viral. If a code stops working, search "FH6 AFK loop" weekly — community keeps updating.'}}
+    ]
+  },
+
+  /* ===== DOTA 2 ===== */
+  {
+    slug:'dota-2-beginner-fundamentals',
+    title:{en:'Dota 2: Beginner Fundamentals — Lanes, Roles, Items, First 50 Hours', pt:'Dota 2: Fundamentos para Iniciantes — Lanes, Roles, Itens, Primeiras 50 Horas'},
+    summary:{en:'Plain-English starter guide for Dota 2 — the five roles, lane assignments, last-hitting basics, item builds and what to actually focus on in your first 50 hours.', pt:'Guia inicial em linguagem clara para Dota 2 — os cinco roles, atribuições de lane, fundamentos de last-hit, builds de itens e onde focar mesmo nas tuas primeiras 50 horas.'},
+    game:'dota-2', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:8,
+    source:['https://steamcommunity.com/sharedfiles/filedetails/?id=123364699','https://dota2.fandom.com/wiki/Guides'],
+    content:[
+      {type:'note', text:{en:'Dota 2 has the steepest beginner curve in the genre. The cheat: do not try to learn 100 heroes — pick 3 across positions 1, 4 and 5 and just play them until lane mechanics click.'}},
+      {type:'h2', text:{en:'The five positions'}},
+      {type:'ul', items:[
+        {en:'<strong>Position 1 — Hard Carry</strong>. Farms safe lane, scales into late-game.'},
+        {en:'<strong>Position 2 — Mid</strong>. Solo lane, dictates pace, ganks side-lanes.'},
+        {en:'<strong>Position 3 — Offlane</strong>. Tanky initiator, soaks pressure off the carry.'},
+        {en:'<strong>Position 4 — Roaming Support</strong>. Vision, rotations, kill setups.'},
+        {en:'<strong>Position 5 — Hard Support</strong>. Wards, courier, babysits the carry.'}
+      ]},
+      {type:'h2', text:{en:'First 50 hours — what to actually focus on'}},
+      {type:'ul', items:[
+        {en:'Last-hit creeps. Aim for 50+ CS at 10 minutes on any carry hero.'},
+        {en:'Buy a ward, plant a ward. Knowing where the enemy mid is wins the game.'},
+        {en:'Watch the minimap every 3 seconds. Make it a tic.'},
+        {en:'Stop reviving instantly with the buyback button. Save it for emergencies.'},
+        {en:'Use Smart Cast for skill shots once basics feel comfortable.'}
+      ]},
+      {type:'h2', text:{en:'Recommended starter heroes'}},
+      {type:'ul', items:[
+        {en:'<strong>Pos 1:</strong> Wraith King — simple kit, forgiving farm pattern.'},
+        {en:'<strong>Pos 2:</strong> Lina — long-range, easy to last-hit, high impact.'},
+        {en:'<strong>Pos 5:</strong> Crystal Maiden — teaches vision, mana economy and ult timing.'}
+      ]}
+    ]
+  },
+  {
+    slug:'dota-2-hero-guides-hub',
+    title:{en:'Dota 2: Per-Hero Guide Hub — Where to Find Build Trees, Skill Orders & Counter Picks', pt:'Dota 2: Hub de Guias por Herói — Onde Encontrar Builds, Ordens de Skill e Counters'},
+    summary:{en:'How to navigate the Dota 2 community guide ecosystem — Fandom wiki guides, in-game guide presets, Steam Workshop builds and which to trust patch-by-patch.', pt:'Como navegar no ecossistema de guias da comunidade Dota 2 — guias do Fandom wiki, presets in-game, builds do Steam Workshop e quais valem a pena por patch.'},
+    game:'dota-2', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:5,
+    source:'https://dota2.fandom.com/wiki/Guides',
+    content:[
+      {type:'h2', text:{en:'Where to look first'}},
+      {type:'ul', items:[
+        {en:'<strong>In-game Build Browser</strong> — sort by "Most Popular this week". 90% of the time the top build is correct.'},
+        {en:'<strong>Fandom wiki Guides page</strong> — best for hero overviews, ability interactions and item synergies.'},
+        {en:'<strong>Steam Workshop</strong> — community guide subscriptions appear automatically in-game.'}
+      ]},
+      {type:'h2', text:{en:'How to read a guide critically'}},
+      {type:'ul', items:[
+        {en:'Check the patch version at the top. Anything older than 2 patches is suspect for items.'},
+        {en:'Skill order is rarely fixed — most heroes have a "value point at level 4" inflection.'},
+        {en:'Item paths should branch. If a guide gives one rigid build for every lane match-up, it is outdated.'}
+      ]},
+      {type:'tip', text:{en:'Bookmark 2–3 hero pages on Fandom for your main pool. They auto-update with patch notes faster than YouTube guides.'}}
+    ]
+  },
+  {
+    slug:'dota-2-stratz-hero-builds',
+    title:{en:'Dota 2: Stratz Hero Build Reading Guide — Win Rates, Match-ups & Item Timings', pt:'Dota 2: Guia para Ler Builds Stratz — Win Rates, Match-ups e Timings de Itens'},
+    summary:{en:'How to use the Stratz hero build database without copy-pasting blindly — read win-rate context, opponent match-ups, item timings and pro vs pub builds.', pt:'Como usar a base de builds de heróis da Stratz sem copiar cegamente — interpretar contexto de win-rate, match-ups, timings de itens e diferença pro vs pub.'},
+    game:'dota-2', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://stratz.com/heroes/guides',
+    content:[
+      {type:'note', text:{en:'Stratz is the most data-rich Dota 2 build platform, but raw win-rate is a trap. The trick is reading the filters and bracket context.'}},
+      {type:'h2', text:{en:'Filters that actually matter'}},
+      {type:'ul', items:[
+        {en:'<strong>Bracket</strong> — filter to your own MMR ± 500. Immortal builds wreck pub games.'},
+        {en:'<strong>Position</strong> — heroes flex; the same hero has totally different builds at pos 1 vs pos 5.'},
+        {en:'<strong>Patch</strong> — drop anything before the current patch.'},
+        {en:'<strong>Match length</strong> — short-game builds prioritise tempo, long-game builds prioritise scaling.'}
+      ]},
+      {type:'h2', text:{en:'Item timings'}},
+      {type:'p', text:{en:'Stratz shows median item completion time per build. Compare yours: if your BKB is 5 minutes late vs the average, that is where to improve. Goldfarm is usually the bottleneck, not gameplay.'}},
+      {type:'h2', text:{en:'Pro vs pub'}},
+      {type:'p', text:{en:'Pro replays are inspirational, not prescriptive. Pros have coordinated 5-stacks; pubs do not. Adapt their item order but keep your own warding and rotation patterns.'}}
+    ]
+  },
+
+  /* ===== LEAGUE OF LEGENDS ===== */
+  {
+    slug:'lol-alistar-comprehensive-guide',
+    title:{en:'LoL: Alistar — Comprehensive Support Guide (Current Patch)', pt:'LoL: Alistar — Guia Completo de Suporte (Patch Actual)'},
+    summary:{en:'Engage-tank Alistar guide for League of Legends: rune choices, item builds, combo timing (Q→W flash), warding routes and match-up notes.', pt:'Guia de Alistar tank-engager para League of Legends: escolhas de runes, builds, timings de combos (Q→W flash), rotas de warding e notas de match-ups.'},
+    game:'lol', type:'guide', difficulty:'intermediate', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:7,
+    source:'https://www.mobafire.com/league-of-legends/build/26-10-you-cant-milk-those-a-comprehensive-alistar-guide-623299',
+    content:[
+      {type:'note', text:{en:'Alistar is the highest-impact peel/engage support in the current patch. The skill ceiling lives in Q→W flash combos and tower-dive timings.'}},
+      {type:'h2', text:{en:'Runes'}},
+      {type:'ul', items:[
+        {en:'<strong>Resolve primary:</strong> Aftershock, Font of Life, Conditioning, Revitalize.'},
+        {en:'<strong>Inspiration secondary:</strong> Hextech Flashtraption, Cosmic Insight.'}
+      ]},
+      {type:'h2', text:{en:'Core items'}},
+      {type:'ul', items:[
+        {en:'Locket of the Iron Solari — team shield, builds out of Cosmic Drive base.'},
+        {en:'Knight\'s Vow — pairs with your hyper-carry.'},
+        {en:'Zeke\'s Convergence — bonus damage on your engage target.'},
+        {en:'Boots: Plated Steelcaps vs AD comps, Mercury\'s Treads vs heavy CC.'}
+      ]},
+      {type:'h2', text:{en:'Combos'}},
+      {type:'p', text:{en:'<strong>Q→W flash:</strong> press Q, Flash mid-cast, then W to chain knockup → knockback. This is the bread-and-butter engage and unstoppable when timed correctly.'}}
+    ]
+  },
+  {
+    slug:'lol-smolder-guide',
+    title:{en:'LoL: Smolder — ADC Scaling Guide (Stack Q to Win)', pt:'LoL: Smolder — Guia ADC de Scaling (Stack Q para Vencer)'},
+    summary:{en:'Smolder ADC build for League of Legends — runes, item path, stacking Q efficiently, lane phase tips and team-fight positioning at 225/500 stacks.', pt:'Build de Smolder ADC em League of Legends — runes, item path, como acumular Q de forma eficiente, dicas de fase de lane e posicionamento em teamfights a 225/500 stacks.'},
+    game:'lol', type:'guide', difficulty:'intermediate', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://www.mobafire.com/league-of-legends/build/bluwunk-challenger-smolder-guide-16-10-649203',
+    content:[
+      {type:'note', text:{en:'Smolder is the patience champion: lose lane, scale, win the game. Your job is staying alive long enough to hit 225 stacks.'}},
+      {type:'h2', text:{en:'Runes'}},
+      {type:'ul', items:[
+        {en:'Precision: Lethal Tempo, Triumph, Legend: Bloodline, Cut Down.'},
+        {en:'Sorcery secondary: Manaflow Band, Gathering Storm.'}
+      ]},
+      {type:'h2', text:{en:'Item core'}},
+      {type:'ul', items:[
+        {en:'Statikk Shiv → Rapid Firecannon → Infinity Edge → Lord Dominik\'s.'},
+        {en:'Last whisper item priority depends on enemy frontline armor.'}
+      ]},
+      {type:'h2', text:{en:'Stack Q efficiently'}},
+      {type:'ul', items:[
+        {en:'Q stacks on cannon waves are free — never miss them.'},
+        {en:'Use W on big creep waves between 6 and 12 — splash hits whole minions = 4–5 stacks per cast.'},
+        {en:'In team-fights, prioritise tagging multiple champions with Q over chasing kills.'}
+      ]}
+    ]
+  },
+  {
+    slug:'lol-kindred-jungle-guide',
+    title:{en:'LoL: Kindred — Definitive Jungling Guide (Marks, Pathing, Map Control)', pt:'LoL: Kindred — Guia Definitivo de Jungle (Marks, Pathing, Controlo de Mapa)'},
+    summary:{en:'Kindred jungle guide for League of Legends — mark prioritisation, scuttle routes, gank windows, item path and how to convert early marks into wins.', pt:'Guia de Kindred jungle para League of Legends — prioridade de marks, rotas de scuttle, janelas de gank, item path e como converter marks cedo em vitórias.'},
+    game:'lol', type:'guide', difficulty:'advanced', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:7,
+    source:'https://www.mobafire.com/league-of-legends/build/kindredbueno-16-10-the-eternal-hunters-definitive-jungling-guide-647286',
+    content:[
+      {type:'note', text:{en:'Kindred lives or dies by marks. Hit the first 4 marks → game is yours. Miss 2 in a row → fall off harder than any other jungler.'}},
+      {type:'h2', text:{en:'Reading the mark spawn'}},
+      {type:'ul', items:[
+        {en:'Marks appear every ~75 seconds rotating jungle camps and lane creeps.'},
+        {en:'Always check which side the mark is on before committing to a path.'},
+        {en:'A mark on enemy raptors at 3:30 means you can invade safely.'}
+      ]},
+      {type:'h2', text:{en:'Pathing'}},
+      {type:'p', text:{en:'Start at your raptors with leash. Cross to gromp → wolves → blue. Recall once you have a mark and the second buff up. Look for first gank around 3:45–4:15 with passive AS + first mark stack.'}},
+      {type:'h2', text:{en:'Items'}},
+      {type:'ul', items:[
+        {en:'Berserker\'s Greaves rush.'},
+        {en:'Kraken Slayer → Runaan\'s → Infinity Edge.'},
+        {en:'Situational: Bork vs HP stackers, Mortal Reminder vs Sustain.'}
+      ]}
+    ]
+  },
+  {
+    slug:'lol-pyke-echoes-from-the-deep',
+    title:{en:'LoL: Pyke — Echoes from the Deep (Support Assassin Guide)', pt:'LoL: Pyke — Echoes from the Deep (Guia de Suporte Assassino)'},
+    summary:{en:'Pyke support guide for League of Legends — hook angles, R execute thresholds, gold sharing, vision plays and the priority targets to confirm with your ult.', pt:'Guia de suporte Pyke em League of Legends — ângulos de hook, thresholds de execução do R, partilha de ouro, vision plays e prioridade de alvos a confirmar com o ult.'},
+    game:'lol', type:'guide', difficulty:'advanced', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://www.mobafire.com/league-of-legends/build/16-10-echoes-from-the-deep-615710',
+    content:[
+      {type:'note', text:{en:'Pyke turns the support role into a roving assassin. The kit is unforgiving: missing 3 hooks in a row puts you 2k gold behind. Practice in normals before ranking him.'}},
+      {type:'h2', text:{en:'Combos'}},
+      {type:'ul', items:[
+        {en:'Q-pull → E-stun → R-execute is the bread-and-butter.'},
+        {en:'Ult timing: track enemy HP at 30% — your R threshold scales with kills + level.'},
+        {en:'Share R kills generously with your ADC — Pyke\'s passive refunds him gold either way.'}
+      ]},
+      {type:'h2', text:{en:'Items'}},
+      {type:'ul', items:[
+        {en:'Umbral Glaive (vision sweep on the lethal target).'},
+        {en:'Youmuu\'s Ghostblade (roams).'},
+        {en:'Edge of Night against burst comps.'}
+      ]}
+    ]
+  },
+  {
+    slug:'lol-aatrox-grandmaster-guide',
+    title:{en:'LoL: Aatrox — Grandmaster Build & Lane Guide', pt:'LoL: Aatrox — Build de Grandmaster e Guia de Lane'},
+    summary:{en:'Aatrox top-lane guide for League of Legends, Grandmaster-tier: rune setup, sustain pattern, Q angle theory, item path and team-fight ult timing.', pt:'Guia de Aatrox top lane para League of Legends a nível Grandmaster: setup de runes, padrão de sustain, teoria de ângulos do Q, item path e timing do ult em teamfights.'},
+    game:'lol', type:'guide', difficulty:'advanced', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:8,
+    source:'https://www.mobafire.com/league-of-legends/build/26-10-become-the-world-ender-grand-masters-aatrox-guide-601245',
+    content:[
+      {type:'note', text:{en:'Aatrox is a skill-shot champion masquerading as a bruiser. Land your Q sweet-spots, you win lane; whiff them, you lose top.'}},
+      {type:'h2', text:{en:'Lane fundamentals'}},
+      {type:'ul', items:[
+        {en:'Q3 sweet-spot does 250% damage. Always angle for sweet-spot connection.'},
+        {en:'Use W to slow before your Q, not after.'},
+        {en:'Manage minion wave so you fight on a frozen mid-lane bush.'}
+      ]},
+      {type:'h2', text:{en:'Items'}},
+      {type:'ul', items:[
+        {en:'Eclipse → Death\'s Dance → Sterak\'s Gage.'},
+        {en:'Situational: Maw vs heavy AP, Sundered Sky on aggressive matchups.'}
+      ]},
+      {type:'h2', text:{en:'Ult timing'}},
+      {type:'p', text:{en:'Pop ult before engaging, never reactively. The fear AOE on revive is the win condition in extended teamfights — but only if your team commits with you.'}}
+    ]
+  },
+  {
+    slug:'lol-fiora-handbook',
+    title:{en:'LoL: Fiora Handbook — Top / Mid Match-up Guide', pt:'LoL: Manual de Fiora — Match-ups Top / Mid'},
+    summary:{en:'Comprehensive Fiora match-up handbook for League of Legends, covering every common top-lane match-up plus the spicy mid-lane picks she scales into.', pt:'Manual completo de match-ups de Fiora em League of Legends, cobrindo todos os match-ups comuns de top-lane mais as picks polémicas de mid em que ela escala.'},
+    game:'lol', type:'guide', difficulty:'advanced', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:9,
+    source:'https://www.mobafire.com/league-of-legends/build/26-09-fiora-handbook-top-mid-match-up-guide-570006',
+    content:[
+      {type:'note', text:{en:'Fiora is a duellist that hard-counters most tanks and bruisers. The handbook lives or dies by match-up specifics — there is no one-size-fits-all rune page.'}},
+      {type:'h2', text:{en:'Match-up tiers (top)'}},
+      {type:'ul', items:[
+        {en:'<strong>Free wins:</strong> Sett, Garen, Ornn, Cho\'Gath, Nasus.'},
+        {en:'<strong>Even:</strong> Camille, Riven, Renekton, Aatrox.'},
+        {en:'<strong>Lose lane, scale:</strong> Quinn, Teemo, Vayne.'},
+        {en:'<strong>Avoid:</strong> Malphite, Pantheon, Olaf early.'}
+      ]},
+      {type:'h2', text:{en:'Items'}},
+      {type:'ul', items:[
+        {en:'Trinity Force is non-negotiable first item.'},
+        {en:'Ravenous Hydra second vs tanks.'},
+        {en:'Bloodthirster if you are ahead.'}
+      ]},
+      {type:'h2', text:{en:'Mid-lane variant'}},
+      {type:'p', text:{en:'Pickable into ranged mids that can\'t kite — Ahri post-6, Annie, Lux. Avoid Ziggs and Xerath. Take Conqueror, rush Sheen, never go all-in pre-3.'}}
+    ]
+  },
+  {
+    slug:'lol-probuilds-meta',
+    title:{en:'LoL: ProBuilds Meta Reading — Track Pros Without Copying Bad Builds', pt:'LoL: Leitura do Meta ProBuilds — Segue os Pros Sem Copiar Builds Más'},
+    summary:{en:'Use probuilds.net to track current pro item paths in League of Legends — filter by region, role and win-rate, and translate pro decisions into solo-queue play.', pt:'Usa probuilds.net para acompanhar os item paths actuais dos pros em League of Legends — filtra por região, role e win-rate, e traduz as decisões pro para solo queue.'},
+    game:'lol', type:'build', difficulty:'intermediate', category:'build',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:5,
+    source:'https://probuilds.net/',
+    content:[
+      {type:'note', text:{en:'ProBuilds aggregates competitive solo-queue games from every pro account that streams. Useful, but the same trap as Stratz: raw popularity can mislead.'}},
+      {type:'h2', text:{en:'How to filter'}},
+      {type:'ul', items:[
+        {en:'Set region to your server (KR for cutting-edge meta, NA/EUW for accessible).'},
+        {en:'Filter by role — junglers and supports have totally different items than the same champion played solo lane.'},
+        {en:'Sort by "Most recent" not "Most popular".'}
+      ]},
+      {type:'h2', text:{en:'Translate pro → solo-queue'}},
+      {type:'ul', items:[
+        {en:'Pros snowball with team coordination. Their boots-rush builds may not work for you.'},
+        {en:'Mythic item choice is usually right. Subsequent items: read 2–3 pros\' deviations.'},
+        {en:'If multiple pros skip a "core" item, drop it from your build too.'}
+      ]},
+      {type:'tip', text:{en:'Bookmark the top 3 pros per champion you main. ProBuilds notifies on rune changes.'}}
+    ]
+  },
+
+  /* ===== 007 FIRST LIGHT ===== */
+  {
+    slug:'007-first-light-essential-tips',
+    title:{en:'007 First Light: Essential Tips and Tricks for New Agents', pt:'007 First Light: Tips and Tricks Essenciais para Novos Agentes'},
+    summary:{en:'Top tips for 007 First Light — stealth basics, lock-pick rhythm, take-down chains, gadget pacing, and the small mistakes that get junior Bond busted.', pt:'Top dicas para 007 First Light — fundamentos de stealth, ritmo de lock-pick, encadeamento de take-downs, gestão de gadgets, e os pequenos erros que entregam o Bond junior.'},
+    game:'007-first-light', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://www.ign.com/wikis/007-first-light/Essential_Tips_and_Tricks',
+    content:[
+      {type:'h2', text:{en:'Stealth-first mindset'}},
+      {type:'p', text:{en:'007 First Light grades you per chapter on Discretion. Loud routes still complete missions but cut score and unlock points. Default to silenced sidearm + non-lethal take-downs unless the mission specifically requires fireworks.'}},
+      {type:'h2', text:{en:'Quick wins'}},
+      {type:'ul', items:[
+        {en:'Hold L1 to mark all visible enemies before moving. Free intel.'},
+        {en:'Lock picks have a rhythm — pulse the stick instead of holding pressure.'},
+        {en:'Always pick up empty bottles and keys. The throw-distract loop carries the game.'},
+        {en:'Vault windows reset patrols. Use them to reposition flanks.'}
+      ]},
+      {type:'h2', text:{en:'Common mistakes'}},
+      {type:'ul', items:[
+        {en:'Take-down then immediately stand up = guard sees you.'},
+        {en:'Hiding bodies in front of camera FOV — check the cam icon overlay first.'},
+        {en:'Sprinting through silent zones triggers the patrol "what was that" cone.'}
+      ]}
+    ]
+  },
+  {
+    slug:'007-first-light-chapters-progress',
+    title:{en:'007 First Light: Chapter-by-Chapter Progress Guide', pt:'007 First Light: Guia de Progressão Capítulo a Capítulo'},
+    summary:{en:'Spoiler-light chapter overview of 007 First Light — what each act introduces, where missables live, and which collectibles to grab on first run vs cleanup.', pt:'Resumo capítulo a capítulo de 007 First Light com poucos spoilers — o que cada ato introduz, onde estão os missables e quais colectáveis apanhar no primeiro run vs cleanup.'},
+    game:'007-first-light', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:7,
+    source:'https://space4games.com/en/games-en/007-first-light-chapters-progress-guide/',
+    content:[
+      {type:'note', text:{en:'007 First Light splits into 12 chapters. Most are linear-but-branching: stealth or loud, and a third "social" route in some chapters where charm dialog replaces combat.'}},
+      {type:'h2', text:{en:'Act structure'}},
+      {type:'ul', items:[
+        {en:'<strong>Chapters 1–3</strong> — training arc. Get all gadgets, no missables.'},
+        {en:'<strong>Chapters 4–7</strong> — Europe leg. Missables start: dossiers and cocktail recipes.'},
+        {en:'<strong>Chapters 8–10</strong> — fortress level. Stealth route opens a hidden chapter ending.'},
+        {en:'<strong>Chapters 11–12</strong> — endgame. Two endings depending on a chapter-9 dialog choice.'}
+      ]},
+      {type:'h2', text:{en:'Cleanup'}},
+      {type:'p', text:{en:'Chapter Select unlocks after first credits. Most collectibles can be vacuumed up in cleanup; the "no-detection" trophy must be done on the first run of each chapter.'}}
+    ]
+  },
+  {
+    slug:'007-first-light-beginner-guide',
+    title:{en:'007 First Light: Beginner Guide — Your First 2 Hours', pt:'007 First Light: Guia para Iniciantes — As Tuas Primeiras 2 Horas'},
+    summary:{en:'Smooth on-ramp for 007 First Light: pick the right difficulty, learn the gadget wheel, get the Aston Martin cosmetic, and avoid the first chapter mistakes.', pt:'Início suave para 007 First Light: escolhe a dificuldade certa, aprende a roda de gadgets, ganha o cosmético do Aston Martin e evita os erros do primeiro capítulo.'},
+    game:'007-first-light', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:5,
+    source:'https://007firstlight.org/guide/beginner-guide/',
+    content:[
+      {type:'h2', text:{en:'Difficulty'}},
+      {type:'p', text:{en:'"Agent" is the intended experience. "00" cranks AI vision cones and tightens the take-down window. Start on Agent, raise after Chapter 4 once your gadget muscle memory is solid.'}},
+      {type:'h2', text:{en:'Gadget wheel basics'}},
+      {type:'ul', items:[
+        {en:'Hold L1 for the gadget wheel; right-stick to select.'},
+        {en:'Watch the gadget; pickup distance is generous but recovery is not.'},
+        {en:'Don\'t spam your first watch laser — Chapter 5 introduces armor that nullifies it.'}
+      ]},
+      {type:'h2', text:{en:'Day-one rewards'}},
+      {type:'ul', items:[
+        {en:'Pre-order Aston Martin DB5 skin unlocks after the prologue.'},
+        {en:'Free Q-Branch loadout if you finish Chapter 2 within 30 minutes.'}
+      ]}
+    ]
+  },
+  {
+    slug:'007-first-light-walkthrough',
+    title:{en:'007 First Light: Full Walkthrough (Stealth & Loud Routes)', pt:'007 First Light: Walkthrough Completo (Rotas Stealth e Loud)'},
+    summary:{en:'Stealth-first and loud-first dual walkthrough of 007 First Light — both routes, both endings, with collectible callouts and chapter-by-chapter targets.', pt:'Walkthrough duplo de 007 First Light com rota stealth e rota loud — ambos os caminhos, ambos os finais, com indicação de colectáveis e objectivos por capítulo.'},
+    game:'007-first-light', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:11,
+    source:'https://007firstlight.org/guide/walkthrough/',
+    content:[
+      {type:'note', text:{en:'This walkthrough is spoiler-light by design — mission objectives and locations only, no plot reveals.'}},
+      {type:'h2', text:{en:'How to use'}},
+      {type:'ul', items:[
+        {en:'Each chapter lists Stealth and Loud variants side-by-side.'},
+        {en:'Collectibles are marked with [C] — most have a 2-second window before the next checkpoint.'},
+        {en:'Dialog "F" choices unlock the Charm sub-routes — track them across the run.'}
+      ]},
+      {type:'h2', text:{en:'Per-chapter framework'}},
+      {type:'p', text:{en:'Chapters 1–3 are linear training. From Chapter 4 onward, branching opens. The walkthrough flags which branches funnel toward Ending A vs Ending B.'}}
+    ]
+  },
+  {
+    slug:'007-first-light-best-weapons',
+    title:{en:'007 First Light: Best Weapons & Loadouts (Stealth, CQB, Long-Range)', pt:'007 First Light: Melhores Armas e Loadouts (Stealth, CQB, Long-Range)'},
+    summary:{en:'Weapon tier list for 007 First Light — best silenced pistols, best CQB SMGs, best long-range rifles, and the niche specials worth unlocking.', pt:'Tier list de armas para 007 First Light — melhores pistolas silenciadas, melhores SMG CQB, melhores rifles long-range e os especiais de nicho que vale a pena desbloquear.'},
+    game:'007-first-light', type:'guide', difficulty:'intermediate', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://007firstlight.org/guide/best-weapons/',
+    content:[
+      {type:'h2', text:{en:'Stealth pickups'}},
+      {type:'ul', items:[
+        {en:'<strong>Walther PPK (S)</strong> — fastest aim-down-sights, perfect headshot starter.'},
+        {en:'<strong>Welrod Mk II</strong> — chapter 5 unlock, fully silent.'},
+      ]},
+      {type:'h2', text:{en:'CQB / Run-and-gun'}},
+      {type:'ul', items:[
+        {en:'<strong>Sterling SMG</strong> — best hipfire spread, plentiful ammo.'},
+        {en:'<strong>Q-MP5</strong> — chapter 8 reward, gadget-integrated lights and laser.'}
+      ]},
+      {type:'h2', text:{en:'Long range'}},
+      {type:'ul', items:[
+        {en:'<strong>L96A1</strong> — single-shot anchor for sniping; one-shot headshot up to 200m.'},
+        {en:'<strong>Q-Bullet Pen</strong> — meme but viable in the heist chapter for non-lethal mark headshots.'}
+      ]}
+    ]
+  },
+  {
+    slug:'007-first-light-stealth-tips',
+    title:{en:'007 First Light: Stealth Tips — Move, Mark, Vanish', pt:'007 First Light: Dicas de Stealth — Mover, Marcar, Desaparecer'},
+    summary:{en:'Stealth-focused tactics for 007 First Light — guard vision cone reading, perfect-shadow movement, body disposal patterns and the "trace" cleanup loop.', pt:'Tácticas focadas em stealth para 007 First Light — leitura de vision cones, movimento perfeito nas sombras, padrões de eliminação de corpos e o loop de cleanup de "traces".'},
+    game:'007-first-light', type:'guide', difficulty:'advanced', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://007firstlight.org/guide/stealth-tips/',
+    content:[
+      {type:'h2', text:{en:'Vision cones explained'}},
+      {type:'ul', items:[
+        {en:'White cone — guard\'s normal patrol vision.'},
+        {en:'Yellow cone — alerted, investigating last known position.'},
+        {en:'Red cone — full alert, calls reinforcements.'},
+        {en:'Shrinking the cone happens after ~12 seconds of no further trigger.'}
+      ]},
+      {type:'h2', text:{en:'Body disposal'}},
+      {type:'p', text:{en:'Every guard you take down spawns a "trace" — a discoverable body that other guards can spot. Hide in lockers, dumpsters, bushes or under cars. Some chapters have a "river" or "vent" disposal that erases the trace entirely.'}},
+      {type:'h2', text:{en:'The 3-step loop'}},
+      {type:'ol', items:[
+        {en:'Mark all visible guards (hold L1).'},
+        {en:'Move to flank using cover-to-cover.'},
+        {en:'Take down, hide, melt back into shadow within 5 seconds.'}
+      ]}
+    ]
+  },
+  {
+    slug:'007-first-light-gadget-usage',
+    title:{en:'007 First Light: Gadget Usage Guide — Q-Branch, Watch, Pen, Lighter', pt:'007 First Light: Guia de Uso de Gadgets — Q-Branch, Watch, Pen, Lighter'},
+    summary:{en:'How to use every gadget in 007 First Light effectively — watch laser timings, pen-explosive placement, lighter distraction, and synergies between them.', pt:'Como usar cada gadget de 007 First Light de forma eficaz — timings do laser do relógio, posicionamento da caneta explosiva, distracção do isqueiro, e sinergias entre eles.'},
+    game:'007-first-light', type:'guide', difficulty:'intermediate', category:'class',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:5,
+    source:'https://007firstlight.org/guide/gadget-usage/',
+    content:[
+      {type:'h2', text:{en:'Watch laser'}},
+      {type:'p', text:{en:'Cuts locks, vents and gates. Hold trigger for full burn or pulse for stealthy lock-open. Heat builds with each use — don\'t spam.'}},
+      {type:'h2', text:{en:'Pen explosive'}},
+      {type:'p', text:{en:'Sticky charge, 5-second arming. Best on patrol routes you can predict. Pair with audio distraction (lighter / thrown bottle) to chain detonation kills.'}},
+      {type:'h2', text:{en:'Lighter'}},
+      {type:'p', text:{en:'Lights torches and audio-distracts. Use as a guard re-router rather than damage. In Chapter 6 it doubles as a fuse trigger for kerosene puddles.'}},
+      {type:'h2', text:{en:'Synergy combos'}},
+      {type:'ul', items:[
+        {en:'<strong>Lighter → Watch laser:</strong> lure a guard, take them down through the wall.'},
+        {en:'<strong>Pen explosive → Take-down:</strong> stick to wall, lure a group, detonate when they cluster.'}
+      ]}
+    ]
+  },
+
+  /* ===== ESCAPE FROM TARKOV ===== */
+  {
+    slug:'eft-the-guide-quest',
+    title:{en:'Escape from Tarkov: "The Guide" Quest — Full Walkthrough', pt:'Escape from Tarkov: Quest "The Guide" — Walkthrough Completo'},
+    summary:{en:'Step-by-step walkthrough of The Guide quest in Escape from Tarkov — every map marker, item turn-in, hideout requirement and PMC level gate.', pt:'Walkthrough passo a passo da quest The Guide em Escape from Tarkov — cada marcador no mapa, item para entrega, requisito de hideout e gate de PMC level.'},
+    game:'escape-from-tarkov', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:7,
+    source:'https://escapefromtarkov.fandom.com/wiki/The_Guide',
+    content:[
+      {type:'note', text:{en:'The Guide is one of the highest-XP early quest chains in Tarkov, but it gates several hideout modules. Worth doing as soon as the requirements are met.'}},
+      {type:'h2', text:{en:'Phases'}},
+      {type:'ol', items:[
+        {en:'Phase 1 — collect intel folders on Customs and Woods.'},
+        {en:'Phase 2 — hand off encrypted USBs at the Therapist drop.'},
+        {en:'Phase 3 — extract via the Trainyard exit on Customs with the package live in raid.'}
+      ]},
+      {type:'h2', text:{en:'Pitfalls'}},
+      {type:'ul', items:[
+        {en:'The encrypted USB is found-in-raid only — your stash USBs do not count.'},
+        {en:'Dying mid-raid resets the carried package.'},
+        {en:'Don\'t take the package into Labs — high PMC density wipes attempts.'}
+      ]}
+    ]
+  },
+  {
+    slug:'eft-the-guide-requirements',
+    title:{en:'Escape from Tarkov: The Guide — All Prerequisites & Level Gates', pt:'Escape from Tarkov: The Guide — Pré-requisitos e Level Gates'},
+    summary:{en:'Every requirement for Escape from Tarkov\'s The Guide quest — PMC level, prior quests, trader loyalty levels, and hideout upgrades before you can start.', pt:'Todos os requisitos para a quest The Guide de Escape from Tarkov — PMC level, quests anteriores, trader loyalty e upgrades de hideout antes de começar.'},
+    game:'escape-from-tarkov', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:4,
+    source:'https://escapefromtarkov.fandom.com/wiki/The_Guide#Requirements',
+    content:[
+      {type:'h2', text:{en:'Hard requirements'}},
+      {type:'ul', items:[
+        {en:'PMC Level 20+.'},
+        {en:'Therapist Loyalty Level 2.'},
+        {en:'Prior quest "Postman Pat — Part 2" complete.'}
+      ]},
+      {type:'h2', text:{en:'Soft requirements'}},
+      {type:'ul', items:[
+        {en:'Hideout Intelligence Center Level 2 makes the encrypted USB drop more frequent.'},
+        {en:'Customs map memorised — Trainyard extract is required.'},
+        {en:'Bring a quiet weapon (suppressed) — Customs USEC AI hot zones swarm if loud.'}
+      ]}
+    ]
+  },
+  {
+    slug:'eft-best-pc-settings',
+    title:{en:'Escape from Tarkov: Best PC Settings for FPS & Visibility', pt:'Escape from Tarkov: Melhores Settings PC para FPS e Visibilidade'},
+    summary:{en:'Optimised Escape from Tarkov PC settings — texture, shadow, post-FX, render scale and FOV. Stops Tarkov\'s engine choking GPUs while keeping enemy visibility crisp.', pt:'Settings PC optimizadas para Escape from Tarkov — texturas, sombras, post-FX, render scale e FOV. Evita que o motor do Tarkov afogue a GPU mantendo a visibilidade do inimigo nítida.'},
+    game:'escape-from-tarkov', type:'guide', difficulty:'beginner', category:'beginner',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://overgear.com/guides/eft/best-settings-for-any-pc/',
+    content:[
+      {type:'h2', text:{en:'Performance preset'}},
+      {type:'ul', items:[
+        {en:'Texture Quality: High (Tarkov streams textures from disk — Low looks worse without saving meaningful FPS).'},
+        {en:'Shadow Quality: Low.'},
+        {en:'Object LOD Quality: 2.0.'},
+        {en:'Overall Visibility: 2000 (limits draw distance for performance).'},
+        {en:'Anti-aliasing: TAA HIGH.'},
+        {en:'Anisotropic Filtering: Per Texture.'}
+      ]},
+      {type:'h2', text:{en:'Visibility settings'}},
+      {type:'ul', items:[
+        {en:'FOV: 75 (max). Cuts model distortion versus 50 default.'},
+        {en:'HDR ON, brightness +10 — see into shadows.'},
+        {en:'Postfx Sharpening: 0.4 — improves enemy silhouette readability.'},
+        {en:'Disable Lobby FX — saves 1–2 GB RAM.'}
+      ]},
+      {type:'tip', text:{en:'Restart the launcher after changing settings — some only apply on a fresh process.'}}
+    ]
+  },
+  {
+    slug:'eft-weapon-choice-guide',
+    title:{en:'Escape from Tarkov: What Weapon to Use — Tier Guide by Wipe Phase', pt:'Escape from Tarkov: Que Arma Usar — Guia por Fase de Wipe'},
+    summary:{en:'Phase-by-phase weapon picks for Escape from Tarkov — budget early wipe, mid-wipe optimisation, late-wipe min-max, and the rouble-per-kill maths.', pt:'Escolhas de armas fase a fase para Escape from Tarkov — orçamento early wipe, optimização mid-wipe, min-max late-wipe, e a matemática rouble-por-kill.'},
+    game:'escape-from-tarkov', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:7,
+    source:'https://overgear.com/guides/eft/what-weapon-to-use/',
+    content:[
+      {type:'h2', text:{en:'Early wipe (Day 1–10)'}},
+      {type:'ul', items:[
+        {en:'<strong>SKS</strong> — Jaeger LL1, cheap ammo, kills naked PMCs in 2 chest shots.'},
+        {en:'<strong>Mosin</strong> — one-shot headshots up to LL3 armor. Sniper Scav loadout staple.'},
+        {en:'<strong>TT pistol</strong> — last-resort but cheap; tier-1 pen ammo via Skier.'}
+      ]},
+      {type:'h2', text:{en:'Mid wipe (Day 10–30)'}},
+      {type:'ul', items:[
+        {en:'<strong>AKM</strong> — BP ammo melts Tier 4 armor.'},
+        {en:'<strong>M4A1 / AR15</strong> — 5.56 M855A1 strikes the sweet-spot of pen vs cost.'},
+        {en:'<strong>MP5</strong> with AP-SX rounds for CQB/Labs.'}
+      ]},
+      {type:'h2', text:{en:'Late wipe (Day 30+)'}},
+      {type:'ul', items:[
+        {en:'<strong>HK416</strong> — flat recoil, 5.56 M995 wrecks Tier 6.'},
+        {en:'<strong>RPK-16</strong> — 95-round drum for area denial.'},
+        {en:'<strong>AS Val</strong> — full-auto suppressed, devastating in CQB raids.'}
+      ]}
+    ]
+  },
+  {
+    slug:'eft-achievements-guide',
+    title:{en:'Escape from Tarkov: Achievements Guide — Rare Trophies & XP Boosts', pt:'Escape from Tarkov: Guia de Achievements — Troféus Raros e Boosts de XP'},
+    summary:{en:'Walkthrough for every achievement in Escape from Tarkov — easy XP grabs, rare trophy unlocks, and the ones to ignore because they require a fresh wipe.', pt:'Walkthrough para cada achievement em Escape from Tarkov — XP fácil, troféus raros, e os que vale a pena ignorar porque precisam de wipe fresco.'},
+    game:'escape-from-tarkov', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:6,
+    source:'https://overgear.com/guides/eft/achievements-guide/',
+    content:[
+      {type:'h2', text:{en:'Easy XP'}},
+      {type:'ul', items:[
+        {en:'<strong>Survivor:</strong> 5 successful extractions. Run Customs Scav for instant credit.'},
+        {en:'<strong>Cartographer:</strong> visit every map at least once.'},
+        {en:'<strong>Looter:</strong> bring out 50 items found-in-raid.'}
+      ]},
+      {type:'h2', text:{en:'Rare unlocks'}},
+      {type:'ul', items:[
+        {en:'<strong>Ghost:</strong> 5 raids in a row without taking damage.'},
+        {en:'<strong>Sniper Elite:</strong> 25 single-shot 100m+ headshots.'},
+        {en:'<strong>The Quartermaster:</strong> hideout fully built.'}
+      ]},
+      {type:'h2', text:{en:'Wipe-locked (skip mid-wipe)'}},
+      {type:'p', text:{en:'A few achievements require Lv 1 progress that resets on wipe — chase those at the start of a new season, not now.'}}
+    ]
+  },
+  {
+    slug:'eft-money-making-guide',
+    title:{en:'Escape from Tarkov: How to Make More Money — Stash Flips, Hideout, Barter', pt:'Escape from Tarkov: Como Ganhar Mais Dinheiro — Flips de Stash, Hideout, Barter'},
+    summary:{en:'Reliable rouble-making methods in Escape from Tarkov — stash flipping basics, hideout-driven income, trader barter loops, and farm raids that actually pay.', pt:'Métodos fiáveis para fazer roubles em Escape from Tarkov — flips de stash, rendimento via hideout, loops de barter com traders e raids de farm que pagam mesmo.'},
+    game:'escape-from-tarkov', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', readTime:8,
+    source:'https://overgear.com/guides/eft/how-to-make-more-money/',
+    content:[
+      {type:'note', text:{en:'Most Tarkov "make money fast" tips are loot-route bait. The real money lives in stash flipping, hideout management, and barter trades — not pixel-hunting on Customs.'}},
+      {type:'h2', text:{en:'Stash flipping'}},
+      {type:'ul', items:[
+        {en:'Buy bulk graphics cards from Mechanic, sell on Flea once your level allows it.'},
+        {en:'Watch Therapist for under-priced medical mods overnight.'},
+        {en:'Never overpay on impulse — Flea pricing has a 5-min lag.'}
+      ]},
+      {type:'h2', text:{en:'Hideout income'}},
+      {type:'ul', items:[
+        {en:'Bitcoin Farm Level 3 pays for itself in ~2 weeks at standard prices.'},
+        {en:'Scav Case is rouble-positive on average — run it daily.'},
+        {en:'Workbench crafting (propital + saline) flips for steady profit.'}
+      ]},
+      {type:'h2', text:{en:'Barter trades'}},
+      {type:'p', text:{en:'Skier and Jaeger both have barter trades that net 200–500k roubles in raw value if you sell the output on Flea. Track which trades the community has flagged "positive EV" per wipe.'}}
+    ]
   }
 ];
 
@@ -2520,6 +3242,19 @@ const tierLists = [
       {tier:'A', items:['Clatter Carbine — Post-Game SMG','Ghost Grudge — Post-Game magnum','Mortal Edge — Post-Game melee','Kotetsu — Post-Game melee (unbreakable)']},
       {tier:'B', items:['Redemption — Post-Game break-action pistol','RPG-7 — Post-Game launcher (with Infinite Ammo)']},
       {tier:'C', items:['B934 (Grace starter handgun)','Hatchet (basic melee)']}
+    ]
+  },
+  {
+    slug:'lol-champion-tier-list',
+    title:{en:'LoL: Champion Tier List (Current Patch, by Role)', pt:'LoL: Tier List de Campeões (Patch Actual, por Role)'},
+    summary:{en:'League of Legends current-patch champion tier list by role — synthesised from Mobalytics ranked data and pro pick/ban priority.', pt:'Tier list de campeões de League of Legends para o patch actual por role — sintetizada de dados ranked da Mobalytics e prioridade pick/ban em pro play.'},
+    game:'lol', category:'class', date:'2026-05-27', lastUpdated:'2026-05-27', author:'Editorial', featured:true,
+    source:'https://mobalytics.gg/lol/tier-list',
+    tiers:[
+      {tier:'S', items:['Top: Aatrox','Top: Fiora','Jungle: Kindred','Jungle: Viego','Mid: Ahri','Mid: Sylas','ADC: Smolder','ADC: Caitlyn','Support: Alistar','Support: Pyke']},
+      {tier:'A', items:['Top: Camille','Top: Renekton','Jungle: Lillia','Jungle: Hecarim','Mid: Akali','Mid: Yone','ADC: Jinx','ADC: Lucian','Support: Thresh','Support: Rakan']},
+      {tier:'B', items:['Top: Shen','Top: Garen','Jungle: Wukong','Mid: Annie','ADC: Ezreal','Support: Lulu','Support: Janna']},
+      {tier:'C', items:['Top: Gangplank','Mid: Veigar','ADC: Aphelios','Support: Karma']}
     ]
   }
 ];
