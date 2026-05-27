@@ -14,7 +14,9 @@ const GAME_SLUGS = [
   'tekken-8','callofduty','destiny-2','forza-horizon-6',
   'subnautica-2','wow','warzone','cod-bo7',
   // Phase 4 — community-requested catalogue additions
-  'dota-2','007-first-light','escape-from-tarkov'
+  'dota-2','007-first-light','escape-from-tarkov',
+  // Phase 6 — Paralives Early Access launch (May 25, 2026)
+  'paralives'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -25,7 +27,9 @@ const MANUAL_ARTICLE_SLUGS = [
   'goty-2026-race-wide-open','hidden-gems-2026-played-by-nobody','best-vintage-games-2026',
   'games-aging-surprisingly-well','forgotten-masterpieces-7-underrated','future-contenders-2027-watchlist',
   // Phase 3F platforms
-  'ps-plus-2026-monthly-highlights','xbox-game-pass-2026-roadmap'
+  'ps-plus-2026-monthly-highlights','xbox-game-pass-2026-roadmap',
+  // Phase 6 — Paralives launch coverage
+  'paralives-early-access-launch','paralives-post-launch-roadmap','paralives-bundles-and-collabs'
 ];
 
 const MANUAL_TIPS_SLUGS = [
@@ -135,7 +139,12 @@ const MANUAL_TIPS_SLUGS = [
   {game:'forza-horizon-6', slug:'forza-horizon-6-colossus-unlock-guide'},
   {game:'forza-horizon-6', slug:'forza-horizon-6-raku-raku-xp'},
   {game:'forza-horizon-6', slug:'forza-horizon-6-seasonal-objective-cars'},
-  {game:'arc-raiders', slug:'arc-raiders-ttk-weapon-tier'}
+  {game:'arc-raiders', slug:'arc-raiders-ttk-weapon-tier'},
+  // Phase 6 — Paralives Early Access guides
+  {game:'paralives', slug:'paralives-things-to-do-first'},
+  {game:'paralives', slug:'paralives-paramaker-guide'},
+  {game:'paralives', slug:'paralives-cheats-console-commands'},
+  {game:'paralives', slug:'paralives-roadmap'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
