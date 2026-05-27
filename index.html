@@ -6,7 +6,7 @@
 <title>Rick Rattle — Gaming Hub · News, Tips, Tier Lists</title>
 <meta name="description" content="Gaming news, guides and tier lists for KCD2, Rocket League, The Finals, GTA, Tekken 8, Diablo IV and more. Plus the chaos of the Rick Rattle Twitch channel.">
 <meta name="theme-color" content="#B026FF">
-<meta name="robots" content="index, follow">
+<meta name="robots" id="seoRobots" content="index, follow">
 <link rel="canonical" id="seoCanonical" href="">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -21,7 +21,7 @@
 <meta name="twitter:description" id="seoTwitterDesc" content="Gaming news, tips and tier lists.">
 <meta name="twitter:image" id="seoTwitterImage" content="/logo.png">
 <script type="application/ld+json" id="seoJsonLd">
-{"@context":"https://schema.org","@type":"WebSite","name":"Rick Rattle Gaming Hub","url":"https://rickrattle.com/","potentialAction":{"@type":"SearchAction","target":"https://rickrattle.com/?q={query}","query-input":"required name=query"}}
+{"@context":"https://schema.org","@type":"WebSite","name":"Rick Rattle Gaming Hub","url":"https://rickrattle.com/"}
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -3747,6 +3747,49 @@ const SEO_COPY={
 // rickrattle.com, www.rickrattle.com, or a vercel preview URL. Prevents
 // "Page with redirect" warnings caused by canonical/sitemap host mismatches.
 const CANONICAL_ORIGIN='https://rickrattle.com';
+
+/* ================================================================
+   404 / NOINDEX HANDLING
+   ================================================================
+   Why this exists:
+   The site is a SPA on Vercel — every unknown URL rewrites to index.html
+   and returns 200 OK. That means /news/${slug}, /news/{slug}, /tips/xyz123
+   and other garbage paths used to render a near-empty page that Google
+   classified as "soft 404" or "duplicate without canonical".
+   We now (a) mark them robots:noindex, (b) render a real 404 view. */
+function setRobotsNoIndex(){
+  const el=document.getElementById('seoRobots');
+  if(el)el.setAttribute('content','noindex,nofollow');
+}
+function setRobotsIndex(){
+  const el=document.getElementById('seoRobots');
+  if(el)el.setAttribute('content','index, follow');
+}
+function notFoundView(view, opts={}){
+  setRobotsNoIndex();
+  const PT=lang==='pt';
+  const title = opts.title || (PT?'Página não encontrada':'Page not found');
+  const sub   = opts.sub   || (PT?'O conteúdo que procuras não existe ou foi movido. Aqui ficam caminhos limpos para voltar à acção.':'The content you\'re looking for doesn\'t exist or has moved. Here are some clean paths back to the action.');
+  view.innerHTML = `
+    <div class="page-head">
+      <div>
+        <div class="page-kicker">// 404</div>
+        <h1 class="page-title">${title}</h1>
+        <p class="page-sub">${sub}</p>
+      </div>
+    </div>
+    <div class="detail-body" style="max-width:680px">
+      <p><strong>${PT?'Sugestões:':'Suggestions:'}</strong></p>
+      <ul>
+        <li><a class="game-link" href="/home">${PT?'Página inicial':'Homepage'}</a></li>
+        <li><a class="game-link" href="/news">${PT?'Notícias':'News'}</a></li>
+        <li><a class="game-link" href="/tips">${PT?'Dicas, guias e tier lists':'Tips, guides & tier lists'}</a></li>
+        <li><a class="game-link" href="/about">${PT?'Sobre o projeto':'About this project'}</a></li>
+      </ul>
+    </div>
+  `;
+}
+
 function updateSEO(r){
   const baseUrl=CANONICAL_ORIGIN+location.pathname;
   const copy=SEO_COPY[lang]||SEO_COPY.en;
@@ -3926,8 +3969,14 @@ function render(){
   const r=getRoute();
   const view=document.getElementById('view');
   view.innerHTML='';
-  const fn=routes[r.view]||HomeView;
+  // Always start a render assuming the route is indexable; per-view handlers
+  // can downgrade to noindex via notFoundView() / setRobotsNoIndex().
+  setRobotsIndex();
+  // Top-level 404 — unknown view (e.g. /xyz123) gets a noindex 404 instead
+  // of falling through to HomeView (which created duplicate-content noise in GSC).
+  const fn = routes[r.view] || ((r.view==='home' || !r.view) ? HomeView : null);
   try{
+    if(!fn){ notFoundView(view); renderSidebar(); try{renderFooter()}catch(e){} try{applyI18n()}catch(e){} window.scrollTo({top:0,behavior:'instant'}); return; }
     fn(view,r);
   }catch(err){
     console.error('[render] view crashed:',r.view,err);
@@ -4859,11 +4908,13 @@ const GAME_BLURBS={
 };
 
 function NewsDetail(view,slug){
+  // Reject obvious bad slugs (unsubstituted template literals, GSC ghost URLs).
+  if(!slug || /[\{\}\$]/.test(slug)){return notFoundView(view)}
   // Check if slug is a game slug — render game-specific news landing page
   const game=games.find(g=>g.slug===slug);
   if(game){return GameNewsPage(view,game)}
   const a=articles.find(x=>x.slug===slug)||externalArticles.find(x=>x.slug===slug);
-  if(!a){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
+  if(!a){return notFoundView(view)}
   const tags=(a.tags||[]).map(x=>`<span class="tag-pill">#${x}</span>`).join('');
   const sourceBlock=a.external?`
     <div class="source-block">
@@ -4899,8 +4950,13 @@ let tipsState={game:null, sub:'guides'};
 function TipsView(view,r){
   if(r.a && r.b){return TipsDetail(view,r.a,r.b)}
   if(r.a){
+    // Reject obvious bad slugs (unsubstituted template literals).
+    if(/[\{\}\$]/.test(r.a)){return notFoundView(view)}
     const matched=games.find(g=>g.slug===r.a);
     if(matched){tipsState.game=r.a;return GameTipsPage(view,matched)}
+    // Unknown game slug — treat as 404 instead of falling through to the
+    // hub render (which Google sees as a duplicate of /tips).
+    return notFoundView(view);
   }
   const game=tipsState.game;
   const gGuides=guides.filter(g=>g.game===game && g.type!=='tierlist');
@@ -5096,8 +5152,13 @@ function GameTipsPage(view,game){
 }
 
 function TipsDetail(view,gameSlug,slug){
+  // Reject template-literal ghost URLs and verify game/slug pair is real.
+  if(!gameSlug || !slug || /[\{\}\$]/.test(gameSlug) || /[\{\}\$]/.test(slug)){return notFoundView(view)}
   const item=guides.find(g=>g.slug===slug)||tierLists.find(g=>g.slug===slug);
-  if(!item){view.innerHTML=`<div class="empty">${t('not.found')}</div>`;return}
+  if(!item){return notFoundView(view)}
+  // Slug exists but under a different game — treat the mismatch as 404 too
+  // (no point letting Google index /tips/foo/bar when bar lives under /tips/baz).
+  if(item.game!==gameSlug){return notFoundView(view)}
   const isTier=!!item.tiers;
   const diff=item.difficulty?`<span class="diff diff-${item.difficulty}">${t('diff.'+item.difficulty)}</span>`:'';
   const cat=item.category?`<span class="cat-tag cat-${item.category}">${item.category}</span>`:'';
