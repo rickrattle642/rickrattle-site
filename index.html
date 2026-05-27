@@ -4894,7 +4894,7 @@ function NewsDetail(view,slug){
 }
 
 /* -------------------- TIPS -------------------- */
-let tipsState={game:games[0].slug, sub:'guides'};
+let tipsState={game:null, sub:'guides'};
 
 function TipsView(view,r){
   if(r.a && r.b){return TipsDetail(view,r.a,r.b)}
@@ -4927,11 +4927,12 @@ function TipsView(view,r){
         return `<button class="game-tab${g.slug===game?' active':''}${g.streamPlayed?' game-tab-stream':''}" data-g="${g.slug}" title="${g.name}">${g.streamPlayed?'★ ':''}${g.short}<span class="count">${c}</span></button>`;
       }).join('')}
     </div>
+    ${game ? `
     <div class="subtabs">
       <button class="subtab${tipsState.sub==='guides'?' active':''}" data-s="guides"><span data-i18n="tips.guides">${t('tips.guides')}</span> · ${gGuides.length}</button>
       <button class="subtab${tipsState.sub==='tiers'?' active':''}" data-s="tiers"><span data-i18n="tips.tiers">${t('tips.tiers')}</span> · ${gTiers.length}</button>
       <button class="subtab${tipsState.sub==='builds'?' active':''}" data-s="builds"><span data-i18n="tips.builds">${t('tips.builds')}</span> · ${gBuilds.length}</button>
-    </div>
+    </div>` : ''}
     <div id="tipsContent"></div>
   `;
   view.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{
@@ -4942,6 +4943,19 @@ function TipsView(view,r){
   view.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',()=>{tipsState.sub=b.dataset.s;TipsView(view,r);applyI18n()}));
 
   const cont=view.querySelector('#tipsContent');
+
+  // No game selected — show a neutral prompt instead of forcing a default selection.
+  if(!game){
+    cont.innerHTML=`
+      <div class="empty-tips" style="text-align:center;padding:48px 24px">
+        <div class="empty-icon" style="font-size:32px;margin-bottom:14px">🎮</div>
+        <h3 style="font-family:'Anton',sans-serif;font-size:24px;letter-spacing:-.5px;margin:0 0 8px">${lang==='pt'?'Escolhe um jogo':'Pick a game'}</h3>
+        <p style="color:var(--muted2);max-width:520px;margin:0 auto">${lang==='pt'?'Seleciona um jogo acima para veres guias, builds e tier lists.':'Select a game above to see guides, builds and tier lists.'}</p>
+      </div>
+    `;
+    return;
+  }
+
   let items=[];
   if(tipsState.sub==='guides')items=gGuides.map(GuideCard);
   else if(tipsState.sub==='tiers')items=gTiers.map(TierCard);
