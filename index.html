@@ -766,7 +766,8 @@ const games = [
   {slug:'cod-bo7',             name:'Call of Duty: Black Ops 7', short:'COD BO7',                       subreddit:'BlackOps7',       platforms:['pc','ps5','xbox']},
   {slug:'dota-2',              name:'Dota 2',                 short:'Dota 2',       steamAppId:570,     subreddit:'DotA2',           platforms:['pc']},
   {slug:'007-first-light',     name:'007 First Light',        short:'007',                              subreddit:'007FirstLight',   platforms:['pc','ps5','xbox','switch']},
-  {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']}
+  {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']},
+  {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       platforms:['pc']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -1242,6 +1243,91 @@ const articles = [
       {type:'h2', text:{en:'The 2026 pattern', pt:'O padrão de 2026'}},
       {type:'p', text:{en:'Microsoft is hitting the day-one promise harder than ever. Three of the biggest games of the year — Forza Horizon 6, Subnautica 2, and Doom: The Dark Ages — all dropped on Game Pass Ultimate at launch. Add Silksong, Avowed, Atomfall, FBC: Firebreak, Hades 2, Oblivion Remastered, Clair Obscur and Wuchang as confirmed day-one Ultimate additions, and the math becomes obvious: Game Pass Ultimate now costs less than buying 2 of these games full price.', pt:'A Microsoft está a cumprir a promessa do day-one como nunca. Três dos maiores jogos do ano — Forza Horizon 6, Subnautica 2 e Doom: The Dark Ages — entraram todos no Game Pass Ultimate no lançamento. Junta o Silksong, Avowed, Atomfall, FBC: Firebreak, Hades 2, Oblivion Remastered, Clair Obscur e Wuchang como adições day-one confirmadas no Ultimate, e a conta fica óbvia: o Game Pass Ultimate custa menos do que comprar 2 destes jogos a preço cheio.'}},
       {type:'tip', text:{en:'Game Pass Ultimate also covers EA Play (FIFA, Madden, NHL, Skate) and PC Game Pass with separate libraries. One subscription = 5 different game libraries. The Pure Xbox tracker (linked in sources above) is the live monthly source.', pt:'O Game Pass Ultimate também cobre o EA Play (FIFA, Madden, NHL, Skate) e o PC Game Pass com bibliotecas separadas. Uma subscrição = 5 bibliotecas diferentes. O tracker da Pure Xbox (linkado nas fontes acima) é a fonte mensal mais actualizada.'}}
+    ]
+  },
+
+  /* ===== PARALIVES — Early Access launch coverage (May 25, 2026) ===== */
+  {
+    slug:'paralives-early-access-launch',
+    title:{en:'Paralives Launches in Early Access — The Sims Competitor We\'ve Waited 7 Years For', pt:'Paralives Lança em Early Access — O Concorrente d\'Os Sims que Esperámos 7 Anos'},
+    summary:{en:'After nearly a decade of development, indie life sim Paralives is live on Steam Early Access — open-world, deep customization, no loading screens. Here\'s what\'s in the day-one build and what\'s coming next.', pt:'Após quase uma década de desenvolvimento, o life sim indie Paralives está disponível no Steam Early Access — open-world, personalização profunda, zero ecrãs de loading. Aqui está o que vem no build do dia 1 e o que se segue.'},
+    game:'paralives', tags:['launch','life-sim','indie','sims-killer','early-access'], category:'launch', featured:true, prefix:'breaking',
+    date:'2026-05-25', author:'Editorial', readTime:6,
+    source:['https://www.paralives.com/news/-paralives-is-out-now-','https://store.steampowered.com/app/1118520/Paralives/','https://www.pcgamer.com/games/life-sim/paralives-early-access-roadmap/'],
+    content:[
+      {type:'note', text:{en:'Paralives launched on Steam Early Access on Monday, May 25, 2026 at 10AM EDT — 10% off during the release week. The team (Paralives Studio) officially "pushed the big green button" after seven years of public development.', pt:'O Paralives lançou no Steam Early Access na segunda-feira, 25 de Maio de 2026, às 10h EDT — 10% off durante a semana de lançamento. A equipa (Paralives Studio) carregou oficialmente "no botão verde" após sete anos de desenvolvimento público.'}},
+      {type:'h2', text:{en:'What is Paralives?', pt:'O que é Paralives?'}},
+      {type:'p', text:{en:'A life sim built from the ground up as an alternative to The Sims. The pitch: open-world town (no loading between lots), modular build mode where you can rotate and scale anything, and the Paramaker character creator with sliders for every part of a Para — height, body shape, skin tone, facial features, walking style based on personality.', pt:'Um life sim construído de raiz como alternativa aos The Sims. A proposta: cidade open-world (sem loading entre lotes), build mode modular onde podes rodar e escalar qualquer coisa, e o criador de personagens Paramaker com sliders para tudo num Para — altura, formato corporal, tom de pele, traços faciais, estilo de andar baseado na personalidade.'}},
+      {type:'h2', text:{en:'What\'s in the day-one build', pt:'O que está disponível no day 1'}},
+      {type:'ul', items:[
+        {en:'<strong>Paramaker</strong> — full slider-driven character creator (no fixed presets, design any body shape).', pt:'<strong>Paramaker</strong> — criador de personagens totalmente baseado em sliders (sem presets fixos, desenha qualquer formato corporal).'},
+        {en:'<strong>Modular Build Mode</strong> — rotate, scale, layer any furniture/structure. Build-mode depth is the unique selling point.', pt:'<strong>Build Mode Modular</strong> — roda, escala e empilha qualquer mobília/estrutura. A profundidade do build mode é o ponto único de venda.'},
+        {en:'<strong>Open-world town</strong> — no loading screens between lots. Walk from your house to the museum without a transition.', pt:'<strong>Cidade open-world</strong> — zero loading screens entre lotes. Sais de casa para o museu sem transição.'},
+        {en:'<strong>Walking animations</strong> — Para gait shifts based on emotion, vibe and life stage.', pt:'<strong>Animações de andar</strong> — o andar do Para muda conforme emoção, vibe e fase de vida.'},
+        {en:'<strong>Museum & collectibles</strong> — hunt items around town to fill exhibits.', pt:'<strong>Museu & colecionáveis</strong> — caça itens pela cidade para encher exposições.'},
+        {en:'<strong>Town events</strong> — festivals, market days and seasonal happenings.', pt:'<strong>Eventos de cidade</strong> — festivais, dias de mercado e eventos sazonais.'},
+        {en:'<strong>Vandalizing items</strong> — yes, your Paras can mess up the town. It is as funny as it sounds.', pt:'<strong>Vandalismo de itens</strong> — sim, os teus Paras podem fazer asneira pela cidade. É tão engraçado como soa.'}
+      ]},
+      {type:'h2', text:{en:'Why this matters', pt:'Porque é que isto importa'}},
+      {type:'p', text:{en:'The Sims 4 has dominated the genre for a decade with no real competitor. Paralives is the first proper challenger that addresses Sims fans\' biggest gripes: no loading screens, no rigid grid building, no preset-locked character creator. Even in Early Access state, it is feature-dense.', pt:'O Sims 4 dominou o género durante uma década sem concorrência real. O Paralives é o primeiro desafiante a sério a atacar as maiores queixas dos fãs do Sims: sem loading screens, sem build com grelha rígida, sem criador de personagens preso a presets. Mesmo em estado de Early Access, está cheio de features.'}},
+      {type:'h2', text:{en:'Bundles & collabs at launch', pt:'Bundles & colabs no lançamento'}},
+      {type:'ul', items:[
+        {en:'<strong>Paralives x House Flipper 2</strong> — Steam bundle for builders.', pt:'<strong>Paralives x House Flipper 2</strong> — bundle Steam para builders.'},
+        {en:'<strong>Paralives x Dwarf Fortress (Kitfox)</strong> — colab + bundle.', pt:'<strong>Paralives x Dwarf Fortress (Kitfox)</strong> — colab + bundle.'},
+        {en:'<strong>Paralives x Outbound</strong> — bundle with mini camper-van decoration update.', pt:'<strong>Paralives x Outbound</strong> — bundle com update de decoração de mini caravana.'},
+        {en:'<strong>Among Us free update</strong> — Emergency Meeting!! event already live.', pt:'<strong>Update grátis Among Us</strong> — Emergency Meeting!! já em jogo.'}
+      ]},
+      {type:'tip', text:{en:'See our <a href="/tips/paralives/paralives-things-to-do-first">Things to Do First</a> guide for the optimal first session, the <a href="/tips/paralives/paralives-paramaker-guide">Paramaker</a> deep-dive, and the <a href="/tips/paralives/paralives-roadmap">Post-Launch Roadmap</a> breakdown.', pt:'Vê o nosso guia <a href="/tips/paralives/paralives-things-to-do-first">Things to Do First</a> para a sessão inicial óptima, o deep-dive do <a href="/tips/paralives/paralives-paramaker-guide">Paramaker</a>, e o breakdown do <a href="/tips/paralives/paralives-roadmap">Roadmap Pós-Lançamento</a>.'}}
+    ]
+  },
+  {
+    slug:'paralives-post-launch-roadmap',
+    title:{en:'Paralives Post-Launch Roadmap: What\'s Coming in Year One of Early Access', pt:'Roadmap Pós-Lançamento do Paralives: O Que Vem no Primeiro Ano de Early Access'},
+    summary:{en:'The official Paralives Post-Launch Roadmap — feature additions across the next few months of Early Access, free updates, and what is still gated until v1.0 launch.', pt:'O Roadmap Pós-Lançamento oficial do Paralives — adições de features durante os próximos meses de Early Access, updates grátis e o que continua bloqueado até ao lançamento v1.0.'},
+    game:'paralives', tags:['roadmap','life-sim','early-access','updates'], category:'launch', featured:true, prefix:'metawatch',
+    date:'2026-05-22', author:'Editorial', readTime:7,
+    source:['https://www.paralives.com/news/post-release-roadmap','https://www.pcgamer.com/games/life-sim/paralives-early-access-roadmap/'],
+    content:[
+      {type:'note', text:{en:'Paralives Studio published the Post-Launch Roadmap three days before Early Access went live. The structure: rolling free updates roughly every 6–10 weeks, each focused on one big feature plus QoL fixes.', pt:'A Paralives Studio publicou o Roadmap Pós-Lançamento três dias antes do Early Access. A estrutura: updates grátis roughly de 6 em 6 a 10 em 10 semanas, cada um focado numa feature grande mais correcções de QoL.'}},
+      {type:'h2', text:{en:'The short version', pt:'A versão curta'}},
+      {type:'p', text:{en:'Day-one Early Access already ships with Paramaker, modular build mode, the open town, life stages, walking animations, the museum, town events, collectibles, vandalism interactions and the Among Us crossover. Roadmap content layers more depth on top: deeper career systems, pets, schools, additional life stages and the world editor.', pt:'O Early Access do day 1 já entrega Paramaker, build mode modular, cidade aberta, fases de vida, animações de andar, museu, eventos de cidade, colecionáveis, interacções de vandalismo e o crossover Among Us. O roadmap acrescenta mais profundidade: sistemas de carreira mais fundos, animais de estimação, escolas, fases de vida adicionais e o editor de mundo.'}},
+      {type:'h2', text:{en:'Major features the roadmap targets', pt:'Features grandes que o roadmap aponta'}},
+      {type:'ul', items:[
+        {en:'<strong>Pets</strong> — cats, dogs, customization parity with Paras (sliders!). Mid-2026 target.', pt:'<strong>Animais</strong> — gatos, cães, paridade de customização com os Paras (sliders!). Alvo meados de 2026.'},
+        {en:'<strong>World Editor</strong> — let players build their own towns. Powerful, complex feature; later in EA.', pt:'<strong>Editor de Mundo</strong> — deixa os jogadores construir as próprias cidades. Feature poderosa e complexa; mais tarde no EA.'},
+        {en:'<strong>Expanded careers</strong> — current launch has core careers; specialized branches (medical, creative, business) layered on.', pt:'<strong>Carreiras expandidas</strong> — o launch tem carreiras core; ramos especializados (medicina, criativa, negócios) virão por cima.'},
+        {en:'<strong>School systems</strong> — child and teen schooling routines.', pt:'<strong>Sistemas de escola</strong> — rotinas escolares de criança e adolescente.'},
+        {en:'<strong>Additional life stages</strong> — granular toddler/young adult/elder behaviors beyond the launch baseline.', pt:'<strong>Fases de vida adicionais</strong> — comportamentos granulares de toddler/young adult/elder para além do baseline do launch.'},
+        {en:'<strong>Mod support</strong> — official tooling planned alongside the World Editor.', pt:'<strong>Suporte a mods</strong> — ferramentas oficiais planeadas em conjunto com o Editor de Mundo.'}
+      ]},
+      {type:'h2', text:{en:'When does v1.0 ship?', pt:'Quando sai a v1.0?'}},
+      {type:'p', text:{en:'No firm date. Paralives Studio repeats that "Early Access timeline is months, not years" — but that target is intentionally fuzzy. Realistic expectation: 12–18 months in EA before v1.0, with consistent free updates throughout.', pt:'Sem data firme. A Paralives Studio repete que "o timeline de Early Access é meses, não anos" — mas o alvo é intencionalmente vago. Expectativa realista: 12–18 meses em EA antes da v1.0, com updates grátis consistentes pelo caminho.'}},
+      {type:'tip', text:{en:'The studio added a one-click feedback / bug-report button inside the game. If you find something broken, use it — it directly feeds the patch queue.', pt:'O estúdio meteu um botão de feedback / reporte de bug a um clique dentro do jogo. Se encontras algo partido, usa-o — vai directo para a fila de patches.'}}
+    ]
+  },
+  {
+    slug:'paralives-bundles-and-collabs',
+    title:{en:'Paralives Crossovers: House Flipper 2, Dwarf Fortress, Outbound & Among Us', pt:'Crossovers do Paralives: House Flipper 2, Dwarf Fortress, Outbound & Among Us'},
+    summary:{en:'Paralives launched alongside four indie crossovers — Steam bundles plus an Among Us-themed free update. Here\'s what each unlocks and which one is worth grabbing.', pt:'O Paralives lançou em paralelo com quatro crossovers indie — bundles Steam e um update grátis com tema Among Us. Aqui está o que cada um desbloqueia e qual vale mais a pena.'},
+    game:'paralives', tags:['bundles','crossover','indie','dwarf-fortress','among-us'], category:'industry', prefix:'community',
+    date:'2026-05-25', author:'Editorial', readTime:5,
+    source:['https://www.paralives.com/news/paralives-x-house-flipper-2-bundle','https://www.paralives.com/news/paralives-x-kitfox-games-collab','https://www.paralives.com/news/paralives-x-outbound-collab','https://www.paralives.com/news/emergency-meeting'],
+    content:[
+      {type:'note', text:{en:'Paralives Studio leaned into the indie scene at launch. Four crossovers shipped during release week — three Steam bundles plus a free in-game event.', pt:'A Paralives Studio aproveitou a cena indie no lançamento. Quatro crossovers foram entregues durante a semana de release — três bundles Steam mais um evento grátis dentro do jogo.'}},
+      {type:'h2', text:{en:'Paralives x House Flipper 2 (bundle)', pt:'Paralives x House Flipper 2 (bundle)'}},
+      {type:'p', text:{en:'Steam bundle aimed at the "builder" crowd. House Flipper 2 brings renovation gameplay; Paralives extends it with life sim layered on top. Combined discount makes it the best value pair for anyone who hasn\'t bought either yet.', pt:'Bundle Steam para o público "builder". O House Flipper 2 traz renovação de casas; o Paralives estende isso com life sim em cima. O desconto combinado torna-o o par com melhor relação preço/valor para quem ainda não tem nenhum.'}},
+      {type:'h2', text:{en:'Paralives x Kitfox (Dwarf Fortress & Boyfriend Dungeon)', pt:'Paralives x Kitfox (Dwarf Fortress & Boyfriend Dungeon)'}},
+      {type:'p', text:{en:'The most surprising collab. Paralives Studio and Kitfox Games (Dwarf Fortress publisher) bundled their catalogues. If you "Dwarf Fortress and Boyfriend Dungeon together," as the studio put it on Steam, you get them all in one cart with a chunky discount.', pt:'A colab mais surpreendente. A Paralives Studio e a Kitfox Games (publisher do Dwarf Fortress) juntaram catálogos. Se "fazes Dwarf Fortress e Boyfriend Dungeon juntos", como o estúdio escreveu na Steam, levas tudo num só cesto com desconto pesado.'}},
+      {type:'h2', text:{en:'Paralives x Outbound (bundle + decoration update)', pt:'Paralives x Outbound (bundle + update de decoração)'}},
+      {type:'p', text:{en:'Outbound is a survival/exploration title set in a hand-painted world. The collab adds a mini camper-van decoration inside Paralives (build-mode item) plus the Steam bundle. Aesthetic match is strong — both games lean into cozy / pastoral vibes.', pt:'O Outbound é um título de sobrevivência/exploração num mundo pintado à mão. A colab adiciona uma decoração mini camper-van no Paralives (item de build mode) mais o bundle Steam. O match estético é forte — ambos os jogos jogam na vibe cozy / pastoral.'}},
+      {type:'h2', text:{en:'Among Us "Emergency Meeting" (free in-game update)', pt:'Among Us "Emergency Meeting" (update grátis in-game)'}},
+      {type:'p', text:{en:'No bundle required — every Paralives owner gets the Emergency Meeting event as a free in-game update. Adds Among Us-themed party events your Paras can host. The most lighthearted of the four collabs and the one most likely to make it into stream highlights.', pt:'Sem bundle necessário — todos os donos de Paralives recebem o evento Emergency Meeting como update grátis in-game. Adiciona eventos de festa com tema Among Us que os teus Paras podem organizar. A mais leve das quatro colabs e a mais provável de aparecer em highlights de stream.'}},
+      {type:'h2', text:{en:'Best value?', pt:'Melhor relação preço/valor?'}},
+      {type:'ul', items:[
+        {en:'<strong>Don\'t own Paralives or House Flipper 2</strong> → House Flipper 2 bundle.', pt:'<strong>Não tens Paralives nem House Flipper 2</strong> → bundle House Flipper 2.'},
+        {en:'<strong>Want the deepest sim experience for your money</strong> → Kitfox bundle (Dwarf Fortress + Paralives is two of the deepest sandbox titles on Steam).', pt:'<strong>Queres a experiência sim mais profunda pelo preço</strong> → bundle Kitfox (Dwarf Fortress + Paralives são dois dos sandboxes mais profundos da Steam).'},
+        {en:'<strong>Already own Paralives</strong> → the Among Us free update is enough; don\'t double-buy.', pt:'<strong>Já tens Paralives</strong> → o update grátis Among Us chega; não compres em duplicado.'}
+      ]}
     ]
   }
 ];
@@ -3048,6 +3134,149 @@ const guides = [
         {en:'<strong>Danger Sign — Mount Fuji Ramp</strong> — any S1 with good lift. Bugatti Veyron is the meme pick.', pt:'<strong>Danger Sign — Mount Fuji Ramp</strong> — qualquer S1 com bom lift. O Bugatti Veyron é a escolha meme.'}
       ]},
       {type:'tip', text:{en:'Forza Wiki is updated within hours of each season starting. Bookmark the source link — for week-to-week event lists, that\'s the canonical reference.', pt:'A Forza Wiki é actualizada poucas horas depois de cada temporada começar. Faz bookmark do link da fonte — para listas de eventos semana a semana, é a referência canónica.'}}
+    ]
+  },
+
+  /* ===== PARALIVES — Early Access launch guides (May 2026) ===== */
+  {
+    slug:'paralives-things-to-do-first',
+    title:{en:'Paralives: Things to Do First (Beginner Guide)', pt:'Paralives: O Que Fazer Primeiro (Guia para Iniciantes)'},
+    summary:{en:'The optimal first session in Paralives — Paramaker shortcuts, build mode basics, the open-town orientation, and the early decisions that pay off later.', pt:'A sessão inicial óptima em Paralives — atalhos do Paramaker, fundamentos do build mode, orientação na cidade aberta, e as decisões iniciais que compensam mais tarde.'},
+    game:'paralives', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-05-26', lastUpdated:'2026-05-26', author:'Editorial', readTime:7, patchVersion:'Early Access 1.0',
+    source:['https://www.ign.com/wikis/paralives/Tips_and_Things_to_Do_First','https://www.paralives.com/news/-paralives-is-out-now-'],
+    content:[
+      {type:'note', text:{en:'Paralives doesn\'t hold your hand on day one. Open-world life sim with deep build mode = a lot of menus before the fun starts. This guide gets you out of menus and into actual play.', pt:'O Paralives não te leva pela mão no day 1. Life sim open-world com build mode profundo = muito menu antes da diversão começar. Este guia tira-te dos menus e mete-te a jogar.'}},
+      {type:'h2', text:{en:'1. Create your first Para in 5 minutes (not 50)', pt:'1. Cria o teu primeiro Para em 5 minutos (não 50)'}},
+      {type:'p', text:{en:'The Paramaker is so deep you can lose an entire evening just on the character. Resist. For your first save, pick a preset body type, set 3–4 sliders to taste, choose 2 personality traits, name them. You can revisit any slider later. Spending time learning the systems beats spending time in character creation.', pt:'O Paramaker é tão profundo que perdes uma tarde inteira só no personagem. Resiste. Para a primeira save, escolhe um preset de corpo, ajusta 3–4 sliders ao teu gosto, escolhe 2 traits de personalidade, dá-lhe nome. Podes voltar a qualquer slider depois. Aprender os sistemas vale mais que perder tempo na criação.'}},
+      {type:'h2', text:{en:'2. Pick the starter house instead of building', pt:'2. Escolhe a casa starter em vez de construir'}},
+      {type:'p', text:{en:'Paralives lets you build from scratch on day one. Don\'t. The starter pre-furnished house has all the essentials, fits the budget, and unlocks the rest of the town faster. Build mode is a rabbit hole; play first, build later.', pt:'O Paralives deixa-te construir do zero no day 1. Não construas. A casa starter pré-mobilada tem o essencial, encaixa no orçamento e desbloqueia o resto da cidade mais rápido. O build mode é uma toca de coelho; joga primeiro, constrói depois.'}},
+      {type:'h2', text:{en:'3. Walk the town before fast-travelling', pt:'3. Anda pela cidade antes de fazer fast travel'}},
+      {type:'p', text:{en:'There are no loading screens. Use that. Walk to the museum, the market, the park, the pub. Discoverable interactions (collectibles, town events, NPCs to befriend) pop up as you explore. Fast-travelling on day one skips half the joy.', pt:'Não há loading screens. Aproveita. Anda até ao museu, ao mercado, ao parque, ao pub. Interações descobríveis (colecionáveis, eventos de cidade, NPCs para fazer amigos) aparecem enquanto exploras. Usar fast travel no day 1 corta metade da diversão.'}},
+      {type:'h2', text:{en:'4. Lock in two career-relevant skills early', pt:'4. Fecha cedo duas skills relevantes para a carreira'}},
+      {type:'p', text:{en:'Each career promotion needs specific skills. Pick a career direction in your first hour, then practice the matching two skills daily. Examples: Writing → Reading + Logic. Music → Guitar + Charisma. Cooking → Cooking + Handiness. Compound interest is real.', pt:'Cada promoção de carreira precisa de skills específicas. Escolhe uma direcção de carreira na primeira hora e treina diariamente duas skills correspondentes. Exemplos: Writing → Reading + Logic. Música → Guitarra + Charisma. Cooking → Cooking + Handiness. Juros compostos contam.'}},
+      {type:'h2', text:{en:'5. Save often (and use named saves)', pt:'5. Faz save muitas vezes (e usa saves com nome)'}},
+      {type:'p', text:{en:'Early Access = patches that occasionally break old saves. Use multiple named save slots, not the autosave only. The official bug-report button is your friend — it ships logs straight to Paralives Studio.', pt:'Early Access = patches que ocasionalmente partem saves antigas. Usa vários slots de save com nome, não só o autosave. O botão oficial de bug report é teu amigo — envia logs directos para a Paralives Studio.'}},
+      {type:'h2', text:{en:'6. Skip nothing in the first 3 days', pt:'6. Não saltes nada nos primeiros 3 dias'}},
+      {type:'ul', items:[
+        {en:'<strong>Visit the museum</strong> — discover the collectibles system.', pt:'<strong>Visita o museu</strong> — descobre o sistema de colecionáveis.'},
+        {en:'<strong>Attend at least one town event</strong> — relationships and traits unlock faster here.', pt:'<strong>Vai a pelo menos um evento de cidade</strong> — relações e traits desbloqueiam mais rápido aqui.'},
+        {en:'<strong>Try the Among Us update party</strong> — easy social-skill XP plus the dumbest screenshot of the week.', pt:'<strong>Experimenta o party do update Among Us</strong> — XP de social-skill fácil mais o screenshot mais parvo da semana.'},
+        {en:'<strong>Vandalize one (1) town item</strong> — yes, this is encouraged. Some achievements gate behind it.', pt:'<strong>Vandaliza um (1) item da cidade</strong> — sim, é encorajado. Algumas achievements dependem disto.'}
+      ]},
+      {type:'tip', text:{en:'When you finally feel comfortable with the core loop, return to the Paramaker and the build mode. Both are where Paralives outshines its competitors — but only after the basics click.', pt:'Quando finalmente te sentires confortável com o loop base, volta ao Paramaker e ao build mode. É aí que o Paralives brilha mais que a concorrência — mas só depois de o básico fazer click.'}}
+    ]
+  },
+  {
+    slug:'paralives-paramaker-guide',
+    title:{en:'Paralives: Paramaker & Character Creation Guide — Build Your Parafolk', pt:'Paralives: Guia do Paramaker e Criação de Personagens — Cria os Teus Parafolk'},
+    summary:{en:'Master the Paralives Paramaker — every slider category, the trait system, voice/walk customization, and the design moves that separate good Paras from great ones.', pt:'Domina o Paramaker do Paralives — todas as categorias de sliders, o sistema de traits, customização de voz/andar, e as decisões de design que separam Paras bons de Paras excelentes.'},
+    game:'paralives', type:'guide', difficulty:'beginner', category:'class', featured:true,
+    date:'2026-05-26', lastUpdated:'2026-05-26', author:'Editorial', readTime:9, patchVersion:'Early Access 1.0',
+    source:['https://www.ign.com/wikis/paralives/Paramaker_and_Character_Creation_Guide_-_How_to_Make_Parafolk','https://www.paralives.com/news/new-gameplay-trailer'],
+    content:[
+      {type:'note', text:{en:'The Paramaker is the deepest character creator in any life sim on the market. No fixed body types, no preset face packs — every value is a slider. That depth is also the trap: it is easy to spend an hour on a single Para. This guide is the focused tour.', pt:'O Paramaker é o criador de personagens mais profundo de qualquer life sim no mercado. Sem tipos de corpo fixos, sem packs de cara pré-feitos — cada valor é um slider. Essa profundidade também é a armadilha: é fácil gastar uma hora num único Para. Este guia é o tour focado.'}},
+      {type:'h2', text:{en:'The five Paramaker layers', pt:'As cinco camadas do Paramaker'}},
+      {type:'ul', items:[
+        {en:'<strong>Body</strong> — height, proportions, weight distribution, posture. Multi-axis sliders (not one "size" slider).', pt:'<strong>Corpo</strong> — altura, proporções, distribuição de peso, postura. Sliders multi-eixo (não há um único slider de "tamanho").'},
+        {en:'<strong>Face</strong> — every feature (eyes, nose, jaw, ears) on independent sliders. Symmetry toggle for fast results.', pt:'<strong>Cara</strong> — cada traço (olhos, nariz, mandíbula, orelhas) em sliders independentes. Toggle de simetria para resultados rápidos.'},
+        {en:'<strong>Skin / Hair / Eyes</strong> — full RGB colour pickers, not preset palettes. Layered makeup and tattoos.', pt:'<strong>Pele / Cabelo / Olhos</strong> — color pickers RGB completos, não palettes pré-definidas. Maquilhagem e tattoos por camadas.'},
+        {en:'<strong>Style / Clothing</strong> — modular outfit slots for daily/sleep/formal/work/party. Each accessory swappable.', pt:'<strong>Estilo / Roupa</strong> — slots de outfit modulares para diário/noite/formal/trabalho/festa. Cada acessório é trocável.'},
+        {en:'<strong>Personality & Voice</strong> — 2 traits + voice pitch/tone + walk style. The walk auto-adapts later based on mood.', pt:'<strong>Personalidade e Voz</strong> — 2 traits + tom/pitch da voz + estilo de andar. O andar auto-adapta depois conforme o mood.'}
+      ]},
+      {type:'h2', text:{en:'Trait choices that matter', pt:'Escolhas de traits que contam'}},
+      {type:'p', text:{en:'Two trait slots only. Traits modify how your Para reacts to events and which skills level faster. Pick complementary traits, not redundant ones.', pt:'Apenas dois slots de traits. Os traits modificam como o Para reage a eventos e que skills sobem mais rápido. Escolhe traits complementares, não redundantes.'}},
+      {type:'ul', items:[
+        {en:'<strong>Bookworm + Genius</strong> — fast skill grind, weak social. Best for a writer career.', pt:'<strong>Bookworm + Genius</strong> — skill grind rápido, social fraco. Melhor para carreira de escritor.'},
+        {en:'<strong>Outgoing + Romantic</strong> — best social trajectories, weak focus skills.', pt:'<strong>Outgoing + Romantic</strong> — melhor trajectória social, focus skills fracas.'},
+        {en:'<strong>Creative + Handy</strong> — build-mode synergy, makes furniture-flipping a viable income.', pt:'<strong>Creative + Handy</strong> — sinergia com build mode, torna o flipping de móveis fonte de receita viável.'},
+        {en:'<strong>Active + Adventurous</strong> — fast fitness, more town-event participation, fastest XP overall.', pt:'<strong>Active + Adventurous</strong> — fitness rápida, mais participação em eventos de cidade, XP mais rápida no geral.'}
+      ]},
+      {type:'h2', text:{en:'Voice and walk: the secret depth', pt:'Voz e andar: a profundidade escondida'}},
+      {type:'p', text:{en:'These sliders are tucked away but matter for personality readability. A confident strut + low pitched voice + Outgoing trait = a Para that feels like an executive. A bouncy walk + high voice + Creative trait = a Para that feels like a barista-artist. The combinations are the actual personality engine.', pt:'Estes sliders estão escondidos mas contam para a leitura da personalidade. Um andar confiante + voz grave + trait Outgoing = um Para que parece executivo. Andar saltitão + voz aguda + trait Creative = um Para que parece barista-artista. As combinações são o verdadeiro motor de personalidade.'}},
+      {type:'h2', text:{en:'Family creation', pt:'Criação de família'}},
+      {type:'p', text:{en:'You can build up to 8 Paras in a household. Mix life stages (child, teen, young adult, adult, elder) for richer dynamics. The "Generate Family Member" button uses genetic mixing from existing household members — useful for making believable siblings/parents.', pt:'Podes criar até 8 Paras numa household. Mistura fases de vida (criança, adolescente, jovem adulto, adulto, idoso) para dinâmicas mais ricas. O botão "Generate Family Member" usa mistura genética dos membros existentes — útil para irmãos/pais credíveis.'}},
+      {type:'tip', text:{en:'Save Paramaker presets you like before you exit. The "Save Para" option locks in the look so you can re-use them across saves.', pt:'Salva presets do Paramaker que gostes antes de sair. A opção "Save Para" fecha o look para o poderes reutilizar entre saves.'}}
+    ]
+  },
+  {
+    slug:'paralives-cheats-console-commands',
+    title:{en:'Paralives: Cheats List & Console Commands (Money, UI, Debug)', pt:'Paralives: Lista de Cheats e Comandos da Consola (Dinheiro, UI, Debug)'},
+    summary:{en:'Every confirmed Paralives cheat code and console command — money cheats, skill boosts, UI toggles, debug shortcuts. Updated for the Early Access 1.0 build.', pt:'Todos os códigos de cheats e comandos de consola confirmados em Paralives — cheats de dinheiro, boost de skills, toggles de UI, atalhos de debug. Atualizado para o build Early Access 1.0.'},
+    game:'paralives', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-05-26', lastUpdated:'2026-05-26', author:'Editorial', readTime:6, patchVersion:'Early Access 1.0',
+    source:'https://www.ign.com/wikis/paralives/Paralives_Cheats_List_and_Console_Commands',
+    content:[
+      {type:'note', text:{en:'Cheats are officially supported by Paralives Studio — using them does not flag your save. Open the console with the standard tilde key (~) or check the in-game keybinding menu if you remapped it.', pt:'Os cheats são oficialmente suportados pela Paralives Studio — usá-los não marca a tua save. Abre a consola com a tecla til (~) ou verifica o menu de keybindings se a remapeaste.'}},
+      {type:'h2', text:{en:'Money cheats', pt:'Cheats de dinheiro'}},
+      {type:'ul', items:[
+        {en:'<strong>money 5000</strong> — adds 5,000 Parabucks to the active household.', pt:'<strong>money 5000</strong> — adiciona 5,000 Parabucks à household activa.'},
+        {en:'<strong>money 50000</strong> — bigger cash drop. Useful for mid-game furniture flips.', pt:'<strong>money 50000</strong> — drop maior de cash. Útil para flips de mobília a meio do jogo.'},
+        {en:'<strong>setmoney 999999</strong> — sets exact balance to one million.', pt:'<strong>setmoney 999999</strong> — define o saldo exacto em um milhão.'},
+        {en:'<strong>freebuild</strong> — toggles free-build mode (ignores budget in build mode).', pt:'<strong>freebuild</strong> — alterna free-build mode (ignora orçamento no build mode).'}
+      ]},
+      {type:'h2', text:{en:'Skill & need cheats', pt:'Cheats de skills e needs'}},
+      {type:'ul', items:[
+        {en:'<strong>fillneeds</strong> — maxes hunger / energy / hygiene / social / bladder / fun.', pt:'<strong>fillneeds</strong> — enche fome / energia / higiene / social / bexiga / diversão.'},
+        {en:'<strong>setskill cooking 10</strong> — sets a named skill to a level (replace "cooking" with target skill).', pt:'<strong>setskill cooking 10</strong> — define uma skill específica a um nível (troca "cooking" pela skill alvo).'},
+        {en:'<strong>maxall</strong> — sets every skill of the active Para to max.', pt:'<strong>maxall</strong> — coloca todas as skills do Para activo no máximo.'}
+      ]},
+      {type:'h2', text:{en:'UI / Camera / Debug', pt:'UI / Câmara / Debug'}},
+      {type:'ul', items:[
+        {en:'<strong>togglehud</strong> — hides HUD for clean screenshots.', pt:'<strong>togglehud</strong> — esconde o HUD para screenshots limpos.'},
+        {en:'<strong>freecam</strong> — detached free camera. WASD to fly, scroll to zoom.', pt:'<strong>freecam</strong> — câmara livre destacada. WASD para voar, scroll para zoom.'},
+        {en:'<strong>debugmenu</strong> — opens dev-style overlay (use for bug reports).', pt:'<strong>debugmenu</strong> — abre overlay estilo dev (usa para reportes de bug).'},
+        {en:'<strong>showfps</strong> — toggles the FPS counter.', pt:'<strong>showfps</strong> — alterna o contador de FPS.'},
+        {en:'<strong>weather snow</strong> / <strong>weather rain</strong> / <strong>weather clear</strong> — forces weather for that day.', pt:'<strong>weather snow</strong> / <strong>weather rain</strong> / <strong>weather clear</strong> — força o tempo para esse dia.'}
+      ]},
+      {type:'h2', text:{en:'Time control', pt:'Controlo de tempo'}},
+      {type:'ul', items:[
+        {en:'<strong>settime 18:00</strong> — jumps clock to a specific time.', pt:'<strong>settime 18:00</strong> — salta o relógio para uma hora específica.'},
+        {en:'<strong>fastforward 7</strong> — advances 7 in-game days (use cautiously, no undo).', pt:'<strong>fastforward 7</strong> — avança 7 dias in-game (cuidado, sem undo).'}
+      ]},
+      {type:'tip', text:{en:'If a cheat does nothing, you may have outdated syntax — Paralives is patched weekly. The IGN cheat list (linked above) is kept current within 24h of each patch.', pt:'Se um cheat não fizer nada, podes ter sintaxe desatualizada — o Paralives recebe patches semanais. A lista de cheats da IGN (linkada acima) é mantida actual num prazo de 24h após cada patch.'}}
+    ]
+  },
+  {
+    slug:'paralives-roadmap',
+    title:{en:'Paralives Roadmap: Features Tracking & Expected Updates', pt:'Roadmap do Paralives: Tracker de Features e Updates Esperados'},
+    summary:{en:'Live tracker of the Paralives Early Access roadmap — which features shipped at launch, what is queued for the next free update, and what is gated until v1.0.', pt:'Tracker ao vivo do roadmap Early Access do Paralives — que features saíram no lançamento, o que está na fila para o próximo update grátis, e o que está bloqueado até à v1.0.'},
+    game:'paralives', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-05-26', lastUpdated:'2026-05-26', author:'Editorial', readTime:6, patchVersion:'Early Access 1.0',
+    source:['https://www.ign.com/wikis/paralives/Paralives_Roadmap','https://www.paralives.com/news/post-release-roadmap','https://www.pcgamer.com/games/life-sim/paralives-early-access-roadmap/'],
+    content:[
+      {type:'note', text:{en:'Paralives Studio committed to a transparent Early Access — they post the roadmap publicly and update it after each release. This tracker mirrors the official roadmap and aggregates community-confirmed dev posts.', pt:'A Paralives Studio comprometeu-se com um Early Access transparente — publica o roadmap publicamente e atualiza-o depois de cada release. Este tracker espelha o roadmap oficial e agrega posts da equipa confirmados pela comunidade.'}},
+      {type:'h2', text:{en:'Shipped at launch (Early Access 1.0)', pt:'Já entregue no lançamento (Early Access 1.0)'}},
+      {type:'ul', items:[
+        {en:'Paramaker (full slider-based character creator).', pt:'Paramaker (criador de personagens baseado em sliders).'},
+        {en:'Modular build mode (rotate/scale/layer anything).', pt:'Build mode modular (roda/escala/empilha tudo).'},
+        {en:'Open-world town (no loading screens between lots).', pt:'Cidade open-world (sem loading screens entre lotes).'},
+        {en:'Life stages: child, teen, young adult, adult, elder.', pt:'Fases de vida: criança, adolescente, jovem adulto, adulto, idoso.'},
+        {en:'Walking animations adapt to mood/personality.', pt:'Animações de andar adaptam-se a humor/personalidade.'},
+        {en:'Town events, museum & collectibles, vandalism interactions.', pt:'Eventos de cidade, museu e colecionáveis, interacções de vandalismo.'},
+        {en:'Among Us crossover (Emergency Meeting free update).', pt:'Crossover Among Us (update grátis Emergency Meeting).'},
+        {en:'In-game bug-report button.', pt:'Botão de reporte de bug dentro do jogo.'}
+      ]},
+      {type:'h2', text:{en:'Next 1–2 updates (rolling EA window)', pt:'Próximos 1–2 updates (janela EA contínua)'}},
+      {type:'ul', items:[
+        {en:'Pets — cats and dogs with full slider customization (mid-2026 target).', pt:'Animais — gatos e cães com customização total por sliders (alvo meados de 2026).'},
+        {en:'Expanded careers — speciality branches (medical, creative, business).', pt:'Carreiras expandidas — ramos especializados (medicina, criativo, negócios).'},
+        {en:'Town events expansion — more festivals, weather-tied happenings.', pt:'Expansão de eventos de cidade — mais festivais, eventos ligados ao tempo.'},
+        {en:'New build mode items — community-voted furniture and architectural pieces.', pt:'Novos itens de build mode — mobília e peças arquitectónicas votadas pela comunidade.'}
+      ]},
+      {type:'h2', text:{en:'Mid Early Access', pt:'Meio do Early Access'}},
+      {type:'ul', items:[
+        {en:'School systems for child / teen life stages.', pt:'Sistemas de escola para fases criança / adolescente.'},
+        {en:'Mod tooling and official mod manager.', pt:'Ferramentas de modding e gestor oficial de mods.'},
+        {en:'World Editor (build your own town).', pt:'Editor de Mundo (constrói a tua própria cidade).'}
+      ]},
+      {type:'h2', text:{en:'Gated until v1.0 launch', pt:'Bloqueado até à v1.0'}},
+      {type:'ul', items:[
+        {en:'Final additional life stages and deeper genetics.', pt:'Fases de vida adicionais finais e genética mais profunda.'},
+        {en:'Major polish pass on every system.', pt:'Polimento maior em cada sistema.'},
+        {en:'Console release exploration (no commitments yet).', pt:'Exploração de versão consola (sem compromissos ainda).'}
+      ]},
+      {type:'tip', text:{en:'Bookmark this page — we update the tracker after each Paralives patch lands. For day-to-day dev posts, follow @ParalivesGame on Twitter or the official Patreon (Alex Massé).', pt:'Faz bookmark desta página — atualizamos o tracker depois de cada patch do Paralives. Para posts dev do dia a dia, segue @ParalivesGame no Twitter ou o Patreon oficial (Alex Massé).'}}
     ]
   }
 ];
