@@ -135,11 +135,18 @@ button{font-family:inherit}
 /* ==================== CARDS ==================== */
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.25s;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:inherit}
 .card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 30px rgba(176,38,255,.18)}
-.card-thumb{aspect-ratio:16/9;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#2a1d52 0%,#1a1238 50%,#0f0a26 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .4s}
 .card:hover .card-thumb img{transform:scale(1.05)}
-.card-thumb-fallback{font-family:'Anton',sans-serif;font-size:48px;letter-spacing:2px;color:rgba(255,255,255,.85);text-shadow:0 0 20px rgba(0,0,0,.3)}
-.card-thumb img + .card-thumb-fallback{display:none}
+/* Branded fallback — used when no thumb exists. Renders the game name with a
+   subtle grid pattern overlay + Rick Rattle accent stripe. Looks intentional. */
+.card-thumb-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px)}
+.card-thumb-fallback::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan))}
+.card-thumb-fallback .ft-name{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:1px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.4);max-width:90%;overflow-wrap:break-word;hyphens:auto}
+.card-thumb-fallback .ft-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-top:4px}
+.card-thumb-fallback .ft-platforms{display:flex;gap:6px;margin-top:6px}
+.card-thumb-fallback .ft-plat{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5);padding:2px 6px;border:1px solid rgba(255,255,255,.12);border-radius:4px;text-transform:uppercase}
+.card-thumb img + .card-thumb-fallback,.detail-cover img + .card-thumb-fallback{display:none}
 .card-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.4));z-index:1;pointer-events:none;opacity:0;transition:.3s}
 .card-thumb img ~ ::after,.card:has(img) .card-thumb::after{opacity:1}
 .card-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -3793,12 +3800,19 @@ function truncate(s,n){return (s||'').length>n ? s.slice(0,n).trim()+'…' : s}
 /* === IMAGE / DATE HELPERS === */
 function gameThumb(slug){
   const g=games.find(x=>x.slug===slug);
-  if(g?.steamAppId)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/header.jpg`;
+  if(!g)return null;
+  // Lookup chain: 1) explicit `image` URL on game entry, 2) Steam header.jpg, 3) null.
+  if(g.image)return g.image;
+  if(g.steamAppId)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/header.jpg`;
   return null;
 }
 function gameHero(slug){
   const g=games.find(x=>x.slug===slug);
-  if(g?.steamAppId)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/library_hero.jpg`;
+  if(!g)return null;
+  // Hero (detail page) prefers cinematic library_hero, then explicit image, then header.
+  if(g.heroImage)return g.heroImage;
+  if(g.steamAppId)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/library_hero.jpg`;
+  if(g.image)return g.image;
   return null;
 }
 function extractSteamImg(html){
@@ -4503,7 +4517,15 @@ function thumbHtml(item, fallback){
   return '';
 }
 function fallbackHtml(item){
-  return `<div class="card-thumb-fallback">${gameName(item.game).slice(0,3).toUpperCase()}</div>`;
+  const g = games.find(x=>x.slug===item.game);
+  const name = (g?.short || g?.name || gameName(item.game) || 'Rick Rattle').toUpperCase();
+  const plats = (g?.platforms || []).slice(0,3).map(p => (PLATFORM_LABEL[p]||p).toUpperCase());
+  const platsHtml = plats.length ? `<div class="ft-platforms">${plats.map(p=>`<span class="ft-plat">${p}</span>`).join('')}</div>` : '';
+  return `<div class="card-thumb-fallback">
+    <div class="ft-name">${name}</div>
+    <div class="ft-tag">RICK RATTLE</div>
+    ${platsHtml}
+  </div>`;
 }
 
 const PLATFORM_LABEL={xbox:'Xbox',playstation:'PlayStation',pc:'PC',nintendo:'Nintendo'};
@@ -5471,7 +5493,7 @@ function NewsDetail(view,slug){
     ${editorialLabel}
     <a class="detail-back" href="/news">${t('back')}</a>
     <div class="detail">
-      <div class="detail-cover">${coverImg?`<img src="${coverImg}" alt="" onerror="this.parentElement.innerHTML='<div class=card-thumb-fallback style=font-size:80px>'+'${gameName(a.game).slice(0,3).toUpperCase()}'+'</div>'">`:`<div class="card-thumb-fallback" style="font-size:80px">${gameName(a.game).slice(0,3).toUpperCase()}</div>`}</div>
+      <div class="detail-cover">${coverImg?`<img src="${coverImg}" alt="" onerror="this.remove()">`:''}${fallbackHtml(a)}</div>
       <div class="detail-meta"><span class="game">${gameName(a.game)}</span><span title="${fmtDate(a.date)}">${timeAgo(a.date)}</span><span>${a.readTime||3} min</span><span>${a.external?(a.source==='steam'?'STEAM':a.source==='reddit'?'REDDIT':'EXTERNAL'):t('type.article')}</span></div>
       <h1 class="detail-title">${tr(a.title)}</h1>
       <p class="detail-sub">${tr(a.summary)}</p>
