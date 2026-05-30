@@ -139,22 +139,23 @@ button{font-family:inherit}
 .card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .4s}
 .card:hover .card-thumb img{transform:scale(1.05)}
 /* Branded fallback — used when no thumb exists. Renders the game name with a
-   subtle grid pattern overlay + Rick Rattle accent stripe. Looks intentional. */
-.card-thumb-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px)}
+   subtle grid pattern overlay + Rick Rattle accent stripe. Looks intentional.
+   Padding-top is generous to avoid overlap with badges/tags positioned by the parent card. */
+.card-thumb-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:44px 20px 20px;text-align:center;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px)}
 .card-thumb-fallback::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));z-index:2}
-.card-thumb-fallback .ft-name{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:1px;color:rgba(255,255,255,.92);text-transform:uppercase;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.4);max-width:90%;overflow-wrap:break-word;hyphens:auto;z-index:1}
-.card-thumb-fallback .ft-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.55);text-transform:uppercase;margin-top:4px;z-index:1}
-.card-thumb-fallback .ft-platforms{display:flex;gap:6px;margin-top:6px;z-index:1}
-.card-thumb-fallback .ft-plat{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.5);padding:2px 6px;border:1px solid rgba(255,255,255,.12);border-radius:4px;text-transform:uppercase}
+.card-thumb-fallback .ft-name{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:1px;color:rgba(255,255,255,.95);text-transform:uppercase;line-height:1.05;text-shadow:0 2px 12px rgba(0,0,0,.5);max-width:90%;overflow-wrap:break-word;hyphens:auto;z-index:1;margin:0}
+.card-thumb-fallback .ft-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.6);text-transform:uppercase;z-index:1;margin:0}
+.card-thumb-fallback .ft-platforms{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;z-index:1;margin-top:2px}
+.card-thumb-fallback .ft-plat{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.55);padding:3px 8px;border:1px solid rgba(255,255,255,.15);border-radius:4px;text-transform:uppercase}
 /* Platform-aware variants — branded gradient when item.platform is set */
 .card-thumb-fallback.plat-playstation{background:linear-gradient(135deg,#003791 0%,#000638 60%,#00041a 100%)}
 .card-thumb-fallback.plat-xbox{background:linear-gradient(135deg,#107C10 0%,#0a3d0a 60%,#04190a 100%)}
 .card-thumb-fallback.plat-nintendo{background:linear-gradient(135deg,#E60012 0%,#7d0010 60%,#2e0006 100%)}
 .card-thumb-fallback.plat-pc{background:linear-gradient(135deg,#1b2838 0%,#0f1925 60%,#070d14 100%)}
-.card-thumb-fallback .ft-logo{width:64px;height:64px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));z-index:1}
+.card-thumb-fallback .ft-logo{width:56px;height:56px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));z-index:1;flex-shrink:0}
 .card-thumb-fallback .ft-logo svg{width:100%;height:100%}
 /* Rick Rattle brand logo for generic fallback. Subtle but visible. */
-.card-thumb-fallback .ft-brand-logo{width:72px;height:72px;object-fit:contain;opacity:.85;filter:drop-shadow(0 2px 12px rgba(176,38,255,.4));z-index:1;position:relative;margin-bottom:2px}
+.card-thumb-fallback .ft-brand-logo{width:56px;height:56px;object-fit:contain;opacity:.9;filter:drop-shadow(0 2px 12px rgba(176,38,255,.5));z-index:1;position:relative;flex-shrink:0}
 .card-thumb img + .card-thumb-fallback,.detail-cover img + .card-thumb-fallback{display:none}
 .card-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.4));z-index:1;pointer-events:none;opacity:0;transition:.3s}
 .card-thumb img ~ ::after,.card:has(img) .card-thumb::after{opacity:1}
@@ -776,7 +777,7 @@ const games = [
   // === STREAM ROTATION (jogos jogados em stream) ===
   {slug:'kcd2',         name:'Kingdom Come: Deliverance II', short:'KCD2',         steamAppId:1771300, subreddit:'kingdomcome',  streamPlayed:true, platforms:['pc','ps5','xbox']},
   {slug:'rocket-league',name:'Rocket League',                short:'Rocket League',steamAppId:252950,  subreddit:'RocketLeague', streamPlayed:true, platforms:['pc','ps5','xbox','switch']},
-  {slug:'arc-raiders',  name:'Arc Raiders',                  short:'Arc Raiders',  steamAppId:2376410, subreddit:'arcraiders',   streamPlayed:true, noSteamImage:true, platforms:['pc','ps5','xbox']},
+  {slug:'arc-raiders',  name:'Arc Raiders',                  short:'Arc Raiders',  steamAppId:2376410, subreddit:'arcraiders',   streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'minecraft',    name:'Minecraft',                    short:'Minecraft',                        subreddit:'Minecraft',     streamPlayed:true, platforms:['pc','ps5','xbox','switch','mobile']},
   {slug:'grounded-2',   name:'Grounded 2',                   short:'Grounded 2',                       subreddit:'GroundedGame',  streamPlayed:true, platforms:['pc','xbox']},
   {slug:'chivalry-2',   name:'Chivalry 2',                   short:'Chivalry 2',   steamAppId:1824220, subreddit:'Chivalry2',     streamPlayed:true, platforms:['pc','ps5','xbox']},
@@ -810,7 +811,7 @@ const games = [
   {slug:'gta-vi',              name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
   {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']},
   {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        streamPlayed:true, platforms:['pc','ps5','xbox']},
-  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    streamPlayed:true, noSteamImage:true, platforms:['pc','xbox']},
+  {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    streamPlayed:true, hasLocalImage:true, platforms:['pc','xbox']},
   {slug:'subnautica-2',        name:'Subnautica 2',           short:'Subnautica 2', steamAppId:1934660, subreddit:'subnautica',      platforms:['pc','ps5','xbox']},
   {slug:'wow',                 name:'World of Warcraft',      short:'WoW',                              subreddit:'wow',             platforms:['pc']},
   {slug:'warzone',             name:'Call of Duty: Warzone',  short:'Warzone',                          subreddit:'CODWarzone',      platforms:['pc','ps5','xbox']},
@@ -1265,7 +1266,7 @@ const articles = [
     slug:'xbox-game-pass-2026-roadmap',
     title:{en:'Xbox Game Pass 2026: Month-by-Month Drop Tracker', pt:'Xbox Game Pass 2026: Tracker Mês a Mês de Drops'},
     summary:{en:'Every confirmed Game Pass addition in 2026, organised by month with editorial verdicts. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — all here.', pt:'Todas as adições confirmadas ao Game Pass em 2026, organizadas por mês com veredicto editorial. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — está tudo aqui.'},
-    game:'general', platform:'xbox', tags:['game-pass','platform','recommendations'], featured:true, date:'2026-05-22', lastUpdated:'2026-05-22', readTime:9, prefix:'meta-watch',
+    game:'general', platform:'xbox', tags:['game-pass','platform','recommendations'], featured:true, thumb:'/img/xbox%20game%20pass.png', date:'2026-05-22', lastUpdated:'2026-05-22', readTime:9, prefix:'meta-watch',
     source:['https://www.purexbox.com/guides/xbox-game-pass-in-2026-the-full-list-of-everything-announced-so-far','https://news.xbox.com/en-us/category/xbox-game-pass/'],
     content:[
       {type:'note', text:{en:'Game Pass Ultimate (€17.99/mo) is the only tier with full coverage — console, PC, Cloud, EA Play, day-one releases. Game Pass Standard (€14.99) is console-only and skips day-one. The XGP Premium label below marks the day-one releases included only on Ultimate.', pt:'O Game Pass Ultimate (€17.99/mês) é o único tier com cobertura total — consola, PC, Cloud, EA Play, lançamentos day-one. O Game Pass Standard (€14.99) é só consola e fica de fora dos day-ones. A etiqueta XGP Premium em baixo marca os day-ones disponíveis só no Ultimate.'}},
@@ -3810,9 +3811,19 @@ function truncate(s,n){return (s||'').length>n ? s.slice(0,n).trim()+'…' : s}
 function gameThumb(slug){
   const g=games.find(x=>x.slug===slug);
   if(!g)return null;
-  // Lookup chain: 1) explicit `image` URL on game entry, 2) Steam header.jpg, 3) null.
-  // `noSteamImage:true` skips Steam URL (use for games whose Steam header is wrong/outdated).
+  // Lookup chain:
+  //   1) explicit `image` URL on game entry (manual override)
+  //   2) /img/{slug-with-spaces}.png on this site (user uploads to GitHub /img/ folder).
+  //      Convention: replace slug hyphens with spaces, URL-encode the spaces.
+  //      Examples: 'arc-raiders' → '/img/arc%20raiders.png'
+  //                'forza-horizon-6' → '/img/forza%20horizon%206.png'
+  //   3) Steam header.jpg (when steamAppId set and not flagged noSteamImage)
+  //   4) Returns null → branded fallback (logo.png + name + platforms) shows
   if(g.image)return g.image;
+  if(g.hasLocalImage){
+    const filename = slug.replace(/-/g, ' ');
+    return `/img/${encodeURIComponent(filename)}.png`;
+  }
   if(g.steamAppId && !g.noSteamImage)return `https://cdn.cloudflare.steamstatic.com/steam/apps/${g.steamAppId}/header.jpg`;
   return null;
 }
@@ -4539,11 +4550,19 @@ function thumbHtml(item, fallback){
   return `<img src="${url}" loading="lazy" alt="" onerror="${handler}">`;
 }
 // SVG platform logos — embedded so they always render (no external dependency).
+// PNG-based platform logos take priority. If a PNG is uploaded to /img/, the card
+// fallback uses it instead of the inline SVG. Inline SVGs are kept as a safety net.
+const PLATFORM_LOGO_URLS = {
+  playstation: '/img/playstation.png',
+  pc:          '/img/steam.png'
+  // xbox and nintendo will use inline SVGs below until PNGs are uploaded.
+};
 const PLATFORM_LOGOS = {
-  playstation: '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><path d="M40 14c-3 .8-6 2-9 3.6V72c5 1.5 9 1 9-4V32c0-2 1.5-3 3-3s3 1 3 3v23c8 4 14 6 19 4 6-3 7-10 1-15-4-3-12-6-26-10v-9c0-5-3-9-5-11h5zM10 60c-4 4-4 9 2 12 6 4 16 5 24 3v-7l-15-5c-3-1-4-2-4-3s1-2 3-2c2-1 5-1 8 0l8 2v-6c-9-2-19-1-26 6zm70 8c-7 3-15 4-22 2v6c8 2 18 1 25-2 6-3 6-7 1-9-2 1-4 2-4 3z"/></svg>',
-  xbox: '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><circle cx="48" cy="48" r="42" fill="currentColor"/><path d="M48 12c-7 0-13 2-19 5 8 5 15 12 22 21l11-13c-4-8-9-13-14-13zm-29 11c-5 6-9 15-9 25 0 10 4 19 10 26 4-9 10-19 18-30-7-9-13-16-19-21zm58 1c-6 5-12 12-19 21 8 11 14 21 18 30 6-7 10-16 10-26 0-10-3-19-9-25zM48 49c-9 12-16 23-19 31 6 3 12 4 19 4s13-1 19-4c-3-8-10-19-19-31z" fill="#0c0"/></svg>',
-  nintendo: '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><rect x="14" y="6" width="32" height="84" rx="8" fill="currentColor"/><rect x="50" y="6" width="32" height="84" rx="8" fill="currentColor"/><circle cx="30" cy="32" r="6" fill="#0b0813"/><circle cx="66" cy="58" r="3" fill="#0b0813"/></svg>',
-  pc: '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><rect x="10" y="14" width="76" height="52" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><rect x="20" y="24" width="56" height="32" rx="2" fill="currentColor" opacity=".4"/><path d="M30 78h36l-4-8H34z" fill="currentColor"/><rect x="40" y="70" width="16" height="3" fill="currentColor"/></svg>'
+  // Inline SVG fallbacks for platforms without a /img/ PNG yet.
+  playstation: '<svg viewBox="0 0 120 32" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><text x="60" y="26" font-family="Arial Black,sans-serif" font-weight="900" font-size="28" text-anchor="middle" letter-spacing="-1">PS</text></svg>',
+  xbox: '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg"><circle cx="48" cy="48" r="44" fill="currentColor"/><path d="M48 8c-8 0-16 3-22 7 8 6 16 14 22 22 6-8 14-16 22-22-6-4-14-7-22-7zM18 22c-6 7-10 16-10 26s4 19 10 26c5-10 12-20 20-32-8-12-15-22-20-20zm60 0c-5 4-12 14-20 26 8 12 15 22 20 32 6-7 10-16 10-26s-4-19-10-26-0 0 0-6zM48 60c-8 12-15 22-20 30 6 4 13 6 20 6s14-2 20-6c-5-8-12-18-20-30z" fill="#0e7a0e"/></svg>',
+  nintendo: '<svg viewBox="0 0 96 60" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><rect x="6" y="4" width="36" height="52" rx="6" fill="currentColor"/><rect x="54" y="4" width="36" height="52" rx="6" fill="currentColor"/><circle cx="24" cy="20" r="4" fill="#0b0813"/><circle cx="72" cy="40" r="3" fill="#0b0813"/></svg>',
+  pc: '<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><rect x="8" y="14" width="80" height="56" rx="4" fill="none" stroke="currentColor" stroke-width="4"/><rect x="16" y="22" width="64" height="40" rx="2" fill="currentColor" opacity=".25"/><path d="M28 84h40l-3-8H31z" fill="currentColor"/></svg>'
 };
 
 function fallbackHtml(item){
@@ -4552,10 +4571,15 @@ function fallbackHtml(item){
   // Platform-aware: if item.platform is set (article tagged for a specific platform),
   // show that platform's logo + branded gradient background instead of generic fallback.
   const plat = item.platform;
-  if(plat && PLATFORM_LOGOS[plat]){
+  if(plat && (PLATFORM_LOGO_URLS[plat] || PLATFORM_LOGOS[plat])){
     const platLabel = (PLATFORM_LABEL[plat] || plat).toUpperCase();
+    const pngUrl = PLATFORM_LOGO_URLS[plat];
+    // Prefer the uploaded PNG; if it 404s, hide and the SVG below (if rendered) carries.
+    const logoHtml = pngUrl
+      ? `<img class="ft-brand-logo" src="${pngUrl}" alt="${platLabel}" loading="lazy" onerror="this.style.display='none'">`
+      : `<div class="ft-logo">${PLATFORM_LOGOS[plat]}</div>`;
     return `<div class="card-thumb-fallback plat-${plat}">
-      <div class="ft-logo">${PLATFORM_LOGOS[plat]}</div>
+      ${logoHtml}
       <div class="ft-name">${name}</div>
       <div class="ft-tag">${platLabel}</div>
     </div>`;
