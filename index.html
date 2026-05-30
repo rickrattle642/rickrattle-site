@@ -540,12 +540,14 @@ button{font-family:inherit}
 .empty-tips h3{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0;margin:0 0 6px;text-transform:none;color:var(--ink)}
 .empty-tips > p{color:var(--muted);font-size:14px;margin:0 0 4px;max-width:520px}
 
-/* ==================== HOMEPAGE ASIDE (Popular Now / Latest) ==================== */
-/* Right-column widgets next to FEATURED NEWS. Filling visual whitespace + boosting
-   internal linking on homepage. Manual POPULAR_NOW (GSC-driven) + auto latest. */
-.featured-news-row{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start}
-.featured-news-cards{min-width:0}
-.featured-news-cards .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+/* ==================== HOMEPAGE LAYOUT (Main + Aside) ==================== */
+/* Global 2-column layout for homepage sections below the hero. Left column holds
+   FEATURED NEWS / POPULAR GUIDES / RECENT TIER LISTS, right column holds the two
+   widgets (Popular Now + Latest Articles). All cards share the same width across
+   sections, and see-all links sit cleanly above the third card. */
+.home-content-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start}
+.home-main{min-width:0;display:flex;flex-direction:column;gap:36px}
+.home-main .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .home-aside{display:flex;flex-direction:column;gap:18px;position:sticky;top:96px}
 .home-aside-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
 .home-aside-card h3{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:2px;margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line);padding-bottom:10px}
@@ -558,7 +560,7 @@ button{font-family:inherit}
 .home-aside-card .item-meta{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);margin-top:4px;text-transform:uppercase}
 .home-aside-card .item-meta .game{color:var(--cyan)}
 @media(max-width:900px){
-  .featured-news-row{grid-template-columns:1fr}
+  .home-content-layout{grid-template-columns:1fr}
   .home-aside{position:static;flex-direction:column;gap:14px}
 }
 
@@ -4827,51 +4829,52 @@ function HomeView(view){
       </div>
     </div>
 
-    <div class="section">
-      <div class="featured-news-row">
-        <div class="featured-news-cards">
+    <div class="home-content-layout">
+      <div class="home-main">
+        <div class="section">
           <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
           <div class="grid grid-3">${featNews.map(ArticleCard).join('')}</div>
         </div>
-        <aside class="home-aside" aria-label="Homepage sidebar">
-          <div class="home-aside-card">
-            <h3 data-i18n="home.aside.popular">${t('home.aside.popular')}</h3>
-            <ul>
-              ${popularItems.map(it => `
-                <li>
-                  <a href="${it.href}">
-                    ${it.title}
-                    <span class="item-meta"><span class="game">${gameName(it.game)}</span> · ${it.kind}</span>
-                  </a>
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-          <div class="home-aside-card">
-            <h3 data-i18n="home.aside.latest">${t('home.aside.latest')}</h3>
-            <ul>
-              ${latestArticles.map(a => `
-                <li>
-                  <a href="/news/${a.slug}">
-                    ${tr(a.title)}
-                    <span class="item-meta"><span class="game">${gameName(a.game)}</span> · ${timeAgo(a.lastUpdated||a.date)}</span>
-                  </a>
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-        </aside>
+
+        <div class="section">
+          <div class="section-head"><h2 data-i18n="home.feat.guides">${t('home.feat.guides')}</h2><a class="see-all" href="/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+          <div class="grid grid-3">${featGuides.map(GuideCard).join('')}</div>
+        </div>
+
+        <div class="section">
+          <div class="section-head"><h2 data-i18n="home.feat.tiers">${t('home.feat.tiers')}</h2><a class="see-all" href="/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+          <div class="grid grid-3">${featTiers.map(TierCard).join('')}</div>
+        </div>
       </div>
-    </div>
 
-    <div class="section">
-      <div class="section-head"><h2 data-i18n="home.feat.guides">${t('home.feat.guides')}</h2><a class="see-all" href="/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
-      <div class="grid grid-3">${featGuides.map(GuideCard).join('')}</div>
-    </div>
-
-    <div class="section">
-      <div class="section-head"><h2 data-i18n="home.feat.tiers">${t('home.feat.tiers')}</h2><a class="see-all" href="/tips" data-i18n="home.see.all">${t('home.see.all')}</a></div>
-      <div class="grid grid-3">${featTiers.map(TierCard).join('')}</div>
+      <aside class="home-aside" aria-label="Homepage sidebar">
+        <div class="home-aside-card">
+          <h3 data-i18n="home.aside.popular">${t('home.aside.popular')}</h3>
+          <ul>
+            ${popularItems.map(it => `
+              <li>
+                <a href="${it.href}">
+                  ${it.title}
+                  <span class="item-meta"><span class="game">${gameName(it.game)}</span> · ${it.kind}</span>
+                </a>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+        <div class="home-aside-card">
+          <h3 data-i18n="home.aside.latest">${t('home.aside.latest')}</h3>
+          <ul>
+            ${latestArticles.map(a => `
+              <li>
+                <a href="/news/${a.slug}">
+                  ${tr(a.title)}
+                  <span class="item-meta"><span class="game">${gameName(a.game)}</span> · ${timeAgo(a.lastUpdated||a.date)}</span>
+                </a>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      </aside>
     </div>
   `;
   // Mount Twitch iframe singleton (preserved across re-renders to avoid 429s).
