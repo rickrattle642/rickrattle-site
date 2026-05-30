@@ -543,8 +543,9 @@ button{font-family:inherit}
 /* ==================== HOMEPAGE ASIDE (Popular Now / Latest) ==================== */
 /* Right-column widgets next to FEATURED NEWS. Filling visual whitespace + boosting
    internal linking on homepage. Manual POPULAR_NOW (GSC-driven) + auto latest. */
-.featured-news-row{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.featured-news-row{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:24px;align-items:start}
 .featured-news-cards{min-width:0}
+.featured-news-cards .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .home-aside{display:flex;flex-direction:column;gap:18px;position:sticky;top:96px}
 .home-aside-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
 .home-aside-card h3{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:2px;margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line);padding-bottom:10px}
@@ -4788,7 +4789,7 @@ function HomeView(view){
   // News: combine manual + external, dedupe by slug (just in case), then sort
   const newsSeen=new Set();
   const featNews=[...all].filter(a=>{if(newsSeen.has(a.slug))return false;newsSeen.add(a.slug);return true})
-    .sort(sortFeaturedNewest).slice(0,2);    // 2 cards (right column takes the third slot)
+    .sort(sortFeaturedNewest).slice(0,3);    // 3 cards alongside the aside column
   const featGuides=[...guides].sort(sortFeaturedNewest).slice(0,3);
   const featTiers=[...tierLists].sort(sortFeaturedNewest).slice(0,3);
 
@@ -4827,10 +4828,10 @@ function HomeView(view){
     </div>
 
     <div class="section">
-      <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
       <div class="featured-news-row">
         <div class="featured-news-cards">
-          <div class="grid grid-2">${featNews.map(ArticleCard).join('')}</div>
+          <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
+          <div class="grid grid-3">${featNews.map(ArticleCard).join('')}</div>
         </div>
         <aside class="home-aside" aria-label="Homepage sidebar">
           <div class="home-aside-card">
