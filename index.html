@@ -138,24 +138,26 @@ button{font-family:inherit}
 .card-thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#2a1d52 0%,#1a1238 50%,#0f0a26 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .card-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .4s}
 .card:hover .card-thumb img{transform:scale(1.05)}
-/* Branded fallback — used when no thumb exists. Renders the game name with a
-   subtle grid pattern overlay + Rick Rattle accent stripe. Looks intentional.
-   Padding-top is generous to avoid overlap with badges/tags positioned by the parent card. */
-.card-thumb-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:44px 20px 20px;text-align:center;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px)}
+/* Branded fallback — used when no thumb exists. Looks intentional, fits the 16:9 card.
+   Compact: logo + name + (platforms or tag). Sized to never overflow on narrow cards. */
+.card-thumb-fallback{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:32px 16px 14px;text-align:center;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px)}
 .card-thumb-fallback::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan));z-index:2}
-.card-thumb-fallback .ft-name{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:1px;color:rgba(255,255,255,.95);text-transform:uppercase;line-height:1.05;text-shadow:0 2px 12px rgba(0,0,0,.5);max-width:90%;overflow-wrap:break-word;hyphens:auto;z-index:1;margin:0}
-.card-thumb-fallback .ft-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.6);text-transform:uppercase;z-index:1;margin:0}
-.card-thumb-fallback .ft-platforms{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;z-index:1;margin-top:2px}
-.card-thumb-fallback .ft-plat{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:rgba(255,255,255,.55);padding:3px 8px;border:1px solid rgba(255,255,255,.15);border-radius:4px;text-transform:uppercase}
+.card-thumb-fallback .ft-name{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:1px;color:rgba(255,255,255,.95);text-transform:uppercase;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.5);max-width:92%;overflow-wrap:break-word;hyphens:auto;z-index:1;margin:0}
+.card-thumb-fallback .ft-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.6);text-transform:uppercase;z-index:1;margin:0}
+.card-thumb-fallback .ft-platforms{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;z-index:1;margin-top:1px}
+.card-thumb-fallback .ft-plat{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,.55);padding:2px 6px;border:1px solid rgba(255,255,255,.15);border-radius:4px;text-transform:uppercase}
 /* Platform-aware variants — branded gradient when item.platform is set */
 .card-thumb-fallback.plat-playstation{background:linear-gradient(135deg,#003791 0%,#000638 60%,#00041a 100%)}
 .card-thumb-fallback.plat-xbox{background:linear-gradient(135deg,#107C10 0%,#0a3d0a 60%,#04190a 100%)}
 .card-thumb-fallback.plat-nintendo{background:linear-gradient(135deg,#E60012 0%,#7d0010 60%,#2e0006 100%)}
 .card-thumb-fallback.plat-pc{background:linear-gradient(135deg,#1b2838 0%,#0f1925 60%,#070d14 100%)}
-.card-thumb-fallback .ft-logo{width:56px;height:56px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));z-index:1;flex-shrink:0}
+.card-thumb-fallback .ft-logo{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));z-index:1;flex-shrink:0}
 .card-thumb-fallback .ft-logo svg{width:100%;height:100%}
 /* Rick Rattle brand logo for generic fallback. Subtle but visible. */
-.card-thumb-fallback .ft-brand-logo{width:56px;height:56px;object-fit:contain;opacity:.9;filter:drop-shadow(0 2px 12px rgba(176,38,255,.5));z-index:1;position:relative;flex-shrink:0}
+.card-thumb-fallback .ft-brand-logo{width:44px;height:44px;object-fit:contain;opacity:.9;filter:drop-shadow(0 2px 12px rgba(176,38,255,.5));z-index:1;position:relative;flex-shrink:0}
+/* Hero variant: when the platform IS the headline (general+platform articles), make the logo big. */
+.card-thumb-fallback.hero .ft-logo,
+.card-thumb-fallback.hero .ft-brand-logo{width:88px;height:88px;opacity:1}
 .card-thumb img + .card-thumb-fallback,.detail-cover img + .card-thumb-fallback{display:none}
 .card-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.4));z-index:1;pointer-events:none;opacity:0;transition:.3s}
 .card-thumb img ~ ::after,.card:has(img) .card-thumb::after{opacity:1}
@@ -775,15 +777,15 @@ function trItems(arr){
    ================================================================ */
 const games = [
   // === STREAM ROTATION (jogos jogados em stream) ===
-  {slug:'kcd2',         name:'Kingdom Come: Deliverance II', short:'KCD2',         steamAppId:1771300, subreddit:'kingdomcome',  streamPlayed:true, platforms:['pc','ps5','xbox']},
-  {slug:'rocket-league',name:'Rocket League',                short:'Rocket League',steamAppId:252950,  subreddit:'RocketLeague', streamPlayed:true, platforms:['pc','ps5','xbox','switch']},
+  {slug:'kcd2',         name:'Kingdom Come: Deliverance II', short:'KCD2',         steamAppId:1771300, subreddit:'kingdomcome',  streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
+  {slug:'rocket-league',name:'Rocket League',                short:'Rocket League',steamAppId:252950,  subreddit:'RocketLeague', streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox','switch']},
   {slug:'arc-raiders',  name:'Arc Raiders',                  short:'Arc Raiders',  steamAppId:2376410, subreddit:'arcraiders',   streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
-  {slug:'minecraft',    name:'Minecraft',                    short:'Minecraft',                        subreddit:'Minecraft',     streamPlayed:true, platforms:['pc','ps5','xbox','switch','mobile']},
-  {slug:'grounded-2',   name:'Grounded 2',                   short:'Grounded 2',                       subreddit:'GroundedGame',  streamPlayed:true, platforms:['pc','xbox']},
-  {slug:'chivalry-2',   name:'Chivalry 2',                   short:'Chivalry 2',   steamAppId:1824220, subreddit:'Chivalry2',     streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'minecraft',    name:'Minecraft',                    short:'Minecraft',                        subreddit:'Minecraft',     streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox','switch','mobile']},
+  {slug:'grounded-2',   name:'Grounded 2',                   short:'Grounded 2',                       subreddit:'GroundedGame',  streamPlayed:true, hasLocalImage:true, platforms:['pc','xbox']},
+  {slug:'chivalry-2',   name:'Chivalry 2',                   short:'Chivalry 2',   steamAppId:1824220, subreddit:'Chivalry2',     streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'it-takes-two', name:'It Takes Two',                 short:'It Takes Two', steamAppId:1426210,                            streamPlayed:true, platforms:['pc','ps5','xbox','switch']},
   {slug:'split-fiction',name:'Split Fiction',                short:'Split Fiction',steamAppId:2001120, subreddit:'SplitFiction',  streamPlayed:true, platforms:['pc','ps5','xbox']},
-  {slug:'the-finals',   name:'The Finals',                   short:'The Finals',   steamAppId:2073850, subreddit:'thefinals',     streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'the-finals',   name:'The Finals',                   short:'The Finals',   steamAppId:2073850, subreddit:'thefinals',     streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'rdr2',         name:'Red Dead Redemption 2',        short:'RDR2',         steamAppId:1174180, subreddit:'reddeadredemption', streamPlayed:true, platforms:['pc','ps5','xbox']},
 
   // === MAJOR / POPULAR (não jogados em stream — para news + tips genéricas) ===
@@ -804,22 +806,22 @@ const games = [
   {slug:'gta-v',               name:'Grand Theft Auto V',     short:'GTA V',        steamAppId:271590,  subreddit:'GTAV',            platforms:['pc','ps5','xbox']},
   {slug:'marathon',            name:'Marathon',               short:'Marathon',     steamAppId:2462580, subreddit:'marathon',        platforms:['pc','ps5','xbox']},
   {slug:'marvel-rivals',       name:'Marvel Rivals',          short:'Marvel Rivals',steamAppId:2767030, subreddit:'marvelrivals',    platforms:['pc','ps5','xbox']},
-  {slug:'re-requiem',          name:'Resident Evil: Requiem', short:'RE: Requiem',                      subreddit:'residentevil',    platforms:['pc','ps5','xbox']},
+  {slug:'re-requiem',          name:'Resident Evil: Requiem', short:'RE: Requiem',                      subreddit:'residentevil',    hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'saros',               name:'Saros',                  short:'Saros',                            subreddit:'Saros',           platforms:['ps5']},
   {slug:'windrose',            name:'Windrose',               short:'Windrose',                         subreddit:'Windrose',        platforms:['pc']},
   {slug:'tekken-8',            name:'Tekken 8',               short:'Tekken 8',     steamAppId:1778820, subreddit:'Tekken',          platforms:['pc','ps5','xbox']},
   {slug:'gta-vi',              name:'Grand Theft Auto VI',    short:'GTA VI',                           subreddit:'GTA6',            platforms:['ps5','xbox']},
   {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']},
-  {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        streamPlayed:true, platforms:['pc','ps5','xbox']},
+  {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    streamPlayed:true, hasLocalImage:true, platforms:['pc','xbox']},
   {slug:'subnautica-2',        name:'Subnautica 2',           short:'Subnautica 2', steamAppId:1934660, subreddit:'subnautica',      platforms:['pc','ps5','xbox']},
   {slug:'wow',                 name:'World of Warcraft',      short:'WoW',                              subreddit:'wow',             platforms:['pc']},
   {slug:'warzone',             name:'Call of Duty: Warzone',  short:'Warzone',                          subreddit:'CODWarzone',      platforms:['pc','ps5','xbox']},
   {slug:'cod-bo7',             name:'Call of Duty: Black Ops 7', short:'COD BO7',                       subreddit:'BlackOps7',       platforms:['pc','ps5','xbox']},
   {slug:'dota-2',              name:'Dota 2',                 short:'Dota 2',       steamAppId:570,     subreddit:'DotA2',           platforms:['pc']},
-  {slug:'007-first-light',     name:'007 First Light',        short:'007',                              subreddit:'007FirstLight',   platforms:['pc','ps5','xbox','switch']},
+  {slug:'007-first-light',     name:'007 First Light',        short:'007',                              subreddit:'007FirstLight',   hasLocalImage:true, platforms:['pc','ps5','xbox','switch']},
   {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']},
-  {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       platforms:['pc']}
+  {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       hasLocalImage:true, platforms:['pc']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -1196,7 +1198,7 @@ const articles = [
     slug:'ps-plus-2026-monthly-highlights',
     title:{en:'PS Plus 2026: Monthly Games — Full List by Month (PT Region)', pt:'PS Plus 2026: Jogos Mensais — Lista Completa por Mês (Região PT)'},
     summary:{en:'Every PS Plus Essential game dropped in 2026 — organised by month with scores, prices and verdicts. May, April, March, February and January 2026 covered.', pt:'Todos os jogos PS Plus Essential lançados em 2026 — organizados por mês com scores, preços e veredictos. Maio, Abril, Março, Fevereiro e Janeiro 2026.'},
-    game:'general', platform:'playstation', tags:['ps-plus','platform','recommendations','monthly'], featured:true, date:'2026-05-22', lastUpdated:'2026-05-30', readTime:8, prefix:'meta-watch',
+    game:'general', platform:'playstation', tags:['ps-plus','platform','recommendations','monthly'], featured:true, thumb:'/img/playstation.png', date:'2026-05-22', lastUpdated:'2026-05-30', readTime:8, prefix:'meta-watch',
     source:['https://psprices.com/region-pt/collection/ps-plus-monthly','https://blog.playstation.com/category/playstation-plus/'],
     content:[
       {type:'note', text:{en:'Data verified against psprices.com (PT region) and the PlayStation Blog. Scores shown are Metacritic / OpenCritic at time of writing. Prices listed are the free-with-PS+ retail value.', pt:'Dados verificados contra psprices.com (região PT) e o PlayStation Blog. Scores exibidos são Metacritic / OpenCritic à data deste artigo. Preços listados são o valor de retalho grátis com PS+.'}},
@@ -4532,8 +4534,18 @@ function gameName(slug){
 }
 function fmtDate(d){return new Date(d).toLocaleDateString(lang==='pt'?'pt-PT':'en-GB',{day:'2-digit',month:'short',year:'numeric'})}
 
+// External-source fallback thumbnail (Reddit, Steam news, etc.).
+// When an external article has no thumb and no game-specific image, we can use
+// the source's brand logo as the card image. Better than text fallback for feeds.
+function sourceThumb(item){
+  if(!item || !item.source) return null;
+  if(item.source === 'reddit') return '/img/reddit.png';
+  if(item.source === 'steam')  return '/img/steam.png';
+  return null;
+}
+
 function thumbHtml(item, fallback){
-  const url=item.thumb||gameThumb(item.game);
+  const url=item.thumb||gameThumb(item.game)||sourceThumb(item);
   if(!url)return '';
   const g=games.find(x=>x.slug===item.game);
   // If the primary URL is a Steam header.jpg and fails, try library_hero.jpg
@@ -4567,7 +4579,12 @@ const PLATFORM_LOGOS = {
 
 function fallbackHtml(item){
   const g = games.find(x=>x.slug===item.game);
-  const name = (g?.short || g?.name || gameName(item.game) || 'Rick Rattle').toUpperCase();
+  // For game='general' articles (PS Plus, XGP, general news), don't show the
+  // meaningless "GENERAL" label — it's a placeholder game value, not a real name.
+  const isGeneral = item.game === 'general';
+  const name = isGeneral
+    ? ''  // generic articles use platform name as the headline instead (handled below)
+    : (g?.short || g?.name || gameName(item.game) || 'Rick Rattle').toUpperCase();
   // Platform-aware: if item.platform is set (article tagged for a specific platform),
   // show that platform's logo + branded gradient background instead of generic fallback.
   const plat = item.platform;
@@ -4578,10 +4595,13 @@ function fallbackHtml(item){
     const logoHtml = pngUrl
       ? `<img class="ft-brand-logo" src="${pngUrl}" alt="${platLabel}" loading="lazy" onerror="this.style.display='none'">`
       : `<div class="ft-logo">${PLATFORM_LOGOS[plat]}</div>`;
-    return `<div class="card-thumb-fallback plat-${plat}">
+    // For general+platform articles, platform name IS the headline (and we make the logo big).
+    const headline = name || platLabel;
+    const heroClass = name ? '' : ' hero';
+    return `<div class="card-thumb-fallback plat-${plat}${heroClass}">
       ${logoHtml}
-      <div class="ft-name">${name}</div>
-      <div class="ft-tag">${platLabel}</div>
+      <div class="ft-name">${headline}</div>
+      ${name && name!==platLabel ? `<div class="ft-tag">${platLabel}</div>` : ''}
     </div>`;
   }
   // Generic fallback — uses Rick Rattle logo.png as visual element so the card never looks empty.
