@@ -562,6 +562,11 @@ button{font-family:inherit}
 @media(max-width:900px){
   .home-content-layout{grid-template-columns:1fr}
   .home-aside{position:static;flex-direction:column;gap:14px}
+  /* Stop forcing 3 narrow columns on mobile — fall back to auto-fill */
+  .home-main .grid-3{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+}
+@media(max-width:600px){
+  .home-main .grid-3{grid-template-columns:1fr}
 }
 
 /* ==================== SITE FOOTER ==================== */
@@ -4904,7 +4909,7 @@ const decks={
     {n:'Tortilla Slap',         url:'https://i.imgur.com/dWzpOp1.mp4'}
   ]}
 };
-let activeDeck='kcd2';
+let activeDeck='irl';
 
 function RickView(view){
   view.innerHTML=`
@@ -4920,6 +4925,25 @@ function RickView(view){
       <div class="rick-intro">
         <p data-i18n="rick.intro1">${t('rick.intro1')}</p>
         <p data-i18n="rick.intro2">${t('rick.intro2')}</p>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2 data-i18n="rick.socials.title">${t('rick.socials.title')}</h2></div>
+        <p style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:12px;margin:0 0 16px;letter-spacing:1px" data-i18n="rick.socials.sub">${t('rick.socials.sub')}</p>
+        <div class="socials-prominent">
+          ${socials.map((s,i)=>`
+            <a href="${s.url}" target="_blank" rel="noopener" class="social-big ${i===0?'social-hero':''}" style="--social:${s.color}">
+              <div class="social-big-head">
+                <span class="social-num">// 0${i+1}</span>
+                <span class="social-arrow">↗</span>
+              </div>
+              <div class="social-big-name">${s.name}</div>
+              <div class="social-big-handle">${s.handle}</div>
+              <p class="social-big-desc">${s.desc[lang]||s.desc.en}</p>
+              <span class="social-big-cta">${s.cta[lang]||s.cta.en}</span>
+            </a>
+          `).join('')}
+        </div>
       </div>
 
       <div class="trailer-box">
@@ -4942,25 +4966,6 @@ function RickView(view){
         <div class="deck-tabs" id="deckTabs"></div>
         <div class="deck-meta-row"><span data-i18n="rick.cards.total">${t('rick.cards.total')}</span>: <strong id="deckTotal">0</strong></div>
         <div class="deck-grid" id="deckGrid"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-head"><h2 data-i18n="rick.socials.title">${t('rick.socials.title')}</h2></div>
-        <p style="font-family:'JetBrains Mono',monospace;color:var(--muted);font-size:12px;margin:0 0 16px;letter-spacing:1px" data-i18n="rick.socials.sub">${t('rick.socials.sub')}</p>
-        <div class="socials-prominent">
-          ${socials.map((s,i)=>`
-            <a href="${s.url}" target="_blank" rel="noopener" class="social-big ${i===0?'social-hero':''}" style="--social:${s.color}">
-              <div class="social-big-head">
-                <span class="social-num">// 0${i+1}</span>
-                <span class="social-arrow">↗</span>
-              </div>
-              <div class="social-big-name">${s.name}</div>
-              <div class="social-big-handle">${s.handle}</div>
-              <p class="social-big-desc">${s.desc[lang]||s.desc.en}</p>
-              <span class="social-big-cta">${s.cta[lang]||s.cta.en}</span>
-            </a>
-          `).join('')}
-        </div>
       </div>
 
       ${SHOW_MERCH?`<div class="section">
