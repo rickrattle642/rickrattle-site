@@ -540,6 +540,27 @@ button{font-family:inherit}
 .empty-tips h3{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0;margin:0 0 6px;text-transform:none;color:var(--ink)}
 .empty-tips > p{color:var(--muted);font-size:14px;margin:0 0 4px;max-width:520px}
 
+/* ==================== HOMEPAGE ASIDE (Popular Now / Latest) ==================== */
+/* Right-column widgets next to FEATURED NEWS. Filling visual whitespace + boosting
+   internal linking on homepage. Manual POPULAR_NOW (GSC-driven) + auto latest. */
+.featured-news-row{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.featured-news-cards{min-width:0}
+.home-aside{display:flex;flex-direction:column;gap:18px;position:sticky;top:96px}
+.home-aside-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.home-aside-card h3{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:2px;margin:0 0 12px;color:var(--muted);text-transform:uppercase;font-weight:400;border-bottom:1px solid var(--line);padding-bottom:10px}
+.home-aside-card ul{list-style:none;margin:0;padding:0}
+.home-aside-card li{padding:10px 0;border-bottom:1px solid var(--line)}
+.home-aside-card li:last-child{border-bottom:none;padding-bottom:0}
+.home-aside-card li:first-child{padding-top:0}
+.home-aside-card a{color:var(--ink);text-decoration:none;display:block;font-size:13px;line-height:1.4;transition:color .15s}
+.home-aside-card a:hover{color:var(--accent)}
+.home-aside-card .item-meta{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);margin-top:4px;text-transform:uppercase}
+.home-aside-card .item-meta .game{color:var(--cyan)}
+@media(max-width:900px){
+  .featured-news-row{grid-template-columns:1fr}
+  .home-aside{position:static;flex-direction:column;gap:14px}
+}
+
 /* ==================== SITE FOOTER ==================== */
 /* Lightweight, inherits site variables. Renders on every route. */
 .site-footer{margin:60px 28px 28px;padding:28px 0 0;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace}
@@ -649,6 +670,7 @@ const T = {
     "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
+    "home.aside.popular":"POPULAR NOW","home.aside.latest":"LATEST ARTICLES",
     "home.live.title":"LIVE NOW","home.live.tag":"On Twitch",
     "rick.kicker":"// CREATOR","rick.title":"The Channel","rick.sub":"A 30-second look at what happens when chat takes the wheel.",
     "rick.intro1":"Rick Rattle is a variety streamer running interactive chaos sessions across multiple games. The stream is built around audience input — chat doesn't just watch, chat decides.",
@@ -676,6 +698,7 @@ const T = {
     "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
+    "home.aside.popular":"POPULARES AGORA","home.aside.latest":"ARTIGOS RECENTES",
     "home.live.title":"AO VIVO","home.live.tag":"Na Twitch",
     "rick.kicker":"// CRIADOR","rick.title":"O Canal","rick.sub":"30 segundos do que acontece quando o chat manda.",
     "rick.intro1":"Rick Rattle é um streamer variety com sessões interativas em vários jogos. A stream é construída à volta do chat — o público não vê, decide.",
@@ -4731,6 +4754,28 @@ async function mountTwitchEmbed(){
   </a>`;
 }
 
+/* ===== Homepage aside widgets =====
+   POPULAR_NOW is manually curated based on Google Search Console top-impressions
+   pages. Update every 4 weeks when checking GSC. Order = display order.
+   Items are slugs only — resolver looks them up across articles/guides/tierLists. */
+const POPULAR_NOW = [
+  'forza-horizon-6-easy-money',
+  'forza-horizon-6-progression-pathways',
+  'arc-raiders-pvp-weapon-tier-list',
+  'ps-plus-2026-monthly-highlights',
+  'chivalry-2-content-roadmap'
+];
+
+function resolvePopularItem(slug){
+  const a = articles.find(x=>x.slug===slug);
+  if(a) return { href:`/news/${a.slug}`, title:tr(a.title), kind:lang==='pt'?'Artigo':'Article', game:a.game };
+  const g = guides.find(x=>x.slug===slug);
+  if(g) return { href:`/tips/${g.game}/${g.slug}`, title:tr(g.title), kind:g.type==='build'?(lang==='pt'?'Build':'Build'):(lang==='pt'?'Guia':'Guide'), game:g.game };
+  const tl = tierLists.find(x=>x.slug===slug);
+  if(tl) return { href:`/tips/${tl.game}/${tl.slug}`, title:tr(tl.title), kind:lang==='pt'?'Tier List':'Tier List', game:tl.game };
+  return null;
+}
+
 function HomeView(view){
   const all=getAllArticles();
   // Sort helper: featured first, then newest→oldest (lastUpdated > date)
@@ -4743,9 +4788,17 @@ function HomeView(view){
   // News: combine manual + external, dedupe by slug (just in case), then sort
   const newsSeen=new Set();
   const featNews=[...all].filter(a=>{if(newsSeen.has(a.slug))return false;newsSeen.add(a.slug);return true})
-    .sort(sortFeaturedNewest).slice(0,3);
+    .sort(sortFeaturedNewest).slice(0,2);    // 2 cards (right column takes the third slot)
   const featGuides=[...guides].sort(sortFeaturedNewest).slice(0,3);
   const featTiers=[...tierLists].sort(sortFeaturedNewest).slice(0,3);
+
+  // Right-column data
+  const popularItems = POPULAR_NOW.map(resolvePopularItem).filter(Boolean).slice(0,5);
+  const latestArticles = [...articles].sort((a,b)=>{
+    const da=a.lastUpdated||a.date||'';
+    const db=b.lastUpdated||b.date||'';
+    return db.localeCompare(da);
+  }).slice(0,5);
 
   // background fetch on home boot
   if(!externalArticles.length && !newsLoading){
@@ -4775,7 +4828,39 @@ function HomeView(view){
 
     <div class="section">
       <div class="section-head"><h2 data-i18n="home.feat.news">${t('home.feat.news')}</h2><a class="see-all" href="/news" data-i18n="home.see.all">${t('home.see.all')}</a></div>
-      <div class="grid grid-3">${featNews.map(ArticleCard).join('')}</div>
+      <div class="featured-news-row">
+        <div class="featured-news-cards">
+          <div class="grid grid-2">${featNews.map(ArticleCard).join('')}</div>
+        </div>
+        <aside class="home-aside" aria-label="Homepage sidebar">
+          <div class="home-aside-card">
+            <h3 data-i18n="home.aside.popular">${t('home.aside.popular')}</h3>
+            <ul>
+              ${popularItems.map(it => `
+                <li>
+                  <a href="${it.href}">
+                    ${it.title}
+                    <span class="item-meta"><span class="game">${gameName(it.game)}</span> · ${it.kind}</span>
+                  </a>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+          <div class="home-aside-card">
+            <h3 data-i18n="home.aside.latest">${t('home.aside.latest')}</h3>
+            <ul>
+              ${latestArticles.map(a => `
+                <li>
+                  <a href="/news/${a.slug}">
+                    ${tr(a.title)}
+                    <span class="item-meta"><span class="game">${gameName(a.game)}</span> · ${timeAgo(a.lastUpdated||a.date)}</span>
+                  </a>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </aside>
+      </div>
     </div>
 
     <div class="section">
