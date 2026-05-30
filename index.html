@@ -254,6 +254,10 @@ button{font-family:inherit}
 .detail-body ul,.detail-body ol{padding-left:20px;margin:0 0 16px}
 .detail-body li{margin-bottom:6px}
 .detail-body strong{color:var(--ink)}
+/* Inline links inside article bodies — visible without hover.
+   Cyan + bold + solid underline. Hover shifts to accent purple. */
+.detail-body a{color:var(--cyan);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(0,240,255,.4);transition:.15s}
+.detail-body a:hover{color:var(--accent);border-bottom-color:var(--accent);background:rgba(176,38,255,.06)}
 .game-link{color:var(--cyan);text-decoration:none;border-bottom:1px dashed var(--cyan);transition:.15s}
 .game-link:hover{color:var(--accent);border-bottom-color:var(--accent);background:rgba(176,38,255,.06)}
 .detail-body code{background:var(--panel2);padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--cyan)}
