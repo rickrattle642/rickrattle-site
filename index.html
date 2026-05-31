@@ -151,13 +151,13 @@ button{font-family:inherit}
 .card-thumb-fallback.plat-xbox{background:linear-gradient(135deg,#107C10 0%,#0a3d0a 60%,#04190a 100%)}
 .card-thumb-fallback.plat-nintendo{background:linear-gradient(135deg,#E60012 0%,#7d0010 60%,#2e0006 100%)}
 .card-thumb-fallback.plat-pc{background:linear-gradient(135deg,#1b2838 0%,#0f1925 60%,#070d14 100%)}
-.card-thumb-fallback .ft-logo{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));z-index:1;flex-shrink:0}
+.card-thumb-fallback .ft-logo{width:64px;height:64px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));z-index:1;flex-shrink:0}
 .card-thumb-fallback .ft-logo svg{width:100%;height:100%}
-/* Rick Rattle brand logo for generic fallback. Subtle but visible. */
-.card-thumb-fallback .ft-brand-logo{width:44px;height:44px;object-fit:contain;opacity:.9;filter:drop-shadow(0 2px 12px rgba(176,38,255,.5));z-index:1;position:relative;flex-shrink:0}
-/* Hero variant: when the platform IS the headline (general+platform articles), make the logo big. */
+/* Rick Rattle brand logo for generic fallback. Big enough to dominate the card visually. */
+.card-thumb-fallback .ft-brand-logo{width:96px;height:96px;object-fit:contain;opacity:1;filter:drop-shadow(0 4px 16px rgba(176,38,255,.6));z-index:1;position:relative;flex-shrink:0}
+/* Hero variant: when the platform IS the headline (general+platform articles), even bigger. */
 .card-thumb-fallback.hero .ft-logo,
-.card-thumb-fallback.hero .ft-brand-logo{width:88px;height:88px;opacity:1}
+.card-thumb-fallback.hero .ft-brand-logo{width:120px;height:120px;opacity:1}
 .card-thumb img + .card-thumb-fallback,.detail-cover img + .card-thumb-fallback{display:none}
 .card-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.4));z-index:1;pointer-events:none;opacity:0;transition:.3s}
 .card-thumb img ~ ::after,.card:has(img) .card-thumb::after{opacity:1}
@@ -801,7 +801,7 @@ const games = [
   {slug:'apex',                name:'Apex Legends',           short:'Apex',         steamAppId:1172470, subreddit:'apexlegends',     platforms:['pc','ps5','xbox','switch']},
   {slug:'fortnite',            name:'Fortnite',               short:'Fortnite',                         subreddit:'FortNiteBR',      platforms:['pc','ps5','xbox','switch','mobile']},
   {slug:'overwatch2',          name:'Overwatch 2',            short:'Overwatch 2',                      subreddit:'Overwatch',       platforms:['pc','ps5','xbox','switch']},
-  {slug:'crimson-desert',      name:'Crimson Desert',         short:'Crimson Desert',steamAppId:1216730,subreddit:'CrimsonDesert',   platforms:['pc','ps5','xbox']},
+  {slug:'crimson-desert',      name:'Crimson Desert',         short:'Crimson Desert',steamAppId:1216730,subreddit:'CrimsonDesert',   hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'diablo-iv',           name:'Diablo IV',              short:'Diablo IV',    steamAppId:2344520, subreddit:'Diablo4',         platforms:['pc','ps5','xbox']},
   {slug:'gta-v',               name:'Grand Theft Auto V',     short:'GTA V',        steamAppId:271590,  subreddit:'GTAV',            platforms:['pc','ps5','xbox']},
   {slug:'marathon',            name:'Marathon',               short:'Marathon',     steamAppId:2462580, subreddit:'marathon',        platforms:['pc','ps5','xbox']},
@@ -814,7 +814,7 @@ const games = [
   {slug:'callofduty',          name:'Call of Duty',           short:'COD',          steamAppId:1938090, subreddit:'CallOfDuty',      platforms:['pc','ps5','xbox']},
   {slug:'destiny-2',           name:'Destiny 2',              short:'Destiny 2',    steamAppId:1085660, subreddit:'destiny2',        streamPlayed:true, hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'forza-horizon-6',     name:'Forza Horizon 6',        short:'Forza 6',      steamAppId:2483190, subreddit:'ForzaHorizon',    streamPlayed:true, hasLocalImage:true, platforms:['pc','xbox']},
-  {slug:'subnautica-2',        name:'Subnautica 2',           short:'Subnautica 2', steamAppId:1934660, subreddit:'subnautica',      platforms:['pc','ps5','xbox']},
+  {slug:'subnautica-2',        name:'Subnautica 2',           short:'Subnautica 2', steamAppId:1934660, subreddit:'subnautica',      hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'wow',                 name:'World of Warcraft',      short:'WoW',                              subreddit:'wow',             platforms:['pc']},
   {slug:'warzone',             name:'Call of Duty: Warzone',  short:'Warzone',                          subreddit:'CODWarzone',      platforms:['pc','ps5','xbox']},
   {slug:'cod-bo7',             name:'Call of Duty: Black Ops 7', short:'COD BO7',                       subreddit:'BlackOps7',       platforms:['pc','ps5','xbox']},
@@ -1049,7 +1049,7 @@ const articles = [
     slug:'goty-2026-race-wide-open',
     title:{en:'GOTY 2026: The Race Is Wider Than Anyone Predicted', pt:'GOTY 2026: A Corrida Está Mais Aberta do que Qualquer Um Previu'},
     summary:{en:'GTA VI finally shipped. Pragmata stunned everyone. Resident Evil 9 Requiem split critics. With the Game Awards 2026 window (Nov 2025–Nov 2026) half-open, here are the actual frontrunners — not the 2025 leftovers.', pt:'O GTA VI finalmente saiu. O Pragmata apanhou toda a gente de surpresa. O Resident Evil 9 Requiem dividiu críticas. Com a janela do Game Awards 2026 (Nov 2025–Nov 2026) a meio, ficam aqui os candidatos reais — não os restos de 2025.'},
-    game:'general', tags:['goty','industry','community'], featured:true, date:'2026-05-22', lastUpdated:'2026-05-22', readTime:7, prefix:'meta-watch',
+    game:'general', tags:['goty','industry','community'], featured:true, thumb:'/img/goty.png', date:'2026-05-22', lastUpdated:'2026-05-22', readTime:7, prefix:'meta-watch',
     source:['https://www.polygon.com/game-of-the-year-goty-game-awards-2026-frontrunners/','https://thegameawards.com/'],
     content:[
       {type:'note', text:{en:'Game Awards 2026 eligibility runs roughly from November 2025 to mid-November 2026. Anything that shipped before that window (KCD2, Silksong, Clair Obscur, Death Stranding 2 — all 2025 releases) is fighting for GOTY 2025, not 2026.', pt:'A elegibilidade do Game Awards 2026 vai sensivelmente de Novembro de 2025 a meados de Novembro de 2026. Tudo o que saiu antes dessa janela (KCD2, Silksong, Clair Obscur, Death Stranding 2 — todos lançamentos de 2025) está a competir pelo GOTY 2025, não pelo 2026.'}},
