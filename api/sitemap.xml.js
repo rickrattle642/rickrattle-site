@@ -144,7 +144,13 @@ const MANUAL_TIPS_SLUGS = [
   {game:'paralives', slug:'paralives-things-to-do-first'},
   {game:'paralives', slug:'paralives-paramaker-guide'},
   {game:'paralives', slug:'paralives-cheats-console-commands'},
-  {game:'paralives', slug:'paralives-roadmap'}
+  {game:'paralives', slug:'paralives-roadmap'},
+  // Phase 7 — High-density SEO guides
+  {game:'007-first-light', slug:'007-first-light-best-gadgets-ranked'},
+  {game:'arc-raiders', slug:'arc-raiders-best-settings-fps-visibility'},
+  {game:'arc-raiders', slug:'arc-raiders-best-solo-build'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-level-up-fast-xp'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-super-wheelspins'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
