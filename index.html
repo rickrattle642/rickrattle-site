@@ -5118,9 +5118,9 @@ function resolvePopularItem(slug){
 
 function HomeView(view){
   const all=getAllArticles();
-  // Sort helper: featured first, then newest→oldest (lastUpdated > date)
-  const sortFeaturedNewest=(a,b)=>{
-    if((a.featured?1:0)!==(b.featured?1:0))return a.featured?-1:1;
+  // Sort helper: pure chronological — newest (lastUpdated > date) first.
+  // Drops the "featured first" rule so the homepage always shows freshly-added content.
+  const sortNewestFirst=(a,b)=>{
     const da=a.lastUpdated||a.date||'';
     const db=b.lastUpdated||b.date||'';
     return db.localeCompare(da);
@@ -5128,13 +5128,19 @@ function HomeView(view){
   // News: combine manual + external, dedupe by slug (just in case), then sort
   const newsSeen=new Set();
   const featNews=[...all].filter(a=>{if(newsSeen.has(a.slug))return false;newsSeen.add(a.slug);return true})
-    .sort(sortFeaturedNewest).slice(0,3);    // 3 cards alongside the aside column
-  const featGuides=[...guides].sort(sortFeaturedNewest).slice(0,3);
-  const featTiers=[...tierLists].sort(sortFeaturedNewest).slice(0,3);
+    .sort(sortNewestFirst).slice(0,3);    // 3 cards alongside the aside column
+  const featGuides=[...guides].sort(sortNewestFirst).slice(0,3);
+  const featTiers=[...tierLists].sort(sortNewestFirst).slice(0,3);
 
   // Right-column data
   const popularItems = POPULAR_NOW.map(resolvePopularItem).filter(Boolean).slice(0,5);
-  const latestArticles = [...articles].sort((a,b)=>{
+  // Latest content: pulls from articles + guides + tier lists so newly-added guides
+  // show up in the widget. Each item is annotated with href + kind for rendering.
+  const latestArticles = [
+    ...articles.map(a => ({ slug:a.slug, title:a.title, game:a.game, date:a.date, lastUpdated:a.lastUpdated, href:`/news/${a.slug}`, kind: lang==='pt'?'Artigo':'Article' })),
+    ...guides.map(g => ({ slug:g.slug, title:g.title, game:g.game, date:g.date, lastUpdated:g.lastUpdated, href:`/tips/${g.game}/${g.slug}`, kind: g.type==='build'?(lang==='pt'?'Build':'Build'):(lang==='pt'?'Guia':'Guide') })),
+    ...tierLists.map(tl => ({ slug:tl.slug, title:tl.title, game:tl.game, date:tl.date, lastUpdated:tl.lastUpdated, href:`/tips/${tl.game}/${tl.slug}`, kind: lang==='pt'?'Tier List':'Tier List' }))
+  ].sort((a,b)=>{
     const da=a.lastUpdated||a.date||'';
     const db=b.lastUpdated||b.date||'';
     return db.localeCompare(da);
@@ -5203,9 +5209,9 @@ function HomeView(view){
           <ul>
             ${latestArticles.map(a => `
               <li>
-                <a href="/news/${a.slug}">
+                <a href="${a.href}">
                   ${tr(a.title)}
-                  <span class="item-meta"><span class="game">${gameName(a.game)}</span> · ${timeAgo(a.lastUpdated||a.date)}</span>
+                  <span class="item-meta"><span class="game">${gameName(a.game)}</span> · ${a.kind} · ${timeAgo(a.lastUpdated||a.date)}</span>
                 </a>
               </li>
             `).join('')}
