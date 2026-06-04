@@ -84,11 +84,25 @@
   .rules .tier span{font-size:13px;color:var(--ink)}
   /* History */
   .history-list{list-style:none;padding:0;margin:0;font-family:'JetBrains Mono',monospace;font-size:13px}
-  .history-list li{padding:8px 4px;border-bottom:1px dashed rgba(58,38,22,.25);display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+  .history-list li{padding:0;border-bottom:1px dashed rgba(58,38,22,.25)}
   .history-list li:last-child{border-bottom:none}
+  .history-list .hist-head{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:10px 6px;cursor:pointer;user-select:none;transition:.15s}
+  .history-list .hist-head:hover{background:rgba(168,35,29,.05)}
+  .history-list .hist-toggle{font-family:'Rye',serif;color:var(--red);font-size:14px;width:18px;text-align:center;transition:transform .2s}
+  .history-list .hist-toggle.open{transform:rotate(90deg)}
   .history-list .date{color:rgba(42,28,16,.6);font-size:11px;letter-spacing:1px}
   .history-list .winner{color:var(--ink);font-weight:700}
   .history-list .pts{color:var(--red);font-weight:700}
+  .history-list .hist-body{display:none;padding:6px 10px 12px 30px;background:rgba(255,255,255,.4)}
+  .history-list .hist-body.open{display:block}
+  .history-list .hist-body ol{list-style:none;padding:0;margin:0}
+  .history-list .hist-body ol li{display:grid;grid-template-columns:24px 1fr auto;gap:8px;align-items:center;padding:4px 0;border:none;font-size:12px}
+  .history-list .hist-body .pos{font-family:'Rye',serif;color:var(--red);font-size:13px;text-align:center}
+  .history-list .hist-body .pos.p1{color:var(--gold);text-shadow:1px 1px 0 var(--wood-dark)}
+  .history-list .hist-body .pos.p2{color:#9a9aa6}
+  .history-list .hist-body .pos.p3{color:#cd7f32}
+  .history-list .hist-body .h-name{color:var(--ink)}
+  .history-list .hist-body .h-score{font-family:'Anton',sans-serif;color:var(--navy);font-size:14px}
   /* Footer */
   footer.fair-foot{text-align:center;padding:30px 16px;border-top:1px dashed rgba(201,162,75,.3);font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.5);letter-spacing:2px}
   footer.fair-foot a{color:var(--gold-bright);text-decoration:none}
@@ -226,19 +240,47 @@
       const histEl = document.getElementById('history');
       const history = (state.history || []).slice(0, 8);
       if (history.length) {
-        histEl.innerHTML = history.map(h => `
-          <li>
-            <div>
-              <span class="winner">${escapeHtml(h.champion)}</span>
-              <div class="date">${fmtDate(h.date)}</div>
+        histEl.innerHTML = history.map((h, idx) => {
+          const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
+          const isFirst = idx === 0;  // most recent session auto-expanded
+          const tableHtml = top.length ? `
+            <div class="hist-body${isFirst ? ' open' : ''}">
+              <ol>
+                ${top.slice(0, 10).map((p, i) => {
+                  const cls = i === 0 ? 'p1' : i === 1 ? 'p2' : i === 2 ? 'p3' : '';
+                  return `<li>
+                    <span class="pos ${cls}">${i+1}</span>
+                    <span class="h-name">${escapeHtml(p.name)}</span>
+                    <span class="h-score">${p.score}</span>
+                  </li>`;
+                }).join('')}
+              </ol>
             </div>
-            <span class="pts">${h.score} pts</span>
-          </li>
-        `).join('');
+          ` : '';
+          return `<li>
+            <div class="hist-head" onclick="toggleHistory(this)">
+              <span class="hist-toggle${isFirst ? ' open' : ''}">▶</span>
+              <div>
+                <span class="winner">${escapeHtml(h.champion)}</span>
+                <div class="date">${fmtDate(h.date)}</div>
+              </div>
+              <span class="pts">${h.score} pts</span>
+            </div>
+            ${tableHtml}
+          </li>`;
+        }).join('');
       } else {
         histEl.innerHTML = '<li class="lb-empty" style="border:none;display:block">Nenhuma stream arquivada.</li>';
       }
 
+    }
+
+    function toggleHistory(headEl){
+      const toggle = headEl.querySelector('.hist-toggle');
+      const body = headEl.nextElementSibling;
+      if (!body || !body.classList.contains('hist-body')) return;
+      toggle.classList.toggle('open');
+      body.classList.toggle('open');
     }
 
     async function poll(){
