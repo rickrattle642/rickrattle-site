@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barraca da Feira — Admin</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --bg:#0d0703; --panel:#1a1108; --panel2:#23170c; --line:#3a2616;
+    --ink:#f5e9c8; --muted:#a89372; --accent:#c9a24b; --red:#a8231d; --green:#4cd964; --navy:#1b2a4e;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'JetBrains Mono',monospace;min-height:100vh}
+  header{background:linear-gradient(135deg,var(--red) 0%,#7a1612 100%);padding:18px 20px;border-bottom:3px solid var(--accent);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  header h1{font-family:'Anton',sans-serif;font-size:24px;margin:0;letter-spacing:2px;text-transform:uppercase}
+  header .links{display:flex;gap:10px;flex-wrap:wrap}
+  header a{color:var(--ink);background:rgba(0,0,0,.3);padding:6px 12px;border-radius:4px;text-decoration:none;font-size:11px;letter-spacing:2px;border:1px solid rgba(245,233,200,.2)}
+  header a:hover{background:rgba(0,0,0,.5);border-color:var(--accent)}
+  /* Login */
+  .login{max-width:380px;margin:80px auto;background:var(--panel);padding:30px;border:1px solid var(--line);border-radius:8px;text-align:center}
+  .login h2{font-family:'Anton',sans-serif;margin:0 0 18px;letter-spacing:2px}
+  .login input{width:100%;padding:12px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:14px;margin-bottom:12px}
+  .login button{width:100%;padding:12px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;font-family:'Anton',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer}
+  .login button:hover{background:#e9c66e}
+  .login .err{color:#e87474;font-size:12px;margin-top:8px;min-height:1em}
+  /* Main grid */
+  main{max-width:1200px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr;gap:20px}
+  @media(min-width:900px){main{grid-template-columns:1.2fr 1fr}}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:20px}
+  .panel h2{font-family:'Anton',sans-serif;font-size:18px;margin:0 0 16px;letter-spacing:2px;color:var(--accent);border-bottom:1px solid var(--line);padding-bottom:8px}
+  /* Form */
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .row label{flex:1 1 100%;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+  .row input,.row select{flex:1;min-width:120px;padding:10px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:14px}
+  .row input[type=number]{max-width:120px;text-align:center}
+  /* Quick buttons */
+  .quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(70px,1fr));gap:6px;margin-top:10px}
+  .quick button{padding:14px 8px;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:'Anton',sans-serif;font-size:16px;letter-spacing:1px;cursor:pointer;transition:.15s}
+  .quick button:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+  .quick button.neg{color:#e87474}
+  .quick button.neg:hover{background:var(--red);color:#fff;border-color:var(--red)}
+  /* Action buttons */
+  .btn{padding:10px 16px;background:var(--accent);color:var(--bg);border:none;border-radius:4px;font-family:'Anton',sans-serif;font-size:14px;letter-spacing:2px;cursor:pointer;text-transform:uppercase}
+  .btn:hover{background:#e9c66e}
+  .btn-secondary{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);background:transparent}
+  .btn-danger{background:var(--red);color:#fff}
+  .btn-danger:hover{background:#c9281f}
+  /* Leaderboard */
+  .lb{list-style:none;padding:0;margin:0}
+  .lb li{display:grid;grid-template-columns:30px 1fr auto auto;gap:10px;align-items:center;padding:10px 6px;border-bottom:1px solid var(--line);font-size:14px}
+  .lb li:last-child{border-bottom:none}
+  .lb .pos{font-family:'Anton',sans-serif;font-size:18px;color:var(--accent);text-align:center}
+  .lb .name{font-weight:700;cursor:pointer}
+  .lb .name:hover{color:var(--accent);text-decoration:underline}
+  .lb .score{font-family:'Anton',sans-serif;font-size:18px;color:var(--ink)}
+  .lb .actions{display:flex;gap:4px}
+  .lb .actions button{padding:4px 8px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:3px;font-size:11px;cursor:pointer}
+  .lb .actions button:hover{color:var(--ink);border-color:var(--accent)}
+  .lb .actions button.del{color:#e87474;border-color:#5a2020}
+  .lb .actions button.del:hover{color:#fff;background:var(--red);border-color:var(--red)}
+  .empty{padding:20px 6px;color:var(--muted);font-style:italic;text-align:center}
+  /* Stream controls */
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  /* Toast */
+  .toast{position:fixed;bottom:20px;right:20px;background:var(--panel);border-left:4px solid var(--accent);padding:12px 18px;border-radius:4px;box-shadow:0 6px 20px rgba(0,0,0,.5);font-size:13px;max-width:320px;z-index:100;transform:translateX(400px);transition:.3s}
+  .toast.show{transform:translateX(0)}
+  .toast.err{border-left-color:var(--red);color:#e87474}
+  .toast.ok{border-left-color:var(--green)}
+  /* Stream status */
+  .stream-status{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+  .stream-status .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
+  .stream-status .dot.off{background:#666;animation:none}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+</style>
+</head>
+<body>
+
+<!-- Login screen -->
+<div class="login" id="login">
+  <h2>🔐 Admin · Barraca da Feira</h2>
+  <input type="password" id="pwInput" placeholder="Password" autocomplete="current-password">
+  <button onclick="login()">Entrar</button>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<!-- Admin app (hidden until login) -->
+<div id="app" style="display:none">
+
+  <header>
+    <h1>🎯 Barraca da Feira — Admin</h1>
+    <div class="links">
+      <a href="/barraca" target="_blank">PÚBLICO ↗</a>
+      <a href="/barraca/overlay" target="_blank">OVERLAY OBS ↗</a>
+      <a href="#" onclick="logout();return false">SAIR</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Left: add/edit form -->
+    <div>
+      <div class="panel">
+        <div class="stream-status">
+          <span class="dot" id="streamDot"></span>
+          <span id="streamLabel">A LIGAR…</span>
+        </div>
+
+        <h2>➕ Adicionar / Editar Pontos</h2>
+
+        <div class="row" style="position:relative">
+          <label>Jogador (escreve ou escolhe — autocomplete pelos followers)</label>
+          <input type="text" id="playerName" placeholder="ex: mashazinha_" autocomplete="off" oninput="onPlayerInput()" onfocus="onPlayerInput()">
+          <div id="playerSuggest" style="position:absolute;top:100%;left:0;right:0;background:var(--panel2);border:1px solid var(--line);border-top:none;border-radius:0 0 4px 4px;max-height:200px;overflow-y:auto;display:none;z-index:50"></div>
+        </div>
+
+        <div class="row">
+          <label>Adicionar pontos (zonas reais do alvo)</label>
+        </div>
+        <div class="quick">
+          <button onclick="quickAdd(10)">+10</button>
+          <button onclick="quickAdd(20)">+20</button>
+          <button onclick="quickAdd(30)">+30</button>
+          <button onclick="quickAdd(40)">+40</button>
+          <button onclick="quickAdd(50)">+50</button>
+          <button onclick="quickAdd(60)">+60</button>
+          <button onclick="quickAdd(70)">+70</button>
+          <button onclick="quickAdd(80)">+80</button>
+          <button onclick="quickAdd(90)">+90</button>
+          <button onclick="quickAdd(100)">+100</button>
+          <button onclick="quickAdd(110)">+110</button>
+          <button onclick="quickAdd(120)">+120</button>
+          <button onclick="quickAdd(130)">+130</button>
+          <button onclick="quickAdd(140)">+140</button>
+          <button onclick="quickAdd(150)">+150</button>
+          <button onclick="quickAdd(160)">+160</button>
+          <button onclick="quickAdd(170)">+170</button>
+          <button onclick="quickAdd(180)">+180</button>
+          <button onclick="quickAdd(190)">+190</button>
+          <button onclick="quickAdd(200)" style="background:var(--red);color:#fff;border-color:var(--red)">+200 BULL</button>
+        </div>
+        <div class="quick" style="margin-top:8px">
+          <button onclick="quickAdd(-10)" class="neg">−10</button>
+          <button onclick="quickAdd(-50)" class="neg">−50</button>
+          <button onclick="quickAdd(-100)" class="neg">−100</button>
+        </div>
+
+        <div class="row" style="margin-top:18px">
+          <label>Ou personalizado</label>
+          <input type="number" id="customDelta" placeholder="100" value="100">
+          <button class="btn" onclick="quickAdd(Number(document.getElementById('customDelta').value)||0)">Adicionar</button>
+          <button class="btn btn-secondary" onclick="setExact()">Definir Exacto</button>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:20px">
+        <h2>🎬 Controlos de Stream</h2>
+        <div class="controls">
+          <button class="btn" onclick="startStream()">▶ Nova Stream</button>
+          <button class="btn btn-danger" onclick="endStream()">⏹ Fechar Stream</button>
+          <button class="btn btn-secondary" onclick="resetCurrent()">🔄 Reset Actual</button>
+        </div>
+        <div style="margin-top:14px;font-size:12px;color:var(--muted);line-height:1.6">
+          <strong style="color:var(--ink)">Nova Stream</strong>: limpa leaderboard e começa do zero.<br>
+          <strong style="color:var(--ink)">Fechar Stream</strong>: arquiva o campeão no histórico e prepara para a próxima.<br>
+          <strong style="color:var(--ink)">Reset Actual</strong>: zera só a leaderboard actual (sem arquivar).
+        </div>
+      </div>
+
+      <!-- Followers management -->
+      <div class="panel" style="margin-top:20px">
+        <h2>👥 Followers (base de dados)</h2>
+        <div id="followersStatus" style="font-size:12px;color:var(--muted);margin-bottom:10px">A carregar…</div>
+        <div class="row">
+          <input type="text" id="newFollower" placeholder="ex: novo_follower_aqui" style="flex:1">
+          <button class="btn" onclick="addFollower()">+ Adicionar</button>
+        </div>
+        <details style="margin-top:10px">
+          <summary style="cursor:pointer;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase">VER / EDITAR LISTA COMPLETA</summary>
+          <div style="margin-top:10px">
+            <textarea id="followersBulk" style="width:100%;min-height:200px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:10px;font-family:inherit;font-size:12px;line-height:1.5" placeholder="Um nome por linha…"></textarea>
+            <button class="btn btn-secondary" style="margin-top:8px" onclick="saveFollowersBulk()">Guardar Lista Completa</button>
+          </div>
+        </details>
+        <div id="seedSection" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:none">
+          <button class="btn" onclick="seedInitial()">🌱 Seed inicial (importar 163 followers + sessão 03/06)</button>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px">Só corre se a lista estiver vazia. Idempotent.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: live leaderboard + record -->
+    <div>
+      <div class="panel">
+        <h2>🏆 Leaderboard Actual</h2>
+        <ol class="lb" id="adminLb"><li class="empty">A carregar…</li></ol>
+      </div>
+
+      <div class="panel" style="margin-top:20px">
+        <h2>👑 Record da Barraca</h2>
+        <div id="adminRecord" style="text-align:center;padding:16px 0">
+          <div class="empty">Sem record ainda.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_PW = 'rr_barraca_admin_pw';
+  let pw = sessionStorage.getItem(STORAGE_PW) || '';
+  let state = null;
+  let pollTimer = null;
+
+  function $(id){return document.getElementById(id)}
+
+  function showToast(msg, kind){
+    const t = $('toast');
+    t.textContent = msg;
+    t.className = 'toast show' + (kind ? ' '+kind : '');
+    setTimeout(() => t.className = 'toast', 3000);
+  }
+
+  async function api(path, opts){
+    opts = opts || {};
+    opts.headers = Object.assign({
+      'Content-Type': 'application/json',
+      'X-Admin-Password': pw
+    }, opts.headers || {});
+    const r = await fetch(path, opts);
+    if (r.status === 401) {
+      sessionStorage.removeItem(STORAGE_PW);
+      pw = '';
+      location.reload();
+      return null;
+    }
+    const data = await r.json();
+    if (!r.ok) throw new Error(data.error || 'API error ' + r.status);
+    return data;
+  }
+
+  async function loadState(){
+    try {
+      const r = await fetch('/api/barraca/state', { cache:'no-store' });
+      state = await r.json();
+      render();
+    } catch (e) {
+      showToast('Erro a carregar estado', 'err');
+    }
+  }
+
+  function render(){
+    if (!state) return;
+    // Stream status
+    const active = state.current?.active;
+    $('streamDot').className = 'dot' + (active ? '' : ' off');
+    $('streamLabel').textContent = active
+      ? `STREAM ACTIVA · ${state.current.players.length} JOGADORES`
+      : 'STREAM OFFLINE';
+
+    // Leaderboard
+    const players = state.current?.players || [];
+    const lb = $('adminLb');
+    if (players.length) {
+      lb.innerHTML = players.map((p, i) => `
+        <li>
+          <span class="pos">${i+1}</span>
+          <span class="name" onclick="document.getElementById('playerName').value='${p.name.replace(/'/g,"\\'")}';document.getElementById('playerName').focus()">${escapeHtml(p.name)}</span>
+          <span class="score">${p.score}</span>
+          <span class="actions">
+            <button onclick="editScore('${p.name.replace(/'/g,"\\'")}', ${p.score})">edit</button>
+            <button class="del" onclick="removePlayer('${p.name.replace(/'/g,"\\'")}')">×</button>
+          </span>
+        </li>
+      `).join('');
+    } else {
+      lb.innerHTML = '<li class="empty">Sem jogadores. Adiciona o primeiro!</li>';
+    }
+
+    // Followers panel
+    const followers = state.followers || [];
+    const fStatus = $('followersStatus');
+    fStatus.innerHTML = `<strong style="color:var(--ink)">${followers.length}</strong> followers no roster · usados como autocomplete acima`;
+    const bulk = $('followersBulk');
+    if (document.activeElement !== bulk) bulk.value = followers.join('\n');
+    // Show "seed" button only when followers list is empty
+    $('seedSection').style.display = followers.length === 0 ? 'block' : 'none';
+
+    // Record
+    const rec = $('adminRecord');
+    if (state.record) {
+      rec.innerHTML = `
+        <div style="font-family:'Anton',sans-serif;font-size:24px;color:var(--accent)">${escapeHtml(state.record.name)}</div>
+        <div style="font-family:'Anton',sans-serif;font-size:36px;color:var(--ink);margin:4px 0">${state.record.score}</div>
+        <div style="font-size:11px;color:var(--muted);letter-spacing:2px">${fmtDate(state.record.date)}</div>
+      `;
+    } else {
+      rec.innerHTML = '<div class="empty">Sem record ainda.</div>';
+    }
+  }
+
+  // ---- Autocomplete (player picker) ----
+  function onPlayerInput(){
+    const input = $('playerName').value.trim().toLowerCase();
+    const sug = $('playerSuggest');
+    // Combine followers + already-scoring players, de-duped
+    const fromFollowers = (state?.followers || []).map(n => ({ name: n, type: 'follower' }));
+    const fromPlayers = (state?.current?.players || []).map(p => ({ name: p.name, type: 'active', score: p.score }));
+    const seen = new Set();
+    const merged = [];
+    for (const item of [...fromPlayers, ...fromFollowers]) {
+      const k = item.name.toLowerCase();
+      if (seen.has(k)) continue;
+      seen.add(k);
+      merged.push(item);
+    }
+    const matches = input
+      ? merged.filter(m => m.name.toLowerCase().includes(input))
+      : merged.slice(0, 12);
+    if (!matches.length) { sug.style.display = 'none'; return; }
+    sug.innerHTML = matches.slice(0, 15).map(m => `
+      <div onclick="pickPlayer('${m.name.replace(/'/g,"\\'")}')" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--line);font-size:13px;display:flex;justify-content:space-between;align-items:center">
+        <span>${escapeHtml(m.name)}</span>
+        <span style="font-size:10px;color:var(--muted);letter-spacing:1px">${m.type === 'active' ? `${m.score} pts · activo` : 'follower'}</span>
+      </div>
+    `).join('');
+    sug.style.display = 'block';
+  }
+  function pickPlayer(name){
+    $('playerName').value = name;
+    $('playerSuggest').style.display = 'none';
+    $('playerName').focus();
+  }
+  // Hide suggest when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#playerName') && !e.target.closest('#playerSuggest')) {
+      $('playerSuggest').style.display = 'none';
+    }
+  });
+
+  function escapeHtml(s){return (s||'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function fmtDate(iso){if(!iso)return '—';try{return new Date(iso).toLocaleDateString('pt-PT',{day:'2-digit',month:'2-digit',year:'numeric'})}catch{return iso}}
+
+  // Actions
+  // All admin write actions go through the single consolidated /api/barraca/admin endpoint
+  // (Vercel Hobby plan limits us to 12 serverless functions, so we keep one POST handler).
+  async function adminAction(body){
+    return api('/api/barraca/admin', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    });
+  }
+
+  async function quickAdd(delta){
+    const name = $('playerName').value.trim();
+    if (!name) return showToast('Escreve um nome de jogador primeiro', 'err');
+    if (!delta) return showToast('Delta zero — escolhe valor', 'err');
+    try {
+      const res = await adminAction({ action: 'score', player: name, delta });
+      if (res?.recordUpdated) showToast(`🏆 NOVO RECORD: ${name} ${res.newScore}!`, 'ok');
+      else showToast(`${name}: ${res.newScore} (${delta > 0 ? '+' : ''}${delta})`, 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  async function setExact(){
+    const name = $('playerName').value.trim();
+    if (!name) return showToast('Escreve um nome', 'err');
+    const val = prompt(`Definir pontuação exacta para ${name}:`, '0');
+    if (val === null) return;
+    const num = parseInt(val, 10);
+    if (isNaN(num) || num < 0) return showToast('Número inválido', 'err');
+    try {
+      await adminAction({ action: 'score', player: name, set: num });
+      showToast(`${name} = ${num} pontos`, 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  async function editScore(name, current){
+    const val = prompt(`Editar pontuação de ${name} (actual: ${current}):`, current);
+    if (val === null) return;
+    const num = parseInt(val, 10);
+    if (isNaN(num) || num < 0) return showToast('Número inválido', 'err');
+    try {
+      await adminAction({ action: 'score', player: name, set: num });
+      showToast(`${name} = ${num}`, 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  async function removePlayer(name){
+    if (!confirm(`Remover ${name} desta stream?`)) return;
+    try {
+      await adminAction({ action: 'score', player: name, remove: true });
+      showToast(`${name} removido`, 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  async function startStream(){
+    if (state?.current?.active && !confirm('Já existe uma stream activa. Iniciar nova vai limpar a leaderboard. Continuar?')) return;
+    try {
+      await adminAction({ action: 'reset', startNew: true });
+      showToast('Nova stream iniciada!', 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  async function endStream(){
+    if (!confirm('Fechar a stream actual e arquivar o campeão?')) return;
+    try {
+      const res = await adminAction({ action: 'end-stream' });
+      const champ = res?.archived;
+      if (champ) showToast(`🎉 Campeão arquivado: ${champ.name} com ${champ.score} pts`, 'ok');
+      else showToast('Stream fechada (sem jogadores)', 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  async function resetCurrent(){
+    if (!confirm('RESET da leaderboard actual SEM ARQUIVAR. Continuar?')) return;
+    try {
+      await adminAction({ action: 'reset', startNew: state?.current?.active || false });
+      showToast('Leaderboard reset', 'ok');
+      await loadState();
+    } catch (e) {
+      showToast('Erro: ' + e.message, 'err');
+    }
+  }
+
+  // ---- Followers management ----
+  async function addFollower(){
+    const name = $('newFollower').value.trim();
+    if (!name) return showToast('Nome vazio', 'err');
+    try {
+      await adminAction({ action: 'followers', type: 'add', names: [name] });
+      $('newFollower').value = '';
+      showToast(`Follower "${name}" adicionado`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function saveFollowersBulk(){
+    const raw = $('followersBulk').value;
+    const names = raw.split(/[\n,]/).map(s => s.trim()).filter(Boolean);
+    if (!confirm(`Substituir lista completa de followers por ${names.length} nomes?`)) return;
+    try {
+      const res = await adminAction({ action: 'followers', type: 'set', names });
+      showToast(`${res.count} followers guardados`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function seedInitial(){
+    if (!confirm('Importar 163 followers + sessão histórica 03/06/2026?')) return;
+    try {
+      const res = await adminAction({ action: 'seed' });
+      if (res.skipped) showToast('Já estava feito — skipped', 'ok');
+      else showToast(`Seed ok: ${res.followersSeeded} followers + record ${res.recordSet?.name}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
+  // Login
+  async function login(){
+    const input = $('pwInput').value.trim();
+    if (!input) return $('loginErr').textContent = 'Password vazia';
+    pw = input;
+    // Test password with a no-op admin call
+    try {
+      const r = await fetch('/api/barraca/score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
+        body: JSON.stringify({ player: '__test_login__', delta: 0 })
+      });
+      if (r.status === 401) {
+        $('loginErr').textContent = 'Password errada';
+        pw = '';
+        return;
+      }
+      sessionStorage.setItem(STORAGE_PW, pw);
+      $('login').style.display = 'none';
+      $('app').style.display = 'block';
+      // Remove the test player created above (delta:0 won't add them but make sure)
+      fetch('/api/barraca/score', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
+        body: JSON.stringify({ player: '__test_login__', remove: true })
+      });
+      startPolling();
+    } catch (e) {
+      $('loginErr').textContent = 'Erro: ' + e.message;
+    }
+  }
+
+  function logout(){
+    sessionStorage.removeItem(STORAGE_PW);
+    location.reload();
+  }
+
+  function startPolling(){
+    loadState();
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(loadState, 4000);
+  }
+
+  // Auto-login if pw cached
+  if (pw) {
+    $('login').style.display = 'none';
+    $('app').style.display = 'block';
+    startPolling();
+  } else {
+    $('pwInput').focus();
+    $('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
+  }
+</script>
+</body>
+</html>
