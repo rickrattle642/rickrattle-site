@@ -89,11 +89,6 @@
   .history-list .date{color:rgba(42,28,16,.6);font-size:11px;letter-spacing:1px}
   .history-list .winner{color:var(--ink);font-weight:700}
   .history-list .pts{color:var(--red);font-weight:700}
-  /* Status bar */
-  .status-bar{text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.5);padding:14px 0;letter-spacing:2px}
-  .status-bar .live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4cd964;margin-right:6px;animation:pulse 1.5s infinite}
-  .status-bar .offline-dot{background:#999}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
   /* Footer */
   footer.fair-foot{text-align:center;padding:30px 16px;border-top:1px dashed rgba(201,162,75,.3);font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.5);letter-spacing:2px}
   footer.fair-foot a{color:var(--gold-bright);text-decoration:none}
@@ -168,10 +163,6 @@
       </ul>
     </section>
   </main>
-
-  <div class="status-bar" id="statusBar">
-    <span class="live-dot" id="liveDot"></span><span id="statusText">A LIGAR…</span>
-  </div>
 
   <footer class="fair-foot">
     <div>BARRACA DA FEIRA · <a href="https://rickrattle.com">RICKRATTLE.COM</a> · A FESTA VEM AÍ!</div>
@@ -248,16 +239,6 @@
         histEl.innerHTML = '<li class="lb-empty" style="border:none;display:block">Nenhuma stream arquivada.</li>';
       }
 
-      const active = state.current?.active;
-      const dot = document.getElementById('liveDot');
-      const txt = document.getElementById('statusText');
-      if (active) {
-        dot.classList.remove('offline-dot');
-        txt.textContent = 'STREAM ACTIVA · ACTUALIZA A CADA 5s';
-      } else {
-        dot.classList.add('offline-dot');
-        txt.textContent = 'STREAM OFFLINE · ÚLTIMA SESSÃO MOSTRADA';
-      }
     }
 
     async function poll(){
@@ -267,9 +248,7 @@
         const state = await r.json();
         render(state);
       } catch (err) {
-        const txt = document.getElementById('statusText');
-        if (txt) txt.textContent = 'OFFLINE · A TENTAR LIGAR';
-        document.getElementById('liveDot')?.classList.add('offline-dot');
+        // Silent fail — the page just keeps showing last known state.
       } finally {
         setTimeout(poll, POLL_MS);
       }
