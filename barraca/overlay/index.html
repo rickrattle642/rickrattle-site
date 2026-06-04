@@ -25,14 +25,14 @@
   .empty{text-align:center;padding:14px 0;color:#3a2616;opacity:.6;font-style:italic;font-family:serif;font-size:13px}
   /* Top 5 */
   .top5 ol{list-style:none}
-  .top5 li{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;padding:7px 4px;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#2a1c10;border-bottom:1px dashed rgba(58,38,22,.25);letter-spacing:1px}
+  .top5 li{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:8px;padding:5px 4px;font-family:'Bebas Neue',sans-serif;font-size:15px;color:#2a1c10;border-bottom:1px dashed rgba(58,38,22,.25);letter-spacing:1px}
   .top5 li:last-child{border-bottom:none}
-  .top5 .pos{font-family:'Rye',serif;font-size:18px;color:#a8231d;text-align:center}
+  .top5 .pos{font-family:'Rye',serif;font-size:14px;color:#a8231d;text-align:center}
   .top5 .pos.p1{color:#c9a24b;text-shadow:1px 1px 0 #3a2616}
   .top5 .pos.p2{color:#8a8a92}
   .top5 .pos.p3{color:#cd7f32}
   .top5 .name{font-weight:700}
-  .top5 .score{font-family:'Anton',sans-serif;color:#1b2a4e;font-size:22px}
+  .top5 .score{font-family:'Anton',sans-serif;color:#1b2a4e;font-size:18px}
   /* House record */
   .record{background:linear-gradient(180deg,rgba(27,42,78,.96) 0%,rgba(12,20,40,.94) 100%);color:#f5e9c8;text-align:center;padding:14px 18px 16px}
   .record::before{border-color:rgba(245,233,200,.2)}
@@ -57,7 +57,7 @@
     </div>
 
     <div class="card top5">
-      <h3>🎯 TOP 5</h3>
+      <h3>🎯 TOP 10</h3>
       <ol id="top5">
         <li class="empty" style="display:block;text-align:center">—</li>
       </ol>
@@ -95,10 +95,10 @@
         champEl.innerHTML = '<div class="empty">À espera de campeão…</div>';
       }
 
-      // Top 5
+      // Top 10
       const top5El = document.getElementById('top5');
       if (players.length) {
-        top5El.innerHTML = players.slice(0, 5).map((p, i) => {
+        top5El.innerHTML = players.slice(0, 10).map((p, i) => {
           const cls = i === 0 ? 'p1' : i === 1 ? 'p2' : i === 2 ? 'p3' : '';
           const prevScore = lastScores.get(p.name);
           const pulseClass = prevScore != null && prevScore !== p.score ? ' pulse' : '';

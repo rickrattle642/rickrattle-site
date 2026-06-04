@@ -110,27 +110,38 @@
 
         <h2>➕ Adicionar / Editar Pontos</h2>
 
-        <div class="row">
-          <label>Jogador (nome ou escolhe da lista)</label>
-          <input type="text" id="playerName" placeholder="masha" autocomplete="off">
-          <select id="playerPick" style="max-width:160px" onchange="if(this.value){document.getElementById('playerName').value=this.value;this.value=''}">
-            <option value="">— pick jogador —</option>
-          </select>
+        <div class="row" style="position:relative">
+          <label>Jogador (escreve ou escolhe — autocomplete pelos followers)</label>
+          <input type="text" id="playerName" placeholder="ex: mashazinha_" autocomplete="off" oninput="onPlayerInput()" onfocus="onPlayerInput()">
+          <div id="playerSuggest" style="position:absolute;top:100%;left:0;right:0;background:var(--panel2);border:1px solid var(--line);border-top:none;border-radius:0 0 4px 4px;max-height:200px;overflow-y:auto;display:none;z-index:50"></div>
         </div>
 
         <div class="row">
-          <label>Adicionar pontos rápido</label>
+          <label>Adicionar pontos (zonas reais do alvo)</label>
         </div>
         <div class="quick">
           <button onclick="quickAdd(10)">+10</button>
           <button onclick="quickAdd(20)">+20</button>
           <button onclick="quickAdd(30)">+30</button>
+          <button onclick="quickAdd(40)">+40</button>
           <button onclick="quickAdd(50)">+50</button>
+          <button onclick="quickAdd(60)">+60</button>
           <button onclick="quickAdd(70)">+70</button>
+          <button onclick="quickAdd(80)">+80</button>
+          <button onclick="quickAdd(90)">+90</button>
           <button onclick="quickAdd(100)">+100</button>
+          <button onclick="quickAdd(110)">+110</button>
+          <button onclick="quickAdd(120)">+120</button>
+          <button onclick="quickAdd(130)">+130</button>
+          <button onclick="quickAdd(140)">+140</button>
+          <button onclick="quickAdd(150)">+150</button>
+          <button onclick="quickAdd(160)">+160</button>
           <button onclick="quickAdd(170)">+170</button>
-          <button onclick="quickAdd(200)">+200</button>
-          <button onclick="quickAdd(250)">+250</button>
+          <button onclick="quickAdd(180)">+180</button>
+          <button onclick="quickAdd(190)">+190</button>
+          <button onclick="quickAdd(200)" style="background:var(--red);color:#fff;border-color:var(--red)">+200 BULL</button>
+        </div>
+        <div class="quick" style="margin-top:8px">
           <button onclick="quickAdd(-10)" class="neg">−10</button>
           <button onclick="quickAdd(-50)" class="neg">−50</button>
           <button onclick="quickAdd(-100)" class="neg">−100</button>
@@ -155,6 +166,27 @@
           <strong style="color:var(--ink)">Nova Stream</strong>: limpa leaderboard e começa do zero.<br>
           <strong style="color:var(--ink)">Fechar Stream</strong>: arquiva o campeão no histórico e prepara para a próxima.<br>
           <strong style="color:var(--ink)">Reset Actual</strong>: zera só a leaderboard actual (sem arquivar).
+        </div>
+      </div>
+
+      <!-- Followers management -->
+      <div class="panel" style="margin-top:20px">
+        <h2>👥 Followers (base de dados)</h2>
+        <div id="followersStatus" style="font-size:12px;color:var(--muted);margin-bottom:10px">A carregar…</div>
+        <div class="row">
+          <input type="text" id="newFollower" placeholder="ex: novo_follower_aqui" style="flex:1">
+          <button class="btn" onclick="addFollower()">+ Adicionar</button>
+        </div>
+        <details style="margin-top:10px">
+          <summary style="cursor:pointer;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase">VER / EDITAR LISTA COMPLETA</summary>
+          <div style="margin-top:10px">
+            <textarea id="followersBulk" style="width:100%;min-height:200px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:10px;font-family:inherit;font-size:12px;line-height:1.5" placeholder="Um nome por linha…"></textarea>
+            <button class="btn btn-secondary" style="margin-top:8px" onclick="saveFollowersBulk()">Guardar Lista Completa</button>
+          </div>
+        </details>
+        <div id="seedSection" style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:none">
+          <button class="btn" onclick="seedInitial()">🌱 Seed inicial (importar 163 followers + sessão 03/06)</button>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px">Só corre se a lista estiver vazia. Idempotent.</div>
         </div>
       </div>
     </div>
@@ -249,10 +281,14 @@
       lb.innerHTML = '<li class="empty">Sem jogadores. Adiciona o primeiro!</li>';
     }
 
-    // Picker dropdown
-    const pick = $('playerPick');
-    pick.innerHTML = '<option value="">— pick jogador —</option>' +
-      players.map(p => `<option value="${escapeHtml(p.name)}">${escapeHtml(p.name)} (${p.score})</option>`).join('');
+    // Followers panel
+    const followers = state.followers || [];
+    const fStatus = $('followersStatus');
+    fStatus.innerHTML = `<strong style="color:var(--ink)">${followers.length}</strong> followers no roster · usados como autocomplete acima`;
+    const bulk = $('followersBulk');
+    if (document.activeElement !== bulk) bulk.value = followers.join('\n');
+    // Show "seed" button only when followers list is empty
+    $('seedSection').style.display = followers.length === 0 ? 'block' : 'none';
 
     // Record
     const rec = $('adminRecord');
@@ -266,6 +302,45 @@
       rec.innerHTML = '<div class="empty">Sem record ainda.</div>';
     }
   }
+
+  // ---- Autocomplete (player picker) ----
+  function onPlayerInput(){
+    const input = $('playerName').value.trim().toLowerCase();
+    const sug = $('playerSuggest');
+    // Combine followers + already-scoring players, de-duped
+    const fromFollowers = (state?.followers || []).map(n => ({ name: n, type: 'follower' }));
+    const fromPlayers = (state?.current?.players || []).map(p => ({ name: p.name, type: 'active', score: p.score }));
+    const seen = new Set();
+    const merged = [];
+    for (const item of [...fromPlayers, ...fromFollowers]) {
+      const k = item.name.toLowerCase();
+      if (seen.has(k)) continue;
+      seen.add(k);
+      merged.push(item);
+    }
+    const matches = input
+      ? merged.filter(m => m.name.toLowerCase().includes(input))
+      : merged.slice(0, 12);
+    if (!matches.length) { sug.style.display = 'none'; return; }
+    sug.innerHTML = matches.slice(0, 15).map(m => `
+      <div onclick="pickPlayer('${m.name.replace(/'/g,"\\'")}')" style="padding:8px 12px;cursor:pointer;border-bottom:1px solid var(--line);font-size:13px;display:flex;justify-content:space-between;align-items:center">
+        <span>${escapeHtml(m.name)}</span>
+        <span style="font-size:10px;color:var(--muted);letter-spacing:1px">${m.type === 'active' ? `${m.score} pts · activo` : 'follower'}</span>
+      </div>
+    `).join('');
+    sug.style.display = 'block';
+  }
+  function pickPlayer(name){
+    $('playerName').value = name;
+    $('playerSuggest').style.display = 'none';
+    $('playerName').focus();
+  }
+  // Hide suggest when clicking outside
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#playerName') && !e.target.closest('#playerSuggest')) {
+      $('playerSuggest').style.display = 'none';
+    }
+  });
 
   function escapeHtml(s){return (s||'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
   function fmtDate(iso){if(!iso)return '—';try{return new Date(iso).toLocaleDateString('pt-PT',{day:'2-digit',month:'2-digit',year:'numeric'})}catch{return iso}}
@@ -377,6 +452,43 @@
     } catch (e) {
       showToast('Erro: ' + e.message, 'err');
     }
+  }
+
+  // ---- Followers management ----
+  async function addFollower(){
+    const name = $('newFollower').value.trim();
+    if (!name) return showToast('Nome vazio', 'err');
+    try {
+      await api('/api/barraca/followers', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'add', names: [name] })
+      });
+      $('newFollower').value = '';
+      showToast(`Follower "${name}" adicionado`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function saveFollowersBulk(){
+    const raw = $('followersBulk').value;
+    const names = raw.split(/[\n,]/).map(s => s.trim()).filter(Boolean);
+    if (!confirm(`Substituir lista completa de followers por ${names.length} nomes?`)) return;
+    try {
+      const res = await api('/api/barraca/followers', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'set', names })
+      });
+      showToast(`${res.count} followers guardados`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function seedInitial(){
+    if (!confirm('Importar 163 followers + sessão histórica 03/06/2026?')) return;
+    try {
+      const res = await api('/api/barraca/seed', { method: 'POST' });
+      if (res.skipped) showToast('Já estava feito — skipped', 'ok');
+      else showToast(`Seed ok: ${res.followersSeeded} followers + record ${res.recordSet?.name}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }
 
   // Login

@@ -10,9 +10,10 @@ const URL_ENV = 'UPSTASH_REDIS_REST_URL';
 const TOKEN_ENV = 'UPSTASH_REDIS_REST_TOKEN';
 
 export const KEYS = {
-  current: 'rr:barraca:current',
-  record:  'rr:barraca:record',
-  history: 'rr:barraca:history'
+  current:   'rr:barraca:current',
+  record:    'rr:barraca:record',
+  history:   'rr:barraca:history',
+  followers: 'rr:barraca:followers'
 };
 
 // Run a Redis command via Upstash REST API. Always returns parsed JSON for SET/GET
@@ -50,17 +51,19 @@ export async function redisSet(key, value) {
   return cmd(['SET', key, body]);
 }
 
-// Read current stream + house record + last 10 history entries in parallel.
+// Read current stream + house record + last 10 history entries + followers roster.
 export async function readFullState() {
-  const [current, record, history] = await Promise.all([
+  const [current, record, history, followers] = await Promise.all([
     redisGet(KEYS.current),
     redisGet(KEYS.record),
-    redisGet(KEYS.history)
+    redisGet(KEYS.history),
+    redisGet(KEYS.followers)
   ]);
   return {
-    current: current || { active: false, startedAt: null, endedAt: null, players: [] },
-    record:  record  || null,
-    history: Array.isArray(history) ? history.slice(0, 10) : []
+    current:   current || { active: false, startedAt: null, endedAt: null, players: [] },
+    record:    record  || null,
+    history:   Array.isArray(history)   ? history.slice(0, 10) : [],
+    followers: Array.isArray(followers) ? followers : []
   };
 }
 
