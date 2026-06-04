@@ -6,6 +6,8 @@
 <title>Barraca da Feira — OBS Overlay</title>
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Rye&display=swap" rel="stylesheet">
+<!-- Lottie player (used only if URLs are configured below; emoji fallback works without it). -->
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
 <style>
   /* OBS Browser Source: transparent background, no scroll, fixed dimensions friendly.
      Recommended OBS size: 480x720 or 600x900 (vertical sidebar). */
@@ -44,6 +46,32 @@
   /* Pulse animation when score changes */
   @keyframes pulse-score{0%{transform:scale(1)}50%{transform:scale(1.15);color:#a8231d}100%{transform:scale(1)}}
   .pulse{animation:pulse-score .8s ease}
+
+  /* === CARTOON ANIMATIONS (decorative, flank the record card) === */
+  .toons{position:relative;display:flex;justify-content:space-between;align-items:flex-end;margin-top:-8px;pointer-events:none;height:80px}
+  .toon{width:100px;height:80px;display:flex;align-items:flex-end;justify-content:center;position:relative}
+  .toon lottie-player{width:100%;height:100%}
+  /* Hide Lottie when no src configured (browser shows empty box otherwise) */
+  .toon lottie-player:not([src]),.toon lottie-player[src=""]{display:none}
+  /* If Lottie present, hide emoji fallback */
+  .toon:has(lottie-player[src]:not([src=""])) .emoji-toon{display:none}
+
+  /* Emoji-based fallback animations (always work, no external deps) */
+  .emoji-toon{position:relative;width:100%;height:100%;font-size:32px}
+  /* LEFT: thrower + ball arc → target */
+  .toon-throw .thrower{position:absolute;left:6px;bottom:0;animation:thrower 2.4s ease-in-out infinite}
+  .toon-throw .ball{position:absolute;left:30px;bottom:30px;font-size:18px;animation:ball-arc 2.4s ease-in-out infinite}
+  .toon-throw .target{position:absolute;right:0;bottom:8px;animation:target-shake 2.4s ease-in-out infinite}
+  @keyframes thrower{0%,35%{transform:translateY(0) rotate(0)}40%,55%{transform:translateY(-2px) rotate(-8deg)}60%,100%{transform:translateY(0) rotate(0)}}
+  @keyframes ball-arc{0%,35%{left:30px;bottom:30px;opacity:1}50%{left:55px;bottom:50px;opacity:1}65%,68%{left:75px;bottom:14px;opacity:1;transform:scale(1.3)}70%,100%{left:75px;bottom:14px;opacity:0}}
+  @keyframes target-shake{0%,67%{transform:translateX(0) rotate(0)}68%,72%{transform:translateX(2px) rotate(5deg)}73%,77%{transform:translateX(-2px) rotate(-5deg)}78%,100%{transform:translateX(0) rotate(0)}}
+  /* RIGHT: pepper → eats → fire reaction */
+  .toon-spicy .eater{position:absolute;right:6px;bottom:0;animation:eater 2.4s ease-in-out infinite}
+  .toon-spicy .pepper{position:absolute;right:34px;bottom:18px;font-size:18px;animation:pepper-in 2.4s ease-in-out infinite}
+  .toon-spicy .fire{position:absolute;right:14px;bottom:50px;font-size:18px;opacity:0;animation:fire-out 2.4s ease-in-out infinite}
+  @keyframes eater{0%,35%{transform:translateY(0)}40%,55%{transform:translateY(-1px) scale(1.05)}65%,80%{transform:translateY(0) rotate(-3deg);filter:hue-rotate(-30deg)}82%,86%{transform:translateY(0) rotate(3deg)}90%,100%{transform:translateY(0) rotate(0);filter:none}}
+  @keyframes pepper-in{0%,35%{right:34px;bottom:18px;opacity:1}50%{right:20px;bottom:16px;opacity:1}60%,100%{right:14px;bottom:14px;opacity:0}}
+  @keyframes fire-out{0%,55%{opacity:0;transform:translateY(0) scale(.6)}65%,85%{opacity:1;transform:translateY(-8px) scale(1.1)}95%,100%{opacity:0;transform:translateY(-14px) scale(.7)}}
 </style>
 </head>
 <body>
@@ -67,6 +95,31 @@
       <h3>🏆 RECORD DA BARRACA</h3>
       <div id="record">
         <div class="empty" style="color:rgba(245,233,200,.6)">Sem record.</div>
+      </div>
+    </div>
+
+    <!-- Cartoon animations: thrower on the left, spicy reaction on the right.
+         To swap for higher-quality Lottie animations:
+           1) Go to lottiefiles.com, search ("dart throw", "spicy reaction", "ball game", etc.)
+           2) Click an animation → "Lottie JSON" or "Share" → copy the .json URL
+           3) Paste below into the src="" attribute of the <lottie-player> elements
+         Until then, the emoji-based animations below run by default. -->
+    <div class="toons" aria-hidden="true">
+      <div class="toon toon-throw">
+        <lottie-player src="" background="transparent" speed="1" loop autoplay></lottie-player>
+        <div class="emoji-toon">
+          <span class="thrower">🤾‍♂️</span>
+          <span class="ball">🏀</span>
+          <span class="target">🎯</span>
+        </div>
+      </div>
+      <div class="toon toon-spicy">
+        <lottie-player src="" background="transparent" speed="1" loop autoplay></lottie-player>
+        <div class="emoji-toon">
+          <span class="fire">🔥</span>
+          <span class="pepper">🌶</span>
+          <span class="eater">😋</span>
+        </div>
       </div>
     </div>
 
