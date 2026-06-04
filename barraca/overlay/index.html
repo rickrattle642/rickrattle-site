@@ -47,9 +47,10 @@
   @keyframes pulse-score{0%{transform:scale(1)}50%{transform:scale(1.15);color:#a8231d}100%{transform:scale(1)}}
   .pulse{animation:pulse-score .8s ease}
 
-  /* === CARTOON ANIMATIONS (decorative, flank the record card) === */
-  .toons{position:relative;display:flex;justify-content:space-between;align-items:flex-end;margin-top:-8px;pointer-events:none;height:80px}
-  .toon{width:100px;height:80px;display:flex;align-items:flex-end;justify-content:center;position:relative}
+  /* === CARTOON ANIMATIONS (inside the record card, flanking the trophy/name/score) === */
+  .card.record{padding:14px 95px 16px;position:relative;overflow:hidden}
+  .toons{position:absolute;top:48%;left:0;right:0;display:flex;justify-content:space-between;pointer-events:none;transform:translateY(-50%);padding:0 6px}
+  .toon{width:78px;height:64px;display:flex;align-items:flex-end;justify-content:center;position:relative}
   .toon lottie-player{width:100%;height:100%}
   /* Hide Lottie when no src configured (browser shows empty box otherwise) */
   .toon lottie-player:not([src]),.toon lottie-player[src=""]{display:none}
@@ -93,33 +94,31 @@
 
     <div class="card record">
       <h3>🏆 RECORD DA BARRACA</h3>
+      <!-- Cartoon animations flank the record content (inside the navy card).
+           To swap for higher-quality Lottie animations:
+             1) Go to lottiefiles.com, search ("dart throw", "spicy reaction")
+             2) Click → Share → copy .json URL
+             3) Paste below into src="" of <lottie-player> elements -->
+      <div class="toons" aria-hidden="true">
+        <div class="toon toon-throw">
+          <lottie-player src="" background="transparent" speed="1" loop autoplay></lottie-player>
+          <div class="emoji-toon">
+            <span class="thrower">🤾‍♂️</span>
+            <span class="ball">🏀</span>
+            <span class="target">🎯</span>
+          </div>
+        </div>
+        <div class="toon toon-spicy">
+          <lottie-player src="" background="transparent" speed="1" loop autoplay></lottie-player>
+          <div class="emoji-toon">
+            <span class="fire">🔥</span>
+            <span class="pepper">🌶</span>
+            <span class="eater">😋</span>
+          </div>
+        </div>
+      </div>
       <div id="record">
         <div class="empty" style="color:rgba(245,233,200,.6)">Sem record.</div>
-      </div>
-    </div>
-
-    <!-- Cartoon animations: thrower on the left, spicy reaction on the right.
-         To swap for higher-quality Lottie animations:
-           1) Go to lottiefiles.com, search ("dart throw", "spicy reaction", "ball game", etc.)
-           2) Click an animation → "Lottie JSON" or "Share" → copy the .json URL
-           3) Paste below into the src="" attribute of the <lottie-player> elements
-         Until then, the emoji-based animations below run by default. -->
-    <div class="toons" aria-hidden="true">
-      <div class="toon toon-throw">
-        <lottie-player src="" background="transparent" speed="1" loop autoplay></lottie-player>
-        <div class="emoji-toon">
-          <span class="thrower">🤾‍♂️</span>
-          <span class="ball">🏀</span>
-          <span class="target">🎯</span>
-        </div>
-      </div>
-      <div class="toon toon-spicy">
-        <lottie-player src="" background="transparent" speed="1" loop autoplay></lottie-player>
-        <div class="emoji-toon">
-          <span class="fire">🔥</span>
-          <span class="pepper">🌶</span>
-          <span class="eater">😋</span>
-        </div>
       </div>
     </div>
 
