@@ -203,6 +203,16 @@
         <div id="adminRecord" style="text-align:center;padding:16px 0">
           <div class="empty">Sem record ainda.</div>
         </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--line);display:flex;gap:6px;flex-wrap:wrap">
+          <button class="btn btn-secondary" style="font-size:11px;padding:8px 12px" onclick="editRecord()">✏️ Editar</button>
+          <button class="btn btn-secondary" style="font-size:11px;padding:8px 12px" onclick="recomputeRecord()">🔄 Recalcular do Histórico</button>
+          <button class="btn btn-danger" style="font-size:11px;padding:8px 12px" onclick="clearRecord()">🗑 Limpar</button>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted);line-height:1.5">
+          <strong style="color:var(--ink)">Editar</strong>: define nome/pontos/data exactos.<br>
+          <strong style="color:var(--ink)">Recalcular</strong>: usa o melhor campeão do histórico arquivado.<br>
+          <strong style="color:var(--ink)">Limpar</strong>: apaga tudo (próximo jogador a marcar fica record).
+        </div>
       </div>
     </div>
   </main>
@@ -472,6 +482,51 @@
       const res = await adminAction({ action: 'seed' });
       if (res.skipped) showToast('Já estava feito — skipped', 'ok');
       else showToast(`Seed ok: ${res.followersSeeded} followers + record ${res.recordSet?.name}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
+  // ---- House Record management ----
+  async function editRecord(){
+    const cur = state?.record;
+    const name = prompt('Nome do recordista:', cur?.name || '');
+    if (name === null || !name.trim()) return;
+    const scoreStr = prompt('Pontuação:', cur?.score || 0);
+    if (scoreStr === null) return;
+    const score = parseInt(scoreStr, 10);
+    if (isNaN(score) || score < 0) return showToast('Pontuação inválida', 'err');
+    const dateStr = prompt('Data (DD/MM/AAAA ou ISO):', cur?.date ? new Date(cur.date).toLocaleDateString('pt-PT') : new Date().toLocaleDateString('pt-PT'));
+    if (dateStr === null) return;
+    let dateISO = null;
+    // Parse DD/MM/YYYY
+    const m = dateStr.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (m) {
+      dateISO = new Date(`${m[3]}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}T22:00:00.000Z`).toISOString();
+    } else if (!isNaN(new Date(dateStr).getTime())) {
+      dateISO = new Date(dateStr).toISOString();
+    } else {
+      return showToast('Data inválida — usa DD/MM/AAAA', 'err');
+    }
+    try {
+      await adminAction({ action: 'set-record', name: name.trim(), score, date: dateISO });
+      showToast(`Record actualizado: ${name.trim()} ${score}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function recomputeRecord(){
+    if (!confirm('Recalcular record com base no melhor campeão arquivado no histórico?')) return;
+    try {
+      const res = await adminAction({ action: 'set-record', recompute: true });
+      if (res.record) showToast(`Record recalculado: ${res.record.name} (${res.record.score})`, 'ok');
+      else showToast('Histórico vazio — record limpo', 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function clearRecord(){
+    if (!confirm('LIMPAR o record? Próximo jogador a marcar pontos fica recordista.')) return;
+    try {
+      await adminAction({ action: 'set-record', clear: true });
+      showToast('Record limpo', 'ok');
       await loadState();
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }

@@ -235,6 +235,43 @@ async function actionFollowers(body) {
   return { status: 200, body: { success: true, count: current.length, followers: current } };
 }
 
+// Manually edit / clear / recompute the house record.
+//   { action: 'set-record', clear: true }                       → wipes record entirely
+//   { action: 'set-record', recompute: true }                   → derives record from history
+//   { action: 'set-record', name: 'masha', score: 750, date }   → exact override
+async function actionSetRecord(body) {
+  if (body.clear) {
+    await redisSet(KEYS.record, null);
+    return { status: 200, body: { success: true, cleared: true, record: null } };
+  }
+  if (body.recompute) {
+    const history = await redisGet(KEYS.history);
+    let best = null;
+    if (Array.isArray(history)) {
+      for (const h of history) {
+        if (!h) continue;
+        const candidate = { name: h.champion, score: h.score, date: h.date };
+        if (!best || candidate.score > best.score) best = candidate;
+      }
+    }
+    if (best) await redisSet(KEYS.record, best);
+    else await redisSet(KEYS.record, null);
+    return { status: 200, body: { success: true, recomputed: true, record: best } };
+  }
+  const name = normaliseName(body.name);
+  const score = Math.round(Number(body.score));
+  if (!name || !Number.isFinite(score) || score < 0) {
+    return { status: 400, body: { error: 'set-record requires {name, score} or {clear:true} or {recompute:true}' } };
+  }
+  const record = {
+    name,
+    score,
+    date: body.date || new Date().toISOString()
+  };
+  await redisSet(KEYS.record, record);
+  return { status: 200, body: { success: true, record } };
+}
+
 async function actionSeed(body) {
   const force = !!body.force;
   const existingFollowers = await redisGet(KEYS.followers);
@@ -314,6 +351,7 @@ export default async function handler(req, res) {
       case 'reset':       result = await actionReset(body); break;
       case 'followers':   result = await actionFollowers(body); break;
       case 'seed':        result = await actionSeed(body); break;
+      case 'set-record':  result = await actionSetRecord(body); break;
       default:            return jsonResponse(res, 400, { error: 'Unknown action: ' + action });
     }
     return jsonResponse(res, result.status, result.body);
