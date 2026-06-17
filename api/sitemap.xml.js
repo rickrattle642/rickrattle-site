@@ -16,7 +16,9 @@ const GAME_SLUGS = [
   // Phase 4 — community-requested catalogue additions
   'dota-2','007-first-light','escape-from-tarkov',
   // Phase 6 — Paralives Early Access launch (May 25, 2026)
-  'paralives'
+  'paralives',
+  // Phase 8 — Path of Exile 2
+  'path-of-exile-2'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -150,7 +152,14 @@ const MANUAL_TIPS_SLUGS = [
   {game:'arc-raiders', slug:'arc-raiders-best-settings-fps-visibility'},
   {game:'arc-raiders', slug:'arc-raiders-best-solo-build'},
   {game:'forza-horizon-6', slug:'forza-horizon-6-level-up-fast-xp'},
-  {game:'forza-horizon-6', slug:'forza-horizon-6-super-wheelspins'}
+  {game:'forza-horizon-6', slug:'forza-horizon-6-super-wheelspins'},
+  // Phase 8 — SEO batch June 2026 (FH6 Spinball Wizard + Skill Points + PoE2 + CS2 x3)
+  {game:'forza-horizon-6', slug:'forza-horizon-6-spinball-wizard-cars'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-farm-skill-points'},
+  {game:'path-of-exile-2',  slug:'path-of-exile-2-best-builds-hub'},
+  {game:'cs2',              slug:'cs2-best-settings-options'},
+  {game:'cs2',              slug:'cs2-fps-console-commands'},
+  {game:'cs2',              slug:'cs2-pro-settings-gear-list'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {

@@ -822,7 +822,8 @@ const games = [
   {slug:'dota-2',              name:'Dota 2',                 short:'Dota 2',       steamAppId:570,     subreddit:'DotA2',           platforms:['pc']},
   {slug:'007-first-light',     name:'007 First Light',        short:'007',                              subreddit:'007FirstLight',   hasLocalImage:true, platforms:['pc','ps5','xbox','switch']},
   {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']},
-  {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       hasLocalImage:true, platforms:['pc']}
+  {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       hasLocalImage:true, platforms:['pc']},
+  {slug:'path-of-exile-2',     name:'Path of Exile 2',        short:'PoE 2',        steamAppId:2694490, subreddit:'pathofexile2',    platforms:['pc','ps5','xbox']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -3575,6 +3576,337 @@ const guides = [
         {en:'<strong>Car Mastery trees with multiple Super Wheelspin nodes</strong> — Revuelto is the best-known but several Epic cars have at least 1 SW node.', pt:'<strong>Mastery trees com vários nodes de Super Wheelspin</strong> — Revuelto é o mais conhecido mas vários Epic cars têm pelo menos 1 node SW.'}
       ]},
       {type:'tip', text:{en:'You need Skill Points to fuel the Revuelto loop. The fastest SP farm is in our <a href="/tips/forza-horizon-6/forza-horizon-6-level-up-fast-xp">Level Up Fast guide</a>. For raw credit farming, see <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">Credit & Skill Point Farm</a>.', pt:'Precisas de Skill Points para alimentar o loop do Revuelto. O farm mais rápido de SP está no <a href="/tips/forza-horizon-6/forza-horizon-6-level-up-fast-xp">guia Level Up Fast</a>. Para farm de credits, vê <a href="/tips/forza-horizon-6/forza-horizon-6-credit-skill-point-farm">Credit & Skill Point Farm</a>.'}}
+    ]
+  },
+
+  /* ===== PHASE 8 — SEO guides batch June 2026 (FH6 Spinball Wizard + Skill Point farm + PoE2 + CS2 x3) ===== */
+
+  // FH6 — All cars with the Super Wheelspin (Spinball Wizard) perk
+  {
+    slug:'forza-horizon-6-spinball-wizard-cars',
+    title:{en:'Forza Horizon 6: All Cars With the Super Wheelspin Perk (Spinball Wizard Full List)', pt:'Forza Horizon 6: Todos os Carros com Perk de Super Wheelspin (Lista Completa Spinball Wizard)'},
+    summary:{en:'Every car in Forza Horizon 6 that unlocks a Super Wheelspin via the Spinball Wizard Mastery node — 100+ vehicles, plus the best picks for fast farming.', pt:'Todos os carros do Forza Horizon 6 que dão Super Wheelspin via o nó Spinball Wizard na Mastery tree — 100+ veículos, mais os melhores picks para farm rápido.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'intermediate', category:'advanced', featured:true,
+    date:'2026-06-04', lastUpdated:'2026-06-04', author:'Editorial', readTime:9, patchVersion:'Launch 1.0',
+    source:['https://games.gg/forza-horizon-6/guides/forza-horizon-6-all-cars-with-the-super-wheelspin-perk/'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR:</strong> Over <strong>100 cars</strong> have the <strong>Spinball Wizard</strong> Mastery node. Spend Skill Points on it → instant Super Wheelspin. Best ratio cars: <strong>Subaru Impreza 22B-STi (1998)</strong> for 9x multiplier farming, <strong>Forza Edition variants</strong> for stacked perks (Lotus Evija FE, Lexus LFA FE, Ford F-150 XLT Lariat FE). One Super Wheelspin per car — no infinite loop.', pt:'<strong>TL;DR:</strong> Mais de <strong>100 carros</strong> têm o nó <strong>Spinball Wizard</strong> na Mastery. Gastas Skill Points nele → Super Wheelspin instantâneo. Melhores rácios: <strong>Subaru Impreza 22B-STi (1998)</strong> para farm com 9x multiplicador, <strong>Forza Editions</strong> para perks empilhados (Lotus Evija FE, Lexus LFA FE, Ford F-150 XLT Lariat FE). Um Super Wheelspin por carro — sem loop infinito.'}},
+      {type:'h2', text:{en:'How the Spinball Wizard perk works', pt:'Como funciona o perk Spinball Wizard'}},
+      {type:'p', text:{en:'Every FH6 car has a Mastery tree you spend Skill Points on. The <strong>Spinball Wizard</strong> node drops <strong>1 Super Wheelspin</strong> into your inventory the moment you unlock it. No driving the car required — you just need to own it and have the points.', pt:'Cada carro FH6 tem uma Mastery tree onde gastas Skill Points. O nó <strong>Spinball Wizard</strong> dá <strong>1 Super Wheelspin</strong> ao inventário no momento que o desbloqueias. Não tens de conduzir o carro — só precisas de o ter e ter os pontos.'}},
+      {type:'tip', text:{en:'Stacks on top of Super Wheelspins from levelling, PR Stunts and Festival Playlist rewards. Treat it as a parallel farm source.', pt:'Acumula com Super Wheelspins de levels, PR Stunts e prémios da Festival Playlist. Trata como fonte de farm paralela.'}},
+      {type:'h2', text:{en:'Best cars to farm (priority list)', pt:'Melhores carros para farm (lista prioritária)'}},
+      {type:'ul', items:[
+        {en:'<strong>Subaru Impreza 22B-STi Version (1998)</strong> — ~86k credits. Multi Maxer perk (9x multiplier) + Spinball Wizard. <strong>The meta pick</strong>.', pt:'<strong>Subaru Impreza 22B-STi Version (1998)</strong> — ~86k credits. Perk Multi Maxer (9x multiplicador) + Spinball Wizard. <strong>O pick meta</strong>.'},
+        {en:'<strong>Lotus Evija Forza Edition (2020)</strong> — multiple useful perks alongside Spinball Wizard. High value Mastery clear.', pt:'<strong>Lotus Evija Forza Edition (2020)</strong> — vários perks úteis juntos com Spinball Wizard. Clear de Mastery de alto valor.'},
+        {en:'<strong>Lexus LFA Forza Edition (2010)</strong> — stacked perks, classic JDM choice.', pt:'<strong>Lexus LFA Forza Edition (2010)</strong> — perks empilhados, escolha JDM clássica.'},
+        {en:'<strong>Ford F-150 XLT Lariat Forza Edition (1986)</strong> — off-road perks + Spinball Wizard in one tree.', pt:'<strong>Ford F-150 XLT Lariat Forza Edition (1986)</strong> — perks off-road + Spinball Wizard na mesma tree.'},
+        {en:'<strong>2024 Lamborghini Revuelto</strong> — 365k credits. Mastery tree pays 3 Wheelspins + 1 Super Wheelspin for 39 SP. Sell at auction after for credit recovery.', pt:'<strong>2024 Lamborghini Revuelto</strong> — 365k credits. Mastery tree paga 3 Wheelspins + 1 Super Wheelspin por 39 SP. Vende no leilão depois para recuperar credits.'}
+      ]},
+      {type:'h2', text:{en:'Hypercars and supercars with the perk', pt:'Hipercarros e supercarros com o perk'}},
+      {type:'ul', items:[
+        {en:'<strong>Koenigsegg</strong>: Jesko (2020), Agera RS (2017), Regera (2016), One:1 (2015), Agera (2011), CCGT (2008)', pt:'<strong>Koenigsegg</strong>: Jesko (2020), Agera RS (2017), Regera (2016), One:1 (2015), Agera (2011), CCGT (2008)'},
+        {en:'<strong>Pagani</strong>: Huayra R (2021), Huayra BC Coupe (2016), Zonda Cinque Roadster (2010), Zonda R (2009)', pt:'<strong>Pagani</strong>: Huayra R (2021), Huayra BC Coupe (2016), Zonda Cinque Roadster (2010), Zonda R (2009)'},
+        {en:'<strong>Lamborghini</strong>: Revuelto (2024), Huracan Sterrato (2023), Aventador Ultimae (2021), Countach LPI 800-4 (2021), Essenza SCV12 (2020), Sian Roadster (2020), Huracan STO (2020), Aventador SVJ (2018), Centenario (2016), Veneno (2013), Sesto Elemento (2011), Diablo SV (1997), Miura P400 (1967)', pt:'<strong>Lamborghini</strong>: Revuelto (2024), Huracan Sterrato (2023), Aventador Ultimae (2021), Countach LPI 800-4 (2021), Essenza SCV12 (2020), Sian Roadster (2020), Huracan STO (2020), Aventador SVJ (2018), Centenario (2016), Veneno (2013), Sesto Elemento (2011), Diablo SV (1997), Miura P400 (1967)'},
+        {en:'<strong>McLaren</strong>: Speedtail (2019), P1 (2013)', pt:'<strong>McLaren</strong>: Speedtail (2019), P1 (2013)'},
+        {en:'<strong>Mercedes</strong>: AMG One (2021), 190 E 2.5-Evolution II FE (1990), 300 SLR (1955), 300 SL Coupe (1954)', pt:'<strong>Mercedes</strong>: AMG One (2021), 190 E 2.5-Evolution II FE (1990), 300 SLR (1955), 300 SL Coupe (1954)'},
+        {en:'<strong>Ferrari</strong>: SF90 Stradale (2020), Monza SP2 (2018), FXX-K Welcome Pack (2018), FXX K (2014), LaFerrari (2013), 599XX (2010), FXX (2005), F50 GT (1996), 512 S (1970), 250 GTO (1962), 250 GT Berlinetta Lusso (1962)', pt:'<strong>Ferrari</strong>: SF90 Stradale (2020), Monza SP2 (2018), FXX-K Welcome Pack (2018), FXX K (2014), LaFerrari (2013), 599XX (2010), FXX (2005), F50 GT (1996), 512 S (1970), 250 GTO (1962), 250 GT Berlinetta Lusso (1962)'},
+        {en:'<strong>Aston Martin</strong>: Valkyrie (2023), Valkyrie AMR Pro (2022), Valhalla Concept (2019), Vulcan AMR Pro (2017)', pt:'<strong>Aston Martin</strong>: Valkyrie (2023), Valkyrie AMR Pro (2022), Valhalla Concept (2019), Vulcan AMR Pro (2017)'},
+        {en:'<strong>Hennessey</strong>: Venom F5 (2021), Venom GT (2012). <strong>Rimac</strong>: Nevera (2021). <strong>Zenvo</strong>: TSR-S (2019). <strong>Gordon Murray</strong>: T.50 (2020).', pt:'<strong>Hennessey</strong>: Venom F5 (2021), Venom GT (2012). <strong>Rimac</strong>: Nevera (2021). <strong>Zenvo</strong>: TSR-S (2019). <strong>Gordon Murray</strong>: T.50 (2020).'}
+      ]},
+      {type:'h2', text:{en:'Classics + JDM with the perk', pt:'Clássicos + JDM com o perk'}},
+      {type:'ul', items:[
+        {en:'<strong>Nissan</strong>: GT-R Black Edition FE (2012), #23 Pennzoil Skyline (1998), R390 GT1 (1998), Figaro (1991), #12 Skyline GT-R BNR32 (1990), S-Cargo FE (1989), #11 Tomica Skyline Turbo (1983), Skyline 2000GT-R (1971)', pt:'<strong>Nissan</strong>: GT-R Black Edition FE (2012), #23 Pennzoil Skyline (1998), R390 GT1 (1998), Figaro (1991), #12 Skyline GT-R BNR32 (1990), S-Cargo FE (1989), #11 Tomica Skyline Turbo (1983), Skyline 2000GT-R (1971)'},
+        {en:'<strong>Mazda</strong>: MX-5 Miata FE (1994), Furai (2008), #55 787B (1991), RX-7 GSL-SE (1985), Mad Mike 808 Wagon Fursty (1974), RX-3 FE (1973)', pt:'<strong>Mazda</strong>: MX-5 Miata FE (1994), Furai (2008), #55 787B (1991), RX-7 GSL-SE (1985), Mad Mike 808 Wagon Fursty (1974), RX-3 FE (1973)'},
+        {en:'<strong>Toyota</strong>: Tacoma TRD Pro FE (2019), 86 Stories (2013), Sprinter Trueno GT-Apex FE (1985), #1 T100 Baja Truck (1993), 2000GT (1969)', pt:'<strong>Toyota</strong>: Tacoma TRD Pro FE (2019), 86 Stories (2013), Sprinter Trueno GT-Apex FE (1985), #1 T100 Baja Truck (1993), 2000GT (1969)'},
+        {en:'<strong>Mitsubishi</strong>: #1 Sierra Lancer Evolution Time Attack (2005), Lancer Evolution III GSR (1995)', pt:'<strong>Mitsubishi</strong>: #1 Sierra Lancer Evolution Time Attack (2005), Lancer Evolution III GSR (1995)'},
+        {en:'<strong>Subaru</strong>: BRZ FE (2022), Impreza 22B-STI (1998), Vivio RX-R FE (1994)', pt:'<strong>Subaru</strong>: BRZ FE (2022), Impreza 22B-STI (1998), Vivio RX-R FE (1994)'},
+        {en:'<strong>Porsche</strong>: Mission R (2022), #70 Motorsport 935 (2019), 918 Spyder (2014), 959 (1987), 911 Turbo 3.3 (1982), 911 Carrera RS (1973), #3 917 LH FE (1970), #3 917 LH (1970)', pt:'<strong>Porsche</strong>: Mission R (2022), #70 Motorsport 935 (2019), 918 Spyder (2014), 959 (1987), 911 Turbo 3.3 (1982), 911 Carrera RS (1973), #3 917 LH FE (1970), #3 917 LH (1970)'},
+        {en:'<strong>Outros notáveis</strong>: BMW M2 FE (2023), BMW M1 (1981), Dodge Viper GTS ACR FE (1999), Dodge Charger R/T (1969), Ford GT (2005), Ford Sierra Cosworth RS500 (1987), Ford #2 GT40 MK II (1966), Lancia Stratos HF Stradale (1974), Jaguar Lightweight E-Type (1964), Apollo Intensa Emozione (2019), Wuling Sunshine S FE (2020), 2025 GR GT Prototype, Cobra Shelby 427 S/C (1965), Maserati MC12 Versione Corsa (2008), Alfa Romeo 33 Stradale (1968), Alfa Romeo Giulia TZ2 (1965), Peugeot 205 Turbo 16 (1984), AMG Transport Dynamics M12S Warthog CST (2554)', pt:'<strong>Outros notáveis</strong>: BMW M2 FE (2023), BMW M1 (1981), Dodge Viper GTS ACR FE (1999), Dodge Charger R/T (1969), Ford GT (2005), Ford Sierra Cosworth RS500 (1987), Ford #2 GT40 MK II (1966), Lancia Stratos HF Stradale (1974), Jaguar Lightweight E-Type (1964), Apollo Intensa Emozione (2019), Wuling Sunshine S FE (2020), 2025 GR GT Prototype, Cobra Shelby 427 S/C (1965), Maserati MC12 Versione Corsa (2008), Alfa Romeo 33 Stradale (1968), Alfa Romeo Giulia TZ2 (1965), Peugeot 205 Turbo 16 (1984), AMG Transport Dynamics M12S Warthog CST (2554)'}
+      ]},
+      {type:'h2', text:{en:'How to find Spinball Wizard in the Mastery tree', pt:'Como encontrar Spinball Wizard na Mastery tree'}},
+      {type:'p', text:{en:'Garage → select car → Mastery tab → scan the node layout for <strong>Spinball Wizard</strong>. Position varies per car — you may need to unlock adjacent nodes first to reach it. The perk fires <strong>once per car</strong>. You can\'t reset and re-claim from the same vehicle.', pt:'Garagem → escolhe carro → separador Mastery → procura no layout o nó <strong>Spinball Wizard</strong>. A posição varia por carro — pode ser preciso desbloquear nodes adjacentes primeiro. O perk dispara <strong>uma vez por carro</strong>. Não podes reset e voltar a apanhar do mesmo veículo.'}},
+      {type:'h2', text:{en:'Warning before you commit', pt:'Aviso antes de comprometer pontos'}},
+      {type:'p', text:{en:'Spending Mastery points on a car you plan to sell <strong>removes those points permanently</strong>. Auction Revuelto recovers credits but not the 39 SP you spent. Make sure the perk is worth it before unlocking.', pt:'Gastar Mastery points num carro que vais vender <strong>perde os pontos permanentemente</strong>. O Revuelto no leilão recupera credits mas não os 39 SP gastos. Confirma se vale a pena antes de desbloquear.'}},
+      {type:'tip', text:{en:'To farm the Skill Points needed for this loop, see our <a href="/tips/forza-horizon-6/forza-horizon-6-farm-skill-points">Skill Point Farming guide</a>. For the Super Wheelspin strategy overall, check the <a href="/tips/forza-horizon-6/forza-horizon-6-super-wheelspins">Super Wheelspins guide</a>.', pt:'Para fazeres farm dos Skill Points necessários para este loop, vê o nosso <a href="/tips/forza-horizon-6/forza-horizon-6-farm-skill-points">guia de Skill Point Farming</a>. Para a estratégia geral de Super Wheelspins, vê o <a href="/tips/forza-horizon-6/forza-horizon-6-super-wheelspins">guia de Super Wheelspins</a>.'}}
+    ]
+  },
+
+  // FH6 — Farm Skill Points (Subaru Impreza 22B-STi + EventLab)
+  {
+    slug:'forza-horizon-6-farm-skill-points',
+    title:{en:'Forza Horizon 6: How to Farm Skill Points Fast (9x Multiplier + EventLab)', pt:'Forza Horizon 6: Como Fazer Farm de Skill Points Rápido (Multiplicador 9x + EventLab)'},
+    summary:{en:'The Subaru Impreza 22B-STi + EventLab destruction tracks combo prints 10 Skill Points per minute. Plus the 9x cars list and free-roam fallback.', pt:'A combinação Subaru Impreza 22B-STi + pistas de destruição EventLab imprime 10 Skill Points por minuto. Mais a lista de carros 9x e fallback free-roam.'},
+    game:'forza-horizon-6', type:'guide', difficulty:'intermediate', category:'advanced', featured:true,
+    date:'2026-06-04', lastUpdated:'2026-06-04', author:'Editorial', readTime:7, patchVersion:'Launch 1.0',
+    source:['https://www.lootbar.com/blog/en/best-ways-to-farm-skill-points-in-forza-horizon-6.html'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR:</strong> Buy the <strong>Subaru Impreza 22B-STi (1998)</strong> for ~86k credits. Unlock <strong>Multi Maxer</strong> (9x multiplier) + <strong>"Where The Fun Begins"</strong> (2.5x faster build) perks. Run short <strong>EventLab destruction tracks</strong> (search 24-second loops in Creative Hub). Cap at <strong>10 Skill Points per chain</strong>. Stockpile to 999 max.', pt:'<strong>TL;DR:</strong> Compra o <strong>Subaru Impreza 22B-STi (1998)</strong> por ~86k credits. Desbloqueia os perks <strong>Multi Maxer</strong> (9x) + <strong>"Where The Fun Begins"</strong> (build 2.5x mais rápido). Corre <strong>EventLab destruction tracks</strong> curtas (procura loops de 24s no Creative Hub). Cap a <strong>10 Skill Points por chain</strong>. Stockpile até 999 máx.'}},
+      {type:'h2', text:{en:'How Skill Points actually work', pt:'Como funcionam os Skill Points'}},
+      {type:'ul', items:[
+        {en:'Skill Points come from chained driving actions: drifts, jumps, near-misses, high speed, smashing destructibles.', pt:'Skill Points vêm de chains: drifts, jumps, near-misses, velocidade alta, partir objectos destrutíveis.'},
+        {en:'Each chain rewards up to <strong>10 Skill Points</strong> once you hit the score threshold.', pt:'Cada chain dá até <strong>10 Skill Points</strong> ao atingir o threshold.'},
+        {en:'The car\'s <strong>multiplier</strong> decides how much base Skill Score you need. <strong>9x</strong> makes capping trivial vs. the default 5x.', pt:'O <strong>multiplicador</strong> do carro decide o Skill Score base necessário. <strong>9x</strong> torna trivial fazer cap vs o 5x default.'},
+        {en:'Points feed each car\'s individual Mastery tree (perks, Wheelspins, Super Wheelspins via <a href="/tips/forza-horizon-6/forza-horizon-6-spinball-wizard-cars">Spinball Wizard</a>).', pt:'Pontos alimentam a Mastery tree individual de cada carro (perks, Wheelspins, Super Wheelspins via <a href="/tips/forza-horizon-6/forza-horizon-6-spinball-wizard-cars">Spinball Wizard</a>).'},
+        {en:'<strong>Max stockpile: 999 Skill Points</strong> at once.', pt:'<strong>Stockpile máximo: 999 Skill Points</strong> de uma vez.'}
+      ]},
+      {type:'h2', text:{en:'The Subaru Impreza 22B-STi setup (THE meta)', pt:'O setup Subaru Impreza 22B-STi (O meta)'}},
+      {type:'p', text:{en:'This car is the community-confirmed best-in-slot for Skill Point farming. Why:', pt:'Este carro é o best-in-slot confirmado pela comunidade para farm de Skill Points. Porquê:'}},
+      {type:'ul', items:[
+        {en:'<strong>Multi Maxer perk</strong> → full 9x multiplier (vs 5x default).', pt:'<strong>Perk Multi Maxer</strong> → multiplicador 9x cheio (vs 5x default).'},
+        {en:'<strong>"Where The Fun Begins" perk</strong> → multiplier builds 2.5x faster.', pt:'<strong>Perk "Where The Fun Begins"</strong> → multiplicador sobe 2.5x mais rápido.'},
+        {en:'<strong>Spinball Wizard node</strong> → spend 30 Skill Points → instant Super Wheelspin.', pt:'<strong>Nó Spinball Wizard</strong> → gasta 30 Skill Points → Super Wheelspin instantâneo.'},
+        {en:'Costs ~86,000 credits at the Autoshow. Handling is stable for prop-heavy tracks.', pt:'Custa ~86.000 credits na Autoshow. Handling estável para pistas cheias de props.'}
+      ]},
+      {type:'tip', text:{en:'Budget alternative: <strong>Mitsubishi Lancer Evolution III GSR (1995)</strong> — same 9x ceiling, available as a Treasure Car (no credits required).', pt:'Alternativa budget: <strong>Mitsubishi Lancer Evolution III GSR (1995)</strong> — mesmo cap 9x, disponível como Treasure Car (sem gastar credits).'}},
+      {type:'h2', text:{en:'EventLab destruction tracks — the farm method', pt:'Pistas de destruição EventLab — o método de farm'}},
+      {type:'ol', items:[
+        {en:'Pause game → <strong>Creative Hub</strong> → <strong>Horizon Event Lab</strong> → <strong>Play Event</strong>.', pt:'Pausa → <strong>Creative Hub</strong> → <strong>Horizon Event Lab</strong> → <strong>Play Event</strong>.'},
+        {en:'Press search button (View / Back on controller) → enter a Share Code from the community.', pt:'Pressiona o botão de search (View / Back no comando) → introduz Share Code da comunidade.'},
+        {en:'Look for "<strong>destruction run</strong>" maps around the <strong>24-second mark</strong> — most efficient duration.', pt:'Procura mapas "<strong>destruction run</strong>" à volta dos <strong>24 segundos</strong> — duração mais eficiente.'},
+        {en:'Enable <strong>All Driving Assists</strong> (especially auto-steering) — focus on banking the chain, not steering.', pt:'Liga <strong>All Driving Assists</strong> (especialmente auto-steering) — foca em fazer bank da chain, não em conduzir.'},
+        {en:'Run track → bank 10 SP at chain end → fast-travel or restart event → repeat.', pt:'Corre a pista → faz bank de 10 SP no fim da chain → fast-travel ou restart → repete.'}
+      ]},
+      {type:'p', text:{en:'Average rate with a good setup: <strong>10 Skill Points per minute</strong>. You hit the 999 cap in ~100 minutes.', pt:'Rácio médio com bom setup: <strong>10 Skill Points por minuto</strong>. Atinges o cap de 999 em ~100 minutos.'}},
+      {type:'h2', text:{en:'Free roam fallback (no EventLab needed)', pt:'Fallback em free roam (sem EventLab)'}},
+      {type:'ul', items:[
+        {en:'Wait for <strong>Skill Songs</strong> on the radio (orange track marker) — sets multiplier to <strong>10x</strong> temporarily.', pt:'Espera por <strong>Skill Songs</strong> no rádio (faixa laranja) — multiplica para <strong>10x</strong> temporariamente.'},
+        {en:'Drive areas with dense destructibles (trees, fences, barriers near festival sites).', pt:'Conduz em zonas com muitos destrutíveis (árvores, vedações perto dos sites do festival).'},
+        {en:'Chain drifts + jumps + near-misses with the prop hits to extend chains.', pt:'Encadeia drifts + jumps + near-misses com os hits de props para chains mais longos.'},
+        {en:'Realistic rate: 10-20 SP in a few minutes during a Skill Song window.', pt:'Rácio realista: 10-20 SP em poucos minutos durante uma janela de Skill Song.'}
+      ]},
+      {type:'h2', text:{en:'Other strong 9x and 7x cars', pt:'Outros carros 9x e 7x'}},
+      {type:'ul', items:[
+        {en:'<strong>Subaru Impreza 22B-STi (1998)</strong> — 9x · meta pick', pt:'<strong>Subaru Impreza 22B-STi (1998)</strong> — 9x · pick meta'},
+        {en:'<strong>Mitsubishi Lancer Evolution III GSR (1995)</strong> — 9x · Treasure Car, free', pt:'<strong>Mitsubishi Lancer Evolution III GSR (1995)</strong> — 9x · Treasure Car, grátis'},
+        {en:'<strong>Mercedes-AMG ONE (2021)</strong> — 7x · loyalty reward if played FH5. Good for AFK-ish runs', pt:'<strong>Mercedes-AMG ONE (2021)</strong> — 7x · prémio de lealdade se jogaste FH5. Bom para runs semi-AFK'},
+        {en:'<strong>Ford F-150 Raptor R (2023)</strong> — 7x + 25% extra XP from skills in free roam', pt:'<strong>Ford F-150 Raptor R (2023)</strong> — 7x + 25% XP extra de skills em free roam'},
+        {en:'<strong>Forza Edition cars in general</strong> — most carry skill bonuses for specific actions (drift, wreck, speed) plus stacked Mastery perks', pt:'<strong>Forza Edition em geral</strong> — a maioria tem bónus de skill para acções específicas (drift, wreck, speed) mais perks Mastery empilhados'}
+      ]},
+      {type:'tip', text:{en:'Once you have a 999 SP stockpile, the highest-EV spend is the <a href="/tips/forza-horizon-6/forza-horizon-6-spinball-wizard-cars">Spinball Wizard car list</a> — every Super Wheelspin is a potential multi-million credit drop.', pt:'Com stockpile de 999 SP, o gasto de maior EV é na <a href="/tips/forza-horizon-6/forza-horizon-6-spinball-wizard-cars">lista de carros Spinball Wizard</a> — cada Super Wheelspin pode ser um drop de milhões de credits.'}}
+    ]
+  },
+
+  // PoE 2 — Best Builds Hub
+  {
+    slug:'path-of-exile-2-best-builds-hub',
+    title:{en:'Path of Exile 2: Best Builds Hub (Current League S-Tier Picks)', pt:'Path of Exile 2: Hub das Melhores Builds (Picks S-Tier da Liga Actual)'},
+    summary:{en:'The S-tier Path of Exile 2 builds for the current league — Sorceress, Witch, Warrior, Ranger, Mercenary and Monk picks ranked by clear speed and boss DPS.', pt:'As builds S-tier de Path of Exile 2 para a liga actual — picks de Sorceress, Witch, Warrior, Ranger, Mercenary e Monk ordenados por clear speed e DPS em bosses.'},
+    game:'path-of-exile-2', type:'guide', difficulty:'advanced', category:'build', featured:true,
+    date:'2026-06-04', lastUpdated:'2026-06-04', author:'Editorial', readTime:8, patchVersion:'Current League',
+    source:['https://pathofexile2.wiki.fextralife.com/Builds','https://www.poe2db.tw/'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR — Current league S-tier:</strong> <strong>Stormweaver Sorceress</strong> (Lightning Conduit + Archmage) for clear speed · <strong>Infernalist Witch</strong> (Demonform + Detonate Dead) for boss DPS · <strong>Titan Warrior</strong> (Slam ascendancy) for tank+damage · <strong>Deadeye Ranger</strong> (Lightning Arrow + Herald) for endgame mapping · <strong>Witchhunter Mercenary</strong> for crossbow builds · <strong>Invoker Monk</strong> for melee speed.', pt:'<strong>TL;DR — S-tier liga actual:</strong> <strong>Stormweaver Sorceress</strong> (Lightning Conduit + Archmage) para clear · <strong>Infernalist Witch</strong> (Demonform + Detonate Dead) para DPS de boss · <strong>Titan Warrior</strong> (ascendancy Slam) para tank+dano · <strong>Deadeye Ranger</strong> (Lightning Arrow + Herald) para endgame mapping · <strong>Witchhunter Mercenary</strong> para crossbow · <strong>Invoker Monk</strong> para melee speed.'}},
+      {type:'h2', text:{en:'How to read this list', pt:'Como ler esta lista'}},
+      {type:'p', text:{en:'Path of Exile 2 builds shift every league as GGG patches break and rebuild meta. The picks below are <strong>currently strong</strong> in clear speed (map-running EV) and boss DPS (Pinnacle bosses, T17+). Mileage varies based on gear budget — each build has a low-budget start path and a high-investment endgame variant.', pt:'As builds do Path of Exile 2 mudam todas as ligas à medida que a GGG faz patches. Os picks abaixo estão <strong>fortes na liga actual</strong> em clear speed (EV de map-running) e DPS de boss (Pinnacle bosses, T17+). Mileage varia conforme orçamento de gear — cada build tem caminho de arranque low-budget e variante endgame high-investment.'}},
+      {type:'h2', text:{en:'S-Tier — Stormweaver Sorceress', pt:'S-Tier — Stormweaver Sorceress'}},
+      {type:'ul', items:[
+        {en:'<strong>Skill</strong>: Lightning Conduit (proc via Shock) + Archmage support.', pt:'<strong>Skill</strong>: Lightning Conduit (proc via Shock) + suporte Archmage.'},
+        {en:'<strong>Why S-tier</strong>: fast screen-clear, scales infinitely with Mana investment, mapping king.', pt:'<strong>Porquê S-tier</strong>: clear de ecrã rápido, escala infinitamente com investimento em Mana, rei do mapping.'},
+        {en:'<strong>Budget start</strong>: Spark + Mana Tempest. ~5 div budget gets you mapping comfortably.', pt:'<strong>Início budget</strong>: Spark + Mana Tempest. ~5 div de orçamento já te põe a fazer mapping confortável.'},
+        {en:'<strong>Weak vs</strong>: tanky single targets, lightning-immune bosses (rare).', pt:'<strong>Fraco vs</strong>: alvos únicos tank, bosses imunes a lightning (raro).'}
+      ]},
+      {type:'h2', text:{en:'S-Tier — Infernalist Witch', pt:'S-Tier — Infernalist Witch'}},
+      {type:'ul', items:[
+        {en:'<strong>Skill</strong>: Demon Form transformation + Detonate Dead corpse explosions.', pt:'<strong>Skill</strong>: transformação Demon Form + explosões de cadáveres Detonate Dead.'},
+        {en:'<strong>Why S-tier</strong>: highest boss DPS in current meta, melts Pinnacle bosses.', pt:'<strong>Porquê S-tier</strong>: maior DPS de boss no meta actual, derrete Pinnacle bosses.'},
+        {en:'<strong>Budget start</strong>: minion variant with Skeletal Warriors. Transition to Demon Form at 5+ div.', pt:'<strong>Início budget</strong>: variante minion com Skeletal Warriors. Transita para Demon Form aos 5+ div.'},
+        {en:'<strong>Weak vs</strong>: chaos damage maps (Demon Form drains life).', pt:'<strong>Fraco vs</strong>: mapas com chaos damage (Demon Form drena vida).'}
+      ]},
+      {type:'h2', text:{en:'A-Tier — Titan Warrior, Deadeye Ranger, Witchhunter Mercenary', pt:'A-Tier — Titan Warrior, Deadeye Ranger, Witchhunter Mercenary'}},
+      {type:'ul', items:[
+        {en:'<strong>Titan Warrior (Slam)</strong> — Earthquake + Sunder. Tankiest top-tier build, great for HC. Slower clear than casters.', pt:'<strong>Titan Warrior (Slam)</strong> — Earthquake + Sunder. Build top-tier mais tank, óptima para HC. Clear mais lento que casters.'},
+        {en:'<strong>Deadeye Ranger (Lightning Arrow + Herald)</strong> — bow clear speed, mid boss DPS. Easy to play, expensive to gear at endgame.', pt:'<strong>Deadeye Ranger (Lightning Arrow + Herald)</strong> — clear speed com arco, DPS médio em boss. Fácil de jogar, caro de equipar no endgame.'},
+        {en:'<strong>Witchhunter Mercenary (Crossbow)</strong> — Shockburst Rounds + Galvanic Shards. Best Mercenary subclass for league start.', pt:'<strong>Witchhunter Mercenary (Crossbow)</strong> — Shockburst Rounds + Galvanic Shards. Melhor subclasse Mercenary para league start.'}
+      ]},
+      {type:'h2', text:{en:'B-Tier — Invoker Monk, Pathfinder, Stormcaller', pt:'B-Tier — Invoker Monk, Pathfinder, Stormcaller'}},
+      {type:'p', text:{en:'Strong but require optimisation. Invoker Monk (Quarterstaff melee speed builds) is rewarding but punishing for new players. Pathfinder (Poison variants) shines on bosses but slow on clear. Stormcaller Druid is fun for thematic but undertuned vs S-tier.', pt:'Fortes mas exigem optimização. Invoker Monk (builds melee speed Quarterstaff) é gratificante mas punitivo para novos jogadores. Pathfinder (variantes Poison) brilha em bosses mas é lento no clear. Stormcaller Druid é divertido para temática mas undertuned vs S-tier.'}},
+      {type:'h2', text:{en:'Choosing a build for your playstyle', pt:'Escolher build para o teu playstyle'}},
+      {type:'ul', items:[
+        {en:'<strong>Want to map fast?</strong> Stormweaver or Deadeye.', pt:'<strong>Quero map rápido?</strong> Stormweaver ou Deadeye.'},
+        {en:'<strong>Want to kill bosses fast?</strong> Infernalist Witch.', pt:'<strong>Quero matar bosses rápido?</strong> Infernalist Witch.'},
+        {en:'<strong>Want to be unkillable (HC)?</strong> Titan Warrior.', pt:'<strong>Quero ser imortal (HC)?</strong> Titan Warrior.'},
+        {en:'<strong>League starter, no currency?</strong> Witchhunter Mercenary or Stormweaver low-budget.', pt:'<strong>League starter, sem currency?</strong> Witchhunter Mercenary ou Stormweaver low-budget.'},
+        {en:'<strong>Melee fan?</strong> Invoker Monk (skill-intensive) or Titan (tankier).', pt:'<strong>Fã de melee?</strong> Invoker Monk (skill-intensive) ou Titan (mais tank).'}
+      ]},
+      {type:'tip', text:{en:'For full skill trees and gear breakdowns, the <a href="https://pathofexile2.wiki.fextralife.com/Builds" target="_blank" rel="noopener">Fextralife Builds wiki</a> is the most comprehensive community resource. Cross-check with <a href="https://maxroll.gg/poe2" target="_blank" rel="noopener">Maxroll PoE 2</a> for guided gearing paths.', pt:'Para skill trees completas e breakdowns de gear, o <a href="https://pathofexile2.wiki.fextralife.com/Builds" target="_blank" rel="noopener">wiki de Builds da Fextralife</a> é o recurso mais completo. Cross-check com <a href="https://maxroll.gg/poe2" target="_blank" rel="noopener">Maxroll PoE 2</a> para caminhos guiados de gearing.'}}
+    ]
+  },
+
+  // CS2 — Best Settings & Options
+  {
+    slug:'cs2-best-settings-options',
+    title:{en:'CS2 Best Settings & Options Guide (Pro-Tuned for FPS + Visibility)', pt:'CS2 Melhores Settings & Opções (Tuned Pro para FPS + Visibilidade)'},
+    summary:{en:'Optimised CS2 settings tuned for high-FPS visibility and clean aim — mouse sensitivity, video settings, crosshair, audio and HUD configured like the pros.', pt:'Settings CS2 optimizados para alta FPS e visibilidade limpa — sensibilidade do rato, vídeo, crosshair, áudio e HUD configurados como os pros.'},
+    game:'cs2', type:'guide', difficulty:'intermediate', category:'advanced', featured:true,
+    date:'2026-06-04', lastUpdated:'2026-06-04', author:'Editorial', readTime:8, patchVersion:'Current Patch',
+    source:['https://prosettings.net/guides/cs2-options/','https://prosettings.net/lists/cs2/'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR — Pro-tuned baseline:</strong> <strong>800 DPI</strong> + <strong>2.0 in-game sens</strong> (eDPI 1600) · <strong>Raw Input ON</strong>, <strong>Mouse Accel OFF</strong> · <strong>4:3 stretched 1280x960</strong> or <strong>16:9 native</strong> · <strong>All shadows: high</strong>, particles low · <strong>Crosshair</strong>: small cyan static · <strong>Audio</strong>: stereo headphones, HRTF ON.', pt:'<strong>TL;DR — Baseline pro-tuned:</strong> <strong>800 DPI</strong> + <strong>2.0 sens in-game</strong> (eDPI 1600) · <strong>Raw Input ON</strong>, <strong>Mouse Accel OFF</strong> · <strong>4:3 stretched 1280x960</strong> ou <strong>16:9 nativo</strong> · <strong>Todas sombras: high</strong>, particles low · <strong>Crosshair</strong>: pequeno ciano estático · <strong>Audio</strong>: headphones estéreo, HRTF ON.'}},
+      {type:'h2', text:{en:'Mouse + sensitivity (the most important setting)', pt:'Rato + sensibilidade (o setting mais importante)'}},
+      {type:'ul', items:[
+        {en:'<strong>DPI: 400, 800 ou 1600</strong> — 800 is the pro standard (62% of pros).', pt:'<strong>DPI: 400, 800 ou 1600</strong> — 800 é o standard pro (62% dos pros).'},
+        {en:'<strong>In-game sensitivity: 1.5–2.5</strong> — tune to your DPI. Target eDPI ~800-2000.', pt:'<strong>Sensibilidade in-game: 1.5–2.5</strong> — afina conforme o teu DPI. Alvo eDPI ~800-2000.'},
+        {en:'<strong>Raw Input: ON</strong> — bypasses Windows mouse acceleration.', pt:'<strong>Raw Input: ON</strong> — ignora a aceleração de rato do Windows.'},
+        {en:'<strong>Mouse Acceleration: OFF</strong> — pro consensus. Acceleration kills muscle memory.', pt:'<strong>Aceleração de Rato: OFF</strong> — consenso pro. Aceleração mata memória muscular.'},
+        {en:'<strong>Windows pointer speed: 6/11</strong> — the default, no acceleration applied.', pt:'<strong>Velocidade do ponteiro Windows: 6/11</strong> — o default, sem aceleração aplicada.'},
+        {en:'<strong>Zoom Sensitivity Multiplier: 1.0</strong> — keeps scoped aim consistent with hipfire.', pt:'<strong>Zoom Sensitivity Multiplier: 1.0</strong> — mantém aim em scope consistente com hipfire.'}
+      ]},
+      {type:'h2', text:{en:'Video — high FPS visibility', pt:'Vídeo — alta FPS visibilidade'}},
+      {type:'ul', items:[
+        {en:'<strong>Resolution</strong>: 4:3 stretched (1280x960) for bigger player models, OR 16:9 native (1920x1080+) for FOV. Most pros split ~60/40 in favor of 4:3.', pt:'<strong>Resolução</strong>: 4:3 esticado (1280x960) para player models maiores, OU 16:9 nativo (1920x1080+) para FOV. A maioria dos pros divide ~60/40 a favor do 4:3.'},
+        {en:'<strong>Aspect Ratio</strong>: match resolution choice. Display Mode: Fullscreen.', pt:'<strong>Aspect Ratio</strong>: combina com a resolução. Display Mode: Fullscreen.'},
+        {en:'<strong>VSync: OFF</strong> — introduces input lag. Use G-Sync/FreeSync hardware instead.', pt:'<strong>VSync: OFF</strong> — adiciona input lag. Usa G-Sync/FreeSync no hardware em vez disso.'},
+        {en:'<strong>Shadow Quality: High</strong> — counterintuitive but TRUE: high shadows render player shadows from corners. Critical info.', pt:'<strong>Shadow Quality: High</strong> — contraintuitivo mas VERDADE: high shadows renderiza sombras de players nos cantos. Info crítica.'},
+        {en:'<strong>Particle Detail: Low</strong> — smoke and effects less obstructive.', pt:'<strong>Particle Detail: Low</strong> — fumo e efeitos menos obstrusivos.'},
+        {en:'<strong>Effect Detail: Low</strong>.', pt:'<strong>Effect Detail: Low</strong>.'},
+        {en:'<strong>Multicore Rendering: ON</strong> — uses all CPU cores. Massive FPS gain.', pt:'<strong>Multicore Rendering: ON</strong> — usa todos os cores CPU. Ganho enorme de FPS.'},
+        {en:'<strong>Boost Player Contrast: ON</strong> — outlines enemy silhouettes for clarity.', pt:'<strong>Boost Player Contrast: ON</strong> — destaca silhuetas inimigas para clareza.'}
+      ]},
+      {type:'h2', text:{en:'Audio — hearing is winning', pt:'Áudio — ouvir é ganhar'}},
+      {type:'ul', items:[
+        {en:'<strong>Master Volume: 50-70%</strong> — leave headroom for in-game effects.', pt:'<strong>Master Volume: 50-70%</strong> — deixa margem para efeitos in-game.'},
+        {en:'<strong>EQ Profile: Crisp</strong> — sharper footstep frequencies.', pt:'<strong>EQ Profile: Crisp</strong> — frequências de passos mais nítidas.'},
+        {en:'<strong>HRTF: ON</strong> — directional audio (huge for callouts).', pt:'<strong>HRTF: ON</strong> — áudio direccional (enorme para callouts).'},
+        {en:'<strong>L/R Isolation: 50%</strong> — balances stereo separation.', pt:'<strong>L/R Isolation: 50%</strong> — equilibra separação estéreo.'},
+        {en:'<strong>Speaker Configuration: Stereo Headphones</strong>.', pt:'<strong>Speaker Configuration: Stereo Headphones</strong>.'},
+        {en:'<strong>VOIP Volume</strong>: separate from master — keep teammate calls audible without master being loud.', pt:'<strong>VOIP Volume</strong>: separado do master — mantém calls da equipa audíveis sem teres master alto.'}
+      ]},
+      {type:'h2', text:{en:'Crosshair — pro presets', pt:'Crosshair — presets pro'}},
+      {type:'p', text:{en:'Most pros run small, static, no dot crosshairs in cyan or green. Common config:', pt:'A maioria dos pros corre crosshairs pequenos, estáticos, sem ponto em ciano ou verde. Config comum:'}},
+      {type:'ul', items:[
+        {en:'<strong>Style: Classic Static</strong>', pt:'<strong>Style: Classic Static</strong>'},
+        {en:'<strong>Size: 1-2</strong>', pt:'<strong>Size: 1-2</strong>'},
+        {en:'<strong>Thickness: 0.5-1</strong>', pt:'<strong>Thickness: 0.5-1</strong>'},
+        {en:'<strong>Gap: -2 to 0</strong>', pt:'<strong>Gap: -2 to 0</strong>'},
+        {en:'<strong>Outline: ON, 1</strong>', pt:'<strong>Outline: ON, 1</strong>'},
+        {en:'<strong>Color: Cyan (5) ou Green (1)</strong>', pt:'<strong>Color: Cyan (5) ou Green (1)</strong>'},
+        {en:'<strong>Dot: OFF</strong>', pt:'<strong>Dot: OFF</strong>'}
+      ]},
+      {type:'h2', text:{en:'HUD + radar', pt:'HUD + radar'}},
+      {type:'ul', items:[
+        {en:'<strong>HUD Scale: 0.95</strong> — slightly smaller, less screen clutter.', pt:'<strong>HUD Scale: 0.95</strong> — ligeiramente menor, menos clutter.'},
+        {en:'<strong>HUD Color: Default (white)</strong>.', pt:'<strong>HUD Color: Default (branco)</strong>.'},
+        {en:'<strong>Radar Centered: ON</strong> — your position always in the middle.', pt:'<strong>Radar Centered: ON</strong> — a tua posição sempre no meio.'},
+        {en:'<strong>Radar Scale: 0.9-1.0</strong>.', pt:'<strong>Radar Scale: 0.9-1.0</strong>.'},
+        {en:'<strong>Radar Map Zoom: 0.5-0.7</strong> — see more terrain.', pt:'<strong>Radar Map Zoom: 0.5-0.7</strong> — vê mais terreno.'},
+        {en:'<strong>Toggle Square w/ Scoreboard: ON</strong>.', pt:'<strong>Toggle Square w/ Scoreboard: ON</strong>.'}
+      ]},
+      {type:'tip', text:{en:'For FPS troubleshooting and console commands to display performance counters, see our <a href="/tips/cs2/cs2-fps-console-commands">CS2 FPS Console Commands guide</a>. For full pro-by-pro settings comparison, see our <a href="/tips/cs2/cs2-pro-settings-gear-list">CS2 Pro Settings & Gear list</a>.', pt:'Para troubleshooting de FPS e comandos de consola que mostram performance, vê o nosso <a href="/tips/cs2/cs2-fps-console-commands">guia de CS2 FPS Console Commands</a>. Para comparação completa pro-by-pro, vê a nossa <a href="/tips/cs2/cs2-pro-settings-gear-list">lista CS2 Pro Settings & Gear</a>.'}}
+    ]
+  },
+
+  // CS2 — FPS Console Commands
+  {
+    slug:'cs2-fps-console-commands',
+    title:{en:'CS2 FPS Console Commands: How to Show FPS + Performance Tweaks', pt:'CS2 Comandos de Consola FPS: Como Mostrar FPS + Tweaks de Performance'},
+    summary:{en:'Every CS2 console command to display FPS, lock framerate, debug stutter and optimise performance. With launch options that gain free frames.', pt:'Todos os comandos de consola CS2 para mostrar FPS, bloquear framerate, debug de stutter e optimizar performance. Com launch options que dão frames grátis.'},
+    game:'cs2', type:'guide', difficulty:'intermediate', category:'advanced',
+    date:'2026-06-04', lastUpdated:'2026-06-04', author:'Editorial', readTime:5, patchVersion:'Current Patch',
+    source:['https://bloodycase.com/blog/cs2-fps-commands/'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR — Enable console first:</strong> Settings → Game → Enable Developer Console → YES. Bind to <strong>~</strong> key. <strong>Show FPS</strong>: type <code>cl_showfps 1</code> in console. <strong>Net graph (FPS + ping + loss)</strong>: <code>+cl_show_team_equipment</code> or use <code>net_graph 1</code>. <strong>Lock FPS</strong>: <code>fps_max 300</code> (or your monitor Hz x 2).', pt:'<strong>TL;DR — Activa a consola primeiro:</strong> Settings → Game → Enable Developer Console → YES. Bind à tecla <strong>~</strong>. <strong>Mostrar FPS</strong>: escreve <code>cl_showfps 1</code> na consola. <strong>Net graph (FPS + ping + loss)</strong>: <code>net_graph 1</code>. <strong>Lock FPS</strong>: <code>fps_max 300</code> (ou Hz do monitor x 2).'}},
+      {type:'h2', text:{en:'Step 1: Enable the developer console', pt:'Passo 1: Activar a consola de developer'}},
+      {type:'ol', items:[
+        {en:'Open CS2 → <strong>Settings</strong> → <strong>Game</strong> tab.', pt:'Abre CS2 → <strong>Settings</strong> → separador <strong>Game</strong>.'},
+        {en:'Find <strong>"Enable Developer Console"</strong> → set to <strong>YES</strong>.', pt:'Procura <strong>"Enable Developer Console"</strong> → põe <strong>YES</strong>.'},
+        {en:'<strong>Keyboard</strong> tab → <strong>UI Keys</strong> → bind <strong>Toggle Console</strong> to <strong>~</strong> (or <strong>F1</strong>).', pt:'Separador <strong>Keyboard</strong> → <strong>UI Keys</strong> → bind <strong>Toggle Console</strong> à tecla <strong>~</strong> (ou <strong>F1</strong>).'},
+        {en:'Press the key in-game → console opens.', pt:'Pressiona a tecla in-game → consola abre.'}
+      ]},
+      {type:'h2', text:{en:'Show FPS — 3 methods', pt:'Mostrar FPS — 3 métodos'}},
+      {type:'ul', items:[
+        {en:'<strong>cl_showfps 1</strong> — minimal FPS counter top-left. Clean.', pt:'<strong>cl_showfps 1</strong> — contador FPS minimalista no topo esquerdo. Limpo.'},
+        {en:'<strong>cl_showfps 2</strong> — FPS counter with frame timing breakdown.', pt:'<strong>cl_showfps 2</strong> — contador FPS com breakdown de timings de frame.'},
+        {en:'<strong>net_graph 1</strong> — full overlay: FPS, ping, packet loss, choke, server tick. Pro standard.', pt:'<strong>net_graph 1</strong> — overlay completo: FPS, ping, packet loss, choke, server tick. Standard pro.'},
+        {en:'<strong>+fps_max 300</strong> — limit framerate (set to monitor Hz x 2 or 3 for input clarity).', pt:'<strong>+fps_max 300</strong> — limita framerate (define a Hz do monitor x 2 ou 3 para clareza de input).'},
+        {en:'<strong>fps_max 0</strong> — uncap framerate entirely.', pt:'<strong>fps_max 0</strong> — uncap framerate totalmente.'}
+      ]},
+      {type:'h2', text:{en:'Performance launch options', pt:'Launch options de performance'}},
+      {type:'p', text:{en:'In Steam: right-click CS2 → Properties → Launch Options. Paste these (single line):', pt:'No Steam: clica-direito CS2 → Properties → Launch Options. Cola estes (linha única):'}},
+      {type:'p', text:{en:'<code>-novid -high -threads 8 -tickrate 128 -refresh 240 +fps_max 0 +cl_forcepreload 1</code>', pt:'<code>-novid -high -threads 8 -tickrate 128 -refresh 240 +fps_max 0 +cl_forcepreload 1</code>'}},
+      {type:'ul', items:[
+        {en:'<strong>-novid</strong> — skips Valve intro video (saves 10s).', pt:'<strong>-novid</strong> — salta vídeo de intro Valve (poupa 10s).'},
+        {en:'<strong>-high</strong> — runs CS2 with High process priority.', pt:'<strong>-high</strong> — corre CS2 com prioridade High no processo.'},
+        {en:'<strong>-threads 8</strong> — uses 8 CPU threads (adjust to your CPU core count).', pt:'<strong>-threads 8</strong> — usa 8 threads CPU (ajusta ao teu número de cores).'},
+        {en:'<strong>-tickrate 128</strong> — forces 128-tick locally (Premier and FaceIt use 128).', pt:'<strong>-tickrate 128</strong> — força 128-tick localmente (Premier e FaceIt usam 128).'},
+        {en:'<strong>-refresh 240</strong> — sets refresh rate (match your monitor — 144/165/240/360).', pt:'<strong>-refresh 240</strong> — define refresh rate (combina com o teu monitor — 144/165/240/360).'},
+        {en:'<strong>+fps_max 0</strong> — uncaps FPS at launch.', pt:'<strong>+fps_max 0</strong> — uncap FPS no launch.'},
+        {en:'<strong>+cl_forcepreload 1</strong> — preloads maps fully on join. No mid-match hitches.', pt:'<strong>+cl_forcepreload 1</strong> — preload completo de mapas ao entrar. Sem hitches a meio do match.'}
+      ]},
+      {type:'h2', text:{en:'In-game performance tweaks', pt:'Tweaks de performance in-game'}},
+      {type:'ul', items:[
+        {en:'<strong>r_drawparticles 0</strong> — disables particle rendering (slight visibility loss in smokes, big FPS gain).', pt:'<strong>r_drawparticles 0</strong> — desactiva renderização de partículas (perda pequena de visibilidade em smokes, ganho grande FPS).'},
+        {en:'<strong>mat_queue_mode 2</strong> — multi-threaded material loading.', pt:'<strong>mat_queue_mode 2</strong> — carregamento multi-threaded de materiais.'},
+        {en:'<strong>cl_disable_ragdolls 1</strong> — kills ragdoll physics on dead bodies.', pt:'<strong>cl_disable_ragdolls 1</strong> — mata física ragdoll em corpos mortos.'},
+        {en:'<strong>r_dynamic 0</strong> — disables dynamic lighting (small FPS gain).', pt:'<strong>r_dynamic 0</strong> — desactiva iluminação dinâmica (pequeno ganho FPS).'},
+        {en:'<strong>snd_mixahead 0.025</strong> — reduces audio latency (lower = more responsive footstep audio).', pt:'<strong>snd_mixahead 0.025</strong> — reduz latência de áudio (mais baixo = passos mais responsivos).'}
+      ]},
+      {type:'h2', text:{en:'Debugging stutter', pt:'Debug de stutter'}},
+      {type:'ul', items:[
+        {en:'<strong>net_graph 1</strong> + watch for sudden FPS drops or "loss/choke" red lines.', pt:'<strong>net_graph 1</strong> + observa quedas súbitas de FPS ou linhas vermelhas de "loss/choke".'},
+        {en:'<strong>fps_max 0</strong> in console while playing — check if cap is the issue.', pt:'<strong>fps_max 0</strong> em consola durante o jogo — verifica se o cap é o problema.'},
+        {en:'<strong>r_dynamic 0</strong> + <strong>r_drawparticles 0</strong> as quick A/B test.', pt:'<strong>r_dynamic 0</strong> + <strong>r_drawparticles 0</strong> como teste A/B rápido.'}
+      ]},
+      {type:'tip', text:{en:'Once FPS is locked and stable, dial in your aim — see our <a href="/tips/cs2/cs2-best-settings-options">CS2 Best Settings guide</a> for mouse, video, audio and crosshair tuning.', pt:'Depois de FPS estável, afina o aim — vê o nosso <a href="/tips/cs2/cs2-best-settings-options">guia CS2 Best Settings</a> para tuning de rato, vídeo, áudio e crosshair.'}}
+    ]
+  },
+
+  // CS2 — Pro Settings & Gear List
+  {
+    slug:'cs2-pro-settings-gear-list',
+    title:{en:'CS2 Pro Settings & Gear List: What Top Players Actually Use', pt:'CS2 Pro Settings & Lista de Gear: O Que Os Top Players Realmente Usam'},
+    summary:{en:'The hardware and configs from CS2 pros — mouse models, DPI, sensitivity, monitor Hz, keyboards and headsets. Patterns and meta picks.', pt:'O hardware e configs dos pros de CS2 — modelos de rato, DPI, sensibilidade, Hz do monitor, teclados e headsets. Padrões e picks meta.'},
+    game:'cs2', type:'guide', difficulty:'intermediate', category:'class',
+    date:'2026-06-04', lastUpdated:'2026-06-04', author:'Editorial', readTime:7, patchVersion:'Current Patch',
+    source:['https://prosettings.net/lists/cs2/'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR — Pro patterns:</strong> 800 DPI dominant (62%), eDPI ~800-1200 most common, 240Hz+ monitor standard, Logitech G Pro X Superlight or Pulsar mice meta, mechanical 60% keyboards. Configs converge — gear varies.', pt:'<strong>TL;DR — Padrões pro:</strong> 800 DPI dominante (62%), eDPI ~800-1200 mais comum, monitor 240Hz+ standard, rato Logitech G Pro X Superlight ou Pulsar é meta, teclados mecânicos 60%. Configs convergem — gear varia.'}},
+      {type:'h2', text:{en:'Sensitivity stats (916 pros surveyed)', pt:'Stats de sensibilidade (916 pros analisados)'}},
+      {type:'ul', items:[
+        {en:'<strong>DPI distribution</strong>: 400 (28%), <strong>800 (62%)</strong>, 1600 (9%), other (1%).', pt:'<strong>Distribuição DPI</strong>: 400 (28%), <strong>800 (62%)</strong>, 1600 (9%), outros (1%).'},
+        {en:'<strong>In-game sens</strong>: median 1.3, 80% range 1.0–2.5.', pt:'<strong>Sens in-game</strong>: mediana 1.3, 80% no range 1.0–2.5.'},
+        {en:'<strong>eDPI</strong> (DPI × sens): median ~880, 80% range 600-1400.', pt:'<strong>eDPI</strong> (DPI × sens): mediana ~880, 80% no range 600-1400.'},
+        {en:'<strong>cm/360°</strong>: median ~50cm. Higher cm/360 = more pixel-precise aim, slower turn speed.', pt:'<strong>cm/360°</strong>: mediana ~50cm. Mais cm/360 = aim mais preciso ao pixel, turn speed mais lento.'},
+        {en:'<strong>Polling rate</strong>: 1000Hz universal. 8000Hz emerging (~12% of pros).', pt:'<strong>Polling rate</strong>: 1000Hz universal. 8000Hz a emergir (~12% dos pros).'},
+        {en:'<strong>Windows pointer speed</strong>: 6/11 (default) — universal.', pt:'<strong>Windows pointer speed</strong>: 6/11 (default) — universal.'}
+      ]},
+      {type:'h2', text:{en:'Mouse meta (top 5 by usage)', pt:'Meta de ratos (top 5 por uso)'}},
+      {type:'ul', items:[
+        {en:'<strong>Logitech G Pro X Superlight 2</strong> — current dominant choice. Light (60g), wireless, reliable.', pt:'<strong>Logitech G Pro X Superlight 2</strong> — escolha dominante actual. Leve (60g), wireless, fiável.'},
+        {en:'<strong>Pulsar X2 / X2H</strong> — ultralight Korean brand gaining fast among pros (47g).', pt:'<strong>Pulsar X2 / X2H</strong> — marca coreana ultralight a crescer rápido entre pros (47g).'},
+        {en:'<strong>Razer Viper V3 Pro</strong> — Razer\'s flagship. 8000Hz polling option.', pt:'<strong>Razer Viper V3 Pro</strong> — flagship Razer. Opção polling 8000Hz.'},
+        {en:'<strong>Zowie EC2-C / FK2-C</strong> — wired plug-and-play purists. Lower price.', pt:'<strong>Zowie EC2-C / FK2-C</strong> — wired plug-and-play puristas. Preço mais baixo.'},
+        {en:'<strong>Endgame Gear OP1 / OP1we</strong> — boutique Western option, 49g.', pt:'<strong>Endgame Gear OP1 / OP1we</strong> — opção boutique Western, 49g.'}
+      ]},
+      {type:'h2', text:{en:'Monitor — refresh rate matters more than resolution', pt:'Monitor — Hz importa mais que resolução'}},
+      {type:'ul', items:[
+        {en:'<strong>240Hz</strong> — current professional standard. 1080p panels.', pt:'<strong>240Hz</strong> — standard profissional actual. Painéis 1080p.'},
+        {en:'<strong>360Hz / 480Hz</strong> — top pros transitioning to these for input clarity edge.', pt:'<strong>360Hz / 480Hz</strong> — top pros a transitar para estes pela vantagem de clareza de input.'},
+        {en:'<strong>Resolution</strong>: 1080p universal. 1440p not adopted at competitive level.', pt:'<strong>Resolução</strong>: 1080p universal. 1440p não adoptado a nível competitivo.'},
+        {en:'<strong>Panel</strong>: TN historically, IPS gaining share. Response time <1ms.', pt:'<strong>Painel</strong>: TN historicamente, IPS a ganhar share. Response time <1ms.'},
+        {en:'<strong>Common models</strong>: BenQ ZOWIE XL2566K (360Hz), ASUS PG259QN (360Hz), Alienware AW2725DF.', pt:'<strong>Modelos comuns</strong>: BenQ ZOWIE XL2566K (360Hz), ASUS PG259QN (360Hz), Alienware AW2725DF.'}
+      ]},
+      {type:'h2', text:{en:'Keyboards', pt:'Teclados'}},
+      {type:'ul', items:[
+        {en:'<strong>Form factor</strong>: 60% / TKL dominant. Saves desk space for low-sens players.', pt:'<strong>Form factor</strong>: 60% / TKL dominante. Poupa espaço de secretária para players low-sens.'},
+        {en:'<strong>Switch type</strong>: linears (Cherry MX Red, Speed Silver, Wooting Lekker analog) dominate.', pt:'<strong>Switch type</strong>: lineares (Cherry MX Red, Speed Silver, Wooting Lekker analógico) dominam.'},
+        {en:'<strong>Common models</strong>: Wooting 60HE / 80HE (analog, snap-tap), Razer Huntsman Mini, Logitech G Pro X, Ducky One series.', pt:'<strong>Modelos comuns</strong>: Wooting 60HE / 80HE (analógico, snap-tap), Razer Huntsman Mini, Logitech G Pro X, Ducky One series.'},
+        {en:'<strong>Snap-tap controversy</strong>: Hall-effect keyboards (Wooting) enable input automation — Valve disabled it via game patches in 2024-2025.', pt:'<strong>Controvérsia snap-tap</strong>: teclados Hall-effect (Wooting) permitem automação de input — Valve desactivou via patches do jogo em 2024-2025.'}
+      ]},
+      {type:'h2', text:{en:'Headsets', pt:'Headsets'}},
+      {type:'ul', items:[
+        {en:'<strong>HyperX Cloud II / III</strong> — bestseller, mid-budget reliable.', pt:'<strong>HyperX Cloud II / III</strong> — bestseller, fiável de budget médio.'},
+        {en:'<strong>Logitech G Pro X 2 Lightspeed</strong> — wireless option, included in many team sponsorships.', pt:'<strong>Logitech G Pro X 2 Lightspeed</strong> — opção wireless, incluída em muitos patrocínios de equipa.'},
+        {en:'<strong>Sennheiser HD 560S + standalone mic</strong> — audiophile route. Top tier directional accuracy.', pt:'<strong>Sennheiser HD 560S + mic standalone</strong> — rota audiophile. Precisão direccional de topo.'},
+        {en:'<strong>Beyerdynamic DT 770 / 990 Pro</strong> — studio classics still popular among veteran pros.', pt:'<strong>Beyerdynamic DT 770 / 990 Pro</strong> — clássicos de estúdio ainda populares entre pros veteranos.'}
+      ]},
+      {type:'h2', text:{en:'Mousepads (the underrated gear)', pt:'Mousepads (o gear subestimado)'}},
+      {type:'ul', items:[
+        {en:'<strong>Artisan Hayate Otsu / Zero</strong> — Japanese boutique, premium glide.', pt:'<strong>Artisan Hayate Otsu / Zero</strong> — boutique japonês, glide premium.'},
+        {en:'<strong>Lethal Gaming Gear Saturn Pro / Venus</strong> — Western alternative, similar quality.', pt:'<strong>Lethal Gaming Gear Saturn Pro / Venus</strong> — alternativa Western, qualidade similar.'},
+        {en:'<strong>SkyPad 3.0 XL Glass</strong> — controversial: glass surface, hyper-fast. Polarising.', pt:'<strong>SkyPad 3.0 XL Glass</strong> — controverso: superfície de vidro, ultra-rápido. Polariza.'},
+        {en:'<strong>Size</strong>: XL (~50cm wide) dominant — accommodates low-sens swipes.', pt:'<strong>Tamanho</strong>: XL (~50cm largo) dominante — acomoda swipes low-sens.'}
+      ]},
+      {type:'tip', text:{en:'For the actual in-game settings tuning matching this gear, see our <a href="/tips/cs2/cs2-best-settings-options">CS2 Best Settings & Options guide</a>. For FPS optimisation, the <a href="/tips/cs2/cs2-fps-console-commands">FPS Console Commands</a> guide pairs well.', pt:'Para tuning de settings in-game que combina com este gear, vê o nosso <a href="/tips/cs2/cs2-best-settings-options">guia CS2 Best Settings & Options</a>. Para optimização de FPS, o <a href="/tips/cs2/cs2-fps-console-commands">FPS Console Commands</a> combina bem.'}}
     ]
   }
 ];
