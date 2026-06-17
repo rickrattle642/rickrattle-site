@@ -5453,22 +5453,28 @@ async function mountTwitchEmbed(){
 /* ===== Homepage aside widgets =====
    POPULAR_NOW is manually curated based on Google Search Console top-impressions
    pages. Update every 4 weeks when checking GSC. Order = display order.
-   Items are slugs only — resolver looks them up across articles/guides/tierLists. */
+   Items are slugs — resolver looks them up across articles/guides/tierLists/game-hubs. */
 const POPULAR_NOW = [
+  '007-first-light',                       // /tips/007-first-light (game hub)
+  'forza-horizon-6',                        // /tips/forza-horizon-6  (game hub)
   'forza-horizon-6-easy-money',
-  'forza-horizon-6-progression-pathways',
-  'arc-raiders-pvp-weapon-tier-list',
-  'ps-plus-2026-monthly-highlights',
-  'chivalry-2-content-roadmap'
+  'finals-season-3-weapons-leaked',
+  'forza-horizon-6-progression-pathways'
 ];
 
 function resolvePopularItem(slug){
+  // 1) Article match
   const a = articles.find(x=>x.slug===slug);
   if(a) return { href:`/news/${a.slug}`, title:tr(a.title), kind:lang==='pt'?'Artigo':'Article', game:a.game };
+  // 2) Guide match
   const g = guides.find(x=>x.slug===slug);
   if(g) return { href:`/tips/${g.game}/${g.slug}`, title:tr(g.title), kind:g.type==='build'?(lang==='pt'?'Build':'Build'):(lang==='pt'?'Guia':'Guide'), game:g.game };
+  // 3) Tier list match
   const tl = tierLists.find(x=>x.slug===slug);
   if(tl) return { href:`/tips/${tl.game}/${tl.slug}`, title:tr(tl.title), kind:lang==='pt'?'Tier List':'Tier List', game:tl.game };
+  // 4) Game hub (slug matches a catalogue game.slug — links to /tips/{slug})
+  const gh = games.find(x=>x.slug===slug);
+  if(gh) return { href:`/tips/${gh.slug}`, title:(gh.name||gh.short)+' — '+(lang==='pt'?'Hub de Dicas':'Tips Hub'), kind:lang==='pt'?'Hub':'Hub', game:gh.slug };
   return null;
 }
 
