@@ -103,6 +103,23 @@
   .history-list .hist-body .pos.p3{color:#cd7f32}
   .history-list .hist-body .h-name{color:var(--ink)}
   .history-list .hist-body .h-score{font-family:'Anton',sans-serif;color:var(--navy);font-size:14px}
+  /* Challenges card — Rick's monthly tally (full-width, poster on dark wood) */
+  .challenges-card{grid-column:1/-1;background:linear-gradient(180deg,#1f1408 0%,#2a1810 100%);color:var(--cream);border-color:var(--red)}
+  .challenges-card::before{border-color:rgba(245,233,200,.15)}
+  .challenges-card h2{color:var(--gold-bright);border-bottom-color:rgba(168,35,29,.5)}
+  .challenges-card h2 span{font-family:'JetBrains Mono',monospace;font-size:.55em;letter-spacing:2px;color:var(--gold)}
+  .challenges-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.65);letter-spacing:1px;text-align:center;margin:0 0 18px;line-height:1.6}
+  .challenges-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin:0 0 18px}
+  .ch-tile{background:linear-gradient(180deg,#3a2616 0%,#1d1108 100%);border:2px solid var(--gold);border-radius:8px;padding:14px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+  .ch-tile .ch-tile-emoji{font-size:34px;line-height:1}
+  .ch-tile .ch-tile-name{font-family:'Anton',sans-serif;font-size:14px;letter-spacing:2px;color:var(--gold-bright)}
+  .ch-tile .ch-tile-count{font-family:'Anton',sans-serif;font-size:42px;line-height:1;color:var(--cream);text-shadow:2px 2px 0 rgba(0,0,0,.5)}
+  .ch-tile .ch-tile-label{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(245,233,200,.5);text-transform:uppercase}
+  .challenges-total{background:rgba(0,0,0,.3);border:1px solid rgba(201,162,75,.3);border-radius:6px;padding:14px;text-align:center;display:flex;flex-direction:column;gap:4px;max-width:420px;margin:0 auto}
+  .challenges-total .ch-total-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;color:rgba(245,233,200,.55)}
+  .challenges-total .ch-total-value{font-family:'Anton',sans-serif;font-size:38px;color:var(--gold-bright);line-height:1}
+  .challenges-total .ch-total-unit{font-family:'Special Elite',serif;font-size:12px;color:rgba(245,233,200,.65)}
+
   /* All-time accumulated leaderboard — Hall of Fame style */
   .alltime-card{background:linear-gradient(180deg,#1f1408 0%,#2e1d0e 100%);color:var(--cream);border-color:var(--gold);grid-column:1/-1}
   /* Classic podium: 1st on top (hero, centered, max-width), 2nd + 3rd side-by-side below */
@@ -228,24 +245,51 @@
     <!-- Rules -->
     <section class="poster rules" aria-label="Regras da Barraca">
       <h2>📋 Regras da Barraca</h2>
-      <h3>Entrada</h3>
+      <h3>Como se joga</h3>
       <ul>
-        <li>💰 <b>250 pontos = 1 bola</b></li>
+        <li>🎡 <b>Roleta = 15 slots</b> (10 com pontos, 5 com challenges)</li>
+        <li>💰 <b>250 pontos = 1 jogada</b></li>
         <li>👁 Quanto mais tempo vês, mais pontos ganhas</li>
         <li>⭐ Subs ganham pontos <b>x2</b></li>
-        <li>🎯 Cada lançamento soma à pontuação</li>
       </ul>
-      <h3>Patamares</h3>
-      <div class="tier"><b>250</b><span>🍋 Trinca limão · 🍷 Shot de Licor Beirão</span></div>
-      <div class="tier"><b>500</b><span>☠️ Toxic Waste Roxo · 🥃 Shot de Whiskey</span></div>
-      <div class="tier"><b>750</b><span>🌮 Tortilla Slap · ☠️ Toxic Waste Amarelo</span></div>
-      <div class="tier"><b>1000</b><span>🌶 Malagueta · 👑 Nós Pimba</span></div>
+      <h3>Slots da Roleta · Pontos</h3>
+      <div class="tier"><b>100</b><span>Soma 100 pontos à tua barraca</span></div>
+      <div class="tier"><b>150</b><span>Soma 150 pontos</span></div>
+      <div class="tier"><b>200</b><span>Soma 200 pontos</span></div>
+      <div class="tier"><b>250</b><span>Soma 250 pontos</span></div>
+      <div class="tier"><b>300</b><span>Soma 300 pontos</span></div>
+      <div class="tier"><b>350</b><span>Soma 350 pontos</span></div>
+      <div class="tier"><b>400</b><span>Soma 400 pontos</span></div>
+      <div class="tier"><b>450</b><span>Soma 450 pontos</span></div>
+      <div class="tier"><b>500</b><span>Soma 500 pontos</span></div>
+      <div class="tier"><b style="color:#a8231d">1000</b><span><b>JACKPOT</b> · Soma 1000 pontos</span></div>
+      <h3>Slots da Roleta · Challenges do Rick</h3>
+      <div class="tier"><b>🥃</b><span><b>WHISKEY</b> · O Rick bebe um shot</span></div>
+      <div class="tier"><b>🌶️</b><span><b>CHILLI</b> · O Rick come uma malagueta</span></div>
+      <div class="tier"><b>🍋</b><span><b>LEMON</b> · O Rick trinca limão</span></div>
+      <div class="tier"><b>🌮</b><span><b>TORTILLA</b> · Tortilla Slap</span></div>
+      <div class="tier"><b>🍺</b><span><b>BEER</b> · O Rick bebe uma cerveja</span></div>
       <h3>Bónus</h3>
       <ul>
         <li>💎 <b>100 Bits</b> = 25 pontos</li>
         <li>💶 <b>€1 Donation</b> = 25 pontos</li>
         <li>♻️ Pontos não acumulam entre streams (só o record persiste)</li>
+        <li>📅 Contador de challenges acumula <b>por mês</b></li>
       </ul>
+    </section>
+
+    <!-- Challenges (Rick's monthly tally) -->
+    <section class="poster challenges-card" aria-label="Challenges do Rick este m&ecirc;s">
+      <h2>🌶 Challenges do Rick · <span id="challengesMonthLabel">—</span></h2>
+      <p class="challenges-sub">A roleta tem 5 challenges. Cada vez que o Rick a ela cai, o contador sobe.</p>
+      <div class="challenges-row" id="challengesRow">
+        <!-- Filled by render() -->
+      </div>
+      <div class="challenges-total">
+        <span class="ch-total-label">TOTAL DO M&Ecirc;S</span>
+        <span class="ch-total-value" id="challengesTotalValue">0</span>
+        <span class="ch-total-unit">challenges completados</span>
+      </div>
     </section>
 
     <!-- Stream history -->
@@ -275,6 +319,25 @@
 
     function escapeHtml(s){
       return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    // Challenges config — name + emoji. Order must match backend CHALLENGES.
+    const CHALLENGES_LIST = [
+      { name: 'WHISKEY',  emoji: '🥃' },
+      { name: 'CHILLI',   emoji: '🌶️' },
+      { name: 'LEMON',    emoji: '🍋' },
+      { name: 'TORTILLA', emoji: '🌮' },
+      { name: 'BEER',     emoji: '🍺' }
+    ];
+    function currentMonthKeyClient(){
+      const d = new Date();
+      return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`;
+    }
+    function monthLabelPT(key){
+      if (!key) return '';
+      const [y,m] = key.split('-');
+      const names = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+      return `${names[parseInt(m,10)-1]} ${y}`;
     }
 
     function render(state){
@@ -433,6 +496,26 @@
       if (MODS_EXCLUDED.size > 0) noteParts.push(`Mods fora da competição: ${[...MODS_EXCLUDED].join(', ')}`);
       if (recordHolderKey) noteParts.push('Recordista não acumula prémios');
       document.getElementById('alltimeNote').textContent = noteParts.join(' · ');
+
+      // ===== Challenges (Rick's monthly tally) =====
+      const monthKey = currentMonthKeyClient();
+      document.getElementById('challengesMonthLabel').textContent = monthLabelPT(monthKey);
+      const bucket = (state.challenges && state.challenges[monthKey]) || {};
+      const chRow = document.getElementById('challengesRow');
+      let chTotal = 0;
+      chRow.innerHTML = CHALLENGES_LIST.map(c => {
+        const val = bucket[c.name] || 0;
+        chTotal += val;
+        return `
+          <div class="ch-tile">
+            <div class="ch-tile-emoji">${c.emoji}</div>
+            <div class="ch-tile-name">${c.name}</div>
+            <div class="ch-tile-count">${val}</div>
+            <div class="ch-tile-label">${val === 1 ? 'vez' : 'vezes'}</div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('challengesTotalValue').textContent = chTotal.toLocaleString('pt-PT');
 
       const histEl = document.getElementById('history');
       const history = (state.history || []).slice(0, 8);

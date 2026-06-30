@@ -10,11 +10,22 @@ const URL_ENV = 'UPSTASH_REDIS_REST_URL';
 const TOKEN_ENV = 'UPSTASH_REDIS_REST_TOKEN';
 
 export const KEYS = {
-  current:   'rr:barraca:current',
-  record:    'rr:barraca:record',
-  history:   'rr:barraca:history',
-  followers: 'rr:barraca:followers'
+  current:    'rr:barraca:current',
+  record:     'rr:barraca:record',
+  history:    'rr:barraca:history',
+  followers:  'rr:barraca:followers',
+  challenges: 'rr:barraca:challenges'   // monthly tally — { "YYYY-MM": { WHISKEY:n, CHILLI:n, ... } }
 };
+
+// Challenges on the wheel that Rick has to do. Keep order stable — admin UI uses it.
+export const CHALLENGES = ['WHISKEY', 'CHILLI', 'LEMON', 'TORTILLA', 'BEER'];
+
+// Returns the YYYY-MM key for "now" (UTC). Used for the monthly challenge bucket.
+export function currentMonthKey(d = new Date()) {
+  const yyyy = d.getUTCFullYear();
+  const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+  return `${yyyy}-${mm}`;
+}
 
 // Run a Redis command via Upstash REST API. Always returns parsed JSON for SET/GET
 // of JSON-encoded values.
@@ -51,19 +62,21 @@ export async function redisSet(key, value) {
   return cmd(['SET', key, body]);
 }
 
-// Read current stream + house record + last 10 history entries + followers roster.
+// Read current stream + house record + last 10 history entries + followers roster + challenges.
 export async function readFullState() {
-  const [current, record, history, followers] = await Promise.all([
+  const [current, record, history, followers, challenges] = await Promise.all([
     redisGet(KEYS.current),
     redisGet(KEYS.record),
     redisGet(KEYS.history),
-    redisGet(KEYS.followers)
+    redisGet(KEYS.followers),
+    redisGet(KEYS.challenges)
   ]);
   return {
-    current:   current || { active: false, startedAt: null, endedAt: null, players: [] },
-    record:    record  || null,
-    history:   Array.isArray(history)   ? history.slice(0, 10) : [],
-    followers: Array.isArray(followers) ? followers : []
+    current:    current || { active: false, startedAt: null, endedAt: null, players: [] },
+    record:     record  || null,
+    history:    Array.isArray(history)   ? history.slice(0, 10) : [],
+    followers:  Array.isArray(followers) ? followers : [],
+    challenges: (challenges && typeof challenges === 'object') ? challenges : {}
   };
 }
 

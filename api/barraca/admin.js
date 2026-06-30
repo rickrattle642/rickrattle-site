@@ -17,7 +17,8 @@
 
 import {
   KEYS, redisGet, redisSet, isAdmin, jsonResponse,
-  normaliseName, normaliseKey, rankPlayers
+  normaliseName, normaliseKey, rankPlayers,
+  CHALLENGES, currentMonthKey
 } from '../_barraca-shared.js';
 
 // ===== Seed data (used by 'seed' action) =====
@@ -272,6 +273,48 @@ async function actionSetRecord(body) {
   return { status: 200, body: { success: true, record } };
 }
 
+// Challenge tracker — counts how many times Rick completes each challenge per month.
+// Body shapes:
+//   { action: 'challenge', name: 'WHISKEY', delta: 1 }              — increment (default +1)
+//   { action: 'challenge', name: 'WHISKEY', delta: -1 }             — decrement (floored at 0)
+//   { action: 'challenge', name: 'WHISKEY', set: 5 }                — exact value
+//   { action: 'challenge', name: 'WHISKEY', set: 5, month: '2026-06' } — override month
+//   { action: 'challenge', resetMonth: true, month: '2026-06' }     — clear a month
+async function actionChallenge(body) {
+  const month = (body.month && /^\d{4}-\d{2}$/.test(body.month)) ? body.month : currentMonthKey();
+
+  let store = await redisGet(KEYS.challenges);
+  if (!store || typeof store !== 'object' || Array.isArray(store)) store = {};
+
+  // Ensure bucket for this month exists with all challenges at 0
+  if (!store[month] || typeof store[month] !== 'object') store[month] = {};
+  for (const c of CHALLENGES) if (typeof store[month][c] !== 'number') store[month][c] = 0;
+
+  if (body.resetMonth) {
+    for (const c of CHALLENGES) store[month][c] = 0;
+    await redisSet(KEYS.challenges, store);
+    return { status: 200, body: { success: true, month, challenges: store[month], reset: true } };
+  }
+
+  const name = (body.name || '').toString().toUpperCase();
+  if (!CHALLENGES.includes(name)) {
+    return { status: 400, body: { error: `Unknown challenge "${name}". Valid: ${CHALLENGES.join(', ')}` } };
+  }
+
+  if (typeof body.set === 'number' && Number.isFinite(body.set)) {
+    store[month][name] = Math.max(0, Math.round(body.set));
+  } else {
+    const delta = Number.isFinite(Number(body.delta)) ? Math.round(Number(body.delta)) : 1;
+    store[month][name] = Math.max(0, store[month][name] + delta);
+  }
+
+  await redisSet(KEYS.challenges, store);
+  return {
+    status: 200,
+    body: { success: true, month, name, value: store[month][name], challenges: store[month] }
+  };
+}
+
 async function actionSeed(body) {
   const force = !!body.force;
   const existingFollowers = await redisGet(KEYS.followers);
@@ -352,6 +395,7 @@ export default async function handler(req, res) {
       case 'followers':   result = await actionFollowers(body); break;
       case 'seed':        result = await actionSeed(body); break;
       case 'set-record':  result = await actionSetRecord(body); break;
+      case 'challenge':   result = await actionChallenge(body); break;
       default:            return jsonResponse(res, 400, { error: 'Unknown action: ' + action });
     }
     return jsonResponse(res, result.status, result.body);

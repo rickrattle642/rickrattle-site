@@ -70,6 +70,19 @@
   .toast.show{transform:translateX(0)}
   .toast.err{border-left-color:var(--red);color:#e87474}
   .toast.ok{border-left-color:var(--green)}
+  /* Challenges grid (admin tracker for monthly counts) */
+  .challenges-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+  .ch-card{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;transition:.15s}
+  .ch-card:hover{border-color:var(--accent)}
+  .ch-card .ch-emoji{font-size:26px;line-height:1}
+  .ch-card .ch-name{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:2px;color:var(--accent)}
+  .ch-card .ch-count{font-family:'Anton',sans-serif;font-size:34px;line-height:1;color:var(--ink);cursor:pointer;padding:2px 8px;border-radius:4px;transition:.15s}
+  .ch-card .ch-count:hover{background:rgba(201,162,75,.1);color:var(--accent)}
+  .ch-card .ch-actions{display:flex;gap:6px;width:100%;margin-top:2px}
+  .ch-card .ch-actions button{flex:1;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:'Anton',sans-serif;font-size:14px;cursor:pointer;transition:.15s}
+  .ch-card .ch-actions button:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+  .ch-card .ch-actions button.dec{color:#e87474}
+  .ch-card .ch-actions button.dec:hover{background:var(--red);color:#fff;border-color:var(--red)}
   /* Stream status */
   .stream-status{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
   .stream-status .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
@@ -117,34 +130,24 @@
         </div>
 
         <div class="row">
-          <label>Adicionar pontos (zonas reais do alvo)</label>
+          <label>Adicionar pontos (slots da roleta)</label>
         </div>
         <div class="quick">
-          <button onclick="quickAdd(10)">+10</button>
-          <button onclick="quickAdd(20)">+20</button>
-          <button onclick="quickAdd(30)">+30</button>
-          <button onclick="quickAdd(40)">+40</button>
-          <button onclick="quickAdd(50)">+50</button>
-          <button onclick="quickAdd(60)">+60</button>
-          <button onclick="quickAdd(70)">+70</button>
-          <button onclick="quickAdd(80)">+80</button>
-          <button onclick="quickAdd(90)">+90</button>
           <button onclick="quickAdd(100)">+100</button>
-          <button onclick="quickAdd(110)">+110</button>
-          <button onclick="quickAdd(120)">+120</button>
-          <button onclick="quickAdd(130)">+130</button>
-          <button onclick="quickAdd(140)">+140</button>
           <button onclick="quickAdd(150)">+150</button>
-          <button onclick="quickAdd(160)">+160</button>
-          <button onclick="quickAdd(170)">+170</button>
-          <button onclick="quickAdd(180)">+180</button>
-          <button onclick="quickAdd(190)">+190</button>
-          <button onclick="quickAdd(200)" style="background:var(--red);color:#fff;border-color:var(--red)">+200 BULL</button>
+          <button onclick="quickAdd(200)">+200</button>
+          <button onclick="quickAdd(250)">+250</button>
+          <button onclick="quickAdd(300)">+300</button>
+          <button onclick="quickAdd(350)">+350</button>
+          <button onclick="quickAdd(400)">+400</button>
+          <button onclick="quickAdd(450)">+450</button>
+          <button onclick="quickAdd(500)">+500</button>
+          <button onclick="quickAdd(1000)" style="background:var(--red);color:#fff;border-color:var(--red)">+1000 JACKPOT</button>
         </div>
         <div class="quick" style="margin-top:8px">
-          <button onclick="quickAdd(-10)" class="neg">−10</button>
-          <button onclick="quickAdd(-50)" class="neg">−50</button>
           <button onclick="quickAdd(-100)" class="neg">−100</button>
+          <button onclick="quickAdd(-250)" class="neg">−250</button>
+          <button onclick="quickAdd(-500)" class="neg">−500</button>
         </div>
 
         <div class="row" style="margin-top:18px">
@@ -152,6 +155,24 @@
           <input type="number" id="customDelta" placeholder="100" value="100">
           <button class="btn" onclick="quickAdd(Number(document.getElementById('customDelta').value)||0)">Adicionar</button>
           <button class="btn btn-secondary" onclick="setExact()">Definir Exacto</button>
+        </div>
+      </div>
+
+      <!-- Challenges tracker (monthly) -->
+      <div class="panel" style="margin-top:20px">
+        <h2>🌶 Challenges do M&ecirc;s</h2>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5">
+          Conta quantas vezes fazes cada challenge da roleta este m&ecirc;s.
+          <span id="challengeMonthLabel" style="color:var(--accent);font-weight:700"></span>
+        </div>
+        <div class="challenges-grid" id="challengesGrid">
+          <!-- Filled by render() -->
+        </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-secondary" style="font-size:11px;padding:8px 12px" onclick="resetChallengesMonth()">🔄 Reset m&ecirc;s</button>
+          <span style="font-size:11px;color:var(--muted);line-height:1.4">
+            Clica no <strong style="color:var(--ink)">+</strong> para incrementar, no <strong style="color:var(--ink)">−</strong> para descontar, ou no n&uacute;mero para editar.
+          </span>
         </div>
       </div>
 
@@ -226,6 +247,25 @@
   let state = null;
   let pollTimer = null;
 
+  // Challenges config — order must match backend CHALLENGES constant
+  const CHALLENGES = [
+    { name: 'WHISKEY',  emoji: '🥃' },
+    { name: 'CHILLI',   emoji: '🌶️' },
+    { name: 'LEMON',    emoji: '🍋' },
+    { name: 'TORTILLA', emoji: '🌮' },
+    { name: 'BEER',     emoji: '🍺' }
+  ];
+  function currentMonthKey(){
+    const d = new Date();
+    return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`;
+  }
+  function monthLabel(key){
+    if (!key) return '';
+    const [y,m] = key.split('-');
+    const monthNames = ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+    return `${monthNames[parseInt(m,10)-1]} ${y}`;
+  }
+
   function $(id){return document.getElementById(id)}
 
   function showToast(msg, kind){
@@ -299,6 +339,26 @@
     if (document.activeElement !== bulk) bulk.value = followers.join('\n');
     // Show "seed" button only when followers list is empty
     $('seedSection').style.display = followers.length === 0 ? 'block' : 'none';
+
+    // Challenges (current month tally)
+    const monthKey = currentMonthKey();
+    $('challengeMonthLabel').textContent = '· ' + monthLabel(monthKey);
+    const bucket = (state.challenges && state.challenges[monthKey]) || {};
+    const grid = $('challengesGrid');
+    grid.innerHTML = CHALLENGES.map(c => {
+      const val = bucket[c.name] || 0;
+      return `
+        <div class="ch-card">
+          <div class="ch-emoji">${c.emoji}</div>
+          <div class="ch-name">${c.name}</div>
+          <div class="ch-count" onclick="editChallenge('${c.name}', ${val})" title="Clica para editar">${val}</div>
+          <div class="ch-actions">
+            <button class="dec" onclick="chDelta('${c.name}', -1)">−</button>
+            <button onclick="chDelta('${c.name}', 1)">+</button>
+          </div>
+        </div>
+      `;
+    }).join('');
 
     // Record
     const rec = $('adminRecord');
@@ -486,6 +546,35 @@
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }
 
+  // ---- Challenges (monthly counter for Rick's wheel challenges) ----
+  async function chDelta(name, delta){
+    try {
+      const res = await adminAction({ action: 'challenge', name, delta });
+      const verb = delta > 0 ? 'feito' : 'descontado';
+      showToast(`${name}: ${res.value} (${verb})`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function editChallenge(name, current){
+    const val = prompt(`Definir contador de ${name} para o mês actual (actual: ${current}):`, current);
+    if (val === null) return;
+    const num = parseInt(val, 10);
+    if (isNaN(num) || num < 0) return showToast('Número inválido', 'err');
+    try {
+      await adminAction({ action: 'challenge', name, set: num });
+      showToast(`${name} = ${num}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function resetChallengesMonth(){
+    if (!confirm('RESET do contador de TODOS os challenges do mês actual. Continuar?')) return;
+    try {
+      await adminAction({ action: 'challenge', resetMonth: true });
+      showToast('Challenges do mês reset', 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
   // ---- House Record management ----
   async function editRecord(){
     const cur = state?.record;
@@ -536,12 +625,13 @@
     const input = $('pwInput').value.trim();
     if (!input) return $('loginErr').textContent = 'Password vazia';
     pw = input;
-    // Test password with a no-op admin call
+    // Test password against the consolidated admin endpoint (action that's a no-op
+    // when player doesn't exist + delta=0). Wrong pw → 401.
     try {
-      const r = await fetch('/api/barraca/score', {
+      const r = await fetch('/api/barraca/admin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
-        body: JSON.stringify({ player: '__test_login__', delta: 0 })
+        body: JSON.stringify({ action: 'score', player: '__test_login__', delta: 0 })
       });
       if (r.status === 401) {
         $('loginErr').textContent = 'Password errada';
@@ -551,11 +641,11 @@
       sessionStorage.setItem(STORAGE_PW, pw);
       $('login').style.display = 'none';
       $('app').style.display = 'block';
-      // Remove the test player created above (delta:0 won't add them but make sure)
-      fetch('/api/barraca/score', {
+      // Remove the test player just in case (delta:0 normally doesn't create it)
+      fetch('/api/barraca/admin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-Admin-Password': pw },
-        body: JSON.stringify({ player: '__test_login__', remove: true })
+        body: JSON.stringify({ action: 'score', player: '__test_login__', remove: true })
       });
       startPolling();
     } catch (e) {
