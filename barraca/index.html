@@ -124,7 +124,37 @@
   .era-block .e-place .e-name{font-family:'Rye',serif;font-size:16px;color:var(--cream);margin:4px 0 2px;word-break:break-word}
   .era-block .e-place .e-score{font-family:'Anton',sans-serif;font-size:22px;color:var(--gold-bright)}
   .era-block .e-place .e-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(245,233,200,.6);letter-spacing:1px;margin-top:3px}
-  .era-block .e-stats{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.7);text-align:center;padding-top:6px}
+  .era-block .e-stats{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.7);text-align:center;padding-top:6px;padding-bottom:8px;border-bottom:1px dashed rgba(245,233,200,.15)}
+  .era-block .e-section-head{font-family:'Rye',serif;font-size:14px;color:var(--gold-bright);letter-spacing:1px;margin:16px 0 8px;padding-bottom:4px;border-bottom:1px solid rgba(245,233,200,.2)}
+  /* Rest of all-time leaderboard inside the era card */
+  .era-block .e-rest-list{list-style:none;padding:0;margin:0;font-family:'JetBrains Mono',monospace}
+  .era-block .e-rest-list li{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:10px;padding:7px 4px;border-bottom:1px dashed rgba(245,233,200,.15);font-size:13px;color:var(--cream)}
+  .era-block .e-rest-list li:last-child{border-bottom:none}
+  .era-block .e-rest-list li.is-record{background:rgba(201,162,75,.08);border-radius:4px;padding-left:8px}
+  .era-block .e-rest-pos{font-family:'Anton',sans-serif;color:var(--gold);font-size:16px;text-align:center}
+  .era-block .e-rest-name{display:block;color:var(--cream)}
+  .era-block .e-rest-sessions{display:block;font-size:10px;color:rgba(245,233,200,.55);letter-spacing:1px;margin-top:1px}
+  .era-block .e-rest-score{font-family:'Anton',sans-serif;color:var(--gold-bright);font-size:16px}
+  .era-block .e-rec-tag{display:inline-block;font-size:8px;letter-spacing:1px;background:rgba(201,162,75,.2);color:var(--gold-bright);padding:1px 5px;border-radius:3px;margin-left:6px;vertical-align:middle}
+  /* Sessions list inside era */
+  .era-block .e-sessions-list{list-style:none;padding:0;margin:0;font-family:'JetBrains Mono',monospace}
+  .era-block .e-sessions-list > li{padding:0;border-bottom:1px dashed rgba(245,233,200,.15)}
+  .era-block .e-sessions-list > li:last-child{border-bottom:none}
+  .era-block .e-sessions-list details summary{list-style:none;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 4px;cursor:pointer;outline:none}
+  .era-block .e-sessions-list details summary::-webkit-details-marker{display:none}
+  .era-block .e-sessions-list .e-sess-tg{font-family:'Rye',serif;color:var(--gold);font-size:12px;width:14px;text-align:center;transition:transform .2s}
+  .era-block .e-sessions-list details[open] .e-sess-tg{transform:rotate(90deg)}
+  .era-block .e-sess-champion{display:block;font-weight:700;color:var(--cream);font-size:13px}
+  .era-block .e-sess-date{display:block;color:rgba(245,233,200,.55);font-size:10px;letter-spacing:1px;margin-top:1px}
+  .era-block .e-sess-pts{font-family:'Anton',sans-serif;color:var(--gold-bright);font-size:14px}
+  .era-block .e-sess-top{list-style:none;padding:6px 4px 10px 28px;margin:0;background:rgba(0,0,0,.25);border-radius:4px}
+  .era-block .e-sess-top li{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;padding:3px 0;border:none;font-size:12px;color:var(--cream)}
+  .era-block .e-sess-pos{font-family:'Anton',sans-serif;font-size:13px;color:var(--gold);text-align:center}
+  .era-block .e-sess-pos.p1{color:var(--gold-bright)}
+  .era-block .e-sess-pos.p2{color:#c8c8d0}
+  .era-block .e-sess-pos.p3{color:#cd7f32}
+  .era-block .e-sess-score{font-family:'Anton',sans-serif;color:var(--cream);font-size:13px}
+  .era-block .e-sess-empty{font-style:italic;color:rgba(245,233,200,.5);padding:6px;font-size:11px}
 
   /* Game type badge in history list */
   .hist-game-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:3px;background:rgba(168,35,29,.15);color:var(--red);margin-left:6px;vertical-align:middle;text-transform:uppercase;font-weight:700}
@@ -608,7 +638,7 @@
     }
 
     // Compute frozen Hall of Fame for a given era from a snapshot's history list.
-    // Returns { recordHolder, podium: [2nd, 3rd], total, sessionCount }
+    // Returns { recordHolder, podium: [2nd, 3rd], allTimeRest, total, sessionCount, sessions }
     function computeFrozenHoF(historyArr, frozenRecord) {
       const MODS = new Set(['mashazinha_', 'putsomecherryontop']);
       const totals = new Map();
@@ -627,13 +657,25 @@
         .filter(p => !MODS.has(p.name.toLowerCase()))
         .sort((a,b) => b.total - a.total);
       const winners = eligible.filter(p => p.name.toLowerCase() !== recordKey).slice(0, 2);
+      const winnerKeys = new Set(winners.map(w => w.name.toLowerCase()));
+      // Positions 4+ — everyone NOT on the podium, still excluding mods. Record holder stays visible with marker.
+      const allTimeRest = eligible.filter(p => !winnerKeys.has(p.name.toLowerCase())).slice(0, 10);
       const grand = [...totals.values()].reduce((s,p) => s + p.total, 0);
+      // Sessions sorted newest-first for the timeline view inside the era card.
+      const sessions = [...(historyArr || [])].sort((a,b) => {
+        const da = new Date(a.date || 0).getTime();
+        const db = new Date(b.date || 0).getTime();
+        return db - da;
+      });
       return {
         recordHolder: frozenRecord && !MODS.has(recordKey) ? frozenRecord : null,
         recordHolderMod: frozenRecord && MODS.has(recordKey) ? frozenRecord : null,
         podium: winners,
+        allTimeRest,
+        recordKey,
         total: grand,
-        sessionCount: (historyArr || []).length
+        sessionCount: (historyArr || []).length,
+        sessions
       };
     }
 
@@ -688,6 +730,58 @@
              <div class="e-name" style="font-size:13px">—</div>
              <div class="e-score">—</div>
              <div class="e-label">3º · não atribuído</div>`;
+        // Rest of all-time leaderboard (positions 4+) — show inline if any
+        const restHtml = hof.allTimeRest.length ? `
+          <div class="e-section-head">Hall of Fame completo</div>
+          <ol class="e-rest-list">
+            ${hof.allTimeRest.map((p, i) => {
+              const isRec = p.name.toLowerCase() === hof.recordKey;
+              const pos = i + 3;  // continues after podium 1st + 2nd
+              return `<li${isRec ? ' class="is-record"' : ''}>
+                <span class="e-rest-pos">${pos}</span>
+                <div>
+                  <span class="e-rest-name">${escapeHtml(p.name)}${isRec ? ' <span class="e-rec-tag">👑 RECORD</span>' : ''}</span>
+                  <span class="e-rest-sessions">${p.sessions} ${p.sessions === 1 ? 'sessão' : 'sessões'}</span>
+                </div>
+                <span class="e-rest-score">${p.total.toLocaleString('pt-PT')}</span>
+              </li>`;
+            }).join('')}
+          </ol>
+        ` : '';
+        // Sessions of this era — collapsible, each shows top-10
+        const sessionsHtml = hof.sessions.length ? `
+          <div class="e-section-head">Sessões da era (${hof.sessions.length})</div>
+          <ul class="e-sessions-list">
+            ${hof.sessions.map((h, hi) => {
+              const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
+              const tableHtml = top.length ? `
+                <ol class="e-sess-top">
+                  ${top.slice(0, 10).map((p, i) => {
+                    const cls = i === 0 ? 'p1' : i === 1 ? 'p2' : i === 2 ? 'p3' : '';
+                    return `<li>
+                      <span class="e-sess-pos ${cls}">${i+1}</span>
+                      <span class="e-sess-name">${escapeHtml(p.name)}</span>
+                      <span class="e-sess-score">${p.score}</span>
+                    </li>`;
+                  }).join('')}
+                </ol>
+              ` : '<div class="e-sess-empty">Sem jogadores arquivados.</div>';
+              return `<li>
+                <details${hi === 0 ? ' open' : ''}>
+                  <summary class="e-sess-head">
+                    <span class="e-sess-tg">▶</span>
+                    <div>
+                      <span class="e-sess-champion">${escapeHtml(h.champion)}</span>
+                      <span class="e-sess-date">${fmtDate(h.date)}</span>
+                    </div>
+                    <span class="e-sess-pts">${h.score} pts</span>
+                  </summary>
+                  ${tableHtml}
+                </details>
+              </li>`;
+            }).join('')}
+          </ul>
+        ` : '';
         return `
           <details class="era-block" ${isLast ? 'open' : ''}>
             <summary>
@@ -701,7 +795,9 @@
                 <div class="e-place">${secondHtml}</div>
                 <div class="e-place">${thirdHtml}</div>
               </div>
-              <div class="e-stats">Total distribuído: <strong style="color:var(--gold-bright)">${hof.total.toLocaleString('pt-PT')}</strong> pontos</div>
+              <div class="e-stats">Total distribuído: <strong style="color:var(--gold-bright)">${hof.total.toLocaleString('pt-PT')}</strong> pontos · ${hof.sessionCount} ${hof.sessionCount === 1 ? 'sessão' : 'sessões'}</div>
+              ${restHtml}
+              ${sessionsHtml}
             </div>
           </details>
         `;
