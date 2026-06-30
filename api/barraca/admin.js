@@ -18,7 +18,8 @@
 import {
   KEYS, redisGet, redisSet, isAdmin, jsonResponse,
   normaliseName, normaliseKey, rankPlayers,
-  CHALLENGES, currentMonthKey
+  CHALLENGES, currentMonthKey,
+  ERAS, DEFAULT_CURRENT_ERA
 } from '../_barraca-shared.js';
 
 // ===== Seed data (used by 'seed' action) =====
@@ -372,6 +373,100 @@ async function actionSeed(body) {
   };
 }
 
+// ===== Era management =====
+// Close the current era and start a new one.
+//   { action: 'close-era', newEra: 'wheel' }            → tags untagged history with current era,
+//                                                         snapshots state for undo, resets record + stream
+//                                                         and switches currentEra to newEra
+//   { action: 'close-era', revert: true }               → pops most recent snapshot off the archive and restores it
+async function actionCloseEra(body) {
+  if (body.revert) {
+    return actionRevertEra();
+  }
+
+  const currentEra = (await redisGet(KEYS.currentEra)) || DEFAULT_CURRENT_ERA;
+  const newEra = body.newEra || (currentEra === 'dartboard' ? 'wheel' : currentEra);
+  if (!ERAS[newEra]) {
+    return { status: 400, body: { error: `Unknown era "${newEra}". Valid: ${Object.keys(ERAS).join(', ')}` } };
+  }
+  if (newEra === currentEra) {
+    return { status: 400, body: { error: `Already in era "${currentEra}" — nothing to close.` } };
+  }
+
+  const [record, history, current, eraArchive] = await Promise.all([
+    redisGet(KEYS.record),
+    redisGet(KEYS.history),
+    redisGet(KEYS.current),
+    redisGet(KEYS.eraArchive)
+  ]);
+
+  // Tag untagged history with the era we're closing (so the archive view can show them).
+  const taggedHistory = (Array.isArray(history) ? history : []).map(h =>
+    h && !h.gameType ? { ...h, gameType: currentEra } : h
+  );
+
+  // Snapshot the full BEFORE state for revert.
+  const snapshot = {
+    closedAt: new Date().toISOString(),
+    closingEra: currentEra,
+    newEra,
+    before: {
+      record: record || null,
+      history: Array.isArray(history) ? history : [],
+      current: current || { active: false, startedAt: null, endedAt: null, players: [] },
+      currentEra
+    }
+  };
+  const newArchive = Array.isArray(eraArchive) ? [...eraArchive, snapshot] : [snapshot];
+
+  await Promise.all([
+    redisSet(KEYS.eraArchive, newArchive),
+    redisSet(KEYS.history,    taggedHistory),
+    redisSet(KEYS.record,     null),
+    redisSet(KEYS.current,    { active: false, startedAt: null, endedAt: null, players: [] }),
+    redisSet(KEYS.currentEra, newEra)
+  ]);
+
+  return {
+    status: 200,
+    body: {
+      success: true,
+      closingEra: currentEra,
+      newEra,
+      archiveLength: newArchive.length,
+      historyTagged: taggedHistory.length
+    }
+  };
+}
+
+// Revert the most recent close-era transition.
+async function actionRevertEra() {
+  const eraArchive = await redisGet(KEYS.eraArchive);
+  if (!Array.isArray(eraArchive) || eraArchive.length === 0) {
+    return { status: 400, body: { error: 'Nada para reverter — arquivo de eras está vazio.' } };
+  }
+  const last = eraArchive[eraArchive.length - 1];
+  const remaining = eraArchive.slice(0, -1);
+
+  await Promise.all([
+    redisSet(KEYS.eraArchive, remaining),
+    redisSet(KEYS.history,    last.before.history),
+    redisSet(KEYS.record,     last.before.record),
+    redisSet(KEYS.current,    last.before.current),
+    redisSet(KEYS.currentEra, last.before.currentEra || DEFAULT_CURRENT_ERA)
+  ]);
+
+  return {
+    status: 200,
+    body: {
+      success: true,
+      revertedFrom: last.newEra,
+      revertedTo:   last.closingEra,
+      archiveRemaining: remaining.length
+    }
+  };
+}
+
 // ===== Dispatcher =====
 
 export default async function handler(req, res) {
@@ -396,6 +491,7 @@ export default async function handler(req, res) {
       case 'seed':        result = await actionSeed(body); break;
       case 'set-record':  result = await actionSetRecord(body); break;
       case 'challenge':   result = await actionChallenge(body); break;
+      case 'close-era':   result = await actionCloseEra(body); break;
       default:            return jsonResponse(res, 400, { error: 'Unknown action: ' + action });
     }
     return jsonResponse(res, result.status, result.body);

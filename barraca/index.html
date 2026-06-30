@@ -103,6 +103,32 @@
   .history-list .hist-body .pos.p3{color:#cd7f32}
   .history-list .hist-body .h-name{color:var(--ink)}
   .history-list .hist-body .h-score{font-family:'Anton',sans-serif;color:var(--navy);font-size:14px}
+  /* Era archive — collapsible frozen Hall of Fame for past eras */
+  .era-archive-card{background:linear-gradient(180deg,#1a1108 0%,#221610 100%);color:var(--cream);border-color:rgba(245,233,200,.3)}
+  .era-archive-card::before{border-color:rgba(245,233,200,.1)}
+  .era-archive-card h2{color:rgba(245,233,200,.85);border-bottom-color:rgba(245,233,200,.25)}
+  .archive-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.55);letter-spacing:1px;text-align:center;margin:0 0 18px;line-height:1.6}
+  .era-block{background:rgba(0,0,0,.35);border:1px solid rgba(245,233,200,.2);border-radius:8px;padding:14px 16px;margin:0 0 14px;color:var(--cream)}
+  .era-block:last-child{margin-bottom:0}
+  .era-block summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;outline:none}
+  .era-block summary::-webkit-details-marker{display:none}
+  .era-block summary .e-title{font-family:'Rye',serif;font-size:18px;color:var(--gold-bright)}
+  .era-block summary .e-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(245,233,200,.55);letter-spacing:1px;text-transform:uppercase}
+  .era-block summary .e-toggle{font-size:14px;color:var(--gold);transition:transform .2s}
+  .era-block[open] summary .e-toggle{transform:rotate(90deg)}
+  .era-block .e-body{margin-top:12px;padding-top:12px;border-top:1px dashed rgba(245,233,200,.2)}
+  .era-block .e-podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 0 10px}
+  @media(max-width:540px){.era-block .e-podium{grid-template-columns:1fr}}
+  .era-block .e-place{background:rgba(255,255,255,.06);border:1px solid rgba(245,233,200,.2);border-radius:6px;padding:10px;text-align:center}
+  .era-block .e-place .e-medal{font-size:24px;line-height:1}
+  .era-block .e-place .e-name{font-family:'Rye',serif;font-size:16px;color:var(--cream);margin:4px 0 2px;word-break:break-word}
+  .era-block .e-place .e-score{font-family:'Anton',sans-serif;font-size:22px;color:var(--gold-bright)}
+  .era-block .e-place .e-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(245,233,200,.6);letter-spacing:1px;margin-top:3px}
+  .era-block .e-stats{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.7);text-align:center;padding-top:6px}
+
+  /* Game type badge in history list */
+  .hist-game-badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:2px 6px;border-radius:3px;background:rgba(168,35,29,.15);color:var(--red);margin-left:6px;vertical-align:middle;text-transform:uppercase;font-weight:700}
+
   /* Challenges card — Rick's monthly tally (full-width, poster on dark wood) */
   .challenges-card{grid-column:1/-1;background:linear-gradient(180deg,#1f1408 0%,#2a1810 100%);color:var(--cream);border-color:var(--red)}
   .challenges-card::before{border-color:rgba(245,233,200,.15)}
@@ -204,11 +230,11 @@
       </div>
     </section>
 
-    <!-- Hall of Fame — 3 prizes consolidated (Record = 1st, all-time = 2nd + 3rd). Full width, prominent. -->
+    <!-- Hall of Fame — 3 prizes consolidated (Record = 1st, all-time = 2nd + 3rd). Filtered by current era. -->
     <section class="poster alltime-card" aria-label="Hall of Fame">
-      <h2>🏆 Hall of Fame · Os 3 Prémios</h2>
+      <h2>🏆 Hall of Fame <span id="hofEraBadge" style="font-family:'JetBrains Mono',monospace;font-size:.45em;letter-spacing:2px;color:var(--gold);vertical-align:middle"></span></h2>
       <p class="alltime-sub">
-        <strong>1º Prémio</strong> ao recordista da Barraca · <strong>2º e 3º</strong> aos maiores acumuladores all-time · mods fora.
+        <strong>1º Prémio</strong> ao recordista da Barraca · <strong>2º e 3º</strong> aos maiores acumuladores da era · mods fora.
       </p>
 
       <!-- Classic podium layout: 1º on top (centered), 2º+3º side by side below -->
@@ -292,6 +318,13 @@
       </div>
     </section>
 
+    <!-- Era archive — collapsible cards for each previous era's frozen Hall of Fame -->
+    <section class="poster era-archive-card" id="eraArchiveSection" aria-label="Arquivo de Eras" style="display:none;grid-column:1/-1">
+      <h2>📂 Arquivo de Eras</h2>
+      <p class="archive-sub">Hall of Fame congelado das eras anteriores. Os pr&eacute;mios foram entregues e os contadores reiniciaram.</p>
+      <div id="eraArchiveList"></div>
+    </section>
+
     <!-- Stream history -->
     <section class="poster" aria-label="Histórico de Streams">
       <h2>📜 Histórico</h2>
@@ -320,6 +353,12 @@
     function escapeHtml(s){
       return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     }
+
+    // Era catalogue — must mirror backend ERAS
+    const ERA_INFO = {
+      dartboard: { label: 'Dart Board', badge: '🎯', short: 'DARTS' },
+      wheel:     { label: 'Roleta',     badge: '🎡', short: 'ROLETA' }
+    };
 
     // Challenges config — name + emoji. Order must match backend CHALLENGES.
     const CHALLENGES_LIST = [
@@ -375,8 +414,15 @@
       //   2) Record holder — already has the Record da Barraca prize, can't double-dip.
       //      Stays visible in the list with a 👑 RECORD tag but skipped for podium slots.
       const MODS_EXCLUDED = new Set(['mashazinha_', 'putsomecherryontop']);
+      const currentEra = state.currentEra || 'dartboard';
+      const currentEraInfo = ERA_INFO[currentEra] || { badge: '·', short: currentEra.toUpperCase() };
+      // Show era badge next to Hall of Fame title
+      const hofBadge = document.getElementById('hofEraBadge');
+      if (hofBadge) hofBadge.textContent = `· ${currentEraInfo.badge} ${currentEraInfo.short}`;
+      // Hall of Fame computation filters by current era — untagged history defaults to 'dartboard'.
+      const currentEraHistory = (state.history || []).filter(h => (h.gameType || 'dartboard') === currentEra);
       const totals = new Map();
-      (state.history || []).forEach(h => {
+      currentEraHistory.forEach(h => {
         (h.topPlayers || []).forEach(p => {
           const k = (p.name||'').toLowerCase();
           if (!k) return;
@@ -386,6 +432,7 @@
           totals.set(k, cur);
         });
       });
+      // Current live stream counts toward the current era too.
       (state.current?.players || []).forEach(p => {
         const k = (p.name||'').toLowerCase();
         if (!k) return;
@@ -517,12 +564,17 @@
       }).join('');
       document.getElementById('challengesTotalValue').textContent = chTotal.toLocaleString('pt-PT');
 
+      // ===== Era archive — show frozen Hall of Fame for each previous era =====
+      renderEraArchive(state);
+
       const histEl = document.getElementById('history');
       const history = (state.history || []).slice(0, 8);
       if (history.length) {
         histEl.innerHTML = history.map((h, idx) => {
           const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
           const isFirst = idx === 0;  // most recent session auto-expanded
+          const hEra = h.gameType || 'dartboard';
+          const hEraInfo = ERA_INFO[hEra] || { badge: '·', short: hEra.toUpperCase() };
           const tableHtml = top.length ? `
             <div class="hist-body${isFirst ? ' open' : ''}">
               <ol>
@@ -541,7 +593,7 @@
             <div class="hist-head" onclick="toggleHistory(this)">
               <span class="hist-toggle${isFirst ? ' open' : ''}">▶</span>
               <div>
-                <span class="winner">${escapeHtml(h.champion)}</span>
+                <span class="winner">${escapeHtml(h.champion)}<span class="hist-game-badge">${hEraInfo.badge} ${hEraInfo.short}</span></span>
                 <div class="date">${fmtDate(h.date)}</div>
               </div>
               <span class="pts">${h.score} pts</span>
@@ -553,6 +605,109 @@
         histEl.innerHTML = '<li class="lb-empty" style="border:none;display:block">Nenhuma stream arquivada.</li>';
       }
 
+    }
+
+    // Compute frozen Hall of Fame for a given era from a snapshot's history list.
+    // Returns { recordHolder, podium: [2nd, 3rd], total, sessionCount }
+    function computeFrozenHoF(historyArr, frozenRecord) {
+      const MODS = new Set(['mashazinha_', 'putsomecherryontop']);
+      const totals = new Map();
+      (historyArr || []).forEach(h => {
+        (h.topPlayers || []).forEach(p => {
+          const k = (p.name||'').toLowerCase();
+          if (!k) return;
+          const cur = totals.get(k) || { name: p.name, total: 0, sessions: 0 };
+          cur.total += (p.score || 0);
+          cur.sessions += 1;
+          totals.set(k, cur);
+        });
+      });
+      const recordKey = (frozenRecord?.name || '').toLowerCase();
+      const eligible = [...totals.values()]
+        .filter(p => !MODS.has(p.name.toLowerCase()))
+        .sort((a,b) => b.total - a.total);
+      const winners = eligible.filter(p => p.name.toLowerCase() !== recordKey).slice(0, 2);
+      const grand = [...totals.values()].reduce((s,p) => s + p.total, 0);
+      return {
+        recordHolder: frozenRecord && !MODS.has(recordKey) ? frozenRecord : null,
+        recordHolderMod: frozenRecord && MODS.has(recordKey) ? frozenRecord : null,
+        podium: winners,
+        total: grand,
+        sessionCount: (historyArr || []).length
+      };
+    }
+
+    function renderEraArchive(state){
+      const section = document.getElementById('eraArchiveSection');
+      const listEl = document.getElementById('eraArchiveList');
+      const archive = state.eraArchive || [];
+      if (!archive.length) {
+        section.style.display = 'none';
+        return;
+      }
+      section.style.display = '';
+
+      // Each archive entry has { closedAt, closingEra, before:{record, history} }
+      // The frozen Hall of Fame uses the history (filtered to closingEra) + the record at time of close.
+      const blocks = archive.map((snap, idx) => {
+        const era = snap.closingEra;
+        const eraInfo = ERA_INFO[era] || { label: era, badge: '·', short: era.toUpperCase() };
+        const histOfEra = (snap.before.history || []).filter(h => (h.gameType || era) === era);
+        const hof = computeFrozenHoF(histOfEra, snap.before.record);
+        const closedDate = snap.closedAt ? fmtDate(snap.closedAt) : '—';
+        const isLast = idx === archive.length - 1;
+        const recordSlotHtml = hof.recordHolder
+          ? `<div class="e-medal">👑</div>
+             <div class="e-name">${escapeHtml(hof.recordHolder.name)}</div>
+             <div class="e-score">${(hof.recordHolder.score||0).toLocaleString('pt-PT')}</div>
+             <div class="e-label">1º · RECORDISTA</div>`
+          : hof.recordHolderMod
+            ? `<div class="e-medal" style="opacity:.45">👑</div>
+               <div class="e-name" style="font-size:13px;opacity:.7">Vaga em aberto</div>
+               <div class="e-score" style="opacity:.55">—</div>
+               <div class="e-label">Record (mod): ${escapeHtml(hof.recordHolderMod.name)} ${(hof.recordHolderMod.score||0).toLocaleString('pt-PT')}</div>`
+            : `<div class="e-medal" style="opacity:.45">—</div>
+               <div class="e-name" style="font-size:13px">Sem record</div>
+               <div class="e-score">—</div>
+               <div class="e-label">1º · não atribuído</div>`;
+        const secondHtml = hof.podium[0]
+          ? `<div class="e-medal">🥈</div>
+             <div class="e-name">${escapeHtml(hof.podium[0].name)}</div>
+             <div class="e-score">${hof.podium[0].total.toLocaleString('pt-PT')}</div>
+             <div class="e-label">2º · ${hof.podium[0].sessions} ${hof.podium[0].sessions === 1 ? 'sessão' : 'sessões'}</div>`
+          : `<div class="e-medal" style="opacity:.45">🥈</div>
+             <div class="e-name" style="font-size:13px">—</div>
+             <div class="e-score">—</div>
+             <div class="e-label">2º · não atribuído</div>`;
+        const thirdHtml = hof.podium[1]
+          ? `<div class="e-medal">🥉</div>
+             <div class="e-name">${escapeHtml(hof.podium[1].name)}</div>
+             <div class="e-score">${hof.podium[1].total.toLocaleString('pt-PT')}</div>
+             <div class="e-label">3º · ${hof.podium[1].sessions} ${hof.podium[1].sessions === 1 ? 'sessão' : 'sessões'}</div>`
+          : `<div class="e-medal" style="opacity:.45">🥉</div>
+             <div class="e-name" style="font-size:13px">—</div>
+             <div class="e-score">—</div>
+             <div class="e-label">3º · não atribuído</div>`;
+        return `
+          <details class="era-block" ${isLast ? 'open' : ''}>
+            <summary>
+              <span class="e-title">${eraInfo.badge} ${eraInfo.label} · ENCERRADA</span>
+              <span class="e-meta">${hof.sessionCount} ${hof.sessionCount === 1 ? 'sessão' : 'sessões'} · fechada ${closedDate}</span>
+              <span class="e-toggle">▶</span>
+            </summary>
+            <div class="e-body">
+              <div class="e-podium">
+                <div class="e-place">${recordSlotHtml}</div>
+                <div class="e-place">${secondHtml}</div>
+                <div class="e-place">${thirdHtml}</div>
+              </div>
+              <div class="e-stats">Total distribuído: <strong style="color:var(--gold-bright)">${hof.total.toLocaleString('pt-PT')}</strong> pontos</div>
+            </div>
+          </details>
+        `;
+      }).reverse();  // most recent era closure first
+
+      listEl.innerHTML = blocks.join('');
     }
 
     function toggleHistory(headEl){

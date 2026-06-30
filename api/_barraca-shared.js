@@ -14,8 +14,19 @@ export const KEYS = {
   record:     'rr:barraca:record',
   history:    'rr:barraca:history',
   followers:  'rr:barraca:followers',
-  challenges: 'rr:barraca:challenges'   // monthly tally — { "YYYY-MM": { WHISKEY:n, CHILLI:n, ... } }
+  challenges: 'rr:barraca:challenges',  // monthly tally — { "YYYY-MM": { WHISKEY:n, CHILLI:n, ... } }
+  currentEra: 'rr:barraca:current-era', // string id of currently active era ('dartboard' | 'wheel' | ...)
+  eraArchive: 'rr:barraca:era-archive'  // array of past era snapshots (for revert + display)
 };
+
+// Era catalogue — order matters for display. Adding a new era? Append here + bump CURRENT_DEFAULT_ERA when going live.
+export const ERAS = {
+  dartboard: { id: 'dartboard', label: 'Dart Board', badge: '🎯', short: 'DARTS' },
+  wheel:     { id: 'wheel',     label: 'Roleta',     badge: '🎡', short: 'ROLETA' }
+};
+// What "currentEra" should default to if Redis key is missing (fresh deploy or pre-migration).
+// Today (2026-06-30) we're still in the dartboard era; the user will click "Close Era" tomorrow.
+export const DEFAULT_CURRENT_ERA = 'dartboard';
 
 // Challenges on the wheel that Rick has to do. Keep order stable — admin UI uses it.
 export const CHALLENGES = ['WHISKEY', 'CHILLI', 'LEMON', 'TORTILLA', 'BEER'];
@@ -62,21 +73,25 @@ export async function redisSet(key, value) {
   return cmd(['SET', key, body]);
 }
 
-// Read current stream + house record + last 10 history entries + followers roster + challenges.
+// Read current stream + house record + last 10 history entries + followers + challenges + era info.
 export async function readFullState() {
-  const [current, record, history, followers, challenges] = await Promise.all([
+  const [current, record, history, followers, challenges, currentEra, eraArchive] = await Promise.all([
     redisGet(KEYS.current),
     redisGet(KEYS.record),
     redisGet(KEYS.history),
     redisGet(KEYS.followers),
-    redisGet(KEYS.challenges)
+    redisGet(KEYS.challenges),
+    redisGet(KEYS.currentEra),
+    redisGet(KEYS.eraArchive)
   ]);
   return {
     current:    current || { active: false, startedAt: null, endedAt: null, players: [] },
     record:     record  || null,
     history:    Array.isArray(history)   ? history.slice(0, 10) : [],
     followers:  Array.isArray(followers) ? followers : [],
-    challenges: (challenges && typeof challenges === 'object') ? challenges : {}
+    challenges: (challenges && typeof challenges === 'object') ? challenges : {},
+    currentEra: currentEra || DEFAULT_CURRENT_ERA,
+    eraArchive: Array.isArray(eraArchive) ? eraArchive : []
   };
 }
 

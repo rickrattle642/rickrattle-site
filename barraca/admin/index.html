@@ -176,6 +176,23 @@
         </div>
       </div>
 
+      <!-- Era switcher — close current era + revert undo -->
+      <div class="panel" style="margin-top:20px;border:2px solid var(--red)">
+        <h2>🔄 Mudança de Era do Jogo</h2>
+        <div style="font-size:13px;color:var(--ink);margin-bottom:14px;line-height:1.5">
+          Era actual: <strong style="color:var(--accent);font-family:'Anton',sans-serif;letter-spacing:2px" id="currentEraLabel">A carregar…</strong>
+          <span id="nextEraHint" style="color:var(--muted);font-size:11px;letter-spacing:1px"></span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5;border-left:3px solid var(--accent);padding-left:10px">
+          Carregar em <strong style="color:var(--ink)">Fechar Era</strong> congela tudo (record, leaderboard, current stream) e arranca a nova era do zero. Histórico anterior é preservado &amp; taggado. <strong style="color:var(--ink)">Reverter</strong> desfaz a última transição.
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-danger" onclick="closeEra()">🔒 Fechar Era &amp; Come&ccedil;ar Nova</button>
+          <button class="btn btn-secondary" onclick="revertEra()" id="revertBtn" style="display:none">↩ Reverter Última Transição</button>
+        </div>
+        <div id="eraArchiveSummary" style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.6"></div>
+      </div>
+
       <div class="panel" style="margin-top:20px">
         <h2>🎬 Controlos de Stream</h2>
         <div class="controls">
@@ -246,6 +263,12 @@
   let pw = sessionStorage.getItem(STORAGE_PW) || '';
   let state = null;
   let pollTimer = null;
+
+  // Era catalogue — must mirror backend ERAS constant
+  const ERA_INFO = {
+    dartboard: { label: 'Dart Board', badge: '🎯', short: 'DARTS' },
+    wheel:     { label: 'Roleta',     badge: '🎡', short: 'ROLETA' }
+  };
 
   // Challenges config — order must match backend CHALLENGES constant
   const CHALLENGES = [
@@ -339,6 +362,25 @@
     if (document.activeElement !== bulk) bulk.value = followers.join('\n');
     // Show "seed" button only when followers list is empty
     $('seedSection').style.display = followers.length === 0 ? 'block' : 'none';
+
+    // Era status
+    const era = state.currentEra || 'dartboard';
+    const eraInfo = ERA_INFO[era] || { label: era, badge: '·', short: era.toUpperCase() };
+    const nextEra = era === 'dartboard' ? 'wheel' : 'dartboard';
+    const nextInfo = ERA_INFO[nextEra];
+    $('currentEraLabel').textContent = `${eraInfo.badge} ${eraInfo.label.toUpperCase()}`;
+    $('nextEraHint').textContent = nextInfo ? ` → próxima: ${nextInfo.badge} ${nextInfo.label}` : '';
+    const archive = state.eraArchive || [];
+    $('revertBtn').style.display = archive.length > 0 ? 'inline-block' : 'none';
+    if (archive.length > 0) {
+      const last = archive[archive.length - 1];
+      const lastClose = last.closedAt ? new Date(last.closedAt).toLocaleString('pt-PT') : '?';
+      const lastFromInfo = ERA_INFO[last.closingEra] || { short: last.closingEra };
+      const lastToInfo = ERA_INFO[last.newEra] || { short: last.newEra };
+      $('eraArchiveSummary').innerHTML = `${archive.length} ${archive.length === 1 ? 'transi&ccedil;&atilde;o' : 'transi&ccedil;&otilde;es'} no arquivo · &uacute;ltima: <strong style="color:var(--ink)">${lastFromInfo.short} → ${lastToInfo.short}</strong> em ${lastClose}`;
+    } else {
+      $('eraArchiveSummary').innerHTML = 'Nenhuma transi&ccedil;&atilde;o feita ainda. Estamos na era inicial.';
+    }
 
     // Challenges (current month tally)
     const monthKey = currentMonthKey();
@@ -542,6 +584,43 @@
       const res = await adminAction({ action: 'seed' });
       if (res.skipped) showToast('Já estava feito — skipped', 'ok');
       else showToast(`Seed ok: ${res.followersSeeded} followers + record ${res.recordSet?.name}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
+  // ---- Era management (close + revert) ----
+  async function closeEra(){
+    const era = state?.currentEra || 'dartboard';
+    const nextEra = era === 'dartboard' ? 'wheel' : 'dartboard';
+    const eraInfo = ERA_INFO[era] || { label: era };
+    const nextInfo = ERA_INFO[nextEra] || { label: nextEra };
+    const msg = [
+      `Fechar era "${eraInfo.label}" e começar "${nextInfo.label}"?`,
+      '',
+      'Vai acontecer:',
+      ' • Record da Barraca actual → arquivado',
+      ' • Leaderboard actual → reset',
+      ' • Sessões arquivadas até agora → taggadas como ' + (eraInfo.label || era),
+      '',
+      'PODES REVERTER depois com o botão de Reverter.'
+    ].join('\n');
+    if (!confirm(msg)) return;
+    try {
+      const res = await adminAction({ action: 'close-era', newEra: nextEra });
+      showToast(`Era fechada: ${eraInfo.label} → ${nextInfo.label}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function revertEra(){
+    const archive = state?.eraArchive || [];
+    if (archive.length === 0) return showToast('Nada para reverter', 'err');
+    const last = archive[archive.length - 1];
+    const fromInfo = ERA_INFO[last.newEra] || { label: last.newEra };
+    const toInfo = ERA_INFO[last.closingEra] || { label: last.closingEra };
+    if (!confirm(`Reverter última transição? Voltar de "${fromInfo.label}" para "${toInfo.label}". Record + leaderboard + histórico restauram para o estado anterior à transição.`)) return;
+    try {
+      const res = await adminAction({ action: 'close-era', revert: true });
+      showToast(`Era revertida: ${fromInfo.label} → ${toInfo.label}`, 'ok');
       await loadState();
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }
