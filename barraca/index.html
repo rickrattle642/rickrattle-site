@@ -110,7 +110,18 @@
   .alltime-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.65);letter-spacing:1px;text-align:center;margin:0 0 18px;line-height:1.6}
   .alltime-sub strong{color:var(--gold-bright)}
 
-  /* Podium — 2 prize cards side by side, 1st gold (taller), 2nd silver */
+  /* Hero card — record holder (1st prize), full width, prominent */
+  .record-hero{position:relative;border-radius:12px;padding:24px 18px;text-align:center;margin:0 0 14px;overflow:hidden;background:radial-gradient(circle at 50% 0%,#ffeb99 0%,#f4d35e 30%,#c9a24b 65%,#8a6b1f 100%);border:3px solid #c08c10;box-shadow:0 10px 30px rgba(244,211,94,.25),inset 0 1px 0 rgba(255,255,255,.4)}
+  .record-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent 0%,#fff5b8 50%,transparent 100%);opacity:.7}
+  .record-hero::after{content:'1º PRÉMIO';position:absolute;top:8px;right:10px;font-family:'Anton',sans-serif;font-size:10px;letter-spacing:3px;color:rgba(13,7,3,.6);background:rgba(13,7,3,.08);padding:3px 8px;border-radius:4px}
+  .record-hero .hero-crown{font-size:42px;line-height:1;margin-bottom:4px;filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
+  .record-hero .hero-title{font-family:'Rye',serif;font-size:13px;letter-spacing:3px;color:rgba(13,7,3,.7);margin:2px 0 8px;text-transform:uppercase}
+  .record-hero .hero-name{font-family:'Rye',serif;font-size:30px;line-height:1.1;color:#0d0703;text-shadow:0 1px 0 rgba(255,255,255,.25);word-break:break-all;margin:4px 0}
+  .record-hero .hero-score{font-family:'Anton',sans-serif;font-size:54px;line-height:1;color:#0d0703;margin:4px 0 2px;letter-spacing:1px}
+  .record-hero .hero-meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(13,7,3,.6);text-transform:uppercase;margin-top:6px}
+  .record-hero .hero-empty{font-family:'Special Elite',serif;color:rgba(13,7,3,.6);font-style:italic;padding:20px 0}
+
+  /* Podium — 2nd + 3rd prize cards (silver + bronze) */
   .podium{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 18px;align-items:end}
   .podium-empty{grid-column:1/-1;text-align:center;padding:30px 10px;color:rgba(245,233,200,.55);font-style:italic;font-family:'Special Elite',serif}
   .podium-card{position:relative;border-radius:10px;padding:18px 14px;text-align:center;overflow:hidden;border:2px solid;transition:transform .2s}
@@ -120,11 +131,9 @@
   .podium-card .name{font-family:'Rye',serif;font-size:22px;line-height:1.1;margin:6px 0;color:#0d0703;text-shadow:0 1px 0 rgba(255,255,255,.2);word-break:break-all}
   .podium-card .score{font-family:'Anton',sans-serif;font-size:34px;line-height:1;margin:6px 0 2px;color:#0d0703}
   .podium-card .meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:rgba(13,7,3,.65);text-transform:uppercase;margin-top:8px}
-  .podium-card.gold{background:linear-gradient(180deg,#f4d35e 0%,#d4a017 100%);box-shadow:0 8px 24px rgba(244,211,94,.25),inset 0 1px 0 rgba(255,255,255,.3);border-color:#c08c10}
-  .podium-card.silver{background:linear-gradient(180deg,#dfe2e8 0%,#a8acb6 100%);box-shadow:0 8px 24px rgba(168,172,182,.22),inset 0 1px 0 rgba(255,255,255,.3);border-color:#7a7f8a;padding-top:22px}
-  .podium-card.gold{padding-bottom:24px}
-  .podium-card.gold::after{content:'PRÉMIO';position:absolute;top:6px;right:6px;font-family:'Anton',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(13,7,3,.55);background:rgba(13,7,3,.08);padding:2px 6px;border-radius:3px}
-  .podium-card.silver::after{content:'PRÉMIO';position:absolute;top:6px;right:6px;font-family:'Anton',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(13,7,3,.55);background:rgba(13,7,3,.08);padding:2px 6px;border-radius:3px}
+  .podium-card.silver{background:linear-gradient(180deg,#dfe2e8 0%,#a8acb6 100%);box-shadow:0 8px 24px rgba(168,172,182,.22),inset 0 1px 0 rgba(255,255,255,.3);border-color:#7a7f8a}
+  .podium-card.bronze{background:linear-gradient(180deg,#e8a87c 0%,#a05a2c 100%);box-shadow:0 8px 24px rgba(160,90,44,.25),inset 0 1px 0 rgba(255,255,255,.25);border-color:#7a3f1c}
+  .podium-card.silver::after,.podium-card.bronze::after{content:'PRÉMIO';position:absolute;top:6px;right:6px;font-family:'Anton',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(13,7,3,.55);background:rgba(13,7,3,.08);padding:2px 6px;border-radius:3px}
   @media(max-width:520px){.podium{grid-template-columns:1fr}.podium-card.silver{padding-top:18px}}
 
   /* Total distributed - compact band */
@@ -180,22 +189,21 @@
       </ol>
     </section>
 
-    <!-- House record -->
-    <section class="poster record-card" aria-label="House Record">
-      <h2>🏆 Record da Barraca</h2>
-      <div id="record">
-        <div class="champ-empty" style="color:rgba(245,233,200,.6)">Recorde ainda por bater.</div>
+    <!-- Hall of Fame — 3 prizes consolidated (Record = 1st, all-time = 2nd + 3rd) -->
+    <section class="poster alltime-card" aria-label="Hall of Fame">
+      <h2>🏆 Hall of Fame · Os 3 Prémios</h2>
+      <p class="alltime-sub">
+        <strong>1º Prémio</strong> ao recordista da Barraca · <strong>2º e 3º</strong> aos maiores acumuladores all-time · mods fora.
+      </p>
+
+      <!-- Hero card: the record holder (1st prize) — full width -->
+      <div class="record-hero" id="recordHero">
+        <div class="hero-empty">À espera do primeiro recordista…</div>
       </div>
-    </section>
 
-    <!-- All-time accumulated leaderboard (3 prizes panel) -->
-    <section class="poster alltime-card" aria-label="Pontos All-Time">
-      <h2>💰 Hall of Fame · Pontos All-Time</h2>
-      <p class="alltime-sub">Soma de todas as streams. <strong>Top 2 ganham prémio</strong> · recordista da Barraca não pode acumular · mods não contam.</p>
-
-      <!-- Prize podium (top 2 eligible) -->
+      <!-- Podium: 2nd + 3rd prize (all-time accumulators) -->
       <div class="podium" id="alltimePodium">
-        <div class="podium-empty">Sem dados ainda.</div>
+        <div class="podium-empty">Sem dados all-time ainda.</div>
       </div>
 
       <!-- Total distribuído -->
@@ -292,18 +300,6 @@
         lb.innerHTML = '<li class="lb-empty" style="border:none;display:block">Sem jogadores na barraca.</li>';
       }
 
-      const recordEl = document.getElementById('record');
-      if (state.record) {
-        recordEl.innerHTML = `
-          <div class="record-trophy">🏆</div>
-          <div class="record-name">${escapeHtml(state.record.name)}</div>
-          <div class="record-score">${state.record.score}</div>
-          <div class="record-date">${fmtDate(state.record.date)}</div>
-        `;
-      } else {
-        recordEl.innerHTML = '<div class="champ-empty" style="color:rgba(245,233,200,.6)">Recorde ainda por bater.</div>';
-      }
-
       // ===== All-time Hall of Fame =====
       // Sum each player's score across all archived sessions + the current stream.
       // Apply 2 ineligibility rules:
@@ -311,7 +307,7 @@
       //      for transparency, but hidden from the ranking list).
       //   2) Record holder — already has the Record da Barraca prize, can't double-dip.
       //      Stays visible in the list with a 👑 RECORD tag but skipped for podium slots.
-      const MODS_EXCLUDED = new Set(['mashazinha_']);
+      const MODS_EXCLUDED = new Set(['mashazinha_', 'putsomecherryontop']);
       const totals = new Map();
       (state.history || []).forEach(h => {
         (h.topPlayers || []).forEach(p => {
@@ -344,37 +340,67 @@
       const grandTotal = [...totals.values()].reduce((s,p) => s + p.total, 0);
       document.getElementById('alltimeTotalValue').textContent = grandTotal.toLocaleString('pt-PT');
 
-      // Render podium (top 2 eligible prize winners)
+      // Render the HERO card (1st prize). Mods are NOT eligible — if the record
+      // holder is a mod, the prize slot is shown as "waiting" with an info line
+      // crediting the actual record (transparent but ineligible for prize).
+      const heroEl = document.getElementById('recordHero');
+      const recordIsMod = recordHolderKey && MODS_EXCLUDED.has(recordHolderKey);
+      if (state.record && state.record.name && !recordIsMod) {
+        heroEl.innerHTML = `
+          <div class="hero-crown">👑</div>
+          <div class="hero-title">Recordista da Barraca · 1º Prémio</div>
+          <div class="hero-name">${escapeHtml(state.record.name)}</div>
+          <div class="hero-score">${(state.record.score||0).toLocaleString('pt-PT')}</div>
+          <div class="hero-meta">pontos numa stream · ${fmtDate(state.record.date)}</div>
+        `;
+      } else if (recordIsMod) {
+        // Mod holds the record — slot in waiting, record still credited below.
+        heroEl.innerHTML = `
+          <div class="hero-crown" style="opacity:.45">👑</div>
+          <div class="hero-title">1º Prémio · à espera de recordista elegível</div>
+          <div class="hero-name" style="font-size:22px;opacity:.7">Vaga em aberto</div>
+          <div class="hero-score" style="opacity:.55">—</div>
+          <div class="hero-meta" style="opacity:.85;margin-top:10px">
+            Record actual da casa: <strong>${escapeHtml(state.record.name)}</strong>
+            (mod) — ${(state.record.score||0).toLocaleString('pt-PT')} pts · ${fmtDate(state.record.date)}
+            <br><small style="font-size:9px;letter-spacing:1px">Mods não são elegíveis a prémio</small>
+          </div>
+        `;
+      } else {
+        heroEl.innerHTML = '<div class="hero-empty">À espera do primeiro recordista…</div>';
+      }
+
+      // Render podium (2º + 3º prizes = top 2 all-time eligible, not record holder, not mod)
       const podiumEl = document.getElementById('alltimePodium');
       if (prizeWinners.length >= 1) {
-        const first = prizeWinners[0];
-        const second = prizeWinners[1];
+        const second = prizeWinners[0];
+        const third = prizeWinners[1];
         podiumEl.innerHTML = `
-          <div class="podium-card gold">
-            <div class="medal">🥇</div>
-            <div class="place">1º Prémio</div>
-            <div class="name">${escapeHtml(first.name)}</div>
-            <div class="score">${first.total.toLocaleString('pt-PT')}</div>
-            <div class="meta">${first.sessions} ${first.sessions === 1 ? 'stream' : 'streams'} · pontos</div>
-          </div>
-          ${second ? `
           <div class="podium-card silver">
             <div class="medal">🥈</div>
             <div class="place">2º Prémio</div>
             <div class="name">${escapeHtml(second.name)}</div>
             <div class="score">${second.total.toLocaleString('pt-PT')}</div>
-            <div class="meta">${second.sessions} ${second.sessions === 1 ? 'stream' : 'streams'} · pontos</div>
+            <div class="meta">${second.sessions} ${second.sessions === 1 ? 'stream' : 'streams'} · all-time</div>
+          </div>
+          ${third ? `
+          <div class="podium-card bronze">
+            <div class="medal">🥉</div>
+            <div class="place">3º Prémio</div>
+            <div class="name">${escapeHtml(third.name)}</div>
+            <div class="score">${third.total.toLocaleString('pt-PT')}</div>
+            <div class="meta">${third.sessions} ${third.sessions === 1 ? 'stream' : 'streams'} · all-time</div>
           </div>` : `
-          <div class="podium-card silver" style="opacity:.45">
-            <div class="medal">🥈</div>
-            <div class="place">2º Prémio</div>
+          <div class="podium-card bronze" style="opacity:.45">
+            <div class="medal">🥉</div>
+            <div class="place">3º Prémio</div>
             <div class="name" style="font-size:16px">À espera</div>
             <div class="score">—</div>
             <div class="meta">vaga em aberto</div>
           </div>`}
         `;
       } else {
-        podiumEl.innerHTML = '<div class="podium-empty">Sem dados ainda.</div>';
+        podiumEl.innerHTML = '<div class="podium-empty">Sem dados all-time ainda.</div>';
       }
 
       // Rest of list: positions 3+, skipping the 2 winners but keeping record holder visible
