@@ -104,7 +104,14 @@
   .history-list .hist-body .h-name{color:var(--ink)}
   .history-list .hist-body .h-score{font-family:'Anton',sans-serif;color:var(--navy);font-size:14px}
   /* All-time accumulated leaderboard — Hall of Fame style */
-  .alltime-card{background:linear-gradient(180deg,#1f1408 0%,#2e1d0e 100%);color:var(--cream);border-color:var(--gold)}
+  .alltime-card{background:linear-gradient(180deg,#1f1408 0%,#2e1d0e 100%);color:var(--cream);border-color:var(--gold);grid-column:1/-1}
+  /* Wide layout: 1st-prize hero (left) + (2nd+3rd podium + total) stacked (right). Collapses on mobile. */
+  .hof-row{display:grid;grid-template-columns:1fr;gap:14px;margin:0 0 16px}
+  @media(min-width:780px){.hof-row{grid-template-columns:1.4fr 1fr;align-items:start}}
+  .hof-hero-col{min-width:0}
+  .hof-side-col{display:flex;flex-direction:column;gap:14px;min-width:0}
+  .hof-side-col .podium{margin:0}
+  .hof-side-col .alltime-total{margin:0}
   .alltime-card::before{border-color:rgba(245,233,200,.15)}
   .alltime-card h2{color:var(--gold-bright);border-bottom-color:rgba(201,162,75,.4)}
   .alltime-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.65);letter-spacing:1px;text-align:center;margin:0 0 18px;line-height:1.6}
@@ -181,44 +188,46 @@
       </div>
     </section>
 
-    <!-- Leaderboard -->
-    <section class="poster" aria-label="Top 10 Leaderboard">
-      <h2>🎯 Top 10 da Stream</h2>
-      <ol class="lb-list" id="leaderboard">
-        <li class="lb-empty" style="border:none;display:block">Sem jogadores na barraca.</li>
-      </ol>
-    </section>
-
-    <!-- Hall of Fame — 3 prizes consolidated (Record = 1st, all-time = 2nd + 3rd) -->
+    <!-- Hall of Fame — 3 prizes consolidated (Record = 1st, all-time = 2nd + 3rd). Full width, prominent. -->
     <section class="poster alltime-card" aria-label="Hall of Fame">
       <h2>🏆 Hall of Fame · Os 3 Prémios</h2>
       <p class="alltime-sub">
         <strong>1º Prémio</strong> ao recordista da Barraca · <strong>2º e 3º</strong> aos maiores acumuladores all-time · mods fora.
       </p>
 
-      <!-- Hero card: the record holder (1st prize) — full width -->
-      <div class="record-hero" id="recordHero">
-        <div class="hero-empty">À espera do primeiro recordista…</div>
+      <!-- Wide layout: hero card on the left, podium + total stacked on the right (desktop only) -->
+      <div class="hof-row">
+        <div class="hof-hero-col">
+          <div class="record-hero" id="recordHero">
+            <div class="hero-empty">À espera do primeiro recordista…</div>
+          </div>
+        </div>
+        <div class="hof-side-col">
+          <div class="podium" id="alltimePodium">
+            <div class="podium-empty">Sem dados all-time ainda.</div>
+          </div>
+          <div class="alltime-total">
+            <span class="at-label">TOTAL DISTRIBUÍDO</span>
+            <span class="at-value" id="alltimeTotalValue">0</span>
+            <span class="at-unit">pontos somados</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Podium: 2nd + 3rd prize (all-time accumulators) -->
-      <div class="podium" id="alltimePodium">
-        <div class="podium-empty">Sem dados all-time ainda.</div>
-      </div>
-
-      <!-- Total distribuído -->
-      <div class="alltime-total">
-        <span class="at-label">TOTAL DISTRIBUÍDO</span>
-        <span class="at-value" id="alltimeTotalValue">0</span>
-        <span class="at-unit">pontos somados</span>
-      </div>
-
-      <!-- Rest of the leaderboard -->
+      <!-- Rest of the leaderboard (below the row, full width) -->
       <div class="alltime-rest-head">Restantes posições</div>
       <ol class="alltime-list" id="alltimeList">
         <li class="lb-empty" style="border:none;display:block">—</li>
       </ol>
       <p class="alltime-note" id="alltimeNote"></p>
+    </section>
+
+    <!-- Leaderboard -->
+    <section class="poster" aria-label="Top 10 Leaderboard">
+      <h2>🎯 Top 10 da Stream</h2>
+      <ol class="lb-list" id="leaderboard">
+        <li class="lb-empty" style="border:none;display:block">Sem jogadores na barraca.</li>
+      </ol>
     </section>
 
     <!-- Rules -->
