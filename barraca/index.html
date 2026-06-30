@@ -105,13 +105,12 @@
   .history-list .hist-body .h-score{font-family:'Anton',sans-serif;color:var(--navy);font-size:14px}
   /* All-time accumulated leaderboard — Hall of Fame style */
   .alltime-card{background:linear-gradient(180deg,#1f1408 0%,#2e1d0e 100%);color:var(--cream);border-color:var(--gold);grid-column:1/-1}
-  /* Wide layout: 1st-prize hero (left) + (2nd+3rd podium + total) stacked (right). Collapses on mobile. */
-  .hof-row{display:grid;grid-template-columns:1fr;gap:14px;margin:0 0 16px}
-  @media(min-width:780px){.hof-row{grid-template-columns:1.4fr 1fr;align-items:start}}
-  .hof-hero-col{min-width:0}
-  .hof-side-col{display:flex;flex-direction:column;gap:14px;min-width:0}
-  .hof-side-col .podium{margin:0}
-  .hof-side-col .alltime-total{margin:0}
+  /* Classic podium: 1st on top (hero, centered, max-width), 2nd + 3rd side-by-side below */
+  .hof-podium-wrap{display:flex;flex-direction:column;gap:16px;align-items:center;margin:0 0 18px}
+  .hof-podium-wrap > *{width:100%}
+  .hof-podium-wrap .record-hero{max-width:720px;margin:0 auto}
+  .hof-podium-wrap .podium{max-width:620px;margin:0 auto}
+  .hof-podium-wrap .alltime-total{max-width:520px;margin:0 auto}
   .alltime-card::before{border-color:rgba(245,233,200,.15)}
   .alltime-card h2{color:var(--gold-bright);border-bottom-color:rgba(201,162,75,.4)}
   .alltime-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(245,233,200,.65);letter-spacing:1px;text-align:center;margin:0 0 18px;line-height:1.6}
@@ -195,22 +194,18 @@
         <strong>1º Prémio</strong> ao recordista da Barraca · <strong>2º e 3º</strong> aos maiores acumuladores all-time · mods fora.
       </p>
 
-      <!-- Wide layout: hero card on the left, podium + total stacked on the right (desktop only) -->
-      <div class="hof-row">
-        <div class="hof-hero-col">
-          <div class="record-hero" id="recordHero">
-            <div class="hero-empty">À espera do primeiro recordista…</div>
-          </div>
+      <!-- Classic podium layout: 1º on top (centered), 2º+3º side by side below -->
+      <div class="hof-podium-wrap">
+        <div class="record-hero" id="recordHero">
+          <div class="hero-empty">À espera do primeiro recordista…</div>
         </div>
-        <div class="hof-side-col">
-          <div class="podium" id="alltimePodium">
-            <div class="podium-empty">Sem dados all-time ainda.</div>
-          </div>
-          <div class="alltime-total">
-            <span class="at-label">TOTAL DISTRIBUÍDO</span>
-            <span class="at-value" id="alltimeTotalValue">0</span>
-            <span class="at-unit">pontos somados</span>
-          </div>
+        <div class="podium" id="alltimePodium">
+          <div class="podium-empty">Sem dados all-time ainda.</div>
+        </div>
+        <div class="alltime-total">
+          <span class="at-label">TOTAL DISTRIBUÍDO</span>
+          <span class="at-value" id="alltimeTotalValue">0</span>
+          <span class="at-unit">pontos somados</span>
         </div>
       </div>
 
