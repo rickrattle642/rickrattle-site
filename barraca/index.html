@@ -499,7 +499,7 @@
       //      for transparency, but hidden from the ranking list).
       //   2) Record holder — already has the Record da Barraca prize, can't double-dip.
       //      Stays visible in the list with a 👑 RECORD tag but skipped for podium slots.
-      const MODS_EXCLUDED = new Set(['mashazinha_', 'putsomecherryontop']);
+      const MODS_EXCLUDED = new Set(['mashazinha_']);
       const currentEra = state.currentEra || 'dartboard';
       const currentEraInfo = ERA_INFO[currentEra] || { badge: '·', short: currentEra.toUpperCase() };
       // Show era badge next to Hall of Fame title
@@ -703,7 +703,7 @@
     // Compute frozen Hall of Fame for a given era from a snapshot's history list.
     // Returns { recordHolder, podium: [2nd, 3rd], allTimeRest, total, sessionCount, sessions }
     function computeFrozenHoF(historyArr, frozenRecord) {
-      const MODS = new Set(['mashazinha_', 'putsomecherryontop']);
+      const MODS = new Set(['mashazinha_']);
       const totals = new Map();
       (historyArr || []).forEach(h => {
         (h.topPlayers || []).forEach(p => {
@@ -749,7 +749,7 @@
 
     // Compute lifetime ranking across ALL eras. Returns { rows, totalPoints, totalSessions, eraCount }
     function computeLifetimeRanking(state) {
-      const MODS = new Set(['mashazinha_', 'putsomecherryontop']);
+      const MODS = new Set(['mashazinha_']);
       const totals = new Map();
       const erasSeen = new Set();
 
