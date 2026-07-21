@@ -506,7 +506,9 @@
       const hofBadge = document.getElementById('hofEraBadge');
       if (hofBadge) hofBadge.textContent = `· ${currentEraInfo.badge} ${currentEraInfo.short}`;
       // Hall of Fame computation filters by current era — untagged history defaults to 'dartboard'.
-      const currentEraHistory = (state.history || []).filter(h => (h.gameType || 'dartboard') === currentEra);
+      // Untagged history entries default to the CURRENT era (safer than hardcoding 'dartboard' —
+      // an untagged session created after switching to wheel would otherwise show up as dartboard).
+      const currentEraHistory = (state.history || []).filter(h => (h.gameType || currentEra) === currentEra);
       const totals = new Map();
       currentEraHistory.forEach(h => {
         (h.topPlayers || []).forEach(p => {
@@ -666,7 +668,7 @@
         histEl.innerHTML = history.map((h, idx) => {
           const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
           const isFirst = idx === 0;  // most recent session auto-expanded
-          const hEra = h.gameType || 'dartboard';
+          const hEra = h.gameType || currentEra;  // fall back to current era for untagged entries
           const hEraInfo = ERA_INFO[hEra] || { badge: '·', short: hEra.toUpperCase() };
           const tableHtml = top.length ? `
             <div class="hist-body${isFirst ? ' open' : ''}">
@@ -753,8 +755,9 @@
       const totals = new Map();
       const erasSeen = new Set();
 
+      const fallbackEra = state.currentEra || 'dartboard';
       (state.history || []).forEach(h => {
-        const era = h.gameType || 'dartboard';
+        const era = h.gameType || fallbackEra;
         erasSeen.add(era);
         (h.topPlayers || []).forEach(p => {
           const k = (p.name||'').toLowerCase();

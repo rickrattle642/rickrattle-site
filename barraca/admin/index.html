@@ -191,6 +191,32 @@
           <button class="btn btn-secondary" onclick="revertEra()" id="revertBtn" style="display:none">↩ Reverter Última Transição</button>
         </div>
         <div id="eraArchiveSummary" style="margin-top:14px;font-size:11px;color:var(--muted);line-height:1.6"></div>
+
+        <!-- Retag existing history by date range (fix mislabelled sessions) -->
+        <details style="margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)">
+          <summary style="cursor:pointer;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase">🏷️ Reetiquetar sess&otilde;es antigas por data</summary>
+          <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:12px">
+            Marca todas as sess&otilde;es num intervalo de datas como sendo de uma dada era. &Uacute;til se as sess&otilde;es antigas ficaram com o badge errado (ex: Julho a mostrar DARTS).
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+            <div>
+              <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">De (inclusive)</label>
+              <input type="date" id="retagFrom" style="width:100%;margin-top:4px;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+            </div>
+            <div>
+              <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">At&eacute; (opcional)</label>
+              <input type="date" id="retagTo" style="width:100%;margin-top:4px;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Era destino:</label>
+            <select id="retagEra" style="padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+              <option value="dartboard">🎯 Dart Board</option>
+              <option value="wheel" selected>🎡 Roleta</option>
+            </select>
+            <button class="btn btn-secondary" style="font-size:11px;padding:8px 14px" onclick="retagHistory()">🏷️ Reetiquetar</button>
+          </div>
+        </details>
       </div>
 
       <div class="panel" style="margin-top:20px">
@@ -226,6 +252,25 @@
           <button class="btn" onclick="seedInitial()">🌱 Seed inicial (importar 163 followers + sessão 03/06)</button>
           <div style="font-size:11px;color:var(--muted);margin-top:6px">Só corre se a lista estiver vazia. Idempotent.</div>
         </div>
+
+        <!-- Refresh followers from code — overwrites Redis list with SEED_FOLLOWERS constant -->
+        <div style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)">
+          <button class="btn btn-secondary" onclick="refreshFollowers()">🔄 Actualizar followers do c&oacute;digo</button>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px">Sobrep&otilde;e a lista actual pela lista mais recente no c&oacute;digo (SEED_FOLLOWERS). Use quando o c&oacute;digo tem renomea&ccedil;&otilde;es ou novos followers.</div>
+        </div>
+
+        <!-- Rename player — updates name across record, history, followers, current, era archive -->
+        <details style="margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)">
+          <summary style="cursor:pointer;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase">🔤 Renomear Jogador (globalmente)</summary>
+          <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:10px">
+            Renomeia o jogador em <strong style="color:var(--ink)">tudo</strong>: record, hist&oacute;rico, followers, stream actual, arquivo de eras. Case-insensitive.
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+            <input type="text" id="renameFrom" placeholder="De: ex. HookWrath" style="padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+            <input type="text" id="renameTo" placeholder="Para: ex. GappaTTV" style="padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+          </div>
+          <button class="btn btn-secondary" style="font-size:11px;padding:8px 14px" onclick="renamePlayer()">🔤 Renomear</button>
+        </details>
       </div>
     </div>
 
@@ -611,6 +656,22 @@
       await loadState();
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }
+  async function retagHistory(){
+    const from = $('retagFrom').value;
+    const to = $('retagTo').value;
+    const era = $('retagEra').value;
+    if (!from) return showToast('Escolhe pelo menos a data "De"', 'err');
+    const eraLabel = (ERA_INFO[era] || {}).label || era;
+    if (!confirm(`Marcar todas as sessões arquivadas ${from}${to ? ' até '+to : ' e depois'} como "${eraLabel}"? Isto altera os badges no histórico e o cálculo do Hall of Fame.`)) return;
+    try {
+      const body = { action: 'retag-history', dateFrom: from, gameType: era };
+      if (to) body.dateTo = to;
+      const res = await adminAction(body);
+      showToast(`✅ ${res.retagged} sess${res.retagged === 1 ? 'ão' : 'ões'} reetiquetadas como ${eraLabel}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
   async function revertEra(){
     const archive = state?.eraArchive || [];
     if (archive.length === 0) return showToast('Nada para reverter', 'err');
@@ -650,6 +711,35 @@
     try {
       await adminAction({ action: 'challenge', resetMonth: true });
       showToast('Challenges do mês reset', 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
+  // ---- Followers refresh + player rename ----
+  async function refreshFollowers(){
+    if (!confirm('Sobrepor a lista actual de followers pela lista mais recente no código?\n\n(Preserva histórico, records e outros dados — só substitui a lista de followers.)')) return;
+    try {
+      const res = await adminAction({ action: 'refresh-followers' });
+      showToast(`✅ ${res.count} followers actualizados`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+  async function renamePlayer(){
+    const from = $('renameFrom').value.trim();
+    const to   = $('renameTo').value.trim();
+    if (!from || !to) return showToast('Preenche os dois campos', 'err');
+    if (from.toLowerCase() === to.toLowerCase() && from !== to) {
+      // Same key but different case — allow (just casing change)
+    } else if (from === to) {
+      return showToast('Nomes iguais', 'err');
+    }
+    if (!confirm(`Renomear "${from}" → "${to}" em TUDO?\n\n(Record, histórico, followers, stream actual, arquivo de eras.)`)) return;
+    try {
+      const res = await adminAction({ action: 'rename-player', from, to });
+      const c = res.changes;
+      showToast(`✅ ${res.totalChanges} altera${res.totalChanges === 1 ? 'ção' : 'ções'} (rec:${c.record} · hist:${c.history} · foll:${c.followers} · arq:${c.eraArchive} · live:${c.current})`, 'ok');
+      $('renameFrom').value = '';
+      $('renameTo').value = '';
       await loadState();
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }
