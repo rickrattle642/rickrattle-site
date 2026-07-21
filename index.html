@@ -698,8 +698,8 @@ const T = {
   en:{
     "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
     "search.ph":"Search articles, guides, tier lists...",
-    "nav.section.main":"MAIN","nav.section.creator":"CREATOR",
-    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips",
+    "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS",
+    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.barraca":"Barraca da Feira",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
     "home.aside.popular":"POPULAR NOW","home.aside.latest":"LATEST ARTICLES",
@@ -726,8 +726,8 @@ const T = {
   pt:{
     "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
     "search.ph":"Procurar artigos, guias, tier lists...",
-    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR",
-    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas",
+    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS",
+    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.barraca":"Barraca da Feira",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
     "home.aside.popular":"POPULARES AGORA","home.aside.latest":"ARTIGOS RECENTES",
@@ -4714,6 +4714,8 @@ const navItems = [
   {key:'home', icon:'⌂', label:'nav.home', section:'main'},
   {key:'news', icon:'◫', label:'nav.news', section:'main'},
   {key:'tips', icon:'✦', label:'nav.tips', section:'main'},
+  // Events are separate pages (not SPA views) — external:true bypasses the SPA click interceptor.
+  {key:'barraca', icon:'◉', label:'nav.barraca', section:'events', external:true, href:'/barraca'},
   {key:'rick', icon:'★', label:'nav.rick', section:'creator'}
 ];
 
@@ -4728,7 +4730,9 @@ function renderSidebar(){
       html+=`<div class="nav-section">${t('nav.section.'+curSection)}</div>`;
     }
     const active=(route.view===it.key)?' active':'';
-    html+=`<a class="nav-item${active}" href="/${it.key}"><span class="ico">${it.icon}</span><span data-i18n="${it.label}">${t(it.label)}</span></a>`;
+    const linkHref=it.external?(it.href||'/'+it.key):('/'+it.key);
+    const externalAttr=it.external?' data-external="true"':'';
+    html+=`<a class="nav-item${active}" href="${linkHref}"${externalAttr}><span class="ico">${it.icon}</span><span data-i18n="${it.label}">${t(it.label)}</span></a>`;
   });
   nav.innerHTML=html;
 }
@@ -5049,8 +5053,9 @@ document.addEventListener('click',e=>{
   const a=e.target.closest('a[href]');
   if(!a)return;
   const href=a.getAttribute('href');
-  // Skip externals, anchors, downloads, modifier-clicks
+  // Skip externals, anchors, downloads, modifier-clicks, and links flagged as external (subpath pages).
   if(!href || href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:') || a.target==='_blank') return;
+  if(a.dataset && a.dataset.external==='true') return;  // e.g. /barraca is a separate page, not a SPA view
   if(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0)return;
   if(!href.startsWith('/'))return;
   e.preventDefault();
