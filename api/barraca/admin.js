@@ -22,36 +22,52 @@ import {
   ERAS, DEFAULT_CURRENT_ERA
 } from '../_barraca-shared.js';
 
-// ===== Seed data (used by 'seed' action) =====
+// ===== Seed data (used by 'seed' action + 'refresh-followers' action) =====
+// Renames applied vs previous list:
+//   HookWrath   → GappaTTV
+//   xVesperTVx  → LadyVesperTv
+//   raposopuro  → raposopurottv25
+// Removed (no longer followers): CptSnotRocket, iiitheartist, zx_boogiebear_xz
+// New additions: ~50 new followers added (xxgukaxx, tenminato, Kuraudiu, ティアギート, 海斗_, etc.)
 const SEED_FOLLOWERS = [
-  'Up_Your_Arsenal','Dark_Tiger191','filipegomes888','HookWrath','rafabigodes',
-  'Timota_74','fr33_s0ul_pt','GamingWithFlxr','xblkoutxogx420x','zgirao',
-  'samuelcariass','DarkTheFirstOne','filipepg','renatosanches63','FIUZA__PT',
-  'flipart193','TheSorrow47','MetalCookGaming','CptSnotRocket','UnDeadFoxxD',
-  'kubatas88','leleul1ve','gcborg','ariunox','LucasWow95','apbe__007',
-  '1_michael_mon','DV_Tuner','sauloflamengo90','RZAttv','rdiogorg','elchapopt',
-  'InstintoSilver','ressacas69','pedrombessa','miisoon','kotaplaysofficial',
-  'reaperzap69','Sparten593','ElMatozzz','pappadi88','ashelandre','xblackhulk07',
-  'dob101','iiitheartist','thecaffeinecryptid','dragon_rl123','SavagePortuguesa',
-  'SgtRyGuy','possumatabar','andrediias1996','sillygurl29','kenpa_games',
-  'Rfaustin0','xanajogatudo','camjenkins93','twinkiegunr','SilverSerpent4200',
-  'NothingsQuenchier','elliejax','MythicVigilante','jiokfellixx','KINGELWOODY',
-  'giggls1995','MrParreirinha','BorderlineVibeZ','BLUECHEESEo_o420',
-  'JgottiBugotti88','ItsWincy','gloria_playz','Gummiebearbubba','xVesperTVx',
-  'mosilva12','Kuraudiu','darksyde_games','lemon_lice','JonahBJams','dmzPT1982',
-  'Quintas_Live','aloviely1999','Thor_Q','raposopuro','GrinCulus',
-  'queenofcackles','midnight_8k','CesarCardoso25','hugoi90','empire_gaming_tv',
-  'Jose_Manteigas','CarlosLopes87','ChaoticCollective420','Lady_DaVinci',
-  'billybobbygoat','jamessrva','summoningsesh','rebel420ttv','SirRaph',
-  'putsomecherryontop','SlRF0X','stoneyprovolonee','AliaBean12','RoadKillPT77',
-  'Eswoogi','enigmahazel','RedBeardedSkull','pinkbubbles1691','SchwiftD_',
-  'turtelon478','Sidney7rl','joejoegun222','soonerbabe918','grimmwilleatu',
-  'mogie_rl','pilot_jester34','chronoscopeddd','iamamanwhosnotfamous',
-  'freezeglitch0','silentphantomx','zx_boogiebear_xz','skyestargaming',
+  'xxgukaxx','海斗_','varex123_','Kakakaue0512','mister_red_face',
+  'MiGas_','marcovaz91','a_tal_da_sah','MYXTA20','badguy_123',
+  'marcos_dragao','anthonypereira2026','KoRn2Field','MrBAugusto','Boj9',
+  'salgas20','NyzoHx','ティアギート','DJGoAlex','shelby__rose',
+  'junior_do_muaythai50','ogait13','KappaOito','williamntv','BuggyPT',
+  'drippieboydevin','likaspt25','LUR0CK007','ic0____','letsgostreamin88',
+  'marcostata14','fernandodmcarvalho','JTFthat','EclecticElectricMG','BattleCryyyyyy',
+  'cabraburra','gorillasnipper','SirAerys','zwaaiendedeur','dr0pe87',
+  'FallenSilenceGaming','erick_schibes','tubias08','r1n0aheart','fabiopraeiro',
+  'fallgon6','ugalover5','xtragaming','tatobarradas15','tepaiheimer',
+  'lobomau_dois','rafatekkengamer','tenminato','Up_Your_Arsenal','Dark_Tiger191',
+  'filipegomes888','GappaTTV','rafabigodes','Timota_74','fr33_s0ul_pt',
+  'GamingWithFlxr','xblkoutxogx420x','zgirao','samuelcariass','DarkTheFirstOne',
+  'filipepg','renatosanches63','FIUZA__PT','flipart193','TheSorrow47',
+  'MetalCookGaming','UnDeadFoxxD','kubatas88','leleul1ve','gcborg',
+  'ariunox','LucasWow95','apbe__007','1_michael_mon','DV_Tuner',
+  'sauloflamengo90','RZAttv','rdiogorg','elchapopt','InstintoSilver',
+  'ressacas69','pedrombessa','miisoon','kotaplaysofficial','reaperzap69',
+  'Sparten593','ElMatozzz','pappadi88','ashelandre','xblackhulk07',
+  'dob101','thecaffeinecryptid','dragon_rl123','SavagePortuguesa','SgtRyGuy',
+  'possumatabar','andrediias1996','sillygurl29','kenpa_games','Rfaustin0',
+  'xanajogatudo','camjenkins93','twinkiegunr','SilverSerpent4200','NothingsQuenchier',
+  'elliejax','MythicVigilante','jiokfellixx','KINGELWOODY','giggls1995',
+  'MrParreirinha','BorderlineVibeZ','BLUECHEESEo_o420','JgottiBugotti88','ItsWincy',
+  'gloria_playz','Gummiebearbubba','LadyVesperTv','mosilva12','Kuraudiu',
+  'darksyde_games','lemon_lice','JonahBJams','dmzPT1982','Quintas_Live',
+  'aloviely1999','Thor_Q','raposopurottv25','GrinCulus','queenofcackles',
+  'midnight_8k','CesarCardoso25','hugoi90','empire_gaming_tv','Jose_Manteigas',
+  'CarlosLopes87','ChaoticCollective420','Lady_DaVinci','billybobbygoat','jamessrva',
+  'summoningsesh','rebel420ttv','SirRaph','putsomecherryontop','SlRF0X',
+  'stoneyprovolonee','AliaBean12','RoadKillPT77','Eswoogi','enigmahazel',
+  'RedBeardedSkull','pinkbubbles1691','SchwiftD_','turtelon478','Sidney7rl',
+  'joejoegun222','soonerbabe918','grimmwilleatu','mogie_rl','pilot_jester34',
+  'chronoscopeddd','iamamanwhosnotfamous','freezeglitch0','silentphantomx','skyestargaming',
   'xBadxAndyx','astrobaby1116','Ixclusion','xtrue_rebelx','terpymerc',
   'zedoscaesofroad','0XIIIIII','realkozakwolf','desi_shinobi','discojuice02',
-  'Speedyy2435','JBirdtheUltimateGamer','hottie_shorty','mashazinha_',
-  'DadWozGaming','hotzmxd43','chub_e','LinearCarp8','philodox42','AshCloudHQ',
+  'Speedyy2435','JBirdtheUltimateGamer','hottie_shorty','mashazinha_','DadWozGaming',
+  'hotzmxd43','chub_e','LinearCarp8','philodox42','AshCloudHQ',
   'hoboknight47','RealLoki1','GeoDaVincci','dacobra1990','deucegoose910',
   'FatToad843','SegevTron','the_smoke_circle','KUSHxHAZExGAMING','MrStikEFingaz',
   'mexaban26','LokiSlapDash','Skies_Unlimited','WhiteSkaar','JadeRabbitGames',
@@ -65,7 +81,7 @@ const FIRST_SESSION_TOP = [
   { name: 'kenpa_games',          score: 650 },
   { name: 'putsomecherryontop',   score: 620 },
   { name: 'SlRF0X',               score: 510 },
-  { name: 'HookWrath',            score: 320 },
+  { name: 'GappaTTV',             score: 320 },   // renamed from HookWrath
   { name: 'hugoi90',              score: 260 },
   { name: 'dmzPT1982',            score: 200 },
   { name: 'kubatas88',            score: 190 },
@@ -177,6 +193,9 @@ async function actionEndStream() {
 
   const ranked = rankPlayers(current.players);
   const champion = ranked[0] || null;
+  // Stamp the current era on the new history entry so per-era stats + badges are correct
+  // without needing close-era migrations later.
+  const currentEra = (await redisGet(KEYS.currentEra)) || DEFAULT_CURRENT_ERA;
 
   let history = await redisGet(KEYS.history);
   if (!Array.isArray(history)) history = [];
@@ -188,7 +207,8 @@ async function actionEndStream() {
       endedAt: new Date().toISOString(),
       champion: champion.name,
       score: champion.score,
-      topPlayers: ranked.slice(0, 10)
+      topPlayers: ranked.slice(0, 10),
+      gameType: currentEra
     });
     history = history.slice(0, 50);
     await redisSet(KEYS.history, history);
@@ -373,6 +393,153 @@ async function actionSeed(body) {
   };
 }
 
+// Overwrite the followers roster with the current SEED_FOLLOWERS constant (the "source of truth"
+// baked into the code). Use when the code has been updated with new followers / renames but Redis
+// still holds the old list.
+async function actionRefreshFollowers() {
+  await redisSet(KEYS.followers, SEED_FOLLOWERS);
+  return {
+    status: 200,
+    body: { success: true, count: SEED_FOLLOWERS.length, followers: SEED_FOLLOWERS }
+  };
+}
+
+// Rename a player across ALL data: current stream, record, history (champion + topPlayers),
+// followers, and every era-archive snapshot. Case-insensitive match.
+//   { action: 'rename-player', from: 'HookWrath', to: 'GappaTTV' }
+async function actionRenamePlayer(body) {
+  const fromName = normaliseName(body.from);
+  const toName   = normaliseName(body.to);
+  if (!fromName || !toName) {
+    return { status: 400, body: { error: 'Both from + to names required' } };
+  }
+  const fromKey = fromName.toLowerCase();
+
+  const [current, record, history, followers, eraArchive] = await Promise.all([
+    redisGet(KEYS.current),
+    redisGet(KEYS.record),
+    redisGet(KEYS.history),
+    redisGet(KEYS.followers),
+    redisGet(KEYS.eraArchive)
+  ]);
+
+  const changes = { current: 0, record: 0, history: 0, followers: 0, eraArchive: 0 };
+
+  // Current stream players
+  let newCurrent = current;
+  if (current && Array.isArray(current.players)) {
+    newCurrent = { ...current, players: current.players.map(p => {
+      if ((p.name || '').toLowerCase() === fromKey) { changes.current++; return { ...p, name: toName }; }
+      return p;
+    })};
+  }
+
+  // Record
+  let newRecord = record;
+  if (record && (record.name || '').toLowerCase() === fromKey) {
+    newRecord = { ...record, name: toName };
+    changes.record = 1;
+  }
+
+  // History
+  const newHistory = (Array.isArray(history) ? history : []).map(h => {
+    const newH = { ...h };
+    if ((h.champion || '').toLowerCase() === fromKey) { newH.champion = toName; changes.history++; }
+    if (Array.isArray(h.topPlayers)) {
+      newH.topPlayers = h.topPlayers.map(p => {
+        if ((p.name || '').toLowerCase() === fromKey) { changes.history++; return { ...p, name: toName }; }
+        return p;
+      });
+    }
+    return newH;
+  });
+
+  // Followers
+  const newFollowers = (Array.isArray(followers) ? followers : []).map(n => {
+    if ((n || '').toLowerCase() === fromKey) { changes.followers++; return toName; }
+    return n;
+  });
+
+  // Era archive snapshots (nested state)
+  const newEraArchive = (Array.isArray(eraArchive) ? eraArchive : []).map(snap => {
+    if (!snap || !snap.before) return snap;
+    const b = { ...snap.before };
+    if (b.record && (b.record.name || '').toLowerCase() === fromKey) {
+      b.record = { ...b.record, name: toName }; changes.eraArchive++;
+    }
+    if (Array.isArray(b.history)) {
+      b.history = b.history.map(h => {
+        const newH = { ...h };
+        if ((h.champion || '').toLowerCase() === fromKey) { newH.champion = toName; changes.eraArchive++; }
+        if (Array.isArray(h.topPlayers)) {
+          newH.topPlayers = h.topPlayers.map(p => {
+            if ((p.name || '').toLowerCase() === fromKey) { changes.eraArchive++; return { ...p, name: toName }; }
+            return p;
+          });
+        }
+        return newH;
+      });
+    }
+    if (b.current && Array.isArray(b.current.players)) {
+      b.current = { ...b.current, players: b.current.players.map(p => {
+        if ((p.name || '').toLowerCase() === fromKey) { changes.eraArchive++; return { ...p, name: toName }; }
+        return p;
+      })};
+    }
+    return { ...snap, before: b };
+  });
+
+  await Promise.all([
+    redisSet(KEYS.current,    newCurrent),
+    redisSet(KEYS.record,     newRecord),
+    redisSet(KEYS.history,    newHistory),
+    redisSet(KEYS.followers,  newFollowers),
+    redisSet(KEYS.eraArchive, newEraArchive)
+  ]);
+
+  return {
+    status: 200,
+    body: { success: true, from: fromName, to: toName, changes, totalChanges: Object.values(changes).reduce((s,v) => s+v, 0) }
+  };
+}
+
+// Bulk-retag history entries by date range. Fixes historical mislabelling — for entries
+// created before actionEndStream stamped gameType, or when close-era misclassified them.
+//   { action: 'retag-history', dateFrom: '2026-07-01', gameType: 'wheel' }
+//   { action: 'retag-history', dateFrom: '2026-07-01', dateTo: '2026-07-31', gameType: 'wheel' }
+async function actionRetagHistory(body) {
+  const gameType = (body.gameType || '').toString();
+  if (!ERAS[gameType]) {
+    return { status: 400, body: { error: `Invalid gameType "${gameType}". Valid: ${Object.keys(ERAS).join(', ')}` } };
+  }
+  const dateFrom = body.dateFrom ? new Date(body.dateFrom).getTime() : 0;
+  const dateTo   = body.dateTo   ? new Date(body.dateTo).getTime()   : Number.MAX_SAFE_INTEGER;
+  if (isNaN(dateFrom) || isNaN(dateTo)) {
+    return { status: 400, body: { error: 'Invalid dateFrom/dateTo (expected ISO like 2026-07-01).' } };
+  }
+
+  const history = await redisGet(KEYS.history);
+  if (!Array.isArray(history) || history.length === 0) {
+    return { status: 400, body: { error: 'History is empty — nothing to retag.' } };
+  }
+
+  let retagged = 0;
+  const updated = history.map(h => {
+    const t = new Date(h.date || h.startedAt || 0).getTime();
+    if (t >= dateFrom && t <= dateTo && h.gameType !== gameType) {
+      retagged++;
+      return { ...h, gameType };
+    }
+    return h;
+  });
+
+  await redisSet(KEYS.history, updated);
+  return {
+    status: 200,
+    body: { success: true, retagged, total: updated.length, gameType, dateFrom: body.dateFrom, dateTo: body.dateTo }
+  };
+}
+
 // ===== Era management =====
 // Close the current era and start a new one.
 //   { action: 'close-era', newEra: 'wheel' }            → tags untagged history with current era,
@@ -491,7 +658,10 @@ export default async function handler(req, res) {
       case 'seed':        result = await actionSeed(body); break;
       case 'set-record':  result = await actionSetRecord(body); break;
       case 'challenge':   result = await actionChallenge(body); break;
-      case 'close-era':   result = await actionCloseEra(body); break;
+      case 'close-era':          result = await actionCloseEra(body); break;
+      case 'retag-history':      result = await actionRetagHistory(body); break;
+      case 'refresh-followers':  result = await actionRefreshFollowers(); break;
+      case 'rename-player':      result = await actionRenamePlayer(body); break;
       default:            return jsonResponse(res, 400, { error: 'Unknown action: ' + action });
     }
     return jsonResponse(res, result.status, result.body);
