@@ -465,6 +465,25 @@
       return `${names[parseInt(m,10)-1]} ${y}`;
     }
 
+    // ===== Persistent open/close state for dropdowns =====
+    // The page polls every 5s and re-renders the HTML from scratch, so manual open/close
+    // of history + archive dropdowns needs to survive the re-render. We track keys in Sets.
+    const openHistorySessions = new Set();    // Histórico list (main section)
+    const openArchiveEras = new Set();        // Arquivo de Eras — outer <details> per era
+    const openArchiveSessions = new Set();    // Arquivo de Eras — inner session <details>
+    let historyInitialised = false;           // one-shot: default-open most recent on 1st render
+    let archiveInitialised = false;
+
+    // Wire <details> toggle → sync the corresponding Set. Called from ontoggle="".
+    window.rememberEraOpen = function(el){
+      const k = el.dataset.eraKey; if (!k) return;
+      if (el.open) openArchiveEras.add(k); else openArchiveEras.delete(k);
+    };
+    window.rememberArchSessionOpen = function(el){
+      const k = el.dataset.archKey; if (!k) return;
+      if (el.open) openArchiveSessions.add(k); else openArchiveSessions.delete(k);
+    };
+
     function render(state){
       const champion = state.current?.players?.[0] || null;
       const champEl = document.getElementById('champion');
@@ -664,14 +683,21 @@
 
       const histEl = document.getElementById('history');
       const history = (state.history || []).slice(0, 8);
+      // One-time: default-open the most recent session on the very first render.
+      if (!historyInitialised && history.length > 0) {
+        const firstKey = history[0].date || history[0].startedAt || '0';
+        openHistorySessions.add(firstKey);
+        historyInitialised = true;
+      }
       if (history.length) {
         histEl.innerHTML = history.map((h, idx) => {
           const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
-          const isFirst = idx === 0;  // most recent session auto-expanded
+          const sessionKey = h.date || h.startedAt || String(idx);
+          const isOpen = openHistorySessions.has(sessionKey);
           const hEra = h.gameType || currentEra;  // fall back to current era for untagged entries
           const hEraInfo = ERA_INFO[hEra] || { badge: '·', short: hEra.toUpperCase() };
           const tableHtml = top.length ? `
-            <div class="hist-body${isFirst ? ' open' : ''}">
+            <div class="hist-body${isOpen ? ' open' : ''}">
               <ol>
                 ${top.slice(0, 10).map((p, i) => {
                   const cls = i === 0 ? 'p1' : i === 1 ? 'p2' : i === 2 ? 'p3' : '';
@@ -685,8 +711,8 @@
             </div>
           ` : '';
           return `<li>
-            <div class="hist-head" onclick="toggleHistory(this)">
-              <span class="hist-toggle${isFirst ? ' open' : ''}">▶</span>
+            <div class="hist-head" onclick="toggleHistory(this)" data-session-key="${escapeHtml(sessionKey)}">
+              <span class="hist-toggle${isOpen ? ' open' : ''}">▶</span>
               <div>
                 <span class="winner">${escapeHtml(h.champion)}<span class="hist-game-badge">${hEraInfo.badge} ${hEraInfo.short}</span></span>
                 <div class="date">${fmtDate(h.date)}</div>
@@ -873,6 +899,17 @@
         const hof = computeFrozenHoF(histOfEra, snap.before.record);
         const closedDate = snap.closedAt ? fmtDate(snap.closedAt) : '—';
         const isLast = idx === archive.length - 1;
+        // Persistent open-state keys
+        const eraKey = snap.closedAt || snap.closingEra + '|' + idx;
+        // One-time: on first render, auto-open the most-recent era block + its first session
+        if (!archiveInitialised && isLast) {
+          openArchiveEras.add(eraKey);
+          if (hof.sessions.length > 0) {
+            const firstSessKey = eraKey + '::' + (hof.sessions[0].date || '0');
+            openArchiveSessions.add(firstSessKey);
+          }
+        }
+        const isEraOpen = openArchiveEras.has(eraKey);
         const recordSlotHtml = hof.recordHolder
           ? `<div class="e-medal">👑</div>
              <div class="e-name">${escapeHtml(hof.recordHolder.name)}</div>
@@ -929,6 +966,8 @@
           <ul class="e-sessions-list">
             ${hof.sessions.map((h, hi) => {
               const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
+              const sessKey = eraKey + '::' + (h.date || String(hi));
+              const isSessOpen = openArchiveSessions.has(sessKey);
               const tableHtml = top.length ? `
                 <ol class="e-sess-top">
                   ${top.slice(0, 10).map((p, i) => {
@@ -942,7 +981,7 @@
                 </ol>
               ` : '<div class="e-sess-empty">Sem jogadores arquivados.</div>';
               return `<li>
-                <details${hi === 0 ? ' open' : ''}>
+                <details data-arch-key="${escapeHtml(sessKey)}" ontoggle="rememberArchSessionOpen(this)"${isSessOpen ? ' open' : ''}>
                   <summary class="e-sess-head">
                     <span class="e-sess-tg">▶</span>
                     <div>
@@ -958,7 +997,7 @@
           </ul>
         ` : '';
         return `
-          <details class="era-block" ${isLast ? 'open' : ''}>
+          <details class="era-block" data-era-key="${escapeHtml(eraKey)}" ontoggle="rememberEraOpen(this)"${isEraOpen ? ' open' : ''}>
             <summary>
               <span class="e-title">${eraInfo.badge} ${eraInfo.label} · ENCERRADA</span>
               <span class="e-meta">${hof.sessionCount} ${hof.sessionCount === 1 ? 'sessão' : 'sessões'} · fechada ${closedDate}</span>
@@ -979,14 +1018,22 @@
       }).reverse();  // most recent era closure first
 
       listEl.innerHTML = blocks.join('');
+      archiveInitialised = true;  // subsequent renders respect user's open/close choices
     }
 
     function toggleHistory(headEl){
       const toggle = headEl.querySelector('.hist-toggle');
       const body = headEl.nextElementSibling;
       if (!body || !body.classList.contains('hist-body')) return;
-      toggle.classList.toggle('open');
-      body.classList.toggle('open');
+      const willOpen = !body.classList.contains('open');
+      toggle.classList.toggle('open', willOpen);
+      body.classList.toggle('open', willOpen);
+      // Persist across polling re-renders
+      const key = headEl.dataset.sessionKey;
+      if (key) {
+        if (willOpen) openHistorySessions.add(key);
+        else openHistorySessions.delete(key);
+      }
     }
 
     async function poll(){
