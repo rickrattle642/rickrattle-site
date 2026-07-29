@@ -4896,7 +4896,8 @@ const merch = [
   {slug:'white-tee-s',      name:'White Tee — Logo S',  img:'merch/White Tee - Logo S.jpg',   url:'#'},
   {slug:'black-mug',        name:'Black Mug',           img:'merch/Black Mug.jpg',            url:'#'},
   {slug:'black-chilli-tee', name:'Black Chilli Tee',    img:'merch/Black Chilli Tee.jpg',     url:'#'},
-  {slug:'black-chilli-nb',  name:'Black Chilli NB Tee', img:'merch/Black Chilli NB Tee.jpg',  url:'#'}
+  {slug:'black-chilli-nb',  name:'Black Chilli NB Tee', img:'merch/Black Chilli NB Tee.jpg',  url:'#'},
+  {slug:'fridge-magnet',    name:'Fridge Magnet',       img:'merch/Fridge Manget.jpg',        url:'#'}
 ];
 
 /* ================================================================
@@ -5920,7 +5921,7 @@ function RickView(view){
             const isSoon=m.url==='#'||!m.price;
             return `<a href="${m.url||'#'}" ${m.url&&m.url!=='#'?'target="_blank" rel="noopener"':''} class="merch-card${isSoon?' merch-soon':''}">
               ${m.tag?`<div class="merch-tag">${m.tag}</div>`:''}
-              <div class="merch-img">
+              <div class="merch-img" style="cursor:zoom-in" onclick="event.preventDefault();event.stopPropagation();openModal('${encImg}','${m.name.replace(/'/g,"\\'")}','image')">
                 <img src="${encImg}" alt="${m.name}" loading="lazy" onerror="this.parentElement.classList.add('img-missing');this.remove()">
                 <div class="merch-fallback">${m.name.split(/\s+|[-—]/).filter(Boolean).map(w=>w[0]).join('').slice(0,2).toUpperCase()}</div>
               </div>
