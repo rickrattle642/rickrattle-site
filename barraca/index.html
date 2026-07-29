@@ -431,8 +431,8 @@
       <div class="lifetime-note" id="lifetimeNote"></div>
     </section>
 
-    <!-- Stream history -->
-    <section class="poster" aria-label="Histórico de Streams">
+    <!-- Stream history — full width, shows every archived session (all months, all eras) -->
+    <section class="poster" aria-label="Histórico de Streams" style="grid-column:1/-1">
       <h2>📜 Histórico</h2>
       <ul class="history-list" id="history">
         <li class="lb-empty" style="border:none;display:block">Nenhuma stream arquivada.</li>
@@ -730,7 +730,7 @@
       renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf, MODS_EXCLUDED);
 
       const histEl = document.getElementById('history');
-      const history = (state.history || []).slice(0, 8);
+      const history = (state.history || []).slice(0, 50);  // show full history, not just last 8
       // One-time: default-open the most recent session on the very first render.
       if (!historyInitialised && history.length > 0) {
         const firstKey = history[0].date || history[0].startedAt || '0';
