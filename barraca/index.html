@@ -140,7 +140,28 @@
   .lifetime-list .lt-score{font-family:'Anton',sans-serif;color:var(--gold-bright);font-size:20px}
   .lifetime-note{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(245,233,200,.45);text-align:center;padding-top:12px;margin-top:12px;border-top:1px dashed rgba(245,233,200,.15);letter-spacing:1px;line-height:1.6}
 
-  /* Era archive — collapsible frozen Hall of Fame for past eras */
+  /* Past months — collapsible frozen Hall of Fame for each closed month */
+  .past-months-wrap{margin:22px 0 0;padding-top:18px;border-top:1px dashed rgba(245,233,200,.2)}
+  .past-months-head{font-family:'Rye',serif;color:var(--gold-bright);font-size:16px;text-align:center;margin:0 0 12px;letter-spacing:1px}
+  .past-month-block{background:rgba(0,0,0,.35);border:1px solid rgba(245,233,200,.15);border-radius:8px;padding:12px 14px;margin:0 0 10px;color:var(--cream)}
+  .past-month-block:last-child{margin-bottom:0}
+  .past-month-block summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;outline:none}
+  .past-month-block summary::-webkit-details-marker{display:none}
+  .past-month-block summary .pm-title{font-family:'Rye',serif;font-size:16px;color:var(--gold-bright)}
+  .past-month-block summary .pm-meta{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(245,233,200,.55);letter-spacing:1px;text-transform:uppercase}
+  .past-month-block summary .pm-toggle{font-size:12px;color:var(--gold);transition:transform .2s}
+  .past-month-block[open] summary .pm-toggle{transform:rotate(90deg)}
+  .past-month-block .pm-body{margin-top:10px;padding-top:10px;border-top:1px dashed rgba(245,233,200,.15)}
+  .past-month-block .pm-podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:0}
+  @media(max-width:540px){.past-month-block .pm-podium{grid-template-columns:1fr}}
+  .past-month-block .pm-place{background:rgba(255,255,255,.05);border:1px solid rgba(245,233,200,.15);border-radius:6px;padding:8px;text-align:center}
+  .past-month-block .pm-medal{font-size:20px;line-height:1}
+  .past-month-block .pm-name{font-family:'Rye',serif;font-size:14px;color:var(--cream);margin:3px 0 2px;word-break:break-word}
+  .past-month-block .pm-score{font-family:'Anton',sans-serif;font-size:18px;color:var(--gold-bright)}
+  .past-month-block .pm-label{font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(245,233,200,.5);letter-spacing:1px;margin-top:2px}
+  .past-month-block .pm-stats{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(245,233,200,.55);text-align:center;padding-top:8px;margin-top:6px;border-top:1px dashed rgba(245,233,200,.1)}
+
+  /* Era archive — collapsible frozen Hall of Fame for past eras (KEPT for backwards compat, no longer used) */
   .era-archive-card{background:linear-gradient(180deg,#1a1108 0%,#221610 100%);color:var(--cream);border-color:rgba(245,233,200,.3)}
   .era-archive-card::before{border-color:rgba(245,233,200,.1)}
   .era-archive-card h2{color:rgba(245,233,200,.85);border-bottom-color:rgba(245,233,200,.25)}
@@ -298,11 +319,11 @@
       </div>
     </section>
 
-    <!-- Hall of Fame — 3 prizes consolidated (Record = 1st, all-time = 2nd + 3rd). Filtered by current era. -->
-    <section class="poster alltime-card" aria-label="Hall of Fame">
-      <h2>🏆 Hall of Fame <span id="hofEraBadge" style="font-family:'JetBrains Mono',monospace;font-size:.45em;letter-spacing:2px;color:var(--gold);vertical-align:middle"></span></h2>
+    <!-- Prémios do Mês — 3 prizes recomputed monthly. Past months collapsible below. -->
+    <section class="poster alltime-card" aria-label="Prémios do Mês">
+      <h2>🏆 Prémios · <span id="hofMonthLabel" style="color:var(--gold-bright)">—</span></h2>
       <p class="alltime-sub">
-        <strong>1º Prémio</strong> ao recordista da Barraca · <strong>2º e 3º</strong> aos maiores acumuladores da era · mods fora.
+        <strong>1º Prémio</strong> à melhor score numa stream do mês · <strong>2º e 3º</strong> aos maiores acumuladores do mês · mods fora.
       </p>
 
       <!-- Classic podium layout: 1º on top (centered), 2º+3º side by side below -->
@@ -320,12 +341,18 @@
         </div>
       </div>
 
-      <!-- Rest of the leaderboard (below the row, full width) -->
-      <div class="alltime-rest-head">Ranking All-time · restantes (sem os 3 do podium)</div>
+      <!-- Rest of the leaderboard (below the row, full width) — this month, positions 4+ -->
+      <div class="alltime-rest-head">Ranking do M&ecirc;s &middot; restantes (sem os 3 do podium)</div>
       <ol class="alltime-list" id="alltimeList">
         <li class="lb-empty" style="border:none;display:block">—</li>
       </ol>
       <p class="alltime-note" id="alltimeNote"></p>
+
+      <!-- Meses anteriores — auto-arquivados quando o m&ecirc;s vira -->
+      <div id="pastMonthsWrap" class="past-months-wrap" style="display:none">
+        <div class="past-months-head">📆 Meses Anteriores</div>
+        <div id="pastMonthsList"></div>
+      </div>
     </section>
 
     <!-- Leaderboard -->
@@ -402,13 +429,6 @@
         <li class="lb-empty" style="border:none;display:block;color:rgba(245,233,200,.5)">A carregar…</li>
       </ol>
       <div class="lifetime-note" id="lifetimeNote"></div>
-    </section>
-
-    <!-- Era archive — collapsible cards for each previous era's frozen Hall of Fame -->
-    <section class="poster era-archive-card" id="eraArchiveSection" aria-label="Arquivo de Eras" style="display:none;grid-column:1/-1">
-      <h2>📂 Arquivo de Eras</h2>
-      <p class="archive-sub">Hall of Fame congelado das eras anteriores. Os pr&eacute;mios foram entregues e os contadores reiniciaram.</p>
-      <div id="eraArchiveList"></div>
     </section>
 
     <!-- Stream history -->
@@ -520,16 +540,30 @@
       //      Stays visible in the list with a 👑 RECORD tag but skipped for podium slots.
       const MODS_EXCLUDED = new Set(['mashazinha_']);
       const currentEra = state.currentEra || 'dartboard';
-      const currentEraInfo = ERA_INFO[currentEra] || { badge: '·', short: currentEra.toUpperCase() };
-      // Show era badge next to Hall of Fame title
-      const hofBadge = document.getElementById('hofEraBadge');
-      if (hofBadge) hofBadge.textContent = `· ${currentEraInfo.badge} ${currentEraInfo.short}`;
-      // Hall of Fame computation filters by current era — untagged history defaults to 'dartboard'.
-      // Untagged history entries default to the CURRENT era (safer than hardcoding 'dartboard' —
-      // an untagged session created after switching to wheel would otherwise show up as dartboard).
-      const currentEraHistory = (state.history || []).filter(h => (h.gameType || currentEra) === currentEra);
+
+      // ===== Monthly filter — Prémios do Mês actual =====
+      const now = new Date();
+      const currentMonthKey = `${now.getUTCFullYear()}-${String(now.getUTCMonth()+1).padStart(2,'0')}`;
+      const MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+      const currentMonthLabel = `${MONTH_NAMES_PT[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+      const monthLabelEl = document.getElementById('hofMonthLabel');
+      if (monthLabelEl) monthLabelEl.textContent = currentMonthLabel;
+
+      function monthKeyOf(dateLike) {
+        const d = new Date(dateLike || 0);
+        if (isNaN(d.getTime())) return '0000-00';
+        return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`;
+      }
+      function monthLabelOf(key) {
+        const [y, m] = key.split('-');
+        return `${MONTH_NAMES_PT[parseInt(m,10)-1]} ${y}`;
+      }
+
+      // Filter history → only current month sessions
+      const currentMonthHistory = (state.history || []).filter(h => monthKeyOf(h.date) === currentMonthKey);
+
       const totals = new Map();
-      currentEraHistory.forEach(h => {
+      currentMonthHistory.forEach(h => {
         (h.topPlayers || []).forEach(p => {
           const k = (p.name||'').toLowerCase();
           if (!k) return;
@@ -539,7 +573,7 @@
           totals.set(k, cur);
         });
       });
-      // Current live stream counts toward the current era too.
+      // Current live stream counts toward THIS month
       (state.current?.players || []).forEach(p => {
         const k = (p.name||'').toLowerCase();
         if (!k) return;
@@ -548,42 +582,56 @@
         if (state.current.active) cur.sessions += 1;
         totals.set(k, cur);
       });
-      const recordHolderKey = (state.record?.name || '').toLowerCase();
-      // Eligible = not mods. Record holder stays visible, just excluded from prize slots.
+
+      // Monthly RECORD = best single-stream champion score of the current month
+      let monthlyRecord = null;
+      for (const h of currentMonthHistory) {
+        if (!h || !h.champion) continue;
+        if (!monthlyRecord || (h.score || 0) > monthlyRecord.score) {
+          monthlyRecord = { name: h.champion, score: h.score || 0, date: h.date, gameType: h.gameType };
+        }
+      }
+      // Live leader (if beating archived monthly record)
+      if (state.current?.active && state.current.players?.[0]) {
+        const leader = state.current.players[0];
+        if (!monthlyRecord || (leader.score || 0) > monthlyRecord.score) {
+          monthlyRecord = { name: leader.name, score: leader.score || 0, date: state.current.startedAt || now.toISOString(), gameType: currentEra, live: true };
+        }
+      }
+
+      const recordHolderKey = (monthlyRecord?.name || '').toLowerCase();
       const eligibleRanked = [...totals.values()]
         .filter(p => !MODS_EXCLUDED.has(p.name.toLowerCase()))
         .sort((a,b) => b.total - a.total);
-      // Top 2 NOT-MOD and NOT record-holder = prize winners.
       const prizeWinners = eligibleRanked
         .filter(p => p.name.toLowerCase() !== recordHolderKey)
         .slice(0, 2);
-      // Grand total includes everyone (mods + record holder) for transparency.
       const grandTotal = [...totals.values()].reduce((s,p) => s + p.total, 0);
       document.getElementById('alltimeTotalValue').textContent = grandTotal.toLocaleString('pt-PT');
 
-      // Render the HERO card (1st prize). Mods are NOT eligible — if the record
-      // holder is a mod, the prize slot is shown as "waiting" with an info line
-      // crediting the actual record (transparent but ineligible for prize).
+      // Render the HERO card (1st prize of the month). Mods are NOT eligible.
       const heroEl = document.getElementById('recordHero');
       const recordIsMod = recordHolderKey && MODS_EXCLUDED.has(recordHolderKey);
-      if (state.record && state.record.name && !recordIsMod) {
+      if (monthlyRecord && monthlyRecord.name && !recordIsMod) {
+        const recEra = monthlyRecord.gameType || currentEra;
+        const recEraInfo = ERA_INFO[recEra] || { badge: '', short: '' };
         heroEl.innerHTML = `
           <div class="hero-crown">👑</div>
-          <div class="hero-title">Recordista da Barraca · 1º Prémio</div>
-          <div class="hero-name">${escapeHtml(state.record.name)}</div>
-          <div class="hero-score">${(state.record.score||0).toLocaleString('pt-PT')}</div>
-          <div class="hero-meta">pontos numa stream · ${fmtDate(state.record.date)}</div>
+          <div class="hero-title">Recordista do M&ecirc;s · 1º Prémio</div>
+          <div class="hero-name">${escapeHtml(monthlyRecord.name)}</div>
+          <div class="hero-score">${(monthlyRecord.score||0).toLocaleString('pt-PT')}</div>
+          <div class="hero-meta">pontos numa stream · ${fmtDate(monthlyRecord.date)} ${recEraInfo.badge}</div>
         `;
       } else if (recordIsMod) {
-        // Mod holds the record — slot in waiting, record still credited below.
+        // Mod holds the monthly record — slot in waiting.
         heroEl.innerHTML = `
           <div class="hero-crown" style="opacity:.45">👑</div>
           <div class="hero-title">1º Prémio · à espera de recordista elegível</div>
           <div class="hero-name" style="font-size:22px;opacity:.7">Vaga em aberto</div>
           <div class="hero-score" style="opacity:.55">—</div>
           <div class="hero-meta" style="opacity:.85;margin-top:10px">
-            Record actual da casa: <strong>${escapeHtml(state.record.name)}</strong>
-            (mod) — ${(state.record.score||0).toLocaleString('pt-PT')} pts · ${fmtDate(state.record.date)}
+            Melhor score do mês: <strong>${escapeHtml(monthlyRecord.name)}</strong>
+            (mod) — ${(monthlyRecord.score||0).toLocaleString('pt-PT')} pts · ${fmtDate(monthlyRecord.date)}
             <br><small style="font-size:9px;letter-spacing:1px">Mods não são elegíveis a prémio</small>
           </div>
         `;
@@ -602,7 +650,7 @@
             <div class="place">2º Prémio</div>
             <div class="name">${escapeHtml(second.name)}</div>
             <div class="score">${second.total.toLocaleString('pt-PT')}</div>
-            <div class="meta">${second.sessions} ${second.sessions === 1 ? 'stream' : 'streams'} · all-time</div>
+            <div class="meta">${second.sessions} ${second.sessions === 1 ? 'stream' : 'streams'} · no mês</div>
           </div>
           ${third ? `
           <div class="podium-card bronze">
@@ -610,7 +658,7 @@
             <div class="place">3º Prémio</div>
             <div class="name">${escapeHtml(third.name)}</div>
             <div class="score">${third.total.toLocaleString('pt-PT')}</div>
-            <div class="meta">${third.sessions} ${third.sessions === 1 ? 'stream' : 'streams'} · all-time</div>
+            <div class="meta">${third.sessions} ${third.sessions === 1 ? 'stream' : 'streams'} · no mês</div>
           </div>` : `
           <div class="podium-card bronze" style="opacity:.45">
             <div class="medal">🥉</div>
@@ -678,8 +726,8 @@
       // ===== All-time ranking (across ALL eras — reference, no prizes) =====
       renderLifetimeRanking(state);
 
-      // ===== Era archive — show frozen Hall of Fame for each previous era =====
-      renderEraArchive(state);
+      // ===== Past months archive — one collapsible block per month =====
+      renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf, MODS_EXCLUDED);
 
       const histEl = document.getElementById('history');
       const history = (state.history || []).slice(0, 8);
@@ -880,145 +928,112 @@
       }
     }
 
-    function renderEraArchive(state){
-      const section = document.getElementById('eraArchiveSection');
-      const listEl = document.getElementById('eraArchiveList');
-      const archive = state.eraArchive || [];
-      if (!archive.length) {
-        section.style.display = 'none';
+    // Group history by month, render past-month prize blocks (excluding current month).
+    function renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf, MODS){
+      const wrap = document.getElementById('pastMonthsWrap');
+      const listEl = document.getElementById('pastMonthsList');
+      if (!wrap || !listEl) return;
+
+      const groups = new Map();  // monthKey → array of history entries
+      (state.history || []).forEach(h => {
+        const k = monthKeyOf(h.date);
+        if (k === currentMonthKey) return;
+        if (!groups.has(k)) groups.set(k, []);
+        groups.get(k).push(h);
+      });
+
+      const monthKeys = [...groups.keys()].sort().reverse();  // newest first
+      if (monthKeys.length === 0) {
+        wrap.style.display = 'none';
         return;
       }
-      section.style.display = '';
+      wrap.style.display = '';
 
-      // Each archive entry has { closedAt, closingEra, before:{record, history} }
-      // The frozen Hall of Fame uses the history (filtered to closingEra) + the record at time of close.
-      const blocks = archive.map((snap, idx) => {
-        const era = snap.closingEra;
-        const eraInfo = ERA_INFO[era] || { label: era, badge: '·', short: era.toUpperCase() };
-        const histOfEra = (snap.before.history || []).filter(h => (h.gameType || era) === era);
-        const hof = computeFrozenHoF(histOfEra, snap.before.record);
-        const closedDate = snap.closedAt ? fmtDate(snap.closedAt) : '—';
-        const isLast = idx === archive.length - 1;
-        // Persistent open-state keys
-        const eraKey = snap.closedAt || snap.closingEra + '|' + idx;
-        // One-time: on first render, auto-open the most-recent era block + its first session
-        if (!archiveInitialised && isLast) {
-          openArchiveEras.add(eraKey);
-          if (hof.sessions.length > 0) {
-            const firstSessKey = eraKey + '::' + (hof.sessions[0].date || '0');
-            openArchiveSessions.add(firstSessKey);
+      const blocks = monthKeys.map((mKey, idx) => {
+        const sessions = groups.get(mKey);
+        // Compute podium: record = best single-stream, top-2 accumulators (not record, not mods)
+        const monthTotals = new Map();
+        let record = null;
+        sessions.forEach(h => {
+          if (h.champion && (!record || (h.score||0) > record.score)) {
+            record = { name: h.champion, score: h.score||0, date: h.date, gameType: h.gameType };
           }
-        }
-        const isEraOpen = openArchiveEras.has(eraKey);
-        const recordSlotHtml = hof.recordHolder
-          ? `<div class="e-medal">👑</div>
-             <div class="e-name">${escapeHtml(hof.recordHolder.name)}</div>
-             <div class="e-score">${(hof.recordHolder.score||0).toLocaleString('pt-PT')}</div>
-             <div class="e-label">1º · RECORDISTA</div>`
-          : hof.recordHolderMod
-            ? `<div class="e-medal" style="opacity:.45">👑</div>
-               <div class="e-name" style="font-size:13px;opacity:.7">Vaga em aberto</div>
-               <div class="e-score" style="opacity:.55">—</div>
-               <div class="e-label">Record (mod): ${escapeHtml(hof.recordHolderMod.name)} ${(hof.recordHolderMod.score||0).toLocaleString('pt-PT')}</div>`
-            : `<div class="e-medal" style="opacity:.45">—</div>
-               <div class="e-name" style="font-size:13px">Sem record</div>
-               <div class="e-score">—</div>
-               <div class="e-label">1º · não atribuído</div>`;
-        const secondHtml = hof.podium[0]
-          ? `<div class="e-medal">🥈</div>
-             <div class="e-name">${escapeHtml(hof.podium[0].name)}</div>
-             <div class="e-score">${hof.podium[0].total.toLocaleString('pt-PT')}</div>
-             <div class="e-label">2º · ${hof.podium[0].sessions} ${hof.podium[0].sessions === 1 ? 'sessão' : 'sessões'}</div>`
-          : `<div class="e-medal" style="opacity:.45">🥈</div>
-             <div class="e-name" style="font-size:13px">—</div>
-             <div class="e-score">—</div>
-             <div class="e-label">2º · não atribuído</div>`;
-        const thirdHtml = hof.podium[1]
-          ? `<div class="e-medal">🥉</div>
-             <div class="e-name">${escapeHtml(hof.podium[1].name)}</div>
-             <div class="e-score">${hof.podium[1].total.toLocaleString('pt-PT')}</div>
-             <div class="e-label">3º · ${hof.podium[1].sessions} ${hof.podium[1].sessions === 1 ? 'sessão' : 'sessões'}</div>`
-          : `<div class="e-medal" style="opacity:.45">🥉</div>
-             <div class="e-name" style="font-size:13px">—</div>
-             <div class="e-score">—</div>
-             <div class="e-label">3º · não atribuído</div>`;
-        // Rest of all-time leaderboard (positions 4+) — record holder already excluded above
-        const restHtml = hof.allTimeRest.length ? `
-          <div class="e-section-head">Ranking All-time · restantes</div>
-          <div class="e-section-hint">Pontos acumulados nas sess&otilde;es da era, sem os 3 do podium.</div>
-          <ol class="e-rest-list">
-            ${hof.allTimeRest.map((p, i) => {
-              const pos = i + 4;  // continues after podium 1st + 2nd + 3rd
-              return `<li>
-                <span class="e-rest-pos">${pos}</span>
-                <div>
-                  <span class="e-rest-name">${escapeHtml(p.name)}</span>
-                  <span class="e-rest-sessions">${p.sessions} ${p.sessions === 1 ? 'sessão' : 'sessões'}</span>
-                </div>
-                <span class="e-rest-score">${p.total.toLocaleString('pt-PT')}</span>
-              </li>`;
-            }).join('')}
-          </ol>
-        ` : '';
-        // Sessions of this era — collapsible, each shows top-10
-        const sessionsHtml = hof.sessions.length ? `
-          <div class="e-section-head">Sessões da era (${hof.sessions.length})</div>
-          <ul class="e-sessions-list">
-            ${hof.sessions.map((h, hi) => {
-              const top = Array.isArray(h.topPlayers) ? h.topPlayers : [];
-              const sessKey = eraKey + '::' + (h.date || String(hi));
-              const isSessOpen = openArchiveSessions.has(sessKey);
-              const tableHtml = top.length ? `
-                <ol class="e-sess-top">
-                  ${top.slice(0, 10).map((p, i) => {
-                    const cls = i === 0 ? 'p1' : i === 1 ? 'p2' : i === 2 ? 'p3' : '';
-                    return `<li>
-                      <span class="e-sess-pos ${cls}">${i+1}</span>
-                      <span class="e-sess-name">${escapeHtml(p.name)}</span>
-                      <span class="e-sess-score">${p.score}</span>
-                    </li>`;
-                  }).join('')}
-                </ol>
-              ` : '<div class="e-sess-empty">Sem jogadores arquivados.</div>';
-              return `<li>
-                <details data-arch-key="${escapeHtml(sessKey)}" ontoggle="rememberArchSessionOpen(this)"${isSessOpen ? ' open' : ''}>
-                  <summary class="e-sess-head">
-                    <span class="e-sess-tg">▶</span>
-                    <div>
-                      <span class="e-sess-champion">${escapeHtml(h.champion)}</span>
-                      <span class="e-sess-date">${fmtDate(h.date)}</span>
-                    </div>
-                    <span class="e-sess-pts">${h.score} pts</span>
-                  </summary>
-                  ${tableHtml}
-                </details>
-              </li>`;
-            }).join('')}
-          </ul>
-        ` : '';
+          (h.topPlayers || []).forEach(p => {
+            const k = (p.name||'').toLowerCase();
+            if (!k) return;
+            const cur = monthTotals.get(k) || { name: p.name, total: 0, sessions: 0 };
+            cur.total += (p.score || 0);
+            cur.sessions += 1;
+            monthTotals.set(k, cur);
+          });
+        });
+        const recordKey = (record?.name || '').toLowerCase();
+        const recordIsMod = recordKey && MODS.has(recordKey);
+        const eligible = [...monthTotals.values()]
+          .filter(p => !MODS.has(p.name.toLowerCase()))
+          .sort((a,b) => b.total - a.total);
+        const winners = eligible.filter(p => p.name.toLowerCase() !== recordKey).slice(0, 2);
+        const total = [...monthTotals.values()].reduce((s,p) => s+p.total, 0);
+
+        const recordSlot = record && !recordIsMod
+          ? `<div class="pm-medal">👑</div>
+             <div class="pm-name">${escapeHtml(record.name)}</div>
+             <div class="pm-score">${record.score.toLocaleString('pt-PT')}</div>
+             <div class="pm-label">1º · RECORDISTA</div>`
+          : recordIsMod
+            ? `<div class="pm-medal" style="opacity:.45">👑</div>
+               <div class="pm-name" style="font-size:12px;opacity:.7">Vaga (mod)</div>
+               <div class="pm-score" style="opacity:.55">—</div>
+               <div class="pm-label">1º · não elegível</div>`
+            : `<div class="pm-medal" style="opacity:.45">—</div>
+               <div class="pm-name" style="font-size:12px">Sem record</div>
+               <div class="pm-score">—</div>
+               <div class="pm-label">1º · não atribuído</div>`;
+        const secondSlot = winners[0]
+          ? `<div class="pm-medal">🥈</div>
+             <div class="pm-name">${escapeHtml(winners[0].name)}</div>
+             <div class="pm-score">${winners[0].total.toLocaleString('pt-PT')}</div>
+             <div class="pm-label">2º · ${winners[0].sessions} ${winners[0].sessions === 1 ? 'stream' : 'streams'}</div>`
+          : `<div class="pm-medal" style="opacity:.45">🥈</div>
+             <div class="pm-name" style="font-size:12px">—</div>
+             <div class="pm-score">—</div>
+             <div class="pm-label">2º · —</div>`;
+        const thirdSlot = winners[1]
+          ? `<div class="pm-medal">🥉</div>
+             <div class="pm-name">${escapeHtml(winners[1].name)}</div>
+             <div class="pm-score">${winners[1].total.toLocaleString('pt-PT')}</div>
+             <div class="pm-label">3º · ${winners[1].sessions} ${winners[1].sessions === 1 ? 'stream' : 'streams'}</div>`
+          : `<div class="pm-medal" style="opacity:.45">🥉</div>
+             <div class="pm-name" style="font-size:12px">—</div>
+             <div class="pm-score">—</div>
+             <div class="pm-label">3º · —</div>`;
+
+        const isLast = idx === 0;  // most recent past month opens by default first render
+        const openKey = 'pm|' + mKey;
+        if (!archiveInitialised && isLast) openArchiveEras.add(openKey);
+        const isOpen = openArchiveEras.has(openKey);
+
         return `
-          <details class="era-block" data-era-key="${escapeHtml(eraKey)}" ontoggle="rememberEraOpen(this)"${isEraOpen ? ' open' : ''}>
+          <details class="past-month-block" data-era-key="${escapeHtml(openKey)}" ontoggle="rememberEraOpen(this)"${isOpen ? ' open' : ''}>
             <summary>
-              <span class="e-title">${eraInfo.badge} ${eraInfo.label} · ENCERRADA</span>
-              <span class="e-meta">${hof.sessionCount} ${hof.sessionCount === 1 ? 'sessão' : 'sessões'} · fechada ${closedDate}</span>
-              <span class="e-toggle">▶</span>
+              <span class="pm-title">📆 ${monthLabelOf(mKey)}</span>
+              <span class="pm-meta">${sessions.length} ${sessions.length === 1 ? 'sessão' : 'sessões'} · ${total.toLocaleString('pt-PT')} pts</span>
+              <span class="pm-toggle">▶</span>
             </summary>
-            <div class="e-body">
-              <div class="e-podium">
-                <div class="e-place">${recordSlotHtml}</div>
-                <div class="e-place">${secondHtml}</div>
-                <div class="e-place">${thirdHtml}</div>
+            <div class="pm-body">
+              <div class="pm-podium">
+                <div class="pm-place">${recordSlot}</div>
+                <div class="pm-place">${secondSlot}</div>
+                <div class="pm-place">${thirdSlot}</div>
               </div>
-              <div class="e-stats">Total distribuído: <strong style="color:var(--gold-bright)">${hof.total.toLocaleString('pt-PT')}</strong> pontos · ${hof.sessionCount} ${hof.sessionCount === 1 ? 'sessão' : 'sessões'}</div>
-              ${restHtml}
-              ${sessionsHtml}
+              <div class="pm-stats">Total: ${total.toLocaleString('pt-PT')} pontos · ${sessions.length} ${sessions.length === 1 ? 'sessão' : 'sessões'}</div>
             </div>
           </details>
         `;
-      }).reverse();  // most recent era closure first
+      });
 
       listEl.innerHTML = blocks.join('');
-      archiveInitialised = true;  // subsequent renders respect user's open/close choices
+      archiveInitialised = true;
     }
 
     function toggleHistory(headEl){

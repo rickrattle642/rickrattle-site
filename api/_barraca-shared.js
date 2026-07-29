@@ -87,7 +87,7 @@ export async function readFullState() {
   return {
     current:    current || { active: false, startedAt: null, endedAt: null, players: [] },
     record:     record  || null,
-    history:    Array.isArray(history)   ? history.slice(0, 10) : [],
+    history:    Array.isArray(history)   ? history.slice(0, 50) : [],
     followers:  Array.isArray(followers) ? followers : [],
     challenges: (challenges && typeof challenges === 'object') ? challenges : {},
     currentEra: currentEra || DEFAULT_CURRENT_ERA,
