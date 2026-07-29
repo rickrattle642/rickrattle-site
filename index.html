@@ -823,7 +823,8 @@ const games = [
   {slug:'007-first-light',     name:'007 First Light',        short:'007',                              subreddit:'007FirstLight',   hasLocalImage:true, platforms:['pc','ps5','xbox','switch']},
   {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']},
   {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       hasLocalImage:true, platforms:['pc']},
-  {slug:'path-of-exile-2',     name:'Path of Exile 2',        short:'PoE 2',        steamAppId:2694490, subreddit:'pathofexile2',    platforms:['pc','ps5','xbox']}
+  {slug:'path-of-exile-2',     name:'Path of Exile 2',        short:'PoE 2',        steamAppId:2694490, subreddit:'pathofexile2',    platforms:['pc','ps5','xbox']},
+  {slug:'halo-campaign-evolved', name:'Halo: Campaign Evolved', short:'Halo CE',    steamAppId:2806050, subreddit:'halo',            platforms:['pc','ps5','xbox']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -1199,11 +1200,29 @@ const articles = [
   {
     slug:'ps-plus-2026-monthly-highlights',
     title:{en:'PS Plus 2026: Monthly Games — Full List by Month (PT Region)', pt:'PS Plus 2026: Jogos Mensais — Lista Completa por Mês (Região PT)'},
-    summary:{en:'Every PS Plus Essential game dropped in 2026 — organised by month with scores, prices and verdicts. May, April, March, February and January 2026 covered.', pt:'Todos os jogos PS Plus Essential lançados em 2026 — organizados por mês com scores, preços e veredictos. Maio, Abril, Março, Fevereiro e Janeiro 2026.'},
-    game:'general', platform:'playstation', tags:['ps-plus','platform','recommendations','monthly'], featured:true, thumb:'/img/playstation.png', date:'2026-05-22', lastUpdated:'2026-06-04', readTime:9, prefix:'meta-watch',
+    summary:{en:'Every PS Plus Essential game dropped in 2026 — organised by month with scores, prices and verdicts. August, July, June, May, April, March, February and January 2026 covered.', pt:'Todos os jogos PS Plus Essential lançados em 2026 — organizados por mês com scores, preços e veredictos. Agosto, Julho, Junho, Maio, Abril, Março, Fevereiro e Janeiro 2026.'},
+    game:'general', platform:'playstation', tags:['ps-plus','platform','recommendations','monthly'], featured:true, thumb:'/img/playstation.png', date:'2026-05-22', lastUpdated:'2026-07-29', readTime:9, prefix:'meta-watch',
     source:['https://psprices.com/region-pt/collection/ps-plus-monthly','https://blog.playstation.com/category/playstation-plus/'],
     content:[
       {type:'note', text:{en:'Data verified against psprices.com (PT region) and the PlayStation Blog. Scores shown are Metacritic / OpenCritic at time of writing. Prices listed are the free-with-PS+ retail value.', pt:'Dados verificados contra psprices.com (região PT) e o PlayStation Blog. Scores exibidos são Metacritic / OpenCritic à data deste artigo. Preços listados são o valor de retalho grátis com PS+.'}},
+
+      {type:'h2', text:{en:'August 2026 — reload, co-op and dread', pt:'Agosto 2026 — reload, co-op e dread'}},
+      {type:'p', text:{en:'Available August 4 through August 31. A remaster of a modern classic, a cooperative talking-adventure from Untitled Goose Game\'s team, and a cult horror gem.', pt:'Disponível de 4 a 31 de Agosto. Um remaster de um clássico moderno, uma aventura cooperativa de conversa da equipa do Untitled Goose Game, e uma jóia de horror de culto.'}},
+      {type:'ul', items:[
+        {en:'<strong>Dying Light 2 Stay Human: Reloaded Edition</strong> — the definitive version of Techland\'s zombie-parkour epic, bundling major post-launch content and visual upgrades.', pt:'<strong>Dying Light 2 Stay Human: Reloaded Edition</strong> — a versão definitiva do épico de zombies e parkour da Techland, com o principal conteúdo pós-lançamento e melhorias visuais.'},
+        {en:'<strong>Big Walk</strong> — cooperative multiplayer about teamwork and talking, from the studio behind Untitled Goose Game. Charming, low-key, great for co-op newcomers.', pt:'<strong>Big Walk</strong> — multiplayer cooperativo sobre trabalho de equipa e conversa, do estúdio por trás do Untitled Goose Game. Encantador, descontraído, óptimo para quem começa em co-op.'},
+        {en:'<strong>Signalis</strong> — retro-styled survival horror with a devoted cult following. Dense atmosphere, tight resource management.', pt:'<strong>Signalis</strong> — survival horror de estilo retro com uma base de fãs de culto dedicada. Atmosfera densa, gestão de recursos apertada.'}
+      ]},
+      {type:'p', text:{en:'<strong>Rick Verdict:</strong> Dying Light 2 Reloaded is the headline claim — biggest scope of the three. Signalis is the sleeper pick if you like slow-burn dread. Big Walk is perfect for a co-op session with someone who doesn\'t normally play games.', pt:'<strong>Take do Rick:</strong> O Dying Light 2 Reloaded é o resgate de destaque — o de maior escala dos três. O Signalis é o pick escondido se gostas de dread lento. O Big Walk é perfeito para uma sessão co-op com alguém que normalmente não joga.'}},
+
+      {type:'h2', text:{en:'July 2026 — Modern Warfare returns + indie duo', pt:'Julho 2026 — Modern Warfare regressa + duo indie'}},
+      {type:'p', text:{en:'Available July 7 through August 3. Headlined by a Call of Duty Cross-Gen Bundle, plus a tabletop-inspired roguelite and a beloved 2D action RPG.', pt:'Disponível de 7 de Julho a 3 de Agosto. Com destaque para um Cross-Gen Bundle de Call of Duty, mais um roguelite inspirado em jogos de tabuleiro e um action RPG 2D muito querido.'}},
+      {type:'ul', items:[
+        {en:'<strong>Call of Duty: Modern Warfare 3 (Cross-Gen Bundle)</strong> — includes Zombies plus the 16 maps that launched with Modern Warfare 2. The biggest-name claim of the month by far.', pt:'<strong>Call of Duty: Modern Warfare 3 (Cross-Gen Bundle)</strong> — inclui o Zombies mais os 16 mapas que lançaram com o Modern Warfare 2. O resgate de maior nome do mês, de longe.'},
+        {en:'<strong>For the King II</strong> — roguelite/tabletop hybrid, solo or up to 4-player co-op. Great pick-up-and-play session length.', pt:'<strong>For the King II</strong> — híbrido roguelite/tabuleiro, solo ou co-op até 4 jogadores. Óptima duração de sessão pega-e-joga.'},
+        {en:'<strong>CrossCode</strong> — retro-styled 2D action RPG, consistently praised for combat depth hiding behind a pixel-art coat of paint.', pt:'<strong>CrossCode</strong> — action RPG 2D de estilo retro, consistentemente elogiado pela profundidade de combate escondida atrás de pixel art.'}
+      ]},
+      {type:'p', text:{en:'<strong>Rick Verdict:</strong> Claim MW3 regardless of whether you play it — the map pack alone is worth the download. CrossCode is the hidden gem of the month if you have any nostalgia for 16-bit Zelda-likes.', pt:'<strong>Take do Rick:</strong> Resgata o MW3 mesmo que não o jogues — só o pacote de mapas já vale o download. O CrossCode é a jóia escondida do mês se tiveres nostalgia de Zelda-likes 16-bit.'}},
 
       {type:'h2', text:{en:'June 2026 — survival co-op + brawlers', pt:'Junho 2026 — survival co-op + brawlers'}},
       {type:'p', text:{en:'All four drops live on June 2. EA Sports FC 26 carries over from the May lineup until June 16 — last chance to claim if you missed it.', pt:'Os quatro drops entram a 2 de Junho. O EA Sports FC 26 transita de Maio e fica disponível até 16 de Junho — última hipótese se passaste ao lado.'}},
@@ -1279,11 +1298,32 @@ const articles = [
   {
     slug:'xbox-game-pass-2026-roadmap',
     title:{en:'Xbox Game Pass 2026: Month-by-Month Drop Tracker', pt:'Xbox Game Pass 2026: Tracker Mês a Mês de Drops'},
-    summary:{en:'Every confirmed Game Pass addition in 2026, organised by month with editorial verdicts. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — all here.', pt:'Todas as adições confirmadas ao Game Pass em 2026, organizadas por mês com veredicto editorial. Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — está tudo aqui.'},
-    game:'general', platform:'xbox', tags:['game-pass','platform','recommendations'], featured:true, thumb:'/img/xbox%20game%20pass.png', date:'2026-05-22', lastUpdated:'2026-06-04', readTime:9, prefix:'meta-watch',
+    summary:{en:'Every confirmed Game Pass addition in 2026, organised by month with editorial verdicts. Halo: Campaign Evolved, Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — all here.', pt:'Todas as adições confirmadas ao Game Pass em 2026, organizadas por mês com veredicto editorial. Halo: Campaign Evolved, Forza Horizon 6, Hollow Knight Silksong, Clair Obscur, Avowed, KCD2, Doom The Dark Ages — está tudo aqui.'},
+    game:'general', platform:'xbox', tags:['game-pass','platform','recommendations'], featured:true, thumb:'/img/xbox%20game%20pass.png', date:'2026-05-22', lastUpdated:'2026-07-29', readTime:9, prefix:'meta-watch',
     source:['https://www.purexbox.com/guides/xbox-game-pass-in-2026-the-full-list-of-everything-announced-so-far','https://news.xbox.com/en-us/category/xbox-game-pass/'],
     content:[
       {type:'note', text:{en:'Game Pass Ultimate (€17.99/mo) is the only tier with full coverage — console, PC, Cloud, EA Play, day-one releases. Game Pass Standard (€14.99) is console-only and skips day-one. The XGP Premium label below marks the day-one releases included only on Ultimate.', pt:'O Game Pass Ultimate (€17.99/mês) é o único tier com cobertura total — consola, PC, Cloud, EA Play, lançamentos day-one. O Game Pass Standard (€14.99) é só consola e fica de fora dos day-ones. A etiqueta XGP Premium em baixo marca os day-ones disponíveis só no Ultimate.'}},
+
+      {type:'h2', text:{en:'August 2026 — the wave that started in July keeps rolling', pt:'Agosto 2026 — a vaga que começou em Julho continua'}},
+      {type:'p', text:{en:'A cross-over wave (July 22 - August 4) brings several day-one launches, plus a couple of classics returning to Premium.', pt:'Uma vaga que atravessa os dois meses (22 Jul - 4 Ago) traz vários lançamentos day-one, mais alguns clássicos de volta ao Premium.'}},
+      {type:'ul', items:[
+        {en:'<strong>Heretic + Hexen</strong> (Aug 4, XGP Premium) — the classic Doom-engine duology, now on Game Pass Premium, Ultimate and PC.', pt:'<strong>Heretic + Hexen</strong> (4 Ago, XGP Premium) — a dupla clássica em motor Doom, agora no Game Pass Premium, Ultimate e PC.'},
+        {en:'<strong>Shift at Midnight</strong> (day-one) — detective horror multiplayer, small studio breakout candidate.', pt:'<strong>Shift at Midnight</strong> (day-one) — horror multiplayer de detective, candidato a surpresa de estúdio pequeno.'},
+        {en:'<strong>Mistfall Hunter</strong> (day-one, XGP Premium) — soulslike extraction RPG, a genre mashup worth watching.', pt:'<strong>Mistfall Hunter</strong> (day-one, XGP Premium) — RPG de extracção soulslike, um cruzamento de géneros a acompanhar.'},
+        {en:'<strong>Corsair Cove</strong> (day-one) — pirate city-builder sim.', pt:'<strong>Corsair Cove</strong> (day-one) — sim de construção de cidade pirata.'}
+      ]},
+      {type:'p', text:{en:'<strong>Rick Verdict:</strong> Heretic + Hexen is the nostalgia claim for anyone who grew up on 90s FPS. Mistfall Hunter is the one to watch — soulslike + extraction is a genre combo nobody else is doing well yet.', pt:'<strong>Take do Rick:</strong> Heretic + Hexen é o resgate de nostalgia para quem cresceu com FPS dos anos 90. Mistfall Hunter é o que vale a pena observar — soulslike + extraction é uma combinação de géneros que mais ninguém está a fazer bem ainda.'}},
+
+      {type:'h2', text:{en:'July 2026 — Halo returns + a packed indie month', pt:'Julho 2026 — o Halo regressa + mês indie cheio'}},
+      {type:'p', text:{en:'The headline this month is a ground-up remake of a franchise-defining game, backed by a dense run of smaller day-one additions across two waves.', pt:'O destaque deste mês é o remake do zero de um jogo que definiu uma franchise, com uma sequência densa de adições day-one mais pequenas em duas vagas.'}},
+      {type:'ul', items:[
+        {en:'<strong>Halo: Campaign Evolved</strong> (Jul 28, day-one) — ground-up remake of the original Combat Evolved campaign, 13 missions total including 3 brand-new prologue missions. The month\'s clear headliner.', pt:'<strong>Halo: Campaign Evolved</strong> (28 Jul, day-one) — remake do zero da campanha original do Combat Evolved, 13 missões no total incluindo 3 missões de prólogo inéditas. O destaque claro do mês.'},
+        {en:'<strong>Hell is Us</strong> (wave 2) — atmospheric action-adventure with minimal hand-holding, built around exploration.', pt:'<strong>Hell is Us</strong> (vaga 2) — acção-aventura atmosférica com pouca condução do jogador, construído à volta da exploração.'},
+        {en:'<strong>Gears of War: Reloaded</strong> — moves from Ultimate-exclusive down to Premium tier, opening it to more subscribers.', pt:'<strong>Gears of War: Reloaded</strong> — passa de exclusivo Ultimate para o tier Premium, abrindo a mais subscritores.'},
+        {en:'<strong>Palworld 1.0</strong> — the full 1.0 release available for Premium, Ultimate and PC subscribers.', pt:'<strong>Palworld 1.0</strong> — o lançamento completo 1.0 disponível para subscritores Premium, Ultimate e PC.'},
+        {en:'<strong>The Planet Crafter</strong>, <strong>Ascend to Zero</strong> (Jul 13), <strong>PBA Pro Bowling 2026</strong> (Jul 14), <strong>Quarantine Zone: The Last Check</strong> (Jul 15), <strong>Mavrix by Matt Jones</strong> (Jul 16), <strong>FixForce</strong> and <strong>Fogpiercer</strong> (both Jul 17) — a dense run of smaller wave-1 additions.', pt:'<strong>The Planet Crafter</strong>, <strong>Ascend to Zero</strong> (13 Jul), <strong>PBA Pro Bowling 2026</strong> (14 Jul), <strong>Quarantine Zone: The Last Check</strong> (15 Jul), <strong>Mavrix by Matt Jones</strong> (16 Jul), <strong>FixForce</strong> e <strong>Fogpiercer</strong> (ambos 17 Jul) — uma sequência densa de adições mais pequenas da vaga 1.'}
+      ]},
+      {type:'p', text:{en:'<strong>Rick Verdict:</strong> Halo: Campaign Evolved alone justifies the subscription this month — see our <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-walkthrough">full walkthrough</a> to get through all 13 missions. Palworld hitting 1.0 on Game Pass is the quiet big deal of the month if you dropped off during early access.', pt:'<strong>Take do Rick:</strong> O Halo: Campaign Evolved sozinho já justifica a subscrição este mês — vê o nosso <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-walkthrough">walkthrough completo</a> para passares as 13 missões. O Palworld chegar a 1.0 no Game Pass é o grande acontecimento discreto do mês se largaste durante o early access.'}},
 
       {type:'h2', text:{en:'June 2026 — JRPG month + classic return', pt:'Junho 2026 — mês de JRPG + clássico de volta'}},
       {type:'ul', items:[
@@ -3908,6 +3948,189 @@ const guides = [
       ]},
       {type:'tip', text:{en:'For the actual in-game settings tuning matching this gear, see our <a href="/tips/cs2/cs2-best-settings-options">CS2 Best Settings & Options guide</a>. For FPS optimisation, the <a href="/tips/cs2/cs2-fps-console-commands">FPS Console Commands</a> guide pairs well.', pt:'Para tuning de settings in-game que combina com este gear, vê o nosso <a href="/tips/cs2/cs2-best-settings-options">guia CS2 Best Settings & Options</a>. Para optimização de FPS, o <a href="/tips/cs2/cs2-fps-console-commands">FPS Console Commands</a> combina bem.'}}
     ]
+  },
+
+  /* ===== PHASE 9 — July 2026 batch: Warzone meta refresh + Halo Campaign Evolved launch + GTA Online ===== */
+
+  {
+    slug:'warzone-best-guns-current-meta',
+    title:{en:'Warzone: Best Guns Right Now (Full Breakdown by Category)', pt:'Warzone: Melhores Armas Neste Momento (Análise Completa por Categoria)'},
+    summary:{en:'The strongest weapon in every range band this season — long range, close range and sniper — with why each one is dominant.', pt:'A arma mais forte em cada banda de alcance esta temporada — long range, close range e sniper — com o porquê de cada uma dominar.'},
+    game:'warzone', type:'guide', difficulty:'intermediate', category:'pvp', featured:true,
+    date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', readTime:6,
+    source:['https://nolagvpn.com/en/warzone/meta'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR:</strong> <strong>FG42</strong> leads long range after its buff, <strong>VST</strong> tops close range SMGs, and <strong>VS Recon</strong> is the current best sniper. All three sit in S-tier as of July 29, 2026 — data synthesised from NoLag VPN meta tracking.', pt:'<strong>TL;DR:</strong> O <strong>FG42</strong> lidera o long range depois do buff, o <strong>VST</strong> é o topo das SMGs close range, e o <strong>VS Recon</strong> é a melhor sniper actual. As três estão em S-tier a 29 de Julho de 2026 — dados sintetizados do meta tracking do NoLag VPN.'}},
+      {type:'h2', text:{en:'Best long-range AR: FG42', pt:'Melhor AR de longo alcance: FG42'}},
+      {type:'p', text:{en:'Newly added and immediately S-tier. Ranks #1 in the Long Range category ahead of established picks like MK35 ISR and DS20 Mirage. Expect a nerf within 1-2 patches — ride the wave while it lasts.', pt:'Adicionada recentemente e já em S-tier. Fica em #1 na categoria Long Range à frente de picks estabelecidos como o MK35 ISR e o DS20 Mirage. Espera um nerf dentro de 1-2 patches — aproveita a onda enquanto dura.'}},
+      {type:'h2', text:{en:'Best close-range SMG: VST', pt:'Melhor SMG de curto alcance: VST'}},
+      {type:'p', text:{en:'Just received a buff and sits #1 in Close Range. The REV-46 (also buffed) is the #2 pick if you want a backup that plays slightly differently.', pt:'Acabou de receber um buff e está em #1 no Close Range. O REV-46 (também buffado) é o pick #2 se quiseres um backup que joga de forma ligeiramente diferente.'}},
+      {type:'h2', text:{en:'Best sniper: VS Recon', pt:'Melhor sniper: VS Recon'}},
+      {type:'p', text:{en:'Tops the Sniper category, with Hawker HX and Strider 300 close behind — all three are S-tier, so the "best" one often comes down to handling preference over raw power.', pt:'Lidera a categoria Sniper, com o Hawker HX e o Strider 300 logo atrás — as três estão em S-tier, por isso o "melhor" acaba muitas vezes por ser preferência de handling em vez de poder bruto.'}},
+      {type:'h2', text:{en:'Honorable mentions (A-tier)', pt:'Menções honrosas (A-tier)'}},
+      {type:'ul', items:[
+        {en:'<strong>AK-27</strong> — recently nerfed but still A-tier strong for long range.', pt:'<strong>AK-27</strong> — recentemente nerfada mas ainda forte em A-tier para longo alcance.'},
+        {en:'<strong>VX Compact</strong> — the rare AR that also counts as Sniper Support, flexible loadout slot.', pt:'<strong>VX Compact</strong> — a rara AR que também conta como Sniper Support, slot de loadout flexível.'},
+        {en:'<strong>HDR</strong> — still A-tier after all these seasons, a safe fallback if you dislike the S-tier snipers.', pt:'<strong>HDR</strong> — ainda A-tier depois de todas estas temporadas, fallback seguro se não gostares das snipers S-tier.'}
+      ]},
+      {type:'tip', text:{en:'For exact attachment builds on these guns, see our <a href="/tips/warzone/warzone-best-loadouts-current">Best Warzone Loadouts guide</a>. For the full ranked list including B-tier, check the <a href="/tips/warzone/warzone-current-meta-tier-list">Warzone Meta Tier List</a>.', pt:'Para builds exactos de attachments nestas armas, vê o nosso <a href="/tips/warzone/warzone-best-loadouts-current">guia de Melhores Loadouts Warzone</a>. Para a lista completa incluindo B-tier, vê a <a href="/tips/warzone/warzone-current-meta-tier-list">Tier List do Meta Warzone</a>.'}}
+    ]
+  },
+
+  {
+    slug:'warzone-best-loadouts-current',
+    title:{en:'Warzone: Best Loadouts Right Now (Exact Attachments)', pt:'Warzone: Melhores Loadouts Neste Momento (Attachments Exactos)'},
+    summary:{en:'Copy-paste attachment builds for the current S-tier weapons — VST, MXR-17, Strider 300 and Gremlin — straight from WZHUB\'s tracked meta.', pt:'Builds de attachments prontos a copiar para as armas S-tier actuais — VST, MXR-17, Strider 300 e Gremlin — directamente do meta seguido pelo WZHUB.'},
+    game:'warzone', type:'build', difficulty:'intermediate', category:'pvp', featured:true,
+    date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', readTime:6,
+    source:['https://wzhub.gg/loadouts'],
+    content:[
+      {type:'note', text:{en:'Loadout codes below let you copy the exact build in-game via the Gunsmith "import code" option. Data pulled from WZHUB, updated within the last few days as of writing.', pt:'Os códigos de loadout abaixo permitem copiar a build exacta no jogo via a opção "importar código" do Gunsmith. Dados retirados do WZHUB, actualizados nos últimos dias à data deste artigo.'}},
+      {type:'h2', text:{en:'VST — Absolute Meta SMG', pt:'VST — SMG Meta Absoluto'}},
+      {type:'ul', items:[
+        {en:'<strong>Muzzle:</strong> LTI Stentorian Brake', pt:'<strong>Muzzle:</strong> LTI Stentorian Brake'},
+        {en:'<strong>Barrel:</strong> 9.7" Enmity Barrel', pt:'<strong>Barrel:</strong> 9.7" Enmity Barrel'},
+        {en:'<strong>Underbarrel:</strong> EAM Steady-90 Grip', pt:'<strong>Underbarrel:</strong> EAM Steady-90 Grip'},
+        {en:'<strong>Magazine:</strong> Amplify Extended Mag I', pt:'<strong>Magazine:</strong> Amplify Extended Mag I'},
+        {en:'<strong>Stock:</strong> Hawker Cub-55 Pad', pt:'<strong>Stock:</strong> Hawker Cub-55 Pad'},
+        {en:'<strong>Loadout code:</strong> S12-6KDYX-HL11', pt:'<strong>Código de loadout:</strong> S12-6KDYX-HL11'}
+      ]},
+      {type:'h2', text:{en:'MXR-17 — Absolute Meta AR', pt:'MXR-17 — AR Meta Absoluto'}},
+      {type:'ul', items:[
+        {en:'<strong>Optic:</strong> Fang Hoverpoint ELO', pt:'<strong>Optic:</strong> Fang Hoverpoint ELO'},
+        {en:'<strong>Muzzle:</strong> Monolithic Suppressor', pt:'<strong>Muzzle:</strong> Monolithic Suppressor'},
+        {en:'<strong>Barrel:</strong> 17" Greaves Scourge Barrel', pt:'<strong>Barrel:</strong> 17" Greaves Scourge Barrel'},
+        {en:'<strong>Magazine:</strong> Rhodes Drum Mag', pt:'<strong>Magazine:</strong> Rhodes Drum Mag'},
+        {en:'<strong>Stock:</strong> Winch Stock', pt:'<strong>Stock:</strong> Winch Stock'},
+        {en:'<strong>Loadout code:</strong> A03-36W2S-J343H-11', pt:'<strong>Código de loadout:</strong> A03-36W2S-J343H-11'}
+      ]},
+      {type:'h2', text:{en:'Strider 300 — Absolute Meta Sniper', pt:'Strider 300 — Sniper Meta Absoluto'}},
+      {type:'ul', items:[
+        {en:'<strong>Muzzle:</strong> Monolithic Suppressor', pt:'<strong>Muzzle:</strong> Monolithic Suppressor'},
+        {en:'<strong>Barrel:</strong> 25" Bowen Grooved Barrel', pt:'<strong>Barrel:</strong> 25" Bowen Grooved Barrel'},
+        {en:'<strong>Magazine:</strong> Carnation Fast Mag', pt:'<strong>Magazine:</strong> Carnation Fast Mag'},
+        {en:'<strong>Rear Grip:</strong> Hatch Quick Grip', pt:'<strong>Rear Grip:</strong> Hatch Quick Grip'},
+        {en:'<strong>Loadout code:</strong> R07-2JD6P-5NM5G-6J11', pt:'<strong>Código de loadout:</strong> R07-2JD6P-5NM5G-6J11'}
+      ]},
+      {type:'h2', text:{en:'Gremlin — New SMG worth trying', pt:'Gremlin — SMG nova que vale a pena testar'}},
+      {type:'p', text:{en:'Freshly added to the pool. Not yet Absolute Meta but tagged "New" and climbing — worth a test session before committing camo grind hours to it.', pt:'Adicionada recentemente à pool. Ainda não é Meta Absoluto mas está marcada como "New" e a subir — vale a pena testar antes de investir horas de grind de camo nela.'}},
+      {type:'tip', text:{en:'Loadout codes are patch-sensitive — if a code stops working after a balance update, re-check <a href="https://wzhub.gg/loadouts">wzhub.gg/loadouts</a> for the refreshed version. For the broader tier picture, see our <a href="/tips/warzone/warzone-current-meta-tier-list">Warzone Meta Tier List</a>.', pt:'Os códigos de loadout são sensíveis a patches — se um código deixar de funcionar depois de um balance update, verifica de novo em <a href="https://wzhub.gg/loadouts">wzhub.gg/loadouts</a> para a versão actualizada. Para o panorama geral de tiers, vê a nossa <a href="/tips/warzone/warzone-current-meta-tier-list">Tier List do Meta Warzone</a>.'}}
+    ]
+  },
+
+  {
+    slug:'halo-campaign-evolved-walkthrough',
+    title:{en:'Halo: Campaign Evolved — Full Walkthrough (All 13 Missions)', pt:'Halo: Campaign Evolved — Walkthrough Completo (Todas as 13 Missões)'},
+    summary:{en:'Mission-by-mission guide to the ground-up remake of Combat Evolved — 10 classic missions plus 3 brand-new prologue missions.', pt:'Guia missão a missão do remake do Combat Evolved refeito do zero — 10 missões clássicas mais 3 missões de prólogo inéditas.'},
+    game:'halo-campaign-evolved', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', readTime:8,
+    source:['https://www.ign.com/wikis/halo-campaign-evolved/Halo_Walkthrough'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR:</strong> Halo: Campaign Evolved released July 28, 2026 on PS5, Xbox Series X|S and PC. It has <strong>13 missions</strong> total — the 10 original Combat Evolved missions rebuilt from the ground up, plus <strong>3 brand-new prologue missions</strong> starring Master Chief and Sgt. Johnson, set one year before the original story.', pt:'<strong>TL;DR:</strong> Halo: Campaign Evolved lançou a 28 de Julho de 2026 em PS5, Xbox Series X|S e PC. Tem <strong>13 missões</strong> no total — as 10 missões originais do Combat Evolved refeitas do zero, mais <strong>3 missões de prólogo inéditas</strong> com o Master Chief e o Sargento Johnson, situadas um ano antes da história original.'}},
+      {type:'h2', text:{en:'Mission structure', pt:'Estrutura das missões'}},
+      {type:'p', text:{en:'The 3 Bonus prologue missions play separately from the main campaign and follow the assault on a Covenant vessel. They\'re a good warm-up before jumping into the main 10-mission story that begins aboard the Pillar of Autumn.', pt:'As 3 missões de prólogo (Bonus) jogam-se em separado da campanha principal e seguem o assalto a uma nave Covenant. São um bom aquecimento antes de entrares na história principal de 10 missões que começa a bordo do Pillar of Autumn.'}},
+      {type:'h2', text:{en:'The 10 main campaign missions', pt:'As 10 missões principais da campanha'}},
+      {type:'ul', items:[
+        {en:'<strong>Pillar of Autumn</strong> — tutorial mission aboard the doomed ship as Covenant forces board.', pt:'<strong>Pillar of Autumn</strong> — missão tutorial a bordo do navio condenado enquanto forças Covenant abordam.'},
+        {en:'<strong>Halo</strong> — first steps on the ring, establishing the open-world-style combat loop.', pt:'<strong>Halo</strong> — primeiros passos no anel, estabelece o loop de combate estilo mundo-aberto.'},
+        {en:'<strong>The Truth and Reconciliation</strong> — infiltrate the Covenant cruiser to rescue Captain Keyes.', pt:'<strong>The Truth and Reconciliation</strong> — infiltra o cruzador Covenant para resgatar o Capitão Keyes.'},
+        {en:'<strong>The Silent Cartographer</strong> — vehicle-heavy island mission, unlocks the map room.', pt:'<strong>The Silent Cartographer</strong> — missão de ilha com muitos veículos, desbloqueia a sala do mapa.'},
+        {en:'<strong>Assault on the Control Room</strong> — long vertical push through Forerunner structures.', pt:'<strong>Assault on the Control Room</strong> — avanço vertical longo por estruturas Forerunner.'},
+        {en:'<strong>343 Guilty Spark</strong> — introduces the Flood and the ring\'s AI custodian.', pt:'<strong>343 Guilty Spark</strong> — introduz o Flood e o guardião AI do anel.'},
+        {en:'<strong>The Library</strong> — corridor-heavy Flood gauntlet, notoriously the toughest classic mission.', pt:'<strong>The Library</strong> — corredor longo cheio de Flood, notoriamente a missão clássica mais difícil.'},
+        {en:'<strong>Two Betrayals</strong> — backtrack through Assault on the Control Room\'s map in reverse.', pt:'<strong>Two Betrayals</strong> — percurso inverso pelo mapa de Assault on the Control Room.'},
+        {en:'<strong>Keyes</strong> — return to the Truth and Reconciliation, now overrun by Flood.', pt:'<strong>Keyes</strong> — regresso ao Truth and Reconciliation, agora dominado pelo Flood.'},
+        {en:'<strong>The Maw</strong> — final escape mission aboard the crumbling Pillar of Autumn.', pt:'<strong>The Maw</strong> — missão final de fuga a bordo do Pillar of Autumn em colapso.'}
+      ]},
+      {type:'tip', text:{en:'Every mission hides 3 Skulls and 1 Terminal. See our <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-skulls">All Skull Locations guide</a> and <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-terminals">All Terminal Locations guide</a> to 100% each level as you go, rather than replaying missions later.', pt:'Cada missão esconde 3 Skulls e 1 Terminal. Vê o nosso <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-skulls">guia de Localizações de Skulls</a> e o <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-terminals">guia de Localizações de Terminais</a> para fazeres 100% de cada nível à medida que avanças, em vez de teres de repetir missões depois.'}}
+    ]
+  },
+
+  {
+    slug:'halo-campaign-evolved-all-skulls',
+    title:{en:'Halo: Campaign Evolved — All 42 Skull Locations', pt:'Halo: Campaign Evolved — Todas as 42 Localizações de Skulls'},
+    summary:{en:'26 legacy Skulls plus 16 brand-new ones, 3 hidden per mission across all 13 missions — where to find them and what they do.', pt:'26 Skulls clássicas mais 16 inéditas, 3 escondidas por missão nas 13 missões — onde encontrá-las e o que fazem.'},
+    game:'halo-campaign-evolved', type:'guide', difficulty:'intermediate', category:'advanced', featured:true,
+    date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', readTime:7,
+    source:['https://www.ign.com/wikis/halo-campaign-evolved/All_Skull_Locations'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR:</strong> There are <strong>42 Skulls</strong> total — <strong>26 Legacy Skulls</strong> inspired by the original game and <strong>16 brand-new</strong> ones made for Campaign Evolved. Only <strong>39 need manual collection</strong> (3 per mission across 13 missions) — the other 3 unlock automatically when Campaign Remix mode opens up.', pt:'<strong>TL;DR:</strong> Há <strong>42 Skulls</strong> no total — <strong>26 Skulls Legacy</strong> inspiradas no jogo original e <strong>16 inéditas</strong> feitas para o Campaign Evolved. Só <strong>39 precisam de recolha manual</strong> (3 por missão nas 13 missões) — as outras 3 desbloqueiam automaticamente quando o modo Campaign Remix abre.'}},
+      {type:'h2', text:{en:'How to know you\'re near one', pt:'Como saberes que estás perto de uma'}},
+      {type:'p', text:{en:'Skulls give off a whispering/hissing sound that gets louder the closer you get — that\'s the only in-game hint you get, since they don\'t show up on radar or the map. Listen carefully in quiet moments between fights.', pt:'As Skulls emitem um som de sussurro/silvo que fica mais alto quanto mais perto estás — essa é a única pista in-game que tens, já que não aparecem no radar nem no mapa. Presta atenção nos momentos calmos entre combates.'}},
+      {type:'h2', text:{en:'Pillar of Autumn — 3 Skulls', pt:'Pillar of Autumn — 3 Skulls'}},
+      {type:'ul', items:[
+        {en:'<strong>Speed Limit</strong> — as soon as you gain control of Master Chief, go to the back of the room and jump onto the two cylindrical tanks, then onto the catwalk, and walk to the very end.', pt:'<strong>Speed Limit</strong> — assim que ganhas controlo do Master Chief, vai ao fundo da sala e salta para os dois tanques cilíndricos, depois para o catwalk, e caminha até ao fim.'},
+        {en:'<strong>Magnified</strong> — after the blue elite scene, once the marines are fighting, enter the room directly across and look up at the centre console.', pt:'<strong>Magnified</strong> — depois da cena do elite azul, quando os marines estão a combater, entra na sala em frente e olha para cima, para a consola central.'},
+        {en:'<strong>Perspective</strong> — after the bridge cutscene, head back inside, find the two pilots seated in front of Captain Keyes, and drop into the space below them.', pt:'<strong>Perspective</strong> — depois da cutscene na ponte, volta para dentro, encontra os dois pilotos sentados à frente do Capitão Keyes, e desce para o espaço por baixo deles.'}
+      ]},
+      {type:'h2', text:{en:'The Silent Cartographer — 3 Skulls', pt:'The Silent Cartographer — 3 Skulls'}},
+      {type:'ul', items:[
+        {en:'<strong>Bandana</strong> — shortly after starting on the beach, look right of the first building\'s entrance for a cliffside cave — the skull sits in the sunlit middle of it.', pt:'<strong>Bandana</strong> — pouco depois de começares na praia, olha à direita da entrada do primeiro edifício para uma caverna na falésia — a skull está no meio iluminado dela.'},
+        {en:'<strong>Acrophobia</strong> — right after killing two hunters while searching for the Silent Cartographer, before descending the winding ramp, look over the edge and walk off to land where the skull sits below.', pt:'<strong>Acrophobia</strong> — logo depois de matares dois hunters à procura do Silent Cartographer, antes de desceres a rampa em curva, olha para o lado e desce da passagem para aterrar onde a skull está.'}
+      ]},
+      {type:'p', text:{en:'The remaining 34+ Skulls across the other 11 missions follow similar patterns — off-path detours near vehicle sections, verticality shortcuts, and rooms adjacent to major setpiece fights.', pt:'As restantes 34+ Skulls nas outras 11 missões seguem padrões semelhantes — desvios fora do caminho perto de secções de veículos, atalhos de verticalidade, e salas adjacentes a combates de destaque.'}},
+      {type:'h2', text:{en:'Effects of collecting Skulls', pt:'Efeitos de recolher Skulls'}},
+      {type:'p', text:{en:'Skull effects can be toggled before starting a mission, and some activate automatically in Campaign Remix mode — the new randomised-gameplay mode. Unlike the original game, several Skulls in Campaign Evolved actually make the experience easier rather than harder.', pt:'Os efeitos das Skulls podem ser activados antes de iniciar uma missão, e alguns activam-se automaticamente no modo Campaign Remix — o novo modo de gameplay aleatorizada. Ao contrário do jogo original, várias Skulls no Campaign Evolved tornam a experiência mais fácil em vez de mais difícil.'}},
+      {type:'tip', text:{en:'Collect Skulls on your first playthrough of each mission — going back later means replaying the whole level. Pair this with the <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-terminals">Terminal locations guide</a> to 100% each mission in a single pass.', pt:'Recolhe as Skulls na primeira vez que jogas cada missão — voltar mais tarde significa repetir o nível inteiro. Combina com o <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-terminals">guia de localizações de Terminais</a> para fazeres 100% de cada missão numa só passagem.'}}
+    ]
+  },
+
+  {
+    slug:'halo-campaign-evolved-all-terminals',
+    title:{en:'Halo: Campaign Evolved — All 13 Terminal Locations', pt:'Halo: Campaign Evolved — Todas as 13 Localizações de Terminais'},
+    summary:{en:'One Terminal hidden in every mission — here\'s what they look like and where to find the ones players miss most.', pt:'Um Terminal escondido em cada missão — aqui está o aspecto deles e onde encontrar os que os jogadores mais perdem.'},
+    game:'halo-campaign-evolved', type:'guide', difficulty:'intermediate', category:'advanced', featured:true,
+    date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', readTime:6,
+    source:['https://www.ign.com/wikis/halo-campaign-evolved/All_Terminal_Locations'],
+    content:[
+      {type:'note', text:{en:'<strong>TL;DR:</strong> There are <strong>13 Terminals</strong> total — one in every Main and Bonus mission. They look like standalone computer consoles with a screen and a red light. Walk up and interact to register each one.', pt:'<strong>TL;DR:</strong> Há <strong>13 Terminais</strong> no total — um em cada missão Principal e Bonus. Parecem consolas de computador isoladas com um ecrã e uma luz vermelha. Aproxima-te e interage para registar cada um.'}},
+      {type:'h2', text:{en:'What Terminals look like', pt:'O aspecto dos Terminais'}},
+      {type:'p', text:{en:'Unlike Skulls, Terminals don\'t make sound — they\'re purely visual and tend to be tucked into side rooms, alcoves, or areas slightly off the critical path. Each one unlocks a short lore entry when interacted with.', pt:'Ao contrário das Skulls, os Terminais não fazem som — são puramente visuais e tendem a estar escondidos em salas laterais, nichos, ou áreas ligeiramente fora do caminho principal. Cada um desbloqueia uma entrada de lore curta quando interages.'}},
+      {type:'h2', text:{en:'Notable Terminal locations', pt:'Localizações notáveis de Terminais'}},
+      {type:'ul', items:[
+        {en:'<strong>Arrival Terminal (Pillar of Autumn)</strong> — from the mess hall entrance, bear right; it\'s tucked in a nook on top of some UNSC boxes.', pt:'<strong>Arrival Terminal (Pillar of Autumn)</strong> — a partir da entrada do refeitório, vira à direita; está escondido num nicho em cima de umas caixas UNSC.'},
+        {en:'<strong>Pillar of Autumn Terminal</strong> — through the next door, immediately turn left into a small room full of screens and red lights; the terminal is at the far end and unlocks the "Approach" lore entry.', pt:'<strong>Pillar of Autumn Terminal</strong> — pela porta seguinte, vira imediatamente à esquerda para uma sala pequena cheia de ecrãs e luzes vermelhas; o terminal está no fundo e desbloqueia a entrada de lore "Approach".'},
+        {en:'<strong>Halo Terminal ("Forgotten")</strong> — from Rally Point Bravo, drive the Warthog into the Forerunner tunnel; at the straight section with two small bumps and a large window on the right, hop out, jump through the window and carefully drop to the ledge below.', pt:'<strong>Halo Terminal ("Forgotten")</strong> — a partir do Rally Point Bravo, conduz o Warthog para o túnel Forerunner; na secção recta com duas lombas pequenas e uma janela grande à direita, sai do veículo, salta pela janela e desce com cuidado para a saliência em baixo.'}
+      ]},
+      {type:'p', text:{en:'The remaining 10 Terminals across the other missions follow the same logic — just off the main route, often in a room you\'d only enter if you explore instead of sprinting to the next objective marker.', pt:'Os restantes 10 Terminais nas outras missões seguem a mesma lógica — mesmo ao lado da rota principal, muitas vezes numa sala que só entrarias se explorasses em vez de correr para o próximo marcador de objectivo.'}},
+      {type:'tip', text:{en:'Terminals are the easiest 100% category to miss because they\'re silent. Slow down and check side rooms whenever the level design offers one — combine with the <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-skulls">Skull locations guide</a> for a full completionist pass.', pt:'Os Terminais são a categoria de 100% mais fácil de perder porque são silenciosos. Abranda e verifica salas laterais sempre que o level design oferecer uma — combina com o <a href="/tips/halo-campaign-evolved/halo-campaign-evolved-all-skulls">guia de localizações de Skulls</a> para uma passagem completista total.'}}
+    ]
+  },
+
+  {
+    slug:'gta-online-weekly-updates-tracker',
+    title:{en:'GTA Online: Weekly Update Tracker (Bonuses, Discounts & Free Items)', pt:'GTA Online: Tracker de Updates Semanais (Bónus, Descontos & Itens Grátis)'},
+    summary:{en:'What changes every Wednesday in GTA Online — GTA$/RP multipliers, vehicle discounts, free items and new content — refreshed weekly.', pt:'O que muda todas as quartas-feiras no GTA Online — multiplicadores de GTA$/RP, descontos de veículos, itens grátis e conteúdo novo — actualizado semanalmente.'},
+    game:'gta-v', type:'guide', difficulty:'beginner', category:'beginner', featured:true,
+    date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', readTime:5,
+    source:['https://www.ign.com/wikis/gta-5/GTA_Online_Weekly_Updates'],
+    content:[
+      {type:'note', text:{en:'GTA Online (which runs on GTA V) refreshes its weekly bonuses every Wednesday. This tracker covers the current week and the pattern to expect from Rockstar\'s rotation — bookmark and check back each Wednesday.', pt:'O GTA Online (que corre no GTA V) actualiza os bónus semanais todas as quartas-feiras. Este tracker cobre a semana actual e o padrão a esperar da rotação da Rockstar — faz bookmark e volta todas as quartas.'}},
+      {type:'h2', text:{en:'This week\'s bonuses (July 23-29, 2026)', pt:'Bónus desta semana (23-29 de Julho de 2026)'}},
+      {type:'p', text:{en:'This week heavily favors grinding cash through the Kortz Center Heist and the HSW Race Series.', pt:'Esta semana favorece bastante o grind de dinheiro através do Kortz Center Heist e da HSW Race Series.'}},
+      {type:'ul', items:[
+        {en:'<strong>5X GTA$ & RP</strong> — HSW Race Series (PS5, Xbox Series X|S, PC Enhanced)', pt:'<strong>5X GTA$ & RP</strong> — HSW Race Series (PS5, Xbox Series X|S, PC Enhanced)'},
+        {en:'<strong>4X GTA$</strong> — Associate and Bodyguard Salaries', pt:'<strong>4X GTA$</strong> — Sal&aacute;rios de Associate e Bodyguard'},
+        {en:'<strong>3X GTA$ & RP</strong> — Overtime Rumble and Community Series', pt:'<strong>3X GTA$ & RP</strong> — Overtime Rumble e Community Series'},
+        {en:'<strong>2X GTA$ & RP</strong> — First-Time Completion of The Titan Job (Oscar Guzman Flies Again)', pt:'<strong>2X GTA$ & RP</strong> — Primeira conclusão de The Titan Job (Oscar Guzman Flies Again)'}
+      ]},
+      {type:'h2', text:{en:'Discounts this week', pt:'Descontos esta semana'}},
+      {type:'ul', items:[
+        {en:'9 vehicles discounted, up to 30% off', pt:'9 veículos com desconto, até 30%'},
+        {en:'McKenzie Field Hangar — 50% off', pt:'McKenzie Field Hangar — 50% de desconto'},
+        {en:'GTA$1,000,000 off the Mansion Art Studio; GTA$2,000,000 off any Mansion Property (until August 5)', pt:'GTA$1.000.000 de desconto no Mansion Art Studio; GTA$2.000.000 de desconto em qualquer Mansion Property (até 5 de Agosto)'},
+        {en:'50% off all Vehicle Conversions at Benny\'s Original Motor Works and Hao\'s Special Works', pt:'50% de desconto em todas as Vehicle Conversions na Benny\'s Original Motor Works e Hao\'s Special Works'}
+      ]},
+      {type:'h2', text:{en:'Free this week', pt:'Grátis esta semana'}},
+      {type:'ul', items:[
+        {en:'Log in to claim the <strong>Knuckleduster Tee</strong>', pt:'Faz login para resgatar a <strong>Knuckleduster Tee</strong>'}
+      ]},
+      {type:'h2', text:{en:'New content', pt:'Conteúdo novo'}},
+      {type:'ul', items:[
+        {en:'<strong>Pegassi Ignus Pursuit</strong> — new Law Enforcement Vehicle, available from Warstock Cache & Carry', pt:'<strong>Pegassi Ignus Pursuit</strong> — novo veículo das forças da lei, disponível na Warstock Cache & Carry'}
+      ]},
+      {type:'tip', text:{en:'Rockstar rotates weekly bonuses to spotlight different game modes and properties — check the official Rockstar Newswire every Wednesday morning for the freshest list, since this article reflects the week it was published.', pt:'A Rockstar roda os bónus semanais para destacar diferentes modos de jogo e propriedades — verifica o Rockstar Newswire oficial toda a quarta-feira de manhã para a lista mais recente, já que este artigo reflecte a semana em que foi publicado.'}}
+    ]
   }
 ];
 
@@ -4290,6 +4513,18 @@ const tierLists = [
       {tier:'A', items:['Top: Camille','Top: Renekton','Jungle: Lillia','Jungle: Hecarim','Mid: Akali','Mid: Yone','ADC: Jinx','ADC: Lucian','Support: Thresh','Support: Rakan']},
       {tier:'B', items:['Top: Shen','Top: Garen','Jungle: Wukong','Mid: Annie','ADC: Ezreal','Support: Lulu','Support: Janna']},
       {tier:'C', items:['Top: Gangplank','Mid: Veigar','ADC: Aphelios','Support: Karma']}
+    ]
+  },
+  {
+    slug:'warzone-current-meta-tier-list',
+    title:{en:'Warzone: Current Meta Tier List (Guns Ranked)', pt:'Warzone: Tier List do Meta Actual (Armas Ranqueadas)'},
+    summary:{en:'Every weapon in the current Warzone meta ranked S to B, synthesised from NoLag VPN meta tracking data.', pt:'Todas as armas do meta actual do Warzone ranqueadas de S a B, sintetizado a partir dos dados de meta do NoLag VPN.'},
+    game:'warzone', category:'class', date:'2026-07-29', lastUpdated:'2026-07-29', author:'Editorial', featured:true,
+    source:'https://nolagvpn.com/en/warzone/meta',
+    tiers:[
+      {tier:'S', items:['FG42 (AR, Long Range) — New','VST (SMG, Close Range) — Buff','MK35 ISR (AR, Long Range)','REV-46 (SMG, Close Range) — Buff','DS20 Mirage (AR, Long Range)','VS Recon (Sniper)','Hawker HX (Sniper)','Strider 300 (Sniper)']},
+      {tier:'A', items:['AK-27 (AR) — Nerf','Ryden 45K (SMG)','Voyak KT-3 (AR) — Buff','Sturmwolf 45 (SMG) — Buff','AN-94 (AR) — Buff','VX Compact (AR / Sniper Support)','M15 MOD 0 (AR) — Buff','MXR-17 (AR) — Nerf','Peacekeeper Mk1 (AR)','X9 Maverick (AR) — Nerf','CBRS-3 (SMG)','MPC-25 (SMG)','Kogot-7 (SMG)','HDR (Sniper)']},
+      {tier:'B', items:['KRS-7.62 (Marksman)','C9 (SMG)','Dresden 9mm (SMG)','GPR 91 (AR)','JACKAL PDW (SMG)','CR-56 AMAX (AR)','AMES 85 (AR)','GREKHOVA (Pistol)','Velox 5.7 (Pistol)','1911 (Pistol)','CODA 9 (Pistol)','PPSh-41 (SMG)','KSV (SMG)']}
     ]
   }
 ];

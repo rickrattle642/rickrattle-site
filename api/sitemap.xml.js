@@ -18,7 +18,9 @@ const GAME_SLUGS = [
   // Phase 6 — Paralives Early Access launch (May 25, 2026)
   'paralives',
   // Phase 8 — Path of Exile 2
-  'path-of-exile-2'
+  'path-of-exile-2',
+  // Phase 9 — Halo: Campaign Evolved launch (July 28, 2026)
+  'halo-campaign-evolved'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -159,7 +161,15 @@ const MANUAL_TIPS_SLUGS = [
   {game:'path-of-exile-2',  slug:'path-of-exile-2-best-builds-hub'},
   {game:'cs2',              slug:'cs2-best-settings-options'},
   {game:'cs2',              slug:'cs2-fps-console-commands'},
-  {game:'cs2',              slug:'cs2-pro-settings-gear-list'}
+  {game:'cs2',              slug:'cs2-pro-settings-gear-list'},
+  // Phase 9 — July 2026 batch: Warzone meta refresh + Halo Campaign Evolved launch + GTA Online
+  {game:'warzone',              slug:'warzone-current-meta-tier-list'},
+  {game:'warzone',              slug:'warzone-best-guns-current-meta'},
+  {game:'warzone',              slug:'warzone-best-loadouts-current'},
+  {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-walkthrough'},
+  {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-all-skulls'},
+  {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-all-terminals'},
+  {game:'gta-v',                slug:'gta-online-weekly-updates-tracker'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
