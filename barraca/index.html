@@ -542,9 +542,16 @@
 
       // ===== Monthly filter — Prémios do Mês actual =====
       const now = new Date();
-      const currentMonthKey = `${now.getUTCFullYear()}-${String(now.getUTCMonth()+1).padStart(2,'0')}`;
+      // TEMPORARY one-day grace period: the 31/07 stream was postponed to 01/08, so the
+      // "Prémios do Mês" window stays on Julho through 01/08 and rolls over to Agosto
+      // normally from 02/08 onwards. Safe to delete this block after 2026-08-02.
+      const monthNow = new Date(now);
+      if (monthNow.getUTCFullYear() === 2026 && monthNow.getUTCMonth() === 7 && monthNow.getUTCDate() === 1) {
+        monthNow.setUTCDate(monthNow.getUTCDate() - 1);
+      }
+      const currentMonthKey = `${monthNow.getUTCFullYear()}-${String(monthNow.getUTCMonth()+1).padStart(2,'0')}`;
       const MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-      const currentMonthLabel = `${MONTH_NAMES_PT[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
+      const currentMonthLabel = `${MONTH_NAMES_PT[monthNow.getUTCMonth()]} ${monthNow.getUTCFullYear()}`;
       const monthLabelEl = document.getElementById('hofMonthLabel');
       if (monthLabelEl) monthLabelEl.textContent = currentMonthLabel;
 
@@ -559,7 +566,7 @@
       }
 
       // Filter history → only current month sessions
-      const currentMonthHistory = (state.history || []).filter(h => (h.monthOverride || monthKeyOf(h.date)) === currentMonthKey);
+      const currentMonthHistory = (state.history || []).filter(h => monthKeyOf(h.date) === currentMonthKey);
 
       const totals = new Map();
       currentMonthHistory.forEach(h => {
@@ -934,7 +941,7 @@
 
       const groups = new Map();  // monthKey → array of history entries
       (state.history || []).forEach(h => {
-        const k = h.monthOverride || monthKeyOf(h.date);
+        const k = monthKeyOf(h.date);
         if (k === currentMonthKey) return;
         if (!groups.has(k)) groups.set(k, []);
         groups.get(k).push(h);
