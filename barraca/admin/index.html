@@ -217,6 +217,30 @@
             <button class="btn btn-secondary" style="font-size:11px;padding:8px 14px" onclick="retagHistory()">🏷️ Reetiquetar</button>
           </div>
         </details>
+
+        <!-- Override which month a session counts toward, without changing its date (stream postponed across a month boundary) -->
+        <details style="margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)">
+          <summary style="cursor:pointer;color:var(--accent);font-size:12px;letter-spacing:2px;text-transform:uppercase">📅 Corrigir mês de uma sessão (stream adiada)</summary>
+          <div style="margin-top:12px;font-size:11px;color:var(--muted);line-height:1.5;margin-bottom:12px">
+            Para quando uma stream é adiada e acaba noutro mês do calendário (ex: sess&atilde;o marcada para 31/07 mas feita a 01/08). A sess&atilde;o mant&eacute;m a data real no Hist&oacute;rico, mas passa a contar para os pr&eacute;mios do m&ecirc;s escolhido.
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+            <div>
+              <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">De (inclusive)</label>
+              <input type="date" id="monthFixFrom" style="width:100%;margin-top:4px;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+            </div>
+            <div>
+              <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">At&eacute; (opcional)</label>
+              <input type="date" id="monthFixTo" style="width:100%;margin-top:4px;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+            <label style="font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase">Contar como m&ecirc;s:</label>
+            <input type="month" id="monthFixTarget" style="padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
+            <button class="btn btn-secondary" style="font-size:11px;padding:8px 14px" onclick="setHistoryMonth()">📅 Aplicar</button>
+            <button class="btn btn-secondary" style="font-size:11px;padding:8px 14px" onclick="clearHistoryMonth()">↩ Remover correção</button>
+          </div>
+        </details>
       </div>
 
       <div class="panel" style="margin-top:20px">
@@ -668,6 +692,36 @@
       if (to) body.dateTo = to;
       const res = await adminAction(body);
       showToast(`✅ ${res.retagged} sess${res.retagged === 1 ? 'ão' : 'ões'} reetiquetadas como ${eraLabel}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
+  async function setHistoryMonth(){
+    const from = $('monthFixFrom').value;
+    const to = $('monthFixTo').value;
+    const monthKey = $('monthFixTarget').value; // "YYYY-MM" from <input type="month">
+    if (!from) return showToast('Escolhe pelo menos a data "De"', 'err');
+    if (!monthKey) return showToast('Escolhe o mês para o qual a sessão deve contar', 'err');
+    if (!confirm(`As sessões entre ${from}${to ? ' e '+to : ''} vão contar para os prémios de ${monthKey}, mantendo a data real no Histórico. Confirmas?`)) return;
+    try {
+      const body = { action: 'set-history-month', dateFrom: from, monthKey };
+      if (to) body.dateTo = to;
+      const res = await adminAction(body);
+      showToast(`✅ ${res.updated} sess${res.updated === 1 ? 'ão' : 'ões'} agora ${res.updated === 1 ? 'conta' : 'contam'} para ${monthKey}`, 'ok');
+      await loadState();
+    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
+  }
+
+  async function clearHistoryMonth(){
+    const from = $('monthFixFrom').value;
+    const to = $('monthFixTo').value;
+    if (!from) return showToast('Escolhe pelo menos a data "De"', 'err');
+    if (!confirm(`Remover a correção de mês das sessões entre ${from}${to ? ' e '+to : ''}? Voltam a contar pelo mês real da data.`)) return;
+    try {
+      const body = { action: 'set-history-month', dateFrom: from, clear: true };
+      if (to) body.dateTo = to;
+      const res = await adminAction(body);
+      showToast(`✅ Correção removida em ${res.updated} sess${res.updated === 1 ? 'ão' : 'ões'}`, 'ok');
       await loadState();
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }

@@ -559,7 +559,7 @@
       }
 
       // Filter history → only current month sessions
-      const currentMonthHistory = (state.history || []).filter(h => monthKeyOf(h.date) === currentMonthKey);
+      const currentMonthHistory = (state.history || []).filter(h => (h.monthOverride || monthKeyOf(h.date)) === currentMonthKey);
 
       const totals = new Map();
       currentMonthHistory.forEach(h => {
@@ -934,7 +934,7 @@
 
       const groups = new Map();  // monthKey → array of history entries
       (state.history || []).forEach(h => {
-        const k = monthKeyOf(h.date);
+        const k = h.monthOverride || monthKeyOf(h.date);
         if (k === currentMonthKey) return;
         if (!groups.has(k)) groups.set(k, []);
         groups.get(k).push(h);
