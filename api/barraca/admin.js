@@ -19,7 +19,7 @@ import {
   KEYS, redisGet, redisSet, isAdmin, jsonResponse,
   normaliseName, normaliseKey, rankPlayers,
   CHALLENGES, currentMonthKey,
-  ERAS, DEFAULT_CURRENT_ERA
+  ERAS, DEFAULT_CURRENT_ERA, nextEraOf
 } from '../_barraca-shared.js';
 
 // ===== Seed data (used by 'seed' action + 'refresh-followers' action) =====
@@ -552,7 +552,7 @@ async function actionCloseEra(body) {
   }
 
   const currentEra = (await redisGet(KEYS.currentEra)) || DEFAULT_CURRENT_ERA;
-  const newEra = body.newEra || (currentEra === 'dartboard' ? 'wheel' : currentEra);
+  const newEra = body.newEra || nextEraOf(currentEra);
   if (!ERAS[newEra]) {
     return { status: 400, body: { error: `Unknown era "${newEra}". Valid: ${Object.keys(ERAS).join(', ')}` } };
   }

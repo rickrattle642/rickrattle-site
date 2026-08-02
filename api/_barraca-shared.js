@@ -19,14 +19,24 @@ export const KEYS = {
   eraArchive: 'rr:barraca:era-archive'  // array of past era snapshots (for revert + display)
 };
 
-// Era catalogue — order matters for display. Adding a new era? Append here + bump CURRENT_DEFAULT_ERA when going live.
+// Era catalogue — order matters for display. Adding a new era? Append here + to ERA_ORDER below.
 export const ERAS = {
   dartboard: { id: 'dartboard', label: 'Dart Board', badge: '🎯', short: 'DARTS' },
-  wheel:     { id: 'wheel',     label: 'Roleta',     badge: '🎡', short: 'ROLETA' }
+  wheel:     { id: 'wheel',     label: 'Roleta',     badge: '🎡', short: 'ROLETA' },
+  ball:      { id: 'ball',      label: 'Bolas',      badge: '🏀', short: 'BOLAS' }
 };
 // What "currentEra" should default to if Redis key is missing (fresh deploy or pre-migration).
 // Today (2026-06-30) we're still in the dartboard era; the user will click "Close Era" tomorrow.
 export const DEFAULT_CURRENT_ERA = 'dartboard';
+
+// Sequence "Fechar Era" walks through when no explicit newEra is given.
+// Wraps back to the start after the last era.
+export const ERA_ORDER = ['dartboard', 'wheel', 'ball'];
+export function nextEraOf(currentEra) {
+  const i = ERA_ORDER.indexOf(currentEra);
+  if (i === -1) return ERA_ORDER[0];
+  return ERA_ORDER[(i + 1) % ERA_ORDER.length];
+}
 
 // Challenges on the wheel that Rick has to do. Keep order stable — admin UI uses it.
 export const CHALLENGES = ['WHISKEY', 'CHILLI', 'LEMON', 'TORTILLA', 'BEER'];

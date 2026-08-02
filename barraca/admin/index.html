@@ -213,6 +213,7 @@
             <select id="retagEra" style="padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:inherit;font-size:13px">
               <option value="dartboard">🎯 Dart Board</option>
               <option value="wheel" selected>🎡 Roleta</option>
+              <option value="ball">🏀 Bolas</option>
             </select>
             <button class="btn btn-secondary" style="font-size:11px;padding:8px 14px" onclick="retagHistory()">🏷️ Reetiquetar</button>
           </div>
@@ -312,8 +313,16 @@
   // Era catalogue — must mirror backend ERAS constant
   const ERA_INFO = {
     dartboard: { label: 'Dart Board', badge: '🎯', short: 'DARTS' },
-    wheel:     { label: 'Roleta',     badge: '🎡', short: 'ROLETA' }
+    wheel:     { label: 'Roleta',     badge: '🎡', short: 'ROLETA' },
+    ball:      { label: 'Bolas',      badge: '🏀', short: 'BOLAS' }
   };
+  // Sequence "Fechar Era" walks through — must mirror backend ERA_ORDER constant
+  const ERA_ORDER = ['dartboard', 'wheel', 'ball'];
+  function nextEraOf(era){
+    const i = ERA_ORDER.indexOf(era);
+    if (i === -1) return ERA_ORDER[0];
+    return ERA_ORDER[(i + 1) % ERA_ORDER.length];
+  }
 
   // Challenges config — order must match backend CHALLENGES constant
   const CHALLENGES = [
@@ -411,7 +420,7 @@
     // Era status
     const era = state.currentEra || 'dartboard';
     const eraInfo = ERA_INFO[era] || { label: era, badge: '·', short: era.toUpperCase() };
-    const nextEra = era === 'dartboard' ? 'wheel' : 'dartboard';
+    const nextEra = nextEraOf(era);
     const nextInfo = ERA_INFO[nextEra];
     $('currentEraLabel').textContent = `${eraInfo.badge} ${eraInfo.label.toUpperCase()}`;
     $('nextEraHint').textContent = nextInfo ? ` → próxima: ${nextInfo.badge} ${nextInfo.label}` : '';
@@ -636,7 +645,7 @@
   // ---- Era management (close + revert) ----
   async function closeEra(){
     const era = state?.currentEra || 'dartboard';
-    const nextEra = era === 'dartboard' ? 'wheel' : 'dartboard';
+    const nextEra = nextEraOf(era);
     const eraInfo = ERA_INFO[era] || { label: era };
     const nextInfo = ERA_INFO[nextEra] || { label: nextEra };
     const msg = [
