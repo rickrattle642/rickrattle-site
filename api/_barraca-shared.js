@@ -14,7 +14,6 @@ export const KEYS = {
   record:     'rr:barraca:record',
   history:    'rr:barraca:history',
   followers:  'rr:barraca:followers',
-  challenges: 'rr:barraca:challenges',  // monthly tally — { "YYYY-MM": { WHISKEY:n, CHILLI:n, ... } }
   currentEra: 'rr:barraca:current-era', // string id of currently active era ('dartboard' | 'wheel' | ...)
   eraArchive: 'rr:barraca:era-archive'  // array of past era snapshots (for revert + display)
 };
@@ -36,16 +35,6 @@ export function nextEraOf(currentEra) {
   const i = ERA_ORDER.indexOf(currentEra);
   if (i === -1) return ERA_ORDER[0];
   return ERA_ORDER[(i + 1) % ERA_ORDER.length];
-}
-
-// Challenges on the wheel that Rick has to do. Keep order stable — admin UI uses it.
-export const CHALLENGES = ['WHISKEY', 'CHILLI', 'LEMON', 'TORTILLA', 'BEER'];
-
-// Returns the YYYY-MM key for "now" (UTC). Used for the monthly challenge bucket.
-export function currentMonthKey(d = new Date()) {
-  const yyyy = d.getUTCFullYear();
-  const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
-  return `${yyyy}-${mm}`;
 }
 
 // Run a Redis command via Upstash REST API. Always returns parsed JSON for SET/GET
@@ -83,14 +72,13 @@ export async function redisSet(key, value) {
   return cmd(['SET', key, body]);
 }
 
-// Read current stream + house record + last 10 history entries + followers + challenges + era info.
+// Read current stream + house record + last 10 history entries + followers + era info.
 export async function readFullState() {
-  const [current, record, history, followers, challenges, currentEra, eraArchive] = await Promise.all([
+  const [current, record, history, followers, currentEra, eraArchive] = await Promise.all([
     redisGet(KEYS.current),
     redisGet(KEYS.record),
     redisGet(KEYS.history),
     redisGet(KEYS.followers),
-    redisGet(KEYS.challenges),
     redisGet(KEYS.currentEra),
     redisGet(KEYS.eraArchive)
   ]);
@@ -99,7 +87,6 @@ export async function readFullState() {
     record:     record  || null,
     history:    Array.isArray(history)   ? history.slice(0, 50) : [],
     followers:  Array.isArray(followers) ? followers : [],
-    challenges: (challenges && typeof challenges === 'object') ? challenges : {},
     currentEra: currentEra || DEFAULT_CURRENT_ERA,
     eraArchive: Array.isArray(eraArchive) ? eraArchive : []
   };

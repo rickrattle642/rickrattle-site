@@ -70,19 +70,6 @@
   .toast.show{transform:translateX(0)}
   .toast.err{border-left-color:var(--red);color:#e87474}
   .toast.ok{border-left-color:var(--green)}
-  /* Challenges grid (admin tracker for monthly counts) */
-  .challenges-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
-  .ch-card{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center;transition:.15s}
-  .ch-card:hover{border-color:var(--accent)}
-  .ch-card .ch-emoji{font-size:26px;line-height:1}
-  .ch-card .ch-name{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:2px;color:var(--accent)}
-  .ch-card .ch-count{font-family:'Anton',sans-serif;font-size:34px;line-height:1;color:var(--ink);cursor:pointer;padding:2px 8px;border-radius:4px;transition:.15s}
-  .ch-card .ch-count:hover{background:rgba(201,162,75,.1);color:var(--accent)}
-  .ch-card .ch-actions{display:flex;gap:6px;width:100%;margin-top:2px}
-  .ch-card .ch-actions button{flex:1;padding:8px;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px;font-family:'Anton',sans-serif;font-size:14px;cursor:pointer;transition:.15s}
-  .ch-card .ch-actions button:hover{background:var(--accent);color:var(--bg);border-color:var(--accent)}
-  .ch-card .ch-actions button.dec{color:#e87474}
-  .ch-card .ch-actions button.dec:hover{background:var(--red);color:#fff;border-color:var(--red)}
   /* Stream status */
   .stream-status{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
   .stream-status .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.5s infinite}
@@ -155,24 +142,6 @@
           <input type="number" id="customDelta" placeholder="100" value="100">
           <button class="btn" onclick="quickAdd(Number(document.getElementById('customDelta').value)||0)">Adicionar</button>
           <button class="btn btn-secondary" onclick="setExact()">Definir Exacto</button>
-        </div>
-      </div>
-
-      <!-- Challenges tracker (monthly) -->
-      <div class="panel" style="margin-top:20px">
-        <h2>🌶 Challenges do M&ecirc;s</h2>
-        <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5">
-          Conta quantas vezes fazes cada challenge da roleta este m&ecirc;s.
-          <span id="challengeMonthLabel" style="color:var(--accent);font-weight:700"></span>
-        </div>
-        <div class="challenges-grid" id="challengesGrid">
-          <!-- Filled by render() -->
-        </div>
-        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <button class="btn btn-secondary" style="font-size:11px;padding:8px 12px" onclick="resetChallengesMonth()">🔄 Reset m&ecirc;s</button>
-          <span style="font-size:11px;color:var(--muted);line-height:1.4">
-            Clica no <strong style="color:var(--ink)">+</strong> para incrementar, no <strong style="color:var(--ink)">−</strong> para descontar, ou no n&uacute;mero para editar.
-          </span>
         </div>
       </div>
 
@@ -324,25 +293,6 @@
     return ERA_ORDER[(i + 1) % ERA_ORDER.length];
   }
 
-  // Challenges config — order must match backend CHALLENGES constant
-  const CHALLENGES = [
-    { name: 'WHISKEY',  emoji: '🥃' },
-    { name: 'CHILLI',   emoji: '🌶️' },
-    { name: 'LEMON',    emoji: '🍋' },
-    { name: 'TORTILLA', emoji: '🌮' },
-    { name: 'BEER',     emoji: '🍺' }
-  ];
-  function currentMonthKey(){
-    const d = new Date();
-    return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`;
-  }
-  function monthLabel(key){
-    if (!key) return '';
-    const [y,m] = key.split('-');
-    const monthNames = ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-    return `${monthNames[parseInt(m,10)-1]} ${y}`;
-  }
-
   function $(id){return document.getElementById(id)}
 
   function showToast(msg, kind){
@@ -435,26 +385,6 @@
     } else {
       $('eraArchiveSummary').innerHTML = 'Nenhuma transi&ccedil;&atilde;o feita ainda. Estamos na era inicial.';
     }
-
-    // Challenges (current month tally)
-    const monthKey = currentMonthKey();
-    $('challengeMonthLabel').textContent = '· ' + monthLabel(monthKey);
-    const bucket = (state.challenges && state.challenges[monthKey]) || {};
-    const grid = $('challengesGrid');
-    grid.innerHTML = CHALLENGES.map(c => {
-      const val = bucket[c.name] || 0;
-      return `
-        <div class="ch-card">
-          <div class="ch-emoji">${c.emoji}</div>
-          <div class="ch-name">${c.name}</div>
-          <div class="ch-count" onclick="editChallenge('${c.name}', ${val})" title="Clica para editar">${val}</div>
-          <div class="ch-actions">
-            <button class="dec" onclick="chDelta('${c.name}', -1)">−</button>
-            <button onclick="chDelta('${c.name}', 1)">+</button>
-          </div>
-        </div>
-      `;
-    }).join('');
 
     // Record
     const rec = $('adminRecord');
@@ -691,35 +621,6 @@
     try {
       const res = await adminAction({ action: 'close-era', revert: true });
       showToast(`Era revertida: ${fromInfo.label} → ${toInfo.label}`, 'ok');
-      await loadState();
-    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
-  }
-
-  // ---- Challenges (monthly counter for Rick's wheel challenges) ----
-  async function chDelta(name, delta){
-    try {
-      const res = await adminAction({ action: 'challenge', name, delta });
-      const verb = delta > 0 ? 'feito' : 'descontado';
-      showToast(`${name}: ${res.value} (${verb})`, 'ok');
-      await loadState();
-    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
-  }
-  async function editChallenge(name, current){
-    const val = prompt(`Definir contador de ${name} para o mês actual (actual: ${current}):`, current);
-    if (val === null) return;
-    const num = parseInt(val, 10);
-    if (isNaN(num) || num < 0) return showToast('Número inválido', 'err');
-    try {
-      await adminAction({ action: 'challenge', name, set: num });
-      showToast(`${name} = ${num}`, 'ok');
-      await loadState();
-    } catch (e) { showToast('Erro: ' + e.message, 'err'); }
-  }
-  async function resetChallengesMonth(){
-    if (!confirm('RESET do contador de TODOS os challenges do mês actual. Continuar?')) return;
-    try {
-      await adminAction({ action: 'challenge', resetMonth: true });
-      showToast('Challenges do mês reset', 'ok');
       await loadState();
     } catch (e) { showToast('Erro: ' + e.message, 'err'); }
   }
