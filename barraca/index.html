@@ -734,7 +734,7 @@
       renderLifetimeRanking(state);
 
       // ===== Past months archive — one collapsible block per month =====
-      renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf, MODS_EXCLUDED);
+      renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf);
 
       const histEl = document.getElementById('history');
       const history = (state.history || []).slice(0, 50);  // show full history, not just last 8
@@ -936,7 +936,7 @@
     }
 
     // Group history by month, render past-month prize blocks (excluding current month).
-    function renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf, MODS){
+    function renderPastMonths(state, currentMonthKey, monthKeyOf, monthLabelOf){
       const wrap = document.getElementById('pastMonthsWrap');
       const listEl = document.getElementById('pastMonthsList');
       if (!wrap || !listEl) return;
@@ -974,6 +974,10 @@
             monthTotals.set(k, cur);
           });
         });
+        // Mods were excluded from monthly prizes through Junho 2026; reinstated from Julho
+        // 2026 onward (Rick's decision). Past months keep the policy that was actually in
+        // effect at the time — reinstating mods today shouldn't rewrite already-closed history.
+        const MODS = mKey <= '2026-06' ? new Set(['mashazinha_']) : new Set([]);
         const recordKey = (record?.name || '').toLowerCase();
         const recordIsMod = recordKey && MODS.has(recordKey);
         const eligible = [...monthTotals.values()]
