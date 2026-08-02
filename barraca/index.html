@@ -543,22 +543,23 @@
 
       // ===== Monthly filter — Prémios do Mês actual =====
       const now = new Date();
-      // TEMPORARY one-day grace period: the 31/07 stream was postponed to 01/08, so the
-      // "Prémios do Mês" window stays on Julho through 01/08 and rolls over to Agosto
-      // normally from 02/08 onwards. Safe to delete this block after 2026-08-02.
-      const monthNow = new Date(now);
-      if (monthNow.getUTCFullYear() === 2026 && monthNow.getUTCMonth() === 7 && monthNow.getUTCDate() === 1) {
-        monthNow.setUTCDate(monthNow.getUTCDate() - 1);
-      }
-      const currentMonthKey = `${monthNow.getUTCFullYear()}-${String(monthNow.getUTCMonth()+1).padStart(2,'0')}`;
+      const currentMonthKey = `${now.getUTCFullYear()}-${String(now.getUTCMonth()+1).padStart(2,'0')}`;
       const MONTH_NAMES_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-      const currentMonthLabel = `${MONTH_NAMES_PT[monthNow.getUTCMonth()]} ${monthNow.getUTCFullYear()}`;
+      const currentMonthLabel = `${MONTH_NAMES_PT[now.getUTCMonth()]} ${now.getUTCFullYear()}`;
       const monthLabelEl = document.getElementById('hofMonthLabel');
       if (monthLabelEl) monthLabelEl.textContent = currentMonthLabel;
 
       function monthKeyOf(dateLike) {
         const d = new Date(dateLike || 0);
         if (isNaN(d.getTime())) return '0000-00';
+        // TEMPORARY: the stream meant for 31/07 was postponed and actually happened on
+        // 01/08/2026 — bucket that single calendar day as Julho so it counts toward July's
+        // prizes (already closed/archived) instead of starting Agosto's count with points
+        // that aren't really August's. Displayed date is untouched. Safe to delete once
+        // this session has scrolled out of relevance (it will never match again either way).
+        if (d.getUTCFullYear() === 2026 && d.getUTCMonth() === 7 && d.getUTCDate() === 1) {
+          return '2026-07';
+        }
         return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}`;
       }
       function monthLabelOf(key) {
