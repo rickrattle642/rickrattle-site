@@ -31,13 +31,13 @@ async function redisCmd(...args) {
   const resp = await fetch(process.env.UPSTASH_REDIS_REST_URL, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${process.env.UPSTASH_REDIS_REST_TOKEN}`,
+      Authorization: 'Bearer ' + (process.env.UPSTASH_REDIS_REST_TOKEN),
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(args),
   });
   const data = await resp.json();
-  if (data.error) throw new Error(`Redis error em [${args[0]}]: ${data.error}`);
+  if (data.error) throw new Error('Redis error em [' + (args[0]) + ']: ' + (data.error));
   return data.result;
 }
 
@@ -58,7 +58,7 @@ function flatArrayToObject(flat) {
 
 function mesAtual() {
   const d = new Date();
-  return `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}`;
+  return (d.getFullYear()) + (String(d.getMonth() + 1).padStart(2, '0'));
 }
 
 function normalizarResposta(msg) {
@@ -78,8 +78,8 @@ export default async function handler(req, res) {
 
       // -----------------------------------------------------------
       case 'carregar_perguntas': {
-        await redisSetJSON(`${PREFIX}questions`, questionsData);
-        await redisCmd('DEL', `${PREFIX}questions:used`);
+        await redisSetJSON((PREFIX) + 'questions', questionsData);
+        await redisCmd('DEL', (PREFIX) + 'questions:used');
         return res.status(200).json({
           ok: true,
           carregadas: questionsData.length,
@@ -89,27 +89,27 @@ export default async function handler(req, res) {
 
       // -----------------------------------------------------------
       case 'proxima_pergunta': {
-        const questions = (await redisGetJSON(`${PREFIX}questions`)) || [];
+        const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];
         if (!questions.length) {
           return res.status(500).json({ ok: false, error: 'sem perguntas carregadas no Redis' });
         }
 
-        const usedIds = (await redisCmd('SMEMBERS', `${PREFIX}questions:used`)) || [];
+        const usedIds = (await redisCmd('SMEMBERS', (PREFIX) + 'questions:used')) || [];
         const usedSet = new Set(usedIds);
         let disponiveis = questions.filter(q => !usedSet.has(q.id));
 
         if (disponiveis.length === 0) {
-          await redisCmd('DEL', `${PREFIX}questions:used`);
+          await redisCmd('DEL', (PREFIX) + 'questions:used');
           disponiveis = questions;
         }
 
         const escolhida = disponiveis[Math.floor(Math.random() * disponiveis.length)];
-        await redisCmd('SADD', `${PREFIX}questions:used`, escolhida.id);
+        await redisCmd('SADD', (PREFIX) + 'questions:used', escolhida.id);
 
         const roundId = Date.now();
         const endsAt = roundId + DURACAO_RONDA_MS;
 
-        await redisSetJSON(`${PREFIX}round:current`, {
+        await redisSetJSON((PREFIX) + 'round:current', {
           roundId,
           endsAt,
           accepting: true,
@@ -135,7 +135,7 @@ export default async function handler(req, res) {
         if (!user || !message) {
           return res.status(400).json({ ok: false, error: 'faltam user/message' });
         }
-        const round = await redisGetJSON(`${PREFIX}round:current`);
+        const round = await redisGetJSON((PREFIX) + 'round:current');
         if (!round || !round.accepting || Date.now() > round.endsAt) {
           return res.status(200).json({ ok: true, registada: false });
         }
@@ -143,24 +143,24 @@ export default async function handler(req, res) {
         if (!letra) {
           return res.status(200).json({ ok: true, registada: false });
         }
-        const gravou = await redisCmd('HSETNX', `${PREFIX}round:${round.roundId}:answers`, user, letra);
+        const gravou = await redisCmd('HSETNX', (PREFIX) + 'round:' + (round.roundId) + ':answers', user, letra);
         return res.status(200).json({ ok: true, registada: gravou === 1 });
       }
 
       // -----------------------------------------------------------
       case 'fechar_ronda': {
-        const round = await redisGetJSON(`${PREFIX}round:current`);
+        const round = await redisGetJSON((PREFIX) + 'round:current');
         if (!round) {
           return res.status(404).json({ ok: false, error: 'sem ronda ativa' });
         }
 
-        await redisSetJSON(`${PREFIX}round:current`, { ...round, accepting: false });
+        await redisSetJSON((PREFIX) + 'round:current', { ...round, accepting: false });
 
-        const respostasFlat = (await redisCmd('HGETALL', `${PREFIX}round:${round.roundId}:answers`)) || [];
+        const respostasFlat = (await redisCmd('HGETALL', (PREFIX) + 'round:' + (round.roundId) + ':answers')) || [];
         const respostas = flatArrayToObject(respostasFlat);
         const letraCorreta = round.respostaCorreta.charAt(0);
 
-        const leaderboardKey = `${PREFIX}month:${mesAtual()}:leaderboard`;
+        const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
         const acertaram = [];
         for (const [nome, letra] of Object.entries(respostas)) {
           if (letra === letraCorreta) {
@@ -189,14 +189,14 @@ export default async function handler(req, res) {
         if (!user || !pontos) {
           return res.status(400).json({ ok: false, error: 'faltam user/pontos' });
         }
-        const leaderboardKey = `${PREFIX}month:${mesAtual()}:leaderboard`;
+        const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
         const novoTotal = await redisCmd('ZINCRBY', leaderboardKey, Number(pontos), user);
         return res.status(200).json({ ok: true, user, novoTotal: Number(novoTotal) });
       }
 
       // -----------------------------------------------------------
       default:
-        return res.status(400).json({ ok: false, error: `ação desconhecida: ${action}` });
+        return res.status(400).json({ ok: false, error: 'ação desconhecida: ' + (action) });
     }
   } catch (err) {
     return res.status(500).json({ ok: false, error: String(err) });
