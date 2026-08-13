@@ -19,7 +19,9 @@
 import { questionsData } from './questions-data.js';
 
 const PREFIX = 'universidade:';
-const DURACAO_RONDA_MS = 30_000;
+const SEGUNDOS_EXIBIDOS = 30; // o que o relógio no quadro mostra
+const MARGEM_ANIMACAO_MS = 8_000; // tempo da animação de giz antes do timer visual arrancar
+const DURACAO_RONDA_MS = SEGUNDOS_EXIBIDOS * 1000 + MARGEM_ANIMACAO_MS; // janela real de aceitação (mais generosa)
 const PONTOS_POR_ACERTO = 10;
 
 // ---------------------------------------------------------------
@@ -124,7 +126,7 @@ export default async function handler(req, res) {
           opcaoD: escolhida.opcaoD,
           respostaCorreta: escolhida.respostaCorreta,
           curiosidade: escolhida.curiosidade,
-          segundos: DURACAO_RONDA_MS / 1000,
+          segundos: SEGUNDOS_EXIBIDOS,
         });
       }
 
