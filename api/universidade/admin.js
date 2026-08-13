@@ -17,6 +17,7 @@
 //   UNIVERSIDADE_ADMIN_KEY   (a "senha" simples usada no &key=)
 
 import { Redis } from '@upstash/redis';
+import { questionsData } from './questions-data.js';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
@@ -47,6 +48,20 @@ export default async function handler(req, res) {
 
   try {
     switch (action) {
+
+      // -----------------------------------------------------------
+      // Carrega/substitui o baralho de perguntas — corre 1 vez agora,
+      // e outra vez quando a auditoria terminar (é seguro repetir:
+      // substitui tudo e reinicia a lista de "usadas").
+      case 'carregar_perguntas': {
+        await redis.set(`${PREFIX}questions`, questionsData);
+        await redis.del(`${PREFIX}questions:used`);
+        return res.status(200).json({
+          ok: true,
+          carregadas: questionsData.length,
+          disciplinas: [...new Set(questionsData.map(q => q.disciplina))],
+        });
+      }
 
       // -----------------------------------------------------------
       case 'proxima_pergunta': {
