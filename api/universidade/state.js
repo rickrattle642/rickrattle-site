@@ -30,6 +30,7 @@ function mesAtual() {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   try {
     const round = await redisGetJSON(`${PREFIX}round:current`);
     const leaderboardKey = `${PREFIX}month:${mesAtual()}:leaderboard`;
