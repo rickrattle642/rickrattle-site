@@ -67,6 +67,7 @@ function normalizarResposta(msg) {
 }
 
 export default async function handler(req, res) {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   const { action, key, user, message, pontos } = req.query;
 
   if (key !== process.env.UNIVERSIDADE_ADMIN_KEY) {
