@@ -62,8 +62,8 @@ function mesAtual() {
 }
 
 function normalizarResposta(msg) {
-  const m = (msg || '').trim().toUpperCase().match(/[ABCD]/);
-  return m ? m[0] : null;
+  const matches = (msg || '').trim().toUpperCase().match(/\b[ABCD]\b/g);
+  return matches ? matches[matches.length - 1] : null;
 }
 
 export default async function handler(req, res) {
