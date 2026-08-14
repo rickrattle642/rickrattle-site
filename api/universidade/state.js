@@ -44,14 +44,24 @@ export default async function handler(req, res) {
     const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];
     const usadas = (await redisCmd('SMEMBERS', (PREFIX) + 'questions:used')) || [];
 
+    let respostasDaRonda = null;
+    if (round && round.roundId) {
+      const flat = (await redisCmd('HGETALL', (PREFIX) + 'round:' + (round.roundId) + ':answers')) || [];
+      respostasDaRonda = {};
+      for (let i = 0; i < flat.length; i += 2) respostasDaRonda[flat[i]] = flat[i + 1];
+    }
+
     return res.status(200).json({
       ok: true,
       ronda: round
         ? {
+            roundId: round.roundId,
             pergunta: round.pergunta,
+            respostaCorreta: round.respostaCorreta,
             accepting: round.accepting,
             endsAt: round.endsAt,
             segundosRestantes: Math.max(0, Math.round((round.endsAt - Date.now()) / 1000)),
+            respostasRecebidas: respostasDaRonda,
           }
         : null,
       top10,
