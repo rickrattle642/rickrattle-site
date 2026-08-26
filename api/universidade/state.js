@@ -38,7 +38,7 @@ export default async function handler(req, res) {
 
     const top10 = [];
     for (let i = 0; i < top10raw.length; i += 2) {
-      top10.push({ nome: top10raw[i], pontos: Number(top10raw[i + 1]) });
+      top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
     }
 
     const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];

@@ -9,7 +9,7 @@
 //   ?action=proxima_pergunta&key=XXX
 //   ?action=submeter_resposta&key=XXX&user=NOME&message=TEXTO
 //   ?action=fechar_ronda&key=XXX
-//   ?action=dar_pontos&key=XXX&user=NOME&pontos=10   (botão manual de emergência)
+//   ?action=dar_notas&key=XXX&user=NOME&notas=10   (botão manual de emergência)
 //
 // Variáveis de ambiente necessárias no Vercel:
 //   UPSTASH_REDIS_REST_URL
@@ -22,7 +22,7 @@ const PREFIX = 'universidade:';
 const SEGUNDOS_EXIBIDOS = 30; // o que o relógio no quadro mostra
 const MARGEM_ANIMACAO_MS = 8_000; // tempo da animação de giz antes do timer visual arrancar
 const DURACAO_RONDA_MS = SEGUNDOS_EXIBIDOS * 1000 + MARGEM_ANIMACAO_MS; // janela real de aceitação (mais generosa)
-const PONTOS_POR_ACERTO = 10;
+const NOTA_POR_ACERTO = 10;
 
 // ---------------------------------------------------------------
 // Helper: fala com a API REST do Upstash sem nenhum pacote externo
@@ -68,7 +68,7 @@ function normalizarResposta(msg) {
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-  const { action, key, user, message, pontos } = req.query;
+  const { action, key, user, message, notas } = req.query;
 
   if (key !== process.env.UNIVERSIDADE_ADMIN_KEY) {
     return res.status(401).json({ ok: false, error: 'chave inválida' });
@@ -165,7 +165,7 @@ export default async function handler(req, res) {
         const acertaram = [];
         for (const [nome, letra] of Object.entries(respostas)) {
           if (letra === letraCorreta) {
-            await redisCmd('ZINCRBY', leaderboardKey, PONTOS_POR_ACERTO, nome);
+            await redisCmd('ZINCRBY', leaderboardKey, NOTA_POR_ACERTO, nome);
             acertaram.push(nome);
           }
         }
@@ -173,7 +173,7 @@ export default async function handler(req, res) {
         const top10raw = (await redisCmd('ZRANGE', leaderboardKey, 0, 9, 'REV', 'WITHSCORES')) || [];
         const top10 = [];
         for (let i = 0; i < top10raw.length; i += 2) {
-          top10.push({ nome: top10raw[i], pontos: Number(top10raw[i + 1]) });
+          top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
         }
 
         return res.status(200).json({
@@ -186,19 +186,19 @@ export default async function handler(req, res) {
       }
 
       // -----------------------------------------------------------
-      case 'dar_pontos': {
-        if (!user || !pontos) {
-          return res.status(400).json({ ok: false, error: 'faltam user/pontos' });
+      case 'dar_notas': {
+        if (!user || !notas) {
+          return res.status(400).json({ ok: false, error: 'faltam user/notas' });
         }
         const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
-        const novoTotal = await redisCmd('ZINCRBY', leaderboardKey, Number(pontos), user);
+        const novoTotal = await redisCmd('ZINCRBY', leaderboardKey, Number(notas), user);
         return res.status(200).json({ ok: true, user, novoTotal: Number(novoTotal) });
       }
 
       // -----------------------------------------------------------
-      // Apaga o leaderboard do mês atual (ex: limpar pontos de teste
+      // Apaga o leaderboard do mês atual (ex: limpar notas de teste
       // antes de ires ao ar a sério). Não toca nas perguntas nem no
-      // que já foi usado — só nos pontos.
+      // que já foi usado — só nas notas.
       case 'reset_leaderboard': {
         const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
         await redisCmd('DEL', leaderboardKey);
