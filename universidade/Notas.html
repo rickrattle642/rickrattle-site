@@ -172,7 +172,7 @@
   <div id="board">
     <h2>👑 Notas da Turma 👑</h2>
     <div id="rows"></div>
-    <div id="empty-state" style="display:none;">Ainda ninguém tem pontos este mês.<br>Sê o primeiro a responder numa Prova Escrita!</div>
+    <div id="empty-state" style="display:none;">Ainda ninguém tem notas este mês.<br>Sê o primeiro a responder numa Prova Escrita!</div>
   </div>
 
   <div id="meta"></div>
@@ -207,7 +207,7 @@ async function carregarNotas() {
         return '<div class="row ' + topClass + '" style="animation-delay:' + (i * 0.06) + 's">'
           + '<div class="rank">' + (ORDINAIS[i] || (i + 1) + 'º') + '</div>'
           + '<div class="name">' + escapeHtml(item.nome) + '</div>'
-          + '<div class="points">' + item.pontos + '<small>pts</small></div>'
+          + '<div class="points">' + item.notas + '<small>notas</small></div>'
           + '</div>';
       }).join('');
     }
