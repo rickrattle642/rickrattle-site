@@ -196,6 +196,47 @@ export default async function handler(req, res) {
       }
 
       // -----------------------------------------------------------
+      // Apaga o leaderboard do mês atual (ex: limpar pontos de teste
+      // antes de ires ao ar a sério). Não toca nas perguntas nem no
+      // que já foi usado — só nos pontos.
+      case 'reset_leaderboard': {
+        const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
+        await redisCmd('DEL', leaderboardKey);
+        return res.status(200).json({ ok: true, mensagem: 'Leaderboard do mês atual limpo.' });
+      }
+
+      // -----------------------------------------------------------
+      // Corrige 1 pergunta já carregada, sem precisar de redeploy.
+      // ?action=editar_pergunta&key=XXX&id=GEO-001&campo=curiosidade&valor=Texto novo
+      // Campos aceites: pergunta, opcaoA, opcaoB, opcaoC, opcaoD, respostaCorreta, curiosidade
+      case 'editar_pergunta': {
+        const { id, campo, valor } = req.query;
+        const camposValidos = ['pergunta', 'opcaoA', 'opcaoB', 'opcaoC', 'opcaoD', 'respostaCorreta', 'curiosidade'];
+        if (!id || !campo || valor === undefined) {
+          return res.status(400).json({ ok: false, error: 'faltam id/campo/valor' });
+        }
+        if (!camposValidos.includes(campo)) {
+          return res.status(400).json({ ok: false, error: 'campo inválido. Usa: ' + camposValidos.join(', ') });
+        }
+        const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];
+        const idx = questions.findIndex(q => q.id === id);
+        if (idx === -1) {
+          return res.status(404).json({ ok: false, error: 'pergunta com esse id não encontrada: ' + id });
+        }
+        const antes = questions[idx][campo];
+        questions[idx][campo] = valor;
+        await redisSetJSON((PREFIX) + 'questions', questions);
+        return res.status(200).json({
+          ok: true,
+          id,
+          campo,
+          antes,
+          depois: valor,
+          aviso: 'Isto só corrige a cópia no Redis — o ficheiro questions-data.js no repositório continua com o valor antigo. Se recarregares com carregar_perguntas outra vez, esta correção perde-se, a menos que também a apliques no ficheiro.',
+        });
+      }
+
+      // -----------------------------------------------------------
       default:
         return res.status(400).json({ ok: false, error: 'ação desconhecida: ' + (action) });
     }
