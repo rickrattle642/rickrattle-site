@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universidade do Rick — Quadro de Honra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wood: #2a1810;
+    --wood-light: #4a2f1f;
+    --board: #14100c;
+    --chalk: #eef0ec;
+    --gold: #c9a24a;
+    --gold-dim: #8a6f38;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, var(--wood-light) 0%, var(--wood) 55%, #180f09 100%);
+    font-family: 'Kalam', cursive;
+    color: var(--chalk);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px 60px;
+  }
+
+  #logo-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 6px;
+  }
+  #logo-row .mark {
+    font-size: 34px;
+  }
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 5vw, 46px);
+    letter-spacing: 2px;
+    margin: 0;
+    text-shadow: 0 0 18px rgba(255,255,255,0.15);
+    text-align: center;
+  }
+  .underline {
+    width: min(560px, 80vw);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
+    margin: 10px 0 8px;
+  }
+  .subtitle {
+    color: var(--gold);
+    font-size: 20px;
+    margin-bottom: 34px;
+    opacity: 0.9;
+  }
+
+  #board {
+    width: min(640px, 92vw);
+    background: var(--board);
+    border: 10px solid #3a2415;
+    border-image: linear-gradient(160deg, #5a3a24, #2a1810) 1;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 0 60px rgba(0,0,0,0.4);
+    padding: 34px 28px 26px;
+    position: relative;
+  }
+  #board::before {
+    content: "";
+    position: absolute; inset: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 3px;
+    pointer-events: none;
+  }
+
+  #board h2 {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    margin: 0 0 24px;
+  }
+
+  .row {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 10px 4px;
+    border-bottom: 1px dotted rgba(238,240,236,0.18);
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+  }
+  .row:last-child { border-bottom: none; }
+  .rank {
+    font-family: 'Cinzel', serif;
+    width: 34px;
+    text-align: center;
+    color: var(--gold-dim);
+    font-size: 18px;
+  }
+  .row.top1 .rank, .row.top1 .name { color: var(--gold); font-size: 21px; }
+  .row.top2 .rank, .row.top2 .name { color: #d7d7d7; }
+  .row.top3 .rank, .row.top3 .name { color: #c98a4a; }
+  .name {
+    flex: 1;
+    font-size: 19px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .points {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--chalk);
+  }
+  .points small { color: var(--gold-dim); font-family: 'Kalam', cursive; font-size: 13px; margin-left: 4px; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  #empty-state {
+    text-align: center;
+    color: rgba(238,240,236,0.55);
+    font-size: 18px;
+    padding: 30px 10px;
+  }
+
+  #meta {
+    margin-top: 22px;
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: rgba(238,240,236,0.6);
+    font-size: 15px;
+  }
+  #meta b { color: var(--gold); }
+
+  footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: rgba(238,240,236,0.4);
+    text-align: center;
+  }
+  footer a { color: var(--gold-dim); text-decoration: none; }
+  footer a:hover { color: var(--gold); }
+
+  #updated-note {
+    margin-top: 10px;
+    font-size: 12px;
+    color: rgba(238,240,236,0.3);
+  }
+</style>
+</head>
+<body>
+
+  <div id="logo-row">
+    <span class="mark">🎓</span>
+  </div>
+  <h1>UNIVERSIDADE DO RICK</h1>
+  <div class="underline"></div>
+  <div class="subtitle">Quadro de Honra</div>
+
+  <div id="board">
+    <h2>👑 Notas da Turma 👑</h2>
+    <div id="rows"></div>
+    <div id="empty-state" style="display:none;">Ainda ninguém tem notas este mês.<br>Sê o primeiro a responder numa Prova Escrita!</div>
+  </div>
+
+  <div id="meta"></div>
+
+  <footer>
+    <a href="https://twitch.tv/rick_rattle" target="_blank">twitch.tv/rick_rattle</a>
+    &nbsp;·&nbsp;
+    <a href="https://rickrattle.com" target="_blank">rickrattle.com</a>
+    <div id="updated-note"></div>
+  </footer>
+
+<script>
+const ORDINAIS = ['1º','2º','3º','4º','5º','6º','7º','8º','9º','10º'];
+
+async function carregarNotas() {
+  try {
+    const resp = await fetch('/api/universidade/state', { cache: 'no-store' });
+    const data = await resp.json();
+
+    const rowsEl = document.getElementById('rows');
+    const emptyEl = document.getElementById('empty-state');
+    const metaEl = document.getElementById('meta');
+    const updatedEl = document.getElementById('updated-note');
+
+    if (!data.top10 || data.top10.length === 0) {
+      rowsEl.innerHTML = '';
+      emptyEl.style.display = 'block';
+    } else {
+      emptyEl.style.display = 'none';
+      rowsEl.innerHTML = data.top10.map((item, i) => {
+        const topClass = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : '';
+        return '<div class="row ' + topClass + '" style="animation-delay:' + (i * 0.06) + 's">'
+          + '<div class="rank">' + (ORDINAIS[i] || (i + 1) + 'º') + '</div>'
+          + '<div class="name">' + escapeHtml(item.nome) + '</div>'
+          + '<div class="points">' + item.notas + '<small>notas</small></div>'
+          + '</div>';
+      }).join('');
+    }
+
+    if (data.perguntas) {
+      metaEl.innerHTML = '<span><b>' + data.perguntas.usadas + '</b> de <b>' + data.perguntas.total + '</b> perguntas dadas</span>';
+    }
+
+    updatedEl.textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-PT');
+  } catch (e) {
+    console.error('Erro a carregar notas:', e);
+  }
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+carregarNotas();
+setInterval(carregarNotas, 20000); // atualiza sozinho a cada 20s
+</script>
+
+</body>
+</html>
