@@ -4854,7 +4854,9 @@ function mapSteamItems(data,game){
     summary:truncate(stripHtml(it.contents),200),
     game:game.slug,
     tags:['steam','official', it.feedlabel?.toLowerCase().replace(/\s+/g,'-')||'news'].filter(Boolean),
-    date:new Date(it.date*1000).toISOString().slice(0,10),
+    // Full timestamp (not just the day) so same-day items sort by real recency
+    // instead of falling back to games-array order on a date-only tie.
+    date:new Date(it.date*1000).toISOString(),
     readTime:3,
     external:true,
     source:'steam',
@@ -4889,7 +4891,7 @@ async function fetchRedditPosts(game){
       summary:p.selftext ? truncate(p.selftext,200) : `↑ ${p.score} · 💬 ${p.num_comments} · r/${game.subreddit}`,
       game:game.slug,
       tags:['reddit','community',p.link_flair_text?.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
-      date:new Date(p.created_utc*1000).toISOString().slice(0,10),
+      date:new Date(p.created_utc*1000).toISOString(),
       readTime:2,
       external:true,
       source:'reddit',
@@ -4923,7 +4925,7 @@ async function fetchGeneralReddit(feed){
       game:'general',
       platform:feed.platform||null,
       tags:['general','gaming',feed.platform,p.link_flair_text?.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
-      date:new Date(p.created_utc*1000).toISOString().slice(0,10),
+      date:new Date(p.created_utc*1000).toISOString(),
       readTime:2,
       external:true,
       source:'reddit',
@@ -4950,7 +4952,7 @@ async function fetchRssFeed(feed){
     game:'general',
     platform:feed.platform,
     tags:['rss',feed.platform,feed.label.toLowerCase().replace(/\s+/g,'-')].filter(Boolean),
-    date:it.date?it.date.slice(0,10):new Date().toISOString().slice(0,10),
+    date:it.date||new Date().toISOString(),
     readTime:3,
     external:true,
     source:'rss',
@@ -5260,10 +5262,19 @@ function updateSEO(r){
   let title=copy.siteTitle;
   let desc=copy.siteDesc;
   let img='/logo.png';
+  let canonicalUrl=baseUrl;
+  let external=false;
   if(r.view==='news' && r.a){
     const a=articles.find(x=>x.slug===r.a)||(externalArticles||[]).find(x=>x.slug===r.a);
     const game=games.find(g=>g.slug===r.a);
-    if(a){title=`${tr(a.title)} — Rick Rattle`;desc=tr(a.summary)||desc;img=a.thumb||gameThumb(a.game)||img;}
+    if(a){
+      title=`${tr(a.title)} — Rick Rattle`;desc=tr(a.summary)||desc;img=a.thumb||gameThumb(a.game)||img;
+      // Auto-fetched Steam/Reddit/RSS items are syndicated, thin-content pages —
+      // noindex + canonical pointing at the original source avoids duplicate-content
+      // and crawl-budget dilution for hundreds of ephemeral pages, without touching
+      // the fetch feature itself (visitors still see them normally).
+      if(a.external && a.sourceUrl){ external=true; canonicalUrl=a.sourceUrl; }
+    }
     else if(game){const m=copy.gameNews(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
   }else if(r.view==='news'){title=copy.newsHub.title;desc=copy.newsHub.desc;}
   else if(r.view==='tips' && r.a){
@@ -5278,8 +5289,9 @@ function updateSEO(r){
   else if(r.view==='cookie-policy' && copy.cookies){title=copy.cookies.title;desc=copy.cookies.desc;}
   document.title=title;
   document.documentElement.lang=lang;
+  if(external)setRobotsNoIndex();
   const set=(id,v,attr='content')=>{const el=document.getElementById(id);if(el)el.setAttribute(attr,v);};
-  set('seoCanonical',baseUrl,'href');
+  set('seoCanonical',canonicalUrl,'href');
   set('seoOgTitle',title);set('seoOgDesc',desc);set('seoOgImage',img);set('seoOgUrl',baseUrl);
   set('seoTwitterTitle',title);set('seoTwitterDesc',desc);set('seoTwitterImage',img);
   // Update meta description
