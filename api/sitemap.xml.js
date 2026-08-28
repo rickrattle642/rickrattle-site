@@ -33,7 +33,11 @@ const MANUAL_ARTICLE_SLUGS = [
   // Phase 3F platforms
   'ps-plus-2026-monthly-highlights','xbox-game-pass-2026-roadmap',
   // Phase 6 — Paralives launch coverage
-  'paralives-early-access-launch','paralives-post-launch-roadmap','paralives-bundles-and-collabs'
+  'paralives-early-access-launch','paralives-post-launch-roadmap','paralives-bundles-and-collabs',
+  // Phase 10 — GTA 6 Netflix gameplay reveal (August 27, 2026)
+  'gta-6-gameplay-reveal-vice-city-detail','gta-6-netflix-trailer-every-reveal','gta-6-eating-sleeping-exercise-mechanics',
+  'gta-6-netflix-extended-look-11-features','gta-6-vehicle-police-mechanics-details','gta-6-gameplay-details-rockstar-demo',
+  'gta-6-gameplay-video-features-november-launch'
 ];
 
 const MANUAL_TIPS_SLUGS = [
