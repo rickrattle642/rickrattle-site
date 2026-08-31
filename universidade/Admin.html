@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Universidade do Rick — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wood: #2a1810;
+    --wood-light: #4a2f1f;
+    --board: #14100c;
+    --chalk: #eef0ec;
+    --gold: #c9a24a;
+    --gold-dim: #8a6f38;
+    --green: #7bbf7b;
+    --red: #c97a6a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, var(--wood-light) 0%, var(--wood) 55%, #180f09 100%);
+    font-family: 'Kalam', cursive;
+    color: var(--chalk);
+    padding: 30px 20px 60px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(24px, 4vw, 34px);
+    text-align: center;
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    text-align: center;
+    color: var(--gold);
+    margin-bottom: 26px;
+  }
+
+  /* --- chave de admin --- */
+  #key-box {
+    background: var(--board);
+    border: 1px solid var(--gold-dim);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 26px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  #key-box label { color: var(--gold); font-size: 15px; }
+  #key-box input {
+    flex: 1; min-width: 180px;
+    background: #0a0806; border: 1px solid var(--gold-dim); border-radius: 6px;
+    color: var(--chalk); padding: 8px 10px; font-family: monospace; font-size: 14px;
+  }
+
+  /* --- cards --- */
+  #cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .card {
+    background: var(--board);
+    border: 1px solid rgba(201,162,74,0.35);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .card .valor {
+    font-family: 'Cinzel', serif;
+    font-size: 30px;
+    color: var(--gold);
+  }
+  .card .label {
+    font-size: 13px;
+    color: rgba(238,240,236,0.65);
+    margin-top: 4px;
+  }
+  .card.certas .valor { color: var(--green); }
+  .card.erradas .valor { color: var(--red); }
+
+  /* --- secções --- */
+  .painel {
+    background: var(--board);
+    border: 1px solid rgba(201,162,74,0.25);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .painel h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    color: var(--gold);
+    margin: 0 0 14px;
+  }
+  .linha { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
+  .linha input {
+    background: #0a0806; border: 1px solid var(--gold-dim); border-radius: 6px;
+    color: var(--chalk); padding: 9px 12px; font-family: 'Kalam', cursive; font-size: 15px;
+  }
+  #edit-user { flex: 1; min-width: 140px; }
+  #edit-notas { width: 90px; }
+  button.acao {
+    background: var(--gold); border: none; border-radius: 6px;
+    padding: 9px 18px; font-weight: 700; cursor: pointer; color: #1a1200;
+    font-family: 'Kalam', cursive; font-size: 15px;
+  }
+  button.acao:hover { background: #ddb85a; }
+  button.perigo { background: var(--red); color: #2a0d08; }
+  button.perigo:hover { background: #dd9a88; }
+  #edit-resultado { font-size: 14px; margin-top: 6px; min-height: 1.2em; }
+
+  .ranking-linha {
+    display: flex; justify-content: space-between; padding: 6px 4px;
+    border-bottom: 1px dotted rgba(238,240,236,0.15); font-size: 15px;
+  }
+  .ranking-linha .n { color: var(--gold-dim); width: 26px; }
+
+  .mensagem { font-size: 13px; color: rgba(238,240,236,0.5); margin-top: 8px; }
+  .ronda-status { font-size: 14px; }
+  .ronda-status .aberta { color: var(--green); }
+  .ronda-status .fechada { color: rgba(238,240,236,0.5); }
+
+  /* --- ecrã de bloqueio --- */
+  #gate {
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at top, var(--wood-light) 0%, var(--wood) 55%, #180f09 100%);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999;
+    padding: 20px;
+  }
+  #gate.unlocked { display: none; }
+  #gate-box {
+    background: var(--board);
+    border: 1px solid var(--gold-dim);
+    border-radius: 12px;
+    padding: 30px 34px;
+    text-align: center;
+    max-width: 360px;
+    width: 100%;
+  }
+  #gate-box .icon { font-size: 40px; margin-bottom: 10px; }
+  #gate-box h2 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 20px; margin: 0 0 18px; }
+  #gate-box input {
+    width: 100%; background: #0a0806; border: 1px solid var(--gold-dim); border-radius: 6px;
+    color: var(--chalk); padding: 11px 12px; font-family: monospace; font-size: 15px;
+    margin-bottom: 12px; text-align: center;
+  }
+  #gate-box button {
+    width: 100%; background: var(--gold); border: none; border-radius: 6px;
+    padding: 11px; font-weight: 700; cursor: pointer; color: #1a1200;
+    font-family: 'Kalam', cursive; font-size: 16px;
+  }
+  #gate-error { color: var(--red); font-size: 13px; margin-top: 10px; min-height: 1.2em; }
+  #main-content { display: none; }
+  #main-content.unlocked { display: block; }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div id="gate-box">
+    <div class="icon">🔒</div>
+    <h2>Painel de Administração</h2>
+    <input type="password" id="gate-password" placeholder="Palavra-passe" onkeydown="if(event.key==='Enter') tentarDesbloquear()">
+    <button onclick="tentarDesbloquear()">Entrar</button>
+    <div id="gate-error"></div>
+  </div>
+</div>
+
+<div class="wrap" id="main-content">
+  <h1>🎓 UNIVERSIDADE DO RICK</h1>
+  <div class="subtitle">Painel de Administração</div>
+
+  <div id="cards">
+    <div class="card"><div class="valor" id="c-total">—</div><div class="label">Perguntas no total</div></div>
+    <div class="card"><div class="valor" id="c-usadas">—</div><div class="label">Já usadas</div></div>
+    <div class="card"><div class="valor" id="c-porusar">—</div><div class="label">Por usar</div></div>
+    <div class="card certas"><div class="valor" id="c-certas">—</div><div class="label">Respostas certas</div></div>
+    <div class="card erradas"><div class="valor" id="c-erradas">—</div><div class="label">Respostas erradas</div></div>
+    <div class="card"><div class="valor" id="c-taxa">—</div><div class="label">Taxa de acerto</div></div>
+    <div class="card"><div class="valor" id="c-jogadores">—</div><div class="label">Jogadores no ranking</div></div>
+    <div class="card"><div class="valor" id="c-fechadas">—</div><div class="label">Perguntas já fechadas</div></div>
+  </div>
+
+  <div class="painel">
+    <h2>📡 Ronda atual</h2>
+    <div class="ronda-status" id="ronda-status">A carregar...</div>
+  </div>
+
+  <div class="painel">
+    <h2>✏️ Corrigir notas de um jogador</h2>
+    <div class="linha">
+      <input id="edit-user" placeholder="nome de utilizador (ex: rick__rattle)">
+      <input id="edit-notas" type="number" placeholder="±10" value="10">
+      <button class="acao" onclick="darNotas()">Aplicar</button>
+    </div>
+    <div class="mensagem">Usa valores negativos (ex: -10) para retirar notas. Só é preciso o nome exato de utilizador da Twitch.</div>
+    <div id="edit-resultado"></div>
+  </div>
+
+  <div class="painel">
+    <h2>🏆 Top 10 atual</h2>
+    <div id="ranking-lista">A carregar...</div>
+  </div>
+
+  <div class="painel">
+    <h2>⚠️ Ações gerais</h2>
+    <div class="linha">
+      <button class="acao" onclick="recarregarPerguntas()">🔄 Recarregar perguntas</button>
+      <button class="acao perigo" onclick="resetarLeaderboard()">🗑️ Reset notas + estatísticas</button>
+    </div>
+    <div class="mensagem">"Recarregar" repõe as 197 perguntas todas como disponíveis. "Reset" limpa pontuações e estatísticas — usa antes de ires ao ar a sério.</div>
+    <div id="acoes-resultado"></div>
+  </div>
+</div>
+
+<script>
+const API = 'https://rickrattle.com/api/universidade/admin';
+const API_KEY = 'rickrattle_uni2026'; // chave técnica, já não precisas de a colar — fica só aqui
+const GATE_PASSWORD = 'RickRattle2026!';
+
+function tentarDesbloquear() {
+  const senha = document.getElementById('gate-password').value;
+  const erroEl = document.getElementById('gate-error');
+  if (senha === GATE_PASSWORD) {
+    localStorage.setItem('universidade_admin_unlocked', 'true');
+    desbloquear();
+  } else {
+    erroEl.textContent = 'Palavra-passe incorreta.';
+  }
+}
+
+function desbloquear() {
+  document.getElementById('gate').classList.add('unlocked');
+  document.getElementById('main-content').classList.add('unlocked');
+  carregarStats();
+}
+
+// se já desbloqueaste antes neste browser, entra direto
+if (localStorage.getItem('universidade_admin_unlocked') === 'true') {
+  desbloquear();
+}
+
+async function chamarAdmin(action, params = {}) {
+  const query = new URLSearchParams({ action, key: API_KEY, ...params }).toString();
+  const resp = await fetch(`${API}?${query}`, { cache: 'no-store' });
+  const data = await resp.json();
+  return data;
+}
+
+async function carregarStats() {
+  try {
+    const data = await chamarAdmin('stats');
+    if (!data.ok) {
+      console.error('Erro ao carregar stats:', data.error);
+      return;
+    }
+
+    document.getElementById('c-total').textContent = data.perguntas.total;
+    document.getElementById('c-usadas').textContent = data.perguntas.usadas;
+    document.getElementById('c-porusar').textContent = data.perguntas.porUsar;
+    document.getElementById('c-certas').textContent = data.respostas.certas;
+    document.getElementById('c-erradas').textContent = data.respostas.erradas;
+    document.getElementById('c-taxa').textContent = data.taxaAcerto !== null ? data.taxaAcerto + '%' : '—';
+    document.getElementById('c-jogadores').textContent = data.jogadoresAtivos;
+    document.getElementById('c-fechadas').textContent = data.perguntasFechadas;
+
+    const rondaEl = document.getElementById('ronda-status');
+    if (data.rondaAtual) {
+      const estadoHtml = data.rondaAtual.accepting
+        ? '<span class="aberta">🟢 Aberta a respostas</span>'
+        : '<span class="fechada">⚪ Fechada (à espera da próxima)</span>';
+      rondaEl.innerHTML = `${estadoHtml}<br><small>"${data.rondaAtual.pergunta}"</small>`;
+    } else {
+      rondaEl.innerHTML = '<span class="fechada">⚪ Nenhuma pergunta lançada ainda</span>';
+    }
+
+    const rankingEl = document.getElementById('ranking-lista');
+    if (data.top10 && data.top10.length) {
+      rankingEl.innerHTML = data.top10.map((item, i) =>
+        `<div class="ranking-linha"><span><span class="n">${i + 1}º</span>${item.nome}</span><span>${item.notas}</span></div>`
+      ).join('');
+    } else {
+      rankingEl.innerHTML = '<div class="mensagem">Ainda ninguém tem notas este mês.</div>';
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function darNotas() {
+  const user = document.getElementById('edit-user').value.trim();
+  const notas = document.getElementById('edit-notas').value.trim();
+  const resultEl = document.getElementById('edit-resultado');
+  if (!user || !notas) {
+    resultEl.textContent = '⚠️ Preenche o nome e o valor.';
+    return;
+  }
+  resultEl.textContent = 'A aplicar...';
+  try {
+    const data = await chamarAdmin('dar_notas', { user, notas });
+    if (data.ok) {
+      resultEl.textContent = `✅ ${data.user} passou a ter ${data.novoTotal} notas.`;
+      carregarStats();
+    } else {
+      resultEl.textContent = '❌ ' + (data.error || 'erro desconhecido');
+    }
+  } catch (e) {
+    resultEl.textContent = '❌ ' + e.message;
+  }
+}
+
+async function recarregarPerguntas() {
+  const resultEl = document.getElementById('acoes-resultado');
+  resultEl.textContent = 'A recarregar...';
+  try {
+    const data = await chamarAdmin('carregar_perguntas');
+    resultEl.textContent = data.ok
+      ? `✅ ${data.carregadas} perguntas recarregadas.`
+      : '❌ ' + (data.error || 'erro desconhecido');
+    carregarStats();
+  } catch (e) {
+    resultEl.textContent = '❌ ' + e.message;
+  }
+}
+
+async function resetarLeaderboard() {
+  if (!confirm('Tens a certeza? Isto apaga todas as notas e estatísticas do mês atual.')) return;
+  const resultEl = document.getElementById('acoes-resultado');
+  resultEl.textContent = 'A limpar...';
+  try {
+    const data = await chamarAdmin('reset_leaderboard');
+    resultEl.textContent = data.ok ? '✅ ' + data.mensagem : '❌ ' + (data.error || 'erro desconhecido');
+    carregarStats();
+  } catch (e) {
+    resultEl.textContent = '❌ ' + e.message;
+  }
+}
+
+setInterval(() => {
+  if (localStorage.getItem('universidade_admin_unlocked') === 'true') carregarStats();
+}, 15000);
+</script>
+
+</body>
+</html>

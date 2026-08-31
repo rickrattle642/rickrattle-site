@@ -207,7 +207,7 @@ async function carregarNotas() {
         return '<div class="row ' + topClass + '" style="animation-delay:' + (i * 0.06) + 's">'
           + '<div class="rank">' + (ORDINAIS[i] || (i + 1) + 'º') + '</div>'
           + '<div class="name">' + escapeHtml(item.nome) + '</div>'
-          + '<div class="points">' + item.notas + '<small>notas</small></div>'
+          + '<div class="points">' + item.notas + '</div>'
           + '</div>';
       }).join('');
     }
