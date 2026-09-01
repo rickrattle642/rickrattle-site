@@ -170,6 +170,12 @@ export default async function handler(req, res) {
           }
         }
 
+        // contagem cumulativa (todas as rondas, para a página de admin)
+        const erradas = Object.keys(respostas).length - acertaram.length;
+        if (acertaram.length > 0) await redisCmd('INCRBY', (PREFIX) + 'stats:respostas_certas', acertaram.length);
+        if (erradas > 0) await redisCmd('INCRBY', (PREFIX) + 'stats:respostas_erradas', erradas);
+        await redisCmd('INCR', (PREFIX) + 'stats:perguntas_fechadas');
+
         const top10raw = (await redisCmd('ZRANGE', leaderboardKey, 0, 9, 'REV', 'WITHSCORES')) || [];
         const top10 = [];
         for (let i = 0; i < top10raw.length; i += 2) {
@@ -202,7 +208,61 @@ export default async function handler(req, res) {
       case 'reset_leaderboard': {
         const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
         await redisCmd('DEL', leaderboardKey);
-        return res.status(200).json({ ok: true, mensagem: 'Leaderboard do mês atual limpo.' });
+        await redisCmd('DEL', (PREFIX) + 'stats:respostas_certas');
+        await redisCmd('DEL', (PREFIX) + 'stats:respostas_erradas');
+        await redisCmd('DEL', (PREFIX) + 'stats:perguntas_fechadas');
+        return res.status(200).json({ ok: true, mensagem: 'Leaderboard e estatísticas do mês atual limpos.' });
+      }
+
+      // -----------------------------------------------------------
+      // Migra/junta as notas de um mês para outro (ex: sessão feita
+      // a 31 de agosto que devia contar para setembro por causa do
+      // calendário). Formato dos meses: AAAAMM (ex: 202608).
+      // Soma-se ao que já lá estiver — não apaga nada do destino.
+      case 'migrar_mes': {
+        const { de, para } = req.query;
+        if (!de || !para) {
+          return res.status(400).json({ ok: false, error: 'faltam de/para (formato AAAAMM)' });
+        }
+        const origemKey = (PREFIX) + 'month:' + de + ':leaderboard';
+        const destinoKey = (PREFIX) + 'month:' + para + ':leaderboard';
+        await redisCmd('ZUNIONSTORE', destinoKey, 2, destinoKey, origemKey);
+        const top10raw = (await redisCmd('ZRANGE', destinoKey, 0, 9, 'REV', 'WITHSCORES')) || [];
+        const top10 = [];
+        for (let i = 0; i < top10raw.length; i += 2) {
+          top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
+        }
+        return res.status(200).json({ ok: true, mensagem: `Notas de ${de} juntadas a ${para}.`, top10 });
+      }
+
+      // -----------------------------------------------------------
+      // Estatísticas gerais — para a página de admin
+      case 'stats': {
+        const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
+        const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];
+        const usadas = (await redisCmd('SMEMBERS', (PREFIX) + 'questions:used')) || [];
+        const certas = Number((await redisCmd('GET', (PREFIX) + 'stats:respostas_certas')) || 0);
+        const erradas = Number((await redisCmd('GET', (PREFIX) + 'stats:respostas_erradas')) || 0);
+        const perguntasFechadas = Number((await redisCmd('GET', (PREFIX) + 'stats:perguntas_fechadas')) || 0);
+        const jogadoresAtivos = await redisCmd('ZCARD', leaderboardKey);
+        const round = await redisGetJSON((PREFIX) + 'round:current');
+
+        const top10raw = (await redisCmd('ZRANGE', leaderboardKey, 0, 9, 'REV', 'WITHSCORES')) || [];
+        const top10 = [];
+        for (let i = 0; i < top10raw.length; i += 2) {
+          top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
+        }
+
+        return res.status(200).json({
+          ok: true,
+          perguntas: { total: questions.length, usadas: usadas.length, porUsar: questions.length - usadas.length },
+          respostas: { certas, erradas, total: certas + erradas },
+          taxaAcerto: (certas + erradas) > 0 ? Math.round((certas / (certas + erradas)) * 100) : null,
+          perguntasFechadas,
+          jogadoresAtivos: Number(jogadoresAtivos) || 0,
+          rondaAtual: round ? { pergunta: round.pergunta, accepting: round.accepting } : null,
+          top10,
+        });
       }
 
       // -----------------------------------------------------------
