@@ -66,6 +66,52 @@ function normalizarResposta(msg) {
   return matches ? matches[matches.length - 1] : null;
 }
 
+// -----------------------------------------------------------
+// Fecha a ronda atual (se houver uma por fechar) e calcula os
+// resultados. Reutilizada tanto pela ação 'fechar_ronda' como,
+// automaticamente, pela 'proxima_pergunta' — para nunca se
+// perder pontos de uma ronda anterior que ainda não foi fechada
+// (ex: cliques demasiado próximos um do outro).
+async function fecharRondaAtual() {
+  const round = await redisGetJSON(PREFIX + 'round:current');
+  if (!round || round.accepting === false) {
+    return null; // nada por fechar
+  }
+
+  await redisSetJSON(PREFIX + 'round:current', { ...round, accepting: false });
+
+  const respostasFlat = (await redisCmd('HGETALL', PREFIX + 'round:' + round.roundId + ':answers')) || [];
+  const respostas = flatArrayToObject(respostasFlat);
+  const letraCorreta = round.respostaCorreta.charAt(0);
+
+  const leaderboardKey = PREFIX + 'month:' + mesAtual() + ':leaderboard';
+  const acertaram = [];
+  for (const [nome, letra] of Object.entries(respostas)) {
+    if (letra === letraCorreta) {
+      await redisCmd('ZINCRBY', leaderboardKey, NOTA_POR_ACERTO, nome);
+      acertaram.push(nome);
+    }
+  }
+
+  const erradas = Object.keys(respostas).length - acertaram.length;
+  if (acertaram.length > 0) await redisCmd('INCRBY', PREFIX + 'stats:respostas_certas', acertaram.length);
+  if (erradas > 0) await redisCmd('INCRBY', PREFIX + 'stats:respostas_erradas', erradas);
+  await redisCmd('INCR', PREFIX + 'stats:perguntas_fechadas');
+
+  const top10raw = (await redisCmd('ZRANGE', leaderboardKey, 0, 9, 'REV', 'WITHSCORES')) || [];
+  const top10 = [];
+  for (let i = 0; i < top10raw.length; i += 2) {
+    top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
+  }
+
+  return {
+    totalRespostas: Object.keys(respostas).length,
+    acertaram: acertaram.length,
+    top10,
+    top10Json: JSON.stringify(top10),
+  };
+}
+
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   const { action, key, user, message, notas } = req.query;
@@ -90,6 +136,11 @@ export default async function handler(req, res) {
 
       // -----------------------------------------------------------
       case 'proxima_pergunta': {
+        // Segurança: se a ronda anterior ainda não tiver sido fechada
+        // (ex: cliques demasiado próximos), fecha-a agora, para as
+        // respostas de lá não se perderem.
+        await fecharRondaAtual();
+
         const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];
         if (!questions.length) {
           return res.status(500).json({ ok: false, error: 'sem perguntas carregadas no Redis' });
@@ -150,45 +201,11 @@ export default async function handler(req, res) {
 
       // -----------------------------------------------------------
       case 'fechar_ronda': {
-        const round = await redisGetJSON((PREFIX) + 'round:current');
-        if (!round) {
-          return res.status(404).json({ ok: false, error: 'sem ronda ativa' });
+        const resultado = await fecharRondaAtual();
+        if (!resultado) {
+          return res.status(404).json({ ok: false, error: 'sem ronda ativa por fechar' });
         }
-
-        await redisSetJSON((PREFIX) + 'round:current', { ...round, accepting: false });
-
-        const respostasFlat = (await redisCmd('HGETALL', (PREFIX) + 'round:' + (round.roundId) + ':answers')) || [];
-        const respostas = flatArrayToObject(respostasFlat);
-        const letraCorreta = round.respostaCorreta.charAt(0);
-
-        const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
-        const acertaram = [];
-        for (const [nome, letra] of Object.entries(respostas)) {
-          if (letra === letraCorreta) {
-            await redisCmd('ZINCRBY', leaderboardKey, NOTA_POR_ACERTO, nome);
-            acertaram.push(nome);
-          }
-        }
-
-        // contagem cumulativa (todas as rondas, para a página de admin)
-        const erradas = Object.keys(respostas).length - acertaram.length;
-        if (acertaram.length > 0) await redisCmd('INCRBY', (PREFIX) + 'stats:respostas_certas', acertaram.length);
-        if (erradas > 0) await redisCmd('INCRBY', (PREFIX) + 'stats:respostas_erradas', erradas);
-        await redisCmd('INCR', (PREFIX) + 'stats:perguntas_fechadas');
-
-        const top10raw = (await redisCmd('ZRANGE', leaderboardKey, 0, 9, 'REV', 'WITHSCORES')) || [];
-        const top10 = [];
-        for (let i = 0; i < top10raw.length; i += 2) {
-          top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
-        }
-
-        return res.status(200).json({
-          ok: true,
-          totalRespostas: Object.keys(respostas).length,
-          acertaram: acertaram.length,
-          top10,
-          top10Json: JSON.stringify(top10),
-        });
+        return res.status(200).json({ ok: true, ...resultado });
       }
 
       // -----------------------------------------------------------
