@@ -34,12 +34,12 @@ export default async function handler(req, res) {
   try {
     const round = await redisGetJSON((PREFIX) + 'round:current');
     const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
-    const top10raw = (await redisCmd('ZRANGE', leaderboardKey, 0, 9, 'REV', 'WITHSCORES')) || [];
-
-    const top10 = [];
-    for (let i = 0; i < top10raw.length; i += 2) {
-      top10.push({ nome: top10raw[i], notas: Number(top10raw[i + 1]) });
+    const rankingRaw = (await redisCmd('ZRANGE', leaderboardKey, 0, -1, 'REV', 'WITHSCORES')) || [];
+    const ranking = [];
+    for (let i = 0; i < rankingRaw.length; i += 2) {
+      ranking.push({ nome: rankingRaw[i], notas: Number(rankingRaw[i + 1]) });
     }
+    const top10 = ranking.slice(0, 10); // para o overlay, que só tem 10 linhas de espaço
 
     const questions = (await redisGetJSON((PREFIX) + 'questions')) || [];
     const usadas = (await redisCmd('SMEMBERS', (PREFIX) + 'questions:used')) || [];
@@ -65,6 +65,7 @@ export default async function handler(req, res) {
           }
         : null,
       top10,
+      ranking,
       perguntas: { total: questions.length, usadas: usadas.length, idsUsados: usadas },
     });
   } catch (err) {
