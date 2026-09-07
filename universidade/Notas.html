@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Universidade do Rick — Quadro de Honra</title>
+<title>Universidade do Rick — Registo de Notas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Cinzel:wght@600&display=swap" rel="stylesheet">
 <style>
@@ -167,7 +167,7 @@
   </div>
   <h1>UNIVERSIDADE DO RICK</h1>
   <div class="underline"></div>
-  <div class="subtitle">Quadro de Honra</div>
+  <div class="subtitle">Registo de Notas</div>
 
   <div id="board">
     <h2>👑 Notas da Turma 👑</h2>
@@ -197,12 +197,12 @@ async function carregarNotas() {
     const metaEl = document.getElementById('meta');
     const updatedEl = document.getElementById('updated-note');
 
-    if (!data.top10 || data.top10.length === 0) {
+    if (!data.ranking || data.ranking.length === 0) {
       rowsEl.innerHTML = '';
       emptyEl.style.display = 'block';
     } else {
       emptyEl.style.display = 'none';
-      rowsEl.innerHTML = data.top10.map((item, i) => {
+      rowsEl.innerHTML = data.ranking.map((item, i) => {
         const topClass = i === 0 ? 'top1' : i === 1 ? 'top2' : i === 2 ? 'top3' : '';
         return '<div class="row ' + topClass + '" style="animation-delay:' + (i * 0.06) + 's">'
           + '<div class="rank">' + (ORDINAIS[i] || (i + 1) + 'º') + '</div>'
