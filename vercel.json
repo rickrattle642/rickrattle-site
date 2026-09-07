@@ -11,6 +11,8 @@
     { "source": "/tips/(.*)", "destination": "/index.html" },
     { "source": "/rick", "destination": "/index.html" },
     { "source": "/rick/(.*)", "destination": "/index.html" },
+    { "source": "/premiados", "destination": "/index.html" },
+    { "source": "/premiados/(.*)", "destination": "/index.html" },
     { "source": "/decks", "destination": "/index.html" },
     { "source": "/decks/(.*)", "destination": "/index.html" }
   ],
