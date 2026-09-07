@@ -533,6 +533,16 @@ button{font-family:inherit}
 .merch-soon-tag{position:absolute;bottom:0;left:0;right:0;padding:6px;background:rgba(0,0,0,.7);color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-align:center;text-transform:uppercase;z-index:3;backdrop-filter:blur(4px)}
 .merch-price.merch-soon-text{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--cyan);text-transform:uppercase;font-weight:700}
 
+/* ==================== PREMIADOS (winners) ==================== */
+.premiados-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px}
+.premiados-card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:.25s}
+.premiados-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
+.premiados-img{aspect-ratio:1;background:linear-gradient(135deg,var(--panel2),var(--bg2));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.premiados-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;transition:transform .4s}
+.premiados-card:hover .premiados-img img{transform:scale(1.06)}
+.premiados-body{padding:14px 16px;text-align:center}
+.premiados-name{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.5px;color:var(--accent);text-transform:uppercase}
+
 /* ==================== VISIT COUNTER ==================== */
 .visit-counter{display:flex;align-items:center;gap:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);margin-top:4px;padding-top:10px}
 .visit-eye{font-size:12px}
@@ -699,7 +709,8 @@ const T = {
     "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
     "search.ph":"Search articles, guides, tier lists...",
     "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS",
-    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.barraca":"Barraca da Feira","nav.universidade":"University",
+    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Winners",
+    "premiados.kicker":"// EVENTS","premiados.title":"Winners","premiados.sub":"A small hall of fame for the community that shows up and wins.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No winners yet — the first prize is still up for grabs.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
     "home.aside.popular":"POPULAR NOW","home.aside.latest":"LATEST ARTICLES",
@@ -727,7 +738,8 @@ const T = {
     "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
     "search.ph":"Procurar artigos, guias, tier lists...",
     "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS",
-    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade",
+    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Premiados",
+    "premiados.kicker":"// EVENTOS","premiados.title":"Premiados","premiados.sub":"Um pequeno quadro de honra para a comunidade que aparece e ganha.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda não há premiados — o primeiro prémio está por agarrar.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
     "home.aside.popular":"POPULARES AGORA","home.aside.latest":"ARTIGOS RECENTES",
@@ -5074,6 +5086,13 @@ const merch = [
   {slug:'backpack',         name:'Backpack',            img:'merch/Backpack.png',             url:'#'}
 ];
 
+// Community prize winners — one entry per prize photo. `name` is shown highlighted
+// on the Premiados page; derived from the filename (underscores/hyphens -> spaces).
+// Add a new entry here whenever a new winner photo is dropped in /premiados.
+const premiados = [
+  {slug:'kenpa-games', name:'Kenpa Games', img:'premiados/Kenpa_games.png'}
+];
+
 /* ================================================================
    VISIT COUNTER
    ================================================================ */
@@ -5127,6 +5146,7 @@ const navItems = [
   // Events are separate pages (not SPA views) — external:true bypasses the SPA click interceptor.
   {key:'barraca', icon:'◉', label:'nav.barraca', section:'events', external:true, href:'/barraca'},
   {key:'universidade', icon:'✎', label:'nav.universidade', section:'events', external:true, href:'/universidade/Notas.html'},
+  {key:'premiados', icon:'🏆', label:'nav.premiados', section:'events'},
   {key:'rick', icon:'★', label:'nav.rick', section:'creator'}
 ];
 
@@ -5170,6 +5190,7 @@ function go(path){
 const routes = {
   home:HomeView,
   rick:RickView,
+  premiados:PremiadosView,
   news:NewsView,
   tips:TipsView,
   about:AboutView,
@@ -5187,6 +5208,7 @@ const SEO_COPY={
     newsHub:{title:'Gaming News — Rick Rattle', desc:'Latest gaming news from Steam, Reddit, Xbox, PlayStation and PC. Filter by platform, game or source.'},
     tipsHub:{title:'Gaming Tips — Rick Rattle', desc:'Guides, builds and tier lists across the games we play. Updated regularly.'},
     rick:{title:'The Channel — Rick Rattle', desc:'Variety streamer running interactive chaos sessions. Join the Twitch live show.'},
+    premiados:{title:'Winners — Rick Rattle', desc:'A hall of fame for the community members who won prizes in our competitions — see the prizes and their setups.'},
     about:{title:'About — Rick Rattle', desc:'Rick Rattle is a small, honest gaming hub built around a Twitch community. Learn what the project is about and what you\'ll find here.'},
     contact:{title:'Contact — Rick Rattle', desc:'Get in touch — feedback, bug reports, collaborations and community contact for rickrattle.com.'},
     terms:{title:'Terms & Conditions — Rick Rattle', desc:'Plain-language terms of use for rickrattle.com — acceptable use, IP, disclaimers and contact.'},
@@ -5201,6 +5223,7 @@ const SEO_COPY={
     newsHub:{title:'Notícias de Gaming — Rick Rattle', desc:'Últimas notícias gaming do Steam, Reddit, Xbox, PlayStation e PC. Filtra por jogo, tag ou fonte.'},
     tipsHub:{title:'Dicas de Gaming — Rick Rattle', desc:'Guias, builds e tier lists para os jogos que jogamos. Atualizado regularmente.'},
     rick:{title:'O Canal — Rick Rattle', desc:'Streamer variety com sessões interativas de caos. Junta-te à live na Twitch.'},
+    premiados:{title:'Premiados — Rick Rattle', desc:'Um quadro de honra para os membros da comunidade que ganharam prémios nas nossas competições — vê os prémios e os seus setups.'},
     about:{title:'Sobre — Rick Rattle', desc:'Rick Rattle é um gaming hub pequeno e honesto construído à volta de uma comunidade Twitch. Vê do que o projeto trata e o que vais encontrar aqui.'},
     contact:{title:'Contacto — Rick Rattle', desc:'Entra em contacto — feedback, bug reports, colaborações e comunidade rickrattle.com.'},
     terms:{title:'Termos e Condições — Rick Rattle', desc:'Termos de uso em linguagem clara para rickrattle.com — uso aceitável, propriedade intelectual, disclaimers e contacto.'},
@@ -5284,6 +5307,7 @@ function updateSEO(r){
     if(game){const m=copy.gameTips(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
   }else if(r.view==='tips'){title=copy.tipsHub.title;desc=copy.tipsHub.desc;}
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
+  else if(r.view==='premiados'){title=copy.premiados.title;desc=copy.premiados.desc;}
   else if(r.view==='about' && copy.about){title=copy.about.title;desc=copy.about.desc;}
   else if(r.view==='contact' && copy.contact){title=copy.contact.title;desc=copy.contact.desc;}
   else if(r.view==='terms' && copy.terms){title=copy.terms.title;desc=copy.terms.desc;}
@@ -5365,6 +5389,8 @@ function buildBreadcrumbs(r){
     }
   }else if(r.view==='rick'){
     trail.push({label:'Rick Rattle', href:'/rick'});
+  }else if(r.view==='premiados'){
+    trail.push({label:PT?'Premiados':'Winners', href:'/premiados'});
   }else if(r.view==='about'){
     trail.push({label:PT?'Sobre':'About', href:'/about'});
   }else if(r.view==='contact'){
@@ -6366,6 +6392,37 @@ function PrivacyView(view){ StaticPageView(view,'privacy'); }
 function CookieView(view){ StaticPageView(view,'cookies'); }
 function AboutView(view){ StaticPageView(view,'about'); }
 function ContactView(view){ StaticPageView(view,'contact'); }
+
+/* -------------------- PREMIADOS (community prize winners) -------------------- */
+function PremiadosView(view){
+  const grid = premiados.length ? `
+    <div class="premiados-grid">
+      ${premiados.map(p=>{
+        const encImg=(p.img||'').split('/').map(encodeURIComponent).join('/');
+        return `<div class="premiados-card">
+          <div class="premiados-img" style="cursor:zoom-in" onclick="openModal('${encImg}','${p.name.replace(/'/g,"\\'")}','image')">
+            <img src="${encImg}" alt="${p.name}" loading="lazy" onerror="this.parentElement.classList.add('img-missing');this.remove()">
+          </div>
+          <div class="premiados-body"><div class="premiados-name">${p.name}</div></div>
+        </div>`;
+      }).join('')}
+    </div>
+  ` : `<div class="empty">${t('premiados.empty')}</div>`;
+
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="premiados.kicker">${t('premiados.kicker')}</div>
+        <h1 class="page-title" data-i18n="premiados.title">${t('premiados.title')}</h1>
+        <p class="page-sub" data-i18n="premiados.sub">${t('premiados.sub')}</p>
+      </div>
+    </div>
+    <div class="detail-body" style="max-width:780px;margin-bottom:8px">
+      <p data-i18n="premiados.intro">${t('premiados.intro')}</p>
+    </div>
+    ${grid}
+  `;
+}
 
 /* -------------------- NEWS -------------------- */
 let newsFilter={scope:'all',game:'all',tag:'all',source:'all'};
