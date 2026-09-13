@@ -543,6 +543,69 @@ button{font-family:inherit}
 .premiados-body{padding:14px 16px;text-align:center}
 .premiados-name{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.5px;color:var(--accent);text-transform:uppercase}
 
+/* ==================== MEDIA KIT ==================== */
+.mk-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:32px 28px;margin-bottom:28px}
+.mk-hero-title{font-family:'Anton',sans-serif;font-size:clamp(32px,6vw,56px);letter-spacing:1px;margin:4px 0 8px;line-height:.95}
+.mk-hero-roles{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;color:var(--muted);margin-bottom:14px}
+.mk-hero-desc{max-width:520px;color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 18px}
+.mk-hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.mk-hero-tagline{font-family:'Anton',sans-serif;font-size:15px;line-height:1.5;text-align:right;color:var(--muted);letter-spacing:.5px;white-space:nowrap}
+.mk-section-sub{color:var(--muted);font-size:13px;margin:-6px 0 16px}
+.mk-period{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.5px}
+
+.mk-grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.mk-card{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--social,var(--accent));border-radius:12px;padding:18px}
+.mk-card-platform{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;color:var(--social,var(--accent));text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.mk-big-num{font-family:'Anton',sans-serif;font-size:38px;line-height:1}
+.mk-big-label{font-size:12px;color:var(--muted);margin:4px 0 14px}
+.mk-quick-row{display:flex;gap:16px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px}
+.mk-quick-stat{display:flex;flex-direction:column;gap:2px}
+.mk-quick-stat b{font-size:15px}
+.mk-quick-stat span{font-size:10px;color:var(--muted)}
+
+.mk-grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.mk-row-2{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+@media (max-width:760px){.mk-row-2{grid-template-columns:1fr}}
+.mk-detail-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.mk-detail-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.mk-detail-head h3{margin:0;font-size:15px}
+.mk-dot{width:9px;height:9px;border-radius:50%;background:var(--social,var(--accent));display:inline-block}
+.mk-detail-title{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+.mk-detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 10px;border-top:1px dashed var(--line);padding-top:14px;margin-bottom:14px}
+.mk-detail-grid-3{grid-template-columns:repeat(3,1fr)}
+.mk-stat{display:flex;flex-direction:column;gap:2px}
+.mk-stat b{font-size:16px}
+.mk-stat span{font-size:10px;color:var(--muted);line-height:1.3}
+.mk-trend{display:flex;align-items:center;gap:12px;border-top:1px dashed var(--line);padding-top:14px}
+.mk-spark{width:100px;height:36px;flex-shrink:0}
+.mk-trend-label{font-size:11px;color:var(--muted);margin-bottom:2px}
+.mk-trend-range{font-size:13px}
+.mk-trend-range span{color:var(--muted);font-size:10px;margin-left:4px}
+
+.mk-ctypes{display:flex;flex-direction:column;gap:12px}
+.mk-ctype{display:flex;align-items:center;gap:10px;font-size:13px}
+.mk-ctype-icon{font-size:18px}
+
+.mk-highlights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+.mk-highlight-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mk-highlight-img{aspect-ratio:16/9;background:linear-gradient(135deg,var(--panel2),var(--bg2));display:flex;align-items:center;justify-content:center;font-size:40px}
+.mk-highlight-tag{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:4px 10px;text-transform:uppercase;display:inline-block;margin:10px 0 0 12px;border-radius:4px}
+.mk-highlight-body{padding:8px 12px 14px}
+.mk-highlight-title{font-weight:700;font-size:13.5px;margin-bottom:4px}
+.mk-highlight-stat{font-size:11.5px;color:var(--muted)}
+
+.mk-growth-bar{background:linear-gradient(135deg,var(--accent),var(--accent2,var(--accent)));border-radius:16px;padding:26px 28px;color:#fff;margin-bottom:10px}
+.mk-growth-title{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:.5px}
+.mk-growth-sub{font-size:13px;opacity:.85;margin-top:4px}
+.mk-growth-items{display:flex;gap:28px;flex-wrap:wrap;margin:20px 0;padding:18px 0;border-top:1px solid rgba(255,255,255,.2);border-bottom:1px solid rgba(255,255,255,.2)}
+.mk-growth-name{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;opacity:.8;margin-bottom:4px}
+.mk-growth-nums{font-family:'Anton',sans-serif;font-size:22px;display:flex;align-items:center;gap:8px}
+.mk-growth-arrow{opacity:.7;font-size:16px}
+.mk-growth-label{font-size:11.5px;opacity:.85;margin-top:2px}
+.mk-growth-contact{display:flex;align-items:center;gap:10px;font-size:13px;opacity:.95}
+.mk-updated{text-align:center;color:var(--muted);font-size:11px;margin:0 0 8px}
+@media (max-width:600px){.mk-hero{flex-direction:column}.mk-hero-tagline{text-align:left}}
+
 /* ==================== VISIT COUNTER ==================== */
 .visit-counter{display:flex;align-items:center;gap:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);margin-top:4px;padding-top:10px}
 .visit-eye{font-size:12px}
@@ -709,7 +772,7 @@ const T = {
     "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
     "search.ph":"Search articles, guides, tier lists...",
     "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS",
-    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Winners",
+    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Winners","nav.mediakit":"Media Kit",
     "premiados.kicker":"// EVENTS","premiados.title":"Winners","premiados.sub":"A small hall of fame for the community that shows up and wins.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No winners yet — the first prize is still up for grabs.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
@@ -738,7 +801,7 @@ const T = {
     "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
     "search.ph":"Procurar artigos, guias, tier lists...",
     "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS",
-    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Premiados",
+    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Premiados","nav.mediakit":"Media Kit",
     "premiados.kicker":"// EVENTOS","premiados.title":"Premiados","premiados.sub":"Um pequeno quadro de honra para a comunidade que aparece e ganha.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda não há premiados — o primeiro prémio está por agarrar.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
@@ -5147,7 +5210,8 @@ const navItems = [
   {key:'barraca', icon:'◉', label:'nav.barraca', section:'events', external:true, href:'/barraca'},
   {key:'universidade', icon:'✎', label:'nav.universidade', section:'events', external:true, href:'/universidade/Notas.html'},
   {key:'premiados', icon:'🏆', label:'nav.premiados', section:'events'},
-  {key:'rick', icon:'★', label:'nav.rick', section:'creator'}
+  {key:'rick', icon:'★', label:'nav.rick', section:'creator'},
+  {key:'mediakit', icon:'📊', label:'nav.mediakit', section:'creator'}
 ];
 
 function renderSidebar(){
@@ -5190,6 +5254,7 @@ function go(path){
 const routes = {
   home:HomeView,
   rick:RickView,
+  mediakit:MediaKitView,
   premiados:PremiadosView,
   news:NewsView,
   tips:TipsView,
@@ -5209,6 +5274,7 @@ const SEO_COPY={
     tipsHub:{title:'Gaming Tips — Rick Rattle', desc:'Guides, builds and tier lists across the games we play. Updated regularly.'},
     rick:{title:'The Channel — Rick Rattle', desc:'Variety streamer running interactive chaos sessions. Join the Twitch live show.'},
     premiados:{title:'Winners — Rick Rattle', desc:'A hall of fame for the community members who won prizes in our competitions — see the prizes and their setups.'},
+    mediakit:{title:'Media Kit — Rick Rattle', desc:'Audience stats, growth and content highlights across Twitch, Instagram, TikTok and YouTube. For brands and partners.'},
     about:{title:'About — Rick Rattle', desc:'Rick Rattle is a small, honest gaming hub built around a Twitch community. Learn what the project is about and what you\'ll find here.'},
     contact:{title:'Contact — Rick Rattle', desc:'Get in touch — feedback, bug reports, collaborations and community contact for rickrattle.com.'},
     terms:{title:'Terms & Conditions — Rick Rattle', desc:'Plain-language terms of use for rickrattle.com — acceptable use, IP, disclaimers and contact.'},
@@ -5224,6 +5290,7 @@ const SEO_COPY={
     tipsHub:{title:'Dicas de Gaming — Rick Rattle', desc:'Guias, builds e tier lists para os jogos que jogamos. Atualizado regularmente.'},
     rick:{title:'O Canal — Rick Rattle', desc:'Streamer variety com sessões interativas de caos. Junta-te à live na Twitch.'},
     premiados:{title:'Premiados — Rick Rattle', desc:'Um quadro de honra para os membros da comunidade que ganharam prémios nas nossas competições — vê os prémios e os seus setups.'},
+    mediakit:{title:'Media Kit — Rick Rattle', desc:'Estatísticas de audiência, crescimento e destaques de conteúdo no Twitch, Instagram, TikTok e YouTube. Para marcas e parceiros.'},
     about:{title:'Sobre — Rick Rattle', desc:'Rick Rattle é um gaming hub pequeno e honesto construído à volta de uma comunidade Twitch. Vê do que o projeto trata e o que vais encontrar aqui.'},
     contact:{title:'Contacto — Rick Rattle', desc:'Entra em contacto — feedback, bug reports, colaborações e comunidade rickrattle.com.'},
     terms:{title:'Termos e Condições — Rick Rattle', desc:'Termos de uso em linguagem clara para rickrattle.com — uso aceitável, propriedade intelectual, disclaimers e contacto.'},
@@ -5307,6 +5374,7 @@ function updateSEO(r){
     if(game){const m=copy.gameTips(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
   }else if(r.view==='tips'){title=copy.tipsHub.title;desc=copy.tipsHub.desc;}
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
+  else if(r.view==='mediakit'){title=copy.mediakit.title;desc=copy.mediakit.desc;}
   else if(r.view==='premiados'){title=copy.premiados.title;desc=copy.premiados.desc;}
   else if(r.view==='about' && copy.about){title=copy.about.title;desc=copy.about.desc;}
   else if(r.view==='contact' && copy.contact){title=copy.contact.title;desc=copy.contact.desc;}
@@ -5391,6 +5459,8 @@ function buildBreadcrumbs(r){
     trail.push({label:'Rick Rattle', href:'/rick'});
   }else if(r.view==='premiados'){
     trail.push({label:PT?'Premiados':'Winners', href:'/premiados'});
+  }else if(r.view==='mediakit'){
+    trail.push({label:'Media Kit', href:'/mediakit'});
   }else if(r.view==='about'){
     trail.push({label:PT?'Sobre':'About', href:'/about'});
   }else if(r.view==='contact'){
@@ -6421,6 +6491,239 @@ function PremiadosView(view){
       <p data-i18n="premiados.intro">${t('premiados.intro')}</p>
     </div>
     ${grid}
+  `;
+}
+
+/* -------------------- MEDIA KIT -------------------- */
+// Simple two-point trend sparkline (from -> to). Purely illustrative — we only
+// have start/end figures, not daily data, so it's drawn as a clean straight
+// line rather than faking a granular curve.
+function mkSparkline(from,to){
+  const w=220,h=56,pad=6;
+  const lo=Math.min(from,to), hi=Math.max(from,to);
+  const span=(hi-lo)||1;
+  const y1=h-pad-((from-lo)/span)*(h-pad*2);
+  const y2=h-pad-((to-lo)/span)*(h-pad*2);
+  return `<svg class="mk-spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+    <line x1="${pad}" y1="${y1}" x2="${w-pad}" y2="${y2}" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="${pad}" cy="${y1}" r="4" fill="var(--muted)"/>
+    <circle cx="${w-pad}" cy="${y2}" r="5" fill="var(--accent)"/>
+  </svg>`;
+}
+
+const MEDIA_KIT = {
+  periodStart:'2026-01-01', periodEnd:'2026-09-12', updated:'2026-09-12',
+  overview:[
+    {key:'twitch', color:'#9146FF', name:'Twitch', big:'214',
+      bigLabel:{en:'Followers (current)', pt:'Seguidores (atual)'},
+      quick:[{v:'23',l:{en:'Avg. viewers',pt:'Média de espectadores'}},{v:'40',l:{en:'Peak viewers',pt:'Pico de espectadores'}}]},
+    {key:'instagram', color:'#E4405F', name:'Instagram', big:'146',
+      bigLabel:{en:'Followers', pt:'Seguidores'},
+      quick:[{v:'50K',l:{en:'Views',pt:'Visualizações'}},{v:'33K',l:{en:'Reach',pt:'Alcance'}},{v:'9,01%',l:{en:'Engagement rate',pt:'Taxa de engagement'}}]},
+    {key:'tiktok', color:'#FF2E63', name:'TikTok', big:'80',
+      bigLabel:{en:'Followers', pt:'Seguidores'},
+      quick:[{v:'10,7K',l:{en:'Views',pt:'Visualizações'}},{v:'8,3K',l:{en:'Reach',pt:'Alcance'}},{v:'5,94%',l:{en:'Engagement rate',pt:'Taxa de engagement'}}]},
+    {key:'youtube', color:'#FF0000', name:'YouTube', big:'22',
+      bigLabel:{en:'Subscribers', pt:'Subscritores'},
+      quick:[{v:'34K',l:{en:'Views',pt:'Visualizações'}},{v:'31K',l:{en:'Channel views',pt:'Visualizações do canal'}}]}
+  ],
+  detail:[
+    {key:'twitch', color:'#9146FF', name:'Twitch',
+      title:{en:'Consistent community growth', pt:'Crescimento consistente da comunidade'},
+      stats:[
+        {v:'23',l:{en:'Avg. viewers (Sep 2026)',pt:'Média de espectadores (setembro 2026)'}},
+        {v:'+9',l:{en:'Followers (Sep 2026)',pt:'Seguidores (setembro 2026)'}},
+        {v:'40',l:{en:'Peak viewers (Sep 2026)',pt:'Pico de espectadores (setembro 2026)'}},
+        {v:'+29',l:{en:'Followers (Aug 2026)',pt:'Seguidores (agosto 2026)'}},
+        {v:'268',l:{en:'Total followers (Sep 2026)',pt:'Seguidores totais (setembro 2026)'}},
+        {v:'41,7h',l:{en:'Hours streamed (Aug 2026)',pt:'Horas transmitidas (agosto 2026)'}}
+      ],
+      trend:{from:6,to:23,fromLabel:'Jan 2026',toLabel:{en:'Sep 2026',pt:'Set 2026'},l:{en:'Avg. viewers trend',pt:'Evolução da média de espectadores'}}},
+    {key:'instagram', color:'#E4405F', name:'Instagram',
+      title:{en:'Growing reach and engagement', pt:'Alcance e interação em crescimento'},
+      stats:[
+        {v:'146',l:{en:'Followers',pt:'Seguidores'}},
+        {v:'50K',l:{en:'Views',pt:'Visualizações'}},
+        {v:'33K',l:{en:'Reach',pt:'Alcance'}},
+        {v:'26,9K',l:{en:'Profile views',pt:'Visualizações de perfil'}},
+        {v:'1,7K',l:{en:'Reactions',pt:'Reações'}},
+        {v:'382',l:{en:'Comments',pt:'Comentários'}},
+        {v:'708',l:{en:'Shares',pt:'Partilhas'}},
+        {v:'33',l:{en:'Saves',pt:'Guardados'}},
+        {v:'9,01%',l:{en:'Engagement rate',pt:'Taxa de engagement'}},
+        {v:'67',l:{en:'Posts/Reels',pt:'Publicações/Reels'}},
+        {v:'5,3K min',l:{en:'Watch time',pt:'Tempo de visualização'}},
+        {v:'9s',l:{en:'Avg. view duration',pt:'Média de visualização'}}
+      ],
+      trend:{from:106,to:146,fromLabel:'Jul 4',toLabel:{en:'Sep 12',pt:'Set 12'},l:{en:'Follower growth (+42)',pt:'Crescimento de seguidores (+42)'}}},
+    {key:'tiktok', color:'#FF2E63', name:'TikTok',
+      title:{en:'Active, growing audience', pt:'Audiência ativa e em crescimento'},
+      stats:[
+        {v:'80',l:{en:'Followers',pt:'Seguidores'}},
+        {v:'10,7K',l:{en:'Views',pt:'Visualizações'}},
+        {v:'8,3K',l:{en:'Reach',pt:'Alcance'}},
+        {v:'5,94%',l:{en:'Engagement rate',pt:'Taxa de engagement'}},
+        {v:'148',l:{en:'Comments',pt:'Comentários'}},
+        {v:'23',l:{en:'Shares',pt:'Partilhas'}},
+        {v:'1,1K min',l:{en:'Watch time',pt:'Tempo de visualização'}},
+        {v:'5s',l:{en:'Avg. view duration',pt:'Média de visualização'}}
+      ],
+      trend:{from:62,to:80,fromLabel:'Jul 4',toLabel:{en:'Sep 12',pt:'Set 12'},l:{en:'Follower growth (+18)',pt:'Crescimento de seguidores (+18)'}}}
+  ],
+  youtube:{
+    title:{en:'Content growing and gaining reach', pt:'Conteúdo a crescer e a ganhar alcance'},
+    stats:[
+      {v:'22',l:{en:'Subscribers',pt:'Subscritores'}},
+      {v:'34K',l:{en:'Views',pt:'Visualizações'}},
+      {v:'31K',l:{en:'Channel views',pt:'Visualizações do canal'}},
+      {v:'56',l:{en:'Videos/Posts',pt:'Vídeos/Publicações'}},
+      {v:'211',l:{en:'Reactions',pt:'Reações'}},
+      {v:'47',l:{en:'Comments',pt:'Comentários'}}
+    ]
+  },
+  contentTypes:[
+    {icon:'🎮', l:{en:'Live gaming',pt:'Jogos em direto'}},
+    {icon:'💬', l:{en:'Community interaction',pt:'Interação com a comunidade'}},
+    {icon:'🧠', l:{en:'Interactive quizzes',pt:'Quizzes interativos'}},
+    {icon:'🏆', l:{en:'Community challenges',pt:'Desafios da comunidade'}},
+    {icon:'▶', l:{en:'Short-form content',pt:'Conteúdo de curta duração'}}
+  ],
+  highlights:[
+    {icon:'🚗', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}},
+    {icon:'🎓', tag:{en:'MOST ENGAGEMENT',pt:'MAIS ENVOLVIMENTO'}, title:'Universidade do Rick', stat:{en:'19.52% engagement rate',pt:'19,52% de taxa de engagement'}},
+    {icon:'📱', tag:{en:'MOST SHARES',pt:'MAIS PARTILHAS'}, title:{en:'Short-form content',pt:'Conteúdo de curta duração'}, stat:{en:'708 shares',pt:'708 partilhas'}},
+    {icon:'❓', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'High interaction',pt:'Alta interação'}}
+  ],
+  growth:[
+    {name:'Twitch', from:'6', to:'23', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
+    {name:'Instagram', from:'106', to:'146', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}},
+    {name:'TikTok', from:'62', to:'80', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}}
+  ]
+};
+
+function MediaKitView(view){
+  const PT=lang==='pt';
+  const tt=x=>typeof x==='string'?x:(x[lang]||x.en);
+  const fmtDatePt=d=>new Date(d).toLocaleDateString('pt-PT',{day:'numeric',month:'short',year:'numeric'});
+  const fmtDateEn=d=>new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  const periodStr = PT
+    ? `${fmtDatePt(MEDIA_KIT.periodStart)} – ${fmtDatePt(MEDIA_KIT.periodEnd)}`
+    : `${fmtDateEn(MEDIA_KIT.periodStart)} – ${fmtDateEn(MEDIA_KIT.periodEnd)}`;
+  const updatedStr = PT ? fmtDatePt(MEDIA_KIT.updated) : fmtDateEn(MEDIA_KIT.updated);
+
+  const overviewCards = MEDIA_KIT.overview.map(p=>`
+    <div class="mk-card" style="--social:${p.color}">
+      <div class="mk-card-platform">${p.name}</div>
+      <div class="mk-big-num">${p.big}</div>
+      <div class="mk-big-label">${tt(p.bigLabel)}</div>
+      <div class="mk-quick-row">
+        ${p.quick.map(q=>`<div class="mk-quick-stat"><b>${q.v}</b><span>${tt(q.l)}</span></div>`).join('')}
+      </div>
+    </div>
+  `).join('');
+
+  const detailCards = MEDIA_KIT.detail.map(p=>`
+    <div class="mk-detail-card" style="--social:${p.color}">
+      <div class="mk-detail-head"><span class="mk-dot"></span><h3>${p.name}</h3></div>
+      <p class="mk-detail-title">${tt(p.title)}</p>
+      <div class="mk-detail-grid">
+        ${p.stats.map(s=>`<div class="mk-stat"><b>${s.v}</b><span>${tt(s.l)}</span></div>`).join('')}
+      </div>
+      <div class="mk-trend">
+        ${mkSparkline(p.trend.from,p.trend.to)}
+        <div class="mk-trend-meta">
+          <div class="mk-trend-label">${tt(p.trend.l)}</div>
+          <div class="mk-trend-range"><b>${p.trend.from}</b> → <b>${p.trend.to}</b><span>(${p.trend.fromLabel} → ${tt(p.trend.toLabel)})</span></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const youtubeCard = `
+    <div class="mk-detail-card" style="--social:#FF0000">
+      <div class="mk-detail-head"><span class="mk-dot"></span><h3>YouTube</h3></div>
+      <p class="mk-detail-title">${tt(MEDIA_KIT.youtube.title)}</p>
+      <div class="mk-detail-grid mk-detail-grid-3">
+        ${MEDIA_KIT.youtube.stats.map(s=>`<div class="mk-stat"><b>${s.v}</b><span>${tt(s.l)}</span></div>`).join('')}
+      </div>
+    </div>`;
+
+  const contentTypesCard = `
+    <div class="mk-detail-card">
+      <div class="mk-detail-head"><h3>${PT?'Tipos de Conteúdo':'Content Types'}</h3></div>
+      <div class="mk-ctypes">
+        ${MEDIA_KIT.contentTypes.map(c=>`<div class="mk-ctype"><span class="mk-ctype-icon">${c.icon}</span><span>${tt(c.l)}</span></div>`).join('')}
+      </div>
+    </div>`;
+
+  const highlightCards = MEDIA_KIT.highlights.map(h=>`
+    <div class="mk-highlight-card">
+      <div class="mk-highlight-img"><span>${h.icon}</span></div>
+      <div class="mk-highlight-tag">${tt(h.tag)}</div>
+      <div class="mk-highlight-body">
+        <div class="mk-highlight-title">${tt(h.title)}</div>
+        <div class="mk-highlight-stat">${tt(h.stat)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  const growthItems = MEDIA_KIT.growth.map(g=>`
+    <div class="mk-growth-item">
+      <div class="mk-growth-name">${g.name}</div>
+      <div class="mk-growth-nums"><b>${g.from}</b><span class="mk-growth-arrow">→</span><b>${g.to}</b></div>
+      <div class="mk-growth-label">${tt(g.l)}</div>
+    </div>
+  `).join('');
+
+  view.innerHTML=`
+    <div class="mk-hero">
+      <div>
+        <div class="page-kicker">MEDIA KIT</div>
+        <h1 class="mk-hero-title">RICK_RATTLE</h1>
+        <div class="mk-hero-roles">${PT?'STREAMER • CRIADOR DE CONTEÚDO • ENTRETENIMENTO INTERATIVO':'STREAMER • CONTENT CREATOR • INTERACTIVE ENTERTAINMENT'}</div>
+        <p class="mk-hero-desc">${PT?'Streaming interativo, participação da comunidade, conteúdo de curta duração e momentos memoráveis. Tudo junto, ao vivo.':'Interactive streaming, community participation, short-form content and memorable moments. All together, live.'}</p>
+        <div class="mk-hero-ctas">
+          <a class="btn btn-primary" href="/contact">✉ ${PT?'Contacta-me':'Contact Me'}</a>
+          <a class="btn btn-ghost" href="https://www.twitch.tv/rick__rattle" target="_blank" rel="noopener">▶ ${PT?'Vê o Conteúdo':'Watch the Content'}</a>
+        </div>
+      </div>
+      <div class="mk-hero-tagline">${PT?'PESSOAS REAIS.<br>INTERAÇÃO REAL.<br>ENTRETENIMENTO REAL.':'REAL PEOPLE.<br>REAL INTERACTION.<br>REAL ENTERTAINMENT.'}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <h2>${PT?'Visão Geral':'Overview'}</h2>
+        <span class="mk-period">📅 ${PT?'Período de análise':'Analysis period'}: ${periodStr}</span>
+      </div>
+      <p class="mk-section-sub">${PT?'Resultados agregados de todas as plataformas':'Aggregated results across all platforms'}</p>
+      <div class="mk-grid-4">${overviewCards}</div>
+    </div>
+
+    <div class="section">
+      <div class="mk-grid-3">${detailCards}</div>
+    </div>
+
+    <div class="section">
+      <div class="mk-row-2">${youtubeCard}${contentTypesCard}</div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2>${PT?'Destaques de Conteúdo':'Content Highlights'}</h2></div>
+      <div class="mk-highlights-grid">${highlightCards}</div>
+    </div>
+
+    <div class="mk-growth-bar">
+      <div class="mk-growth-head">
+        <div class="mk-growth-title">${PT?'Uma Comunidade em Crescimento':'A Growing Community'}</div>
+        <div class="mk-growth-sub">${PT?'Mais visualizações, mais seguidores, mais interação.':'More views, more followers, more interaction.'}</div>
+      </div>
+      <div class="mk-growth-items">${growthItems}</div>
+      <div class="mk-growth-contact">
+        <span>✉</span>
+        <span>${PT?'Contacta-me para parcerias, campanhas e colaborações.':'Contact me for partnerships, campaigns and collaborations.'}</span>
+      </div>
+    </div>
+    <p class="mk-updated">${PT?'Última atualização':'Last updated'}: ${updatedStr}</p>
   `;
 }
 
