@@ -587,7 +587,8 @@ button{font-family:inherit}
 .mk-ctype-icon{font-size:18px}
 
 .mk-highlights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
-.mk-highlight-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.mk-highlight-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:block;text-decoration:none;color:var(--ink);transition:.25s}
+a.mk-highlight-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
 .mk-highlight-img{aspect-ratio:16/9;background:linear-gradient(135deg,var(--panel2),var(--bg2));display:flex;align-items:center;justify-content:center;font-size:40px}
 .mk-highlight-tag{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:4px 10px;text-transform:uppercase;display:inline-block;margin:10px 0 0 12px;border-radius:4px}
 .mk-highlight-body{padding:8px 12px 14px}
@@ -6589,10 +6590,10 @@ const MEDIA_KIT = {
     {icon:'▶', l:{en:'Short-form content',pt:'Conteúdo de curta duração'}}
   ],
   highlights:[
-    {icon:'🚗', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}},
-    {icon:'🎓', tag:{en:'MOST ENGAGEMENT',pt:'MAIS ENVOLVIMENTO'}, title:'Universidade do Rick', stat:{en:'19.52% engagement rate',pt:'19,52% de taxa de engagement'}},
-    {icon:'📱', tag:{en:'MOST SHARES',pt:'MAIS PARTILHAS'}, title:{en:'Short-form content',pt:'Conteúdo de curta duração'}, stat:{en:'708 shares',pt:'708 partilhas'}},
-    {icon:'❓', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'High interaction',pt:'Alta interação'}}
+    {icon:'🚗', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/', external:true},
+    {icon:'🎓', tag:{en:'MOST ENGAGEMENT',pt:'MAIS ENVOLVIMENTO'}, title:'Universidade do Rick', stat:{en:'19.52% engagement rate',pt:'19,52% de taxa de engagement'}, url:'/universidade/Notas.html', external:true},
+    {icon:'📱', tag:{en:'MOST SHARES',pt:'MAIS PARTILHAS'}, title:{en:'Short-form content',pt:'Conteúdo de curta duração'}, stat:{en:'708 shares',pt:'708 partilhas'}, url:'https://www.instagram.com/rick__rattle/', external:true},
+    {icon:'❓', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'High interaction',pt:'Alta interação'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/', external:true}
   ],
   growth:[
     {name:'Twitch', from:'6', to:'23', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
@@ -6656,16 +6657,21 @@ function MediaKitView(view){
       </div>
     </div>`;
 
-  const highlightCards = MEDIA_KIT.highlights.map(h=>`
-    <div class="mk-highlight-card">
+  const highlightCards = MEDIA_KIT.highlights.map(h=>{
+    const isHttp=(h.url||'').startsWith('http');
+    const tag=h.url?'a':'div';
+    const attrs=h.url?`href="${h.url}"${isHttp?' target="_blank" rel="noopener"':''}${h.external?' data-external="true"':''}`:'';
+    return `
+    <${tag} class="mk-highlight-card" ${attrs}>
       <div class="mk-highlight-img"><span>${h.icon}</span></div>
       <div class="mk-highlight-tag">${tt(h.tag)}</div>
       <div class="mk-highlight-body">
         <div class="mk-highlight-title">${tt(h.title)}</div>
         <div class="mk-highlight-stat">${tt(h.stat)}</div>
       </div>
-    </div>
-  `).join('');
+    </${tag}>
+  `;
+  }).join('');
 
   const growthItems = MEDIA_KIT.growth.map(g=>`
     <div class="mk-growth-item">
