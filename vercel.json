@@ -13,6 +13,8 @@
     { "source": "/rick/(.*)", "destination": "/index.html" },
     { "source": "/premiados", "destination": "/index.html" },
     { "source": "/premiados/(.*)", "destination": "/index.html" },
+    { "source": "/mediakit", "destination": "/index.html" },
+    { "source": "/mediakit/(.*)", "destination": "/index.html" },
     { "source": "/decks", "destination": "/index.html" },
     { "source": "/decks/(.*)", "destination": "/index.html" }
   ],
