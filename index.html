@@ -589,7 +589,10 @@ button{font-family:inherit}
 .mk-highlights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
 .mk-highlight-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:block;text-decoration:none;color:var(--ink);transition:.25s}
 a.mk-highlight-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
-.mk-highlight-img{aspect-ratio:16/9;background:linear-gradient(135deg,var(--panel2),var(--bg2));display:flex;align-items:center;justify-content:center;font-size:40px}
+.mk-highlight-img{position:relative;aspect-ratio:16/9;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px),linear-gradient(135deg,var(--panel2),var(--bg2));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:18px 14px}
+.mk-highlight-img::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--cyan))}
+.mk-hl-name{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.5px;color:rgba(255,255,255,.95);text-transform:uppercase;line-height:1.15;max-width:92%;overflow-wrap:break-word}
+.mk-hl-source{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.55);text-transform:uppercase}
 .mk-highlight-tag{background:var(--accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:4px 10px;text-transform:uppercase;display:inline-block;margin:10px 0 0 12px;border-radius:4px}
 .mk-highlight-body{padding:8px 12px 14px}
 .mk-highlight-title{font-weight:700;font-size:13.5px;margin-bottom:4px}
@@ -6590,10 +6593,10 @@ const MEDIA_KIT = {
     {icon:'▶', l:{en:'Short-form content',pt:'Conteúdo de curta duração'}}
   ],
   highlights:[
-    {icon:'🚗', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/', external:true},
-    {icon:'🎓', tag:{en:'MOST ENGAGEMENT',pt:'MAIS ENVOLVIMENTO'}, title:'Universidade do Rick', stat:{en:'19.52% engagement rate',pt:'19,52% de taxa de engagement'}, url:'/universidade/Notas.html', external:true},
-    {icon:'📱', tag:{en:'MOST SHARES',pt:'MAIS PARTILHAS'}, title:{en:'Short-form content',pt:'Conteúdo de curta duração'}, stat:{en:'708 shares',pt:'708 partilhas'}, url:'https://www.instagram.com/rick__rattle/', external:true},
-    {icon:'❓', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'High interaction',pt:'Alta interação'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/', external:true}
+    {source:{en:'Instagram Reel',pt:'Reel do Instagram'}, tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/', external:true},
+    {source:{en:'Community Hub',pt:'Espaço da Comunidade'}, tag:{en:'MOST ENGAGEMENT',pt:'MAIS ENVOLVIMENTO'}, title:'Universidade do Rick', stat:{en:'19.52% engagement rate',pt:'19,52% de taxa de engagement'}, url:'/universidade/Notas.html', external:true},
+    {source:{en:'Instagram',pt:'Instagram'}, tag:{en:'MOST SHARES',pt:'MAIS PARTILHAS'}, title:{en:'Short-form content',pt:'Conteúdo de curta duração'}, stat:{en:'708 shares',pt:'708 partilhas'}, url:'https://www.instagram.com/rick__rattle/', external:true},
+    {source:{en:'Instagram Reel',pt:'Reel do Instagram'}, tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'High interaction',pt:'Alta interação'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/', external:true}
   ],
   growth:[
     {name:'Twitch', from:'6', to:'23', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
@@ -6663,7 +6666,10 @@ function MediaKitView(view){
     const attrs=h.url?`href="${h.url}"${isHttp?' target="_blank" rel="noopener"':''}${h.external?' data-external="true"':''}`:'';
     return `
     <${tag} class="mk-highlight-card" ${attrs}>
-      <div class="mk-highlight-img"><span>${h.icon}</span></div>
+      <div class="mk-highlight-img">
+        <div class="mk-hl-name">${tt(h.title)}</div>
+        <div class="mk-hl-source">${tt(h.source)}</div>
+      </div>
       <div class="mk-highlight-tag">${tt(h.tag)}</div>
       <div class="mk-highlight-body">
         <div class="mk-highlight-title">${tt(h.title)}</div>
