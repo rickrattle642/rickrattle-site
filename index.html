@@ -943,7 +943,8 @@ const games = [
   {slug:'escape-from-tarkov',  name:'Escape from Tarkov',     short:'EFT',                              subreddit:'EscapefromTarkov',platforms:['pc']},
   {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       hasLocalImage:true, platforms:['pc']},
   {slug:'path-of-exile-2',     name:'Path of Exile 2',        short:'PoE 2',        steamAppId:2694490, subreddit:'pathofexile2',    platforms:['pc','ps5','xbox']},
-  {slug:'halo-campaign-evolved', name:'Halo: Campaign Evolved', short:'Halo CE',    steamAppId:2806050, subreddit:'halo',            platforms:['pc','ps5','xbox']}
+  {slug:'halo-campaign-evolved', name:'Halo: Campaign Evolved', short:'Halo CE',    steamAppId:2806050, subreddit:'halo',            platforms:['pc','ps5','xbox']},
+  {slug:'marvels-wolverine',   name:"Marvel's Wolverine",     short:'Wolverine',                        subreddit:'MarvelsWolverine',platforms:['ps5']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -1001,6 +1002,199 @@ const platformFeeds = [
      Search Console data is in. Decisions on layout wait for real traffic.
    ============================================================ */
 const articles = [
+  {
+    slug:'marvels-wolverine-advanced-tips-xp-economy-shortcuts',
+    title:{en:"Marvel's Wolverine: Advanced Tips, XP Economy and Combat Shortcuts", pt:"Marvel's Wolverine: Dicas Avançadas, Economia de XP e Atalhos de Combate"},
+    summary:{en:'Beyond the basics: what Whisky Bottles and Nightmare Trials are actually worth in AP, a second XP farm that works almost anywhere, and which skills really boost your odds of a Critical Strike.', pt:'Para além do básico: quanto valem realmente as Garrafas de Whisky e os Nightmare Trials em AP, um segundo método de farm de XP que funciona quase em qualquer lado, e que skills aumentam mesmo as hipóteses de um Critical Strike.'},
+    game:'marvels-wolverine', tags:['guide','tips','advanced'], featured:false, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:6, prefix:'quick-read',
+    source:['https://www.ign.com/wikis/marvels-wolverine/Tips_and_Tricks'],
+    content:[
+      {type:'note', text:{en:'Picks up where our other Wolverine guides leave off — for parrying, Adaptations and the Rage basics, see our <a href="/news/marvels-wolverine-tips-to-know-before-you-play">Tips to Know Before You Play</a>.', pt:'Continua onde os nossos outros guias de Wolverine ficaram — para o básico de parry, Adaptações e Rage, vê as nossas <a href="/news/marvels-wolverine-tips-to-know-before-you-play">Dicas a Saber Antes de Jogar</a>.'}},
+      {type:'h2', text:{en:'What Whisky Bottles and Nightmare Trials are actually worth', pt:'Quanto valem mesmo as Garrafas de Whisky e os Nightmare Trials'}},
+      {type:'p', text:{en:'Adaptations are bought with AP, and that AP comes from two sources: Whisky Bottles, worth 2 AP each, and Nightmare Trials, worth up to 4 AP depending on the rank you earn. Adaptation Strands are capped at 10 for the whole playthrough, and maxing all of them out takes 68 AP total — so it\'s worth tracking down most of the Whisky Bottles rather than only the ones directly on your path.', pt:'As Adaptações compram-se com AP, e esse AP vem de duas fontes: Garrafas de Whisky, que valem 2 AP cada, e Nightmare Trials, que valem até 4 AP consoante o rank conseguido. As Adaptation Strands têm um limite de 10 para a run inteira, e maximizá-las todas custa 68 AP no total — por isso vale a pena procurar a maioria das Garrafas de Whisky e não só as que ficam mesmo no caminho.'}},
+      {type:'p', text:{en:'Technique Points work differently: they come from levelling up, and XP Caches are the fastest way to earn that XP, worth 35 XP each, with roughly 15-20 per chapter. Since the game is fairly linear, Logan\'s scent trail will pick up most of these automatically if you only stray slightly from the main path.', pt:'Os Pontos de Técnica funcionam de forma diferente: vêm de subir de nível, e as XP Caches são a forma mais rápida de ganhar esse XP, valendo 35 XP cada, com cerca de 15 a 20 por capítulo. Como o jogo é bastante linear, o rasto de cheiro do Logan apanha a maioria destas automaticamente mesmo desviando-te só um pouco do caminho principal.'}},
+      {type:'h2', text:{en:'A second XP farm that works almost anywhere', pt:'Um segundo farm de XP que funciona quase em qualquer lado'}},
+      {type:'p', text:{en:'If you\'d rather not chase the specific portal-room trick from our <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">dedicated XP farm guide</a>, there\'s a simpler general-purpose method: find any encounter packed with enemies, kill all but one, then open the Pause Menu and select Restart Checkpoint before finishing them off. The encounter resets, but you keep the XP you already earned — rinse and repeat. It doesn\'t work on XP Caches, since those don\'t respawn.', pt:'Se preferires não ir atrás do truque específico da sala de portais do nosso <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">guia de farm de XP</a>, há um método genérico mais simples: encontra qualquer confronto cheio de inimigos, mata todos menos um, e depois abre o Menu de Pausa e escolhe Reiniciar Checkpoint antes de acabares com ele. O confronto reinicia, mas mantens o XP já ganho — repete à vontade. Não funciona com XP Caches, já que essas não reaparecem.'}},
+      {type:'ul', items:[
+        {en:'<strong>Madripoor, "Knock Knock" chapter</strong> — the first courtyard, fighting your way to Trask Tower, nets around 190 XP per run. Restart before Sabretooth opens the next door.', pt:'<strong>Madripoor, capítulo "Knock Knock"</strong> — o primeiro pátio, a caminho da Trask Tower, rende cerca de 190 XP por run. Reinicia antes de Sabretooth abrir a próxima porta.'},
+        {en:'<strong>End of "Way Down Low"</strong> — after the zipline and rooftops, drop down to meet Jean, who automatically kills a group of enemies for you. About 135 XP per run, with zero fighting required.', pt:'<strong>Final de "Way Down Low"</strong> — depois do zipline e dos telhados, desce para te encontrares com a Jean, que mata automaticamente um grupo de inimigos por ti. Cerca de 135 XP por run, sem precisares de lutar.'}
+      ]},
+      {type:'p', text:{en:'You can replay any mission at any time by resting in Logan\'s bed at the Nightmare Cabin.', pt:'Podes rejogar qualquer missão a qualquer momento ao descansares na cama do Logan na Nightmare Cabin.'}},
+      {type:'h2', text:{en:'Not every red attack is unblockable', pt:'Nem todo o ataque vermelho é imbloqueável'}},
+      {type:'p', text:{en:'It\'s easy to assume every red-tinted attack can\'t be parried, but true Power Attacks are also marked by a distinct glint and sound cue — that\'s the actual tell. Plenty of larger enemies have regular heavy attacks that glow red without the glint, and those can be parried and blocked normally. The same logic applies to ranged attacks: Logan can\'t parry bullets, but he can parry incoming arrows and other non-Power ranged attacks.', pt:'É fácil assumir que qualquer ataque com tom vermelho não pode ser parriado, mas os verdadeiros Power Attacks também têm um brilho (glint) e um som distintos — é esse o verdadeiro sinal. Muitos inimigos maiores têm ataques pesados normais que brilham a vermelho sem esse glint, e esses podem ser parriados e bloqueados normalmente. A mesma lógica aplica-se a ataques à distância: o Logan não pode parriar balas, mas pode parriar flechas e outros ataques à distância que não sejam Power Attacks.'}},
+      {type:'h2', text:{en:'What actually boosts Critical Strikes', pt:'O que aumenta mesmo os Critical Strikes'}},
+      {type:'p', text:{en:'Critical Strikes — instant kills against Staggered, low-health or Intimidated enemies — only become available in Rage Tier 3. Getting there faster, and landing them more often, comes down to two skill pools: Techniques that build Stagger damage (Stagger Leap, Stagger Ender, Power Attack Counter, Knee Breaker), and Adaptations that directly boost Critical Strike odds (Expanded Crit, Rage Intimidation, Tier 2 Crit, Chain Crit, Leaping Crit) — some of which can turn Critical Strikes into your standard attack against regular enemies.', pt:'Os Critical Strikes — mortes instantâneas contra inimigos Atordoados, com pouca vida ou Intimidados — só ficam disponíveis no Rage Tier 3. Chegar lá mais depressa, e acertá-los com mais frequência, resume-se a duas categorias de skills: Técnicas que constroem dano de Stagger (Stagger Leap, Stagger Ender, Power Attack Counter, Knee Breaker), e Adaptações que aumentam diretamente as hipóteses de Critical Strike (Expanded Crit, Rage Intimidation, Tier 2 Crit, Chain Crit, Leaping Crit) — algumas das quais podem transformar o Critical Strike no teu ataque padrão contra inimigos normais.'}},
+      {type:'h2', text:{en:'Set up D-Pad shortcuts', pt:'Configura atalhos no D-Pad'}},
+      {type:'p', text:{en:'The Settings menu lets you map hold actions and multi-button presses to D-Pad shortcut slots — 17 options in total. Photo Mode and the Collectibles/Interacts Tracker are worth enabling early: the tracker shows a magnifying glass icon when something\'s nearby (semi-transparent when nothing is), though it can be a little finicky about updating, so toggle it on and off as you move through an area.', pt:'O menu de Definições permite mapear ações de manter premido e combinações de botões para slots de atalho no D-Pad — 17 opções no total. Vale a pena activar cedo o Photo Mode e o Tracker de Colecionáveis/Interações: o tracker mostra um ícone de lupa quando há algo perto (semi-transparente quando não há nada), ainda que possa ser um pouco inconsistente a actualizar, por isso liga e desliga-o à medida que exploras uma área.'}},
+      {type:'h2', text:{en:"IGN's own Technique priority picks", pt:'As escolhas de prioridade de Técnicas do IGN'}},
+      {type:'ul', items:[
+        {en:'<strong>Knee Breaker</strong> (Level 4) — huge stagger damage, even interrupts Heavy Attacks.', pt:'<strong>Knee Breaker</strong> (Nível 4) — dano de stagger enorme, chega a interromper Heavy Attacks.'},
+        {en:'<strong>Stealth Leap</strong> (Level 6) — turns the Leap Attack into a stealth kill, though slightly noisier than a standard takedown.', pt:'<strong>Stealth Leap</strong> (Nível 6) — transforma o Leap Attack numa morte furtiva, ainda que um pouco mais ruidosa que um takedown normal.'},
+        {en:'<strong>Stagger Leap</strong> (Level 6) — instantly Staggers normal-sized enemies once you hit Rage Tier 3, opening the door to a Critical Strike.', pt:'<strong>Stagger Leap</strong> (Nível 6) — atordoa instantaneamente inimigos de tamanho normal assim que atinges o Rage Tier 3, abrindo caminho a um Critical Strike.'},
+        {en:'<strong>Relentless</strong> (Level 7) — Logan\'s most reliable healing option, especially on higher difficulties.', pt:'<strong>Relentless</strong> (Nível 7) — a opção de cura mais fiável do Logan, especialmente em dificuldades mais altas.'},
+        {en:'<strong>Unblockable Ender</strong> (Level 11) — upgrades the standard Combo Ender into a much stronger attack that breaks through blocking enemies.', pt:'<strong>Unblockable Ender</strong> (Nível 11) — melhora o Combo Ender padrão para um ataque muito mais forte que quebra o bloqueio de inimigos.'},
+        {en:'<strong>Dodge Retaliate</strong> (Level 11) — a multi-strike counter after dodging a melee attack, for a more aggressive playstyle.', pt:'<strong>Dodge Retaliate</strong> (Nível 11) — um contra-ataque de vários golpes depois de esquivar um ataque corpo-a-corpo, para um estilo mais agressivo.'},
+        {en:'<strong>Double Takedown</strong> — chains into a second kill after a Stealth Takedown or Stealth Leap if another enemy is nearby.', pt:'<strong>Double Takedown</strong> — encadeia numa segunda morte depois de um Stealth Takedown ou Stealth Leap se houver outro inimigo perto.'}
+      ]},
+      {type:'note', text:{en:'IGN\'s Level 17 pick, Power Attack Counter, lines up closely with the Power Counter Technique in our own <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">Techniques and Adaptations picks</a>. One thing worth remembering either way: the Technique tree can\'t be respec\'d once points are spent, while Adaptations can be freely swapped around.', pt:'A escolha de Nível 17 do IGN, Power Attack Counter, é muito parecida com a Técnica Power Counter das nossas próprias <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">escolhas de Técnicas e Adaptações</a>. Uma coisa a ter em conta de qualquer forma: a árvore de Técnicas não pode ser reiniciada depois de gastares pontos, enquanto as Adaptações podem ser trocadas livremente.'}}
+    ]
+  },
+  {
+    slug:'marvels-wolverine-mission-list-walkthrough-hub',
+    title:{en:"Marvel's Wolverine: Full Mission List and Walkthrough Hub", pt:"Marvel's Wolverine: Lista Completa de Missões e Hub de Walkthrough"},
+    summary:{en:'30 missions across four locations, five difficulty settings, and where each part of the story takes place — no story spoilers, just the map.', pt:'30 missões em quatro localizações, cinco níveis de dificuldade, e onde acontece cada parte da história — sem spoilers de história, só o mapa.'},
+    game:'marvels-wolverine', tags:['walkthrough','missions','difficulty'], featured:false, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:4, prefix:'quick-read',
+    source:['https://www.ign.com/wikis/marvels-wolverine/Walkthrough'],
+    content:[
+      {type:'warning', text:{en:'No story beats are spoiled below, but mission names are listed in full — skip the list if you\'d rather go in completely blind.', pt:'Não há nenhum momento de história revelado abaixo, mas os nomes das missões estão listados na íntegra — salta a lista se preferires entrar completamente às cegas.'}},
+      {type:'p', text:{en:"Marvel's Wolverine runs 30 missions across four locations: Telambang, Canada, Madripoor and Japan. Here's the full structure, plus the difficulty options if you're deciding how brutal you want Logan's healing factor to feel.", pt:"Marvel's Wolverine tem 30 missões espalhadas por quatro localizações: Telambang, Canadá, Madripoor e Japão. Aqui fica a estrutura completa, mais as opções de dificuldade caso estejas a decidir o quão brutal queres que o factor de cura do Logan pareça."}},
+      {type:'h2', text:{en:'Difficulty options', pt:'Opções de dificuldade'}},
+      {type:'ul', items:[
+        {en:'<strong>The Man</strong> — minimal combat challenge, Logan can\'t be knocked out.', pt:'<strong>The Man</strong> — desafio de combate mínimo, o Logan não pode ser nocauteado.'},
+        {en:'<strong>The Hunter</strong> — for players who want to focus on the story.', pt:'<strong>The Hunter</strong> — para quem quer focar-se na história.'},
+        {en:'<strong>The Mutant</strong> — the recommended, balanced default for most players.', pt:'<strong>The Mutant</strong> — a opção recomendada e equilibrada para a maioria dos jogadores.'},
+        {en:'<strong>The Weapon</strong> — for players who want a tougher fight.', pt:'<strong>The Weapon</strong> — para quem quer um combate mais difícil.'},
+        {en:'<strong>The Best There Is</strong> — brutally difficult, aimed at expert players.', pt:'<strong>The Best There Is</strong> — brutalmente difícil, para jogadores experientes.'}
+      ]},
+      {type:'p', text:{en:'Beyond the five presets, the Gameplay tab in Settings also lets you independently fine-tune Enemy Health, Enemy Damage and Enemy Stealth Awareness.', pt:'Além dos cinco presets, o separador Gameplay nas Definições também permite ajustar de forma independente a Vida dos Inimigos, o Dano dos Inimigos e a Percepção Furtiva dos Inimigos.'}},
+      {type:'h2', text:{en:'Full mission list, by location', pt:'Lista completa de missões, por localização'}},
+      {type:'p', text:{en:'Telambang', pt:'Telambang'}},
+      {type:'ul', items:['Back in Action','A Debt Repaid','Last Meal']},
+      {type:'p', text:{en:'Canada', pt:'Canadá'}},
+      {type:'ul', items:['Homecoming','The One That Got Away','Raise Some Hell','Strays','Something Much Stronger']},
+      {type:'p', text:{en:'Madripoor', pt:'Madripoor'}},
+      {type:'ul', items:['Knock Knock','Mutant Detected','For Our Future','One Last Mission']},
+      {type:'p', text:{en:'Japan', pt:'Japão'}},
+      {type:'ul', items:['Jetlag','Get Angry','Bad Blood','In the Shadows','Death Comes to Death','We Were Wrong','Hell Followed With Him','Death\'s Match','Sinister Tidings']},
+      {type:'p', text:{en:'Madripoor', pt:'Madripoor'}},
+      {type:'ul', items:['Way Down Low','Roll the Dice','Field Test','Red Right Hand']},
+      {type:'p', text:{en:'Unknown', pt:'Desconhecido'}},
+      {type:'ul', items:['Don\'t Go Gentle']},
+      {type:'p', text:{en:'Madripoor', pt:'Madripoor'}},
+      {type:'ul', items:['I\'m Still Here','This Was the Dream']},
+      {type:'p', text:{en:'Japan', pt:'Japão'}},
+      {type:'ul', items:['No Coming Back']},
+      {type:'p', text:{en:'Madripoor', pt:'Madripoor'}},
+      {type:'ul', items:['Brave New World']},
+      {type:'p', text:{en:'"I\'m Still Here" is also where our <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">best XP farm</a> is located, so it\'s worth having your build in a good place beforehand — see our <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">Techniques and Adaptations picks</a> and <a href="/news/marvels-wolverine-advanced-tips-xp-economy-shortcuts">advanced tips</a> for that.', pt:'"I\'m Still Here" é também onde fica o nosso <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">melhor farm de XP</a>, por isso vale a pena teres a build encaminhada antes disso — vê as nossas <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">escolhas de Técnicas e Adaptações</a> e as <a href="/news/marvels-wolverine-advanced-tips-xp-economy-shortcuts">dicas avançadas</a> para isso.'}}
+    ]
+  },
+  {
+    slug:'marvels-wolverine-best-xp-farm-level-up-fast',
+    title:{en:"The Fastest Way to Level Up in Marvel's Wolverine (Best XP Farm)", pt:"A Forma Mais Rápida de Subir de Nível em Marvel's Wolverine (Melhor Farm de XP)"},
+    summary:{en:'A story-mission trick lets you farm a few hundred XP per minute against an endless wave of Sentinels — here\'s exactly where to find it.', pt:'Um truque numa missão da história permite fazer farm de várias centenas de XP por minuto contra uma vaga infinita de Sentinelas — aqui está exactamente onde o encontrar.'},
+    game:'marvels-wolverine', tags:['guide','leveling','xp'], featured:true, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:4, prefix:'quick-read',
+    source:['https://gamerant.com/marvels-wolverine-best-xp-farm-level-up-fast/'],
+    content:[
+      {type:'note', text:{en:'Covers a section of the "I\'m Still Here" story mission — nothing beyond that is spoiled.', pt:'Aborda uma secção da missão da história "I\'m Still Here" — nada além disso é revelado.'}},
+      {type:'p', text:{en:'Levelling up in Marvel\'s Wolverine feeds directly into Technique Points, which is what unlocks new combat moves — so grinding XP efficiently early on makes the rest of the game noticeably smoother. The max level in a regular playthrough is 36, rising to 40 in New Game Plus.', pt:'Subir de nível em Marvel\'s Wolverine alimenta diretamente os Pontos de Técnica, que são o que desbloqueia novos movimentos de combate — por isso fazer farm de XP de forma eficiente cedo torna o resto do jogo bastante mais suave. O nível máximo numa run normal é 36, subindo para 40 em New Game Plus.'}},
+      {type:'h2', text:{en:'The best method: the portal room in "I\'m Still Here"', pt:'O melhor método: a sala de portais em "I\'m Still Here"'}},
+      {type:'p', text:{en:'About ten minutes into the "I\'m Still Here" main story mission, you\'ll reach a section with several portals to destroy. If you leave them all active, you\'ll face an endless stream of mixed enemies. The trick is to destroy only the first two portals and leave the rest untouched — every enemy that spawns afterwards will be a Sentinel, and Sentinels are fast, reliable XP. Keep farming them for as long as you like before finishing the room off.', pt:'Cerca de dez minutos depois de começar a missão principal "I\'m Still Here", vais chegar a uma secção com vários portais para destruir. Se os deixares todos activos, vais enfrentar um fluxo interminável de inimigos variados. O truque é destruir apenas os dois primeiros portais e deixar os restantes intactos — todos os inimigos que aparecerem a partir daí serão Sentinelas, e Sentinelas dão XP rápido e consistente. Continua a fazer farm o tempo que quiseres antes de terminar a sala.'}},
+      {type:'p', text:{en:'This alone can earn a few hundred XP per minute, which is enough to reach level 36 without much additional grinding elsewhere.', pt:'Só isto já pode render várias centenas de XP por minuto, o suficiente para chegar ao nível 36 sem precisar de muito farm adicional.'}},
+      {type:'h2', text:{en:'Haven\'t reached that mission yet?', pt:'Ainda não chegaste a essa missão?'}},
+      {type:'p', text:{en:'Look for an enclosed area with a group of enemies and an environmental hazard, then restart the checkpoint just before killing the last one to reset the encounter. Two missions work particularly well for this: the refinery in "Raise Some Hell", where you can kick enemies into molten metal, and the plane section at the start of "Jetlag", where you can kick enemies out of the aircraft entirely.', pt:'Procura uma área fechada com um grupo de inimigos e um perigo ambiental, e reinicia o checkpoint mesmo antes de matares o último para reiniciar o confronto. Duas missões funcionam particularmente bem para isto: a refinaria em "Raise Some Hell", onde podes pontapear inimigos para metal derretido, e a secção do avião no início de "Jetlag", onde podes pontapear inimigos para fora do avião.'}},
+      {type:'p', text:{en:'For build advice on what to spend that XP on, see our picks for the <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">best Techniques and Adaptations to unlock first</a>, and our broader <a href="/news/marvels-wolverine-tips-to-know-before-you-play">tips to know before you play</a>. There\'s also a second, more general-purpose farm method — plus the full AP/XP economy behind it — in our <a href="/news/marvels-wolverine-advanced-tips-xp-economy-shortcuts">advanced tips guide</a>.', pt:'Para conselhos sobre onde gastar esse XP, vê as nossas escolhas para as <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">melhores Técnicas e Adaptações a desbloquear primeiro</a>, e as nossas <a href="/news/marvels-wolverine-tips-to-know-before-you-play">dicas mais gerais a saber antes de jogar</a>. Há também um segundo método de farm, mais genérico — mais a economia completa de AP/XP por trás disso — no nosso <a href="/news/marvels-wolverine-advanced-tips-xp-economy-shortcuts">guia de dicas avançadas</a>.'}}
+    ]
+  },
+  {
+    slug:'fortnite-pixel-polli-free-skin-sprite-mastery',
+    title:{en:'How to Get the Free Pixel Polli Skin in Fortnite', pt:'Como Obter a Skin Grátis Pixel Polli em Fortnite'},
+    summary:{en:'The Pixel Polli skin is a free reward for mastering 28 Sprites in Fortnite Override — here\'s how Sprite Mastery actually works.', pt:'A skin Pixel Polli é uma recompensa grátis por dominares 28 Sprites em Fortnite Override — aqui está como funciona mesmo o Sprite Mastery.'},
+    game:'fortnite', tags:['skin','free','sprites'], featured:false, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:3, prefix:'worth-watching',
+    source:['https://gamerant.com/fortnite-pixel-polli-free-skin-sprite-mastery-reward/'],
+    content:[
+      {type:'p', text:{en:'Fortnite Chapter 7 Season 4 ("Override") ties one of its free cosmetic rewards to the Sprite Mastery system — Pixel Polli, unlocked by mastering the fourth and final Sprite Mastery Track.', pt:'O Chapter 7 Season 4 de Fortnite ("Override") liga uma das suas recompensas cosméticas grátis ao sistema de Sprite Mastery — a Pixel Polli, desbloqueada ao dominares a quarta e última Sprite Mastery Track.'}},
+      {type:'h2', text:{en:'What you need to do', pt:'O que precisas de fazer'}},
+      {type:'p', text:{en:'To unlock Pixel Polli for free, you need to Master a total of 28 Sprites during the season.', pt:'Para desbloquear a Pixel Polli de graça, precisas de dominar um total de 28 Sprites durante a época.'}},
+      {type:'h2', text:{en:'How Sprite Mastery works', pt:'Como funciona o Sprite Mastery'}},
+      {type:'p', text:{en:'Every Sprite can be Mastered by earning enough Sprite XP to reach Level 5, then extracting it. You can earn Sprite XP by:', pt:'Todos os Sprites podem ser dominados ao ganhares XP de Sprite suficiente para chegar ao Nível 5, e depois extraí-lo. Podes ganhar XP de Sprite ao:'}},
+      {type:'ul', items:[
+        {en:'Opening containers (counts for all Sprites except Crowns, Klombos and Bounty Hunters)', pt:'Abrir contentores (conta para todos os Sprites excepto Crowns, Klombos e Bounty Hunters)'},
+        {en:'Extracting other or duplicate Sprites', pt:'Extrair outros Sprites ou Sprites duplicados'},
+        {en:'Getting eliminations (counts for all Sprites except Crowns and Klombos)', pt:'Conseguir eliminações (conta para todos os Sprites excepto Crowns e Klombos)'}
+      ]},
+      {type:'p', text:{en:'The skin ships with a base look plus extra styles — you can remove Polli\'s headphones and glasses independently for different combinations. A future update this season will also add an even more pixelated style for players who master 70 Sprites.', pt:'A skin vem com um visual base mais estilos extra — podes remover os headphones e os óculos da Polli de forma independente para combinações diferentes. Uma atualização futura ainda esta época vai também adicionar um estilo ainda mais pixelizado para quem dominar 70 Sprites.'}}
+    ]
+  },
+  {
+    slug:'marvels-wolverine-secret-ending-repressed-memories',
+    title:{en:"How to Unlock the Hidden Memory in Marvel's Wolverine (Repressed Memories)", pt:"Como Desbloquear a Memória Escondida em Marvel's Wolverine (Repressed Memories)"},
+    summary:{en:'The secret ending and the Repressed Memories trophy are locked behind a 15th Nightmare Trial that only appears after you\'ve done everything else.', pt:'O final secreto e o troféu Repressed Memories estão trancados atrás de um 15º Nightmare Trial que só aparece depois de teres feito tudo o resto.'},
+    game:'marvels-wolverine', tags:['guide','secret-ending','trophy'], featured:false, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:3, prefix:'quick-read',
+    source:['https://gamerant.com/marvels-wolverine-secret-ending-repressed-memories-trophy/'],
+    content:[
+      {type:'warning', text:{en:'Late-game / post-campaign spoilers ahead — this covers content only available after finishing the main story.', pt:'Spoilers de final de jogo / pós-campanha à frente — isto cobre conteúdo só disponível depois de terminares a história principal.'}},
+      {type:'p', text:{en:'Marvel\'s Wolverine hides a secret ending and an extra gold trophy, Repressed Memories, behind a Nightmare Trial that doesn\'t appear until you\'ve cleared everything else the game has to offer.', pt:'Marvel\'s Wolverine esconde um final secreto e um troféu de ouro extra, Repressed Memories, atrás de um Nightmare Trial que só aparece depois de teres terminado tudo o resto que o jogo tem para oferecer.'}},
+      {type:'h2', text:{en:'What you need first', pt:'O que precisas primeiro'}},
+      {type:'ul', items:[
+        {en:'Complete the main story campaign.', pt:'Terminar a campanha principal.'},
+        {en:'Find all 14 Nightmare Doors and clear each trial with at least a Bronze rank.', pt:'Encontrar as 14 Nightmare Doors e terminar cada trial com pelo menos rank de Bronze.'}
+      ]},
+      {type:'ol', items:[
+        {en:'After the credits roll, head back to the Nightmare Cabin.', pt:'Depois dos créditos, volta à Nightmare Cabin.'},
+        {en:'With all 14 doors already cleared, a secret 15th trial called "Best There Is" becomes available.', pt:'Com as 14 portas já concluídas, um 15º trial secreto chamado "Best There Is" fica disponível.'},
+        {en:'Look at the shelf of figurines inside the cabin and click through them toward the bottom right until the "Best There Is" challenge appears.', pt:'Olha para a prateleira de figurinhas dentro da cabana e vai clicando nelas até ao canto inferior direito até o desafio "Best There Is" aparecer.'},
+        {en:'Interact with the phoenix carving on the shelf to trigger the gauntlet.', pt:'Interage com o entalhe da fénix na prateleira para desencadear o gauntlet.'},
+        {en:'Finish the gauntlet with at least a Bronze ranking.', pt:'Termina o gauntlet com pelo menos um ranking de Bronze.'},
+        {en:'Head outside and follow the scent trail — it triggers a hidden epilogue cutscene that unlocks the secret ending and the Repressed Memories trophy.', pt:'Sai para fora e segue o rasto de cheiro — isso desencadeia uma cutscene de epílogo escondida que desbloqueia o final secreto e o troféu Repressed Memories.'}
+      ]},
+      {type:'p', text:{en:'Since this is entirely post-campaign content, it\'s worth pairing with our <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">Techniques and Adaptations picks</a> so Logan is properly built for the harder Nightmare Trials along the way.', pt:'Como isto é conteúdo inteiramente pós-campanha, vale a pena juntar com as nossas <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">escolhas de Técnicas e Adaptações</a> para o Logan estar bem construído para os Nightmare Trials mais difíceis pelo caminho.'}}
+    ]
+  },
+  {
+    slug:'marvels-wolverine-tips-to-know-before-you-play',
+    title:{en:"Marvel's Wolverine Tips to Know Before You Play", pt:"Marvel's Wolverine: Dicas a Saber Antes de Jogar"},
+    summary:{en:'Parrying, Adaptations, the Rage system and a hidden XP source in every level — the essentials before you start as Logan.', pt:'Parry, Adaptações, o sistema de Rage e uma fonte de XP escondida em cada nível — o essencial antes de começares como o Logan.'},
+    game:'marvels-wolverine', tags:['guide','tips','beginner'], featured:true, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:5, prefix:'quick-read',
+    source:['https://www.gamespot.com/articles/marvels-wolverine-tips-to-know-before-you-play/'],
+    content:[
+      {type:'p', text:{en:'Marvel\'s Wolverine, Insomniac\'s combat-focused follow-up to its Spider-Man games, rewards players who slow down and actually learn its systems instead of button-mashing through fights. Here\'s what helps most early on.', pt:'Marvel\'s Wolverine, o sucessor de combate intenso da Insomniac aos seus jogos do Homem-Aranha, recompensa quem abranda e aprende mesmo os seus sistemas em vez de martelar botões nos combates. Aqui fica o que mais ajuda no início.'}},
+      {type:'h2', text:{en:'Parrying is essential — power attacks aren\'t parryable', pt:'O parry é essencial — ataques de poder não são parriáveis'}},
+      {type:'p', text:{en:'Successful parries can stagger enemies and open them up to follow-up attacks, and some encounters are close to impossible without them. The exception is power attacks, telegraphed by a red flash — those have to be dodged, not parried.', pt:'Parries bem-sucedidos podem atordoar inimigos e abri-los a ataques de seguimento, e alguns confrontos são quase impossíveis sem eles. A excepção são os ataques de poder, sinalizados por um flash vermelho — esses têm de ser esquivados, não parriados.'}},
+      {type:'h2', text:{en:'Equip your Adaptations as you unlock them', pt:'Equipa as tuas Adaptações à medida que as desbloqueias'}},
+      {type:'p', text:{en:'Adaptations are earned with AP from Nightmare Doors and Whiskey Bottles scattered around the world — it\'s easy to unlock one and forget to actually equip it. Expanded Crit, which boosts your odds of landing Critical Strikes, is worth prioritising early.', pt:'As Adaptações ganham-se com AP de Nightmare Doors e Garrafas de Whiskey espalhadas pelo mundo — é fácil desbloquear uma e esquecer de a equipar mesmo. Expanded Crit, que aumenta as hipóteses de acertar Critical Strikes, vale a pena priorizar cedo.'}},
+      {type:'h2', text:{en:'Smash everything', pt:'Parte tudo'}},
+      {type:'p', text:{en:'Blue crates and red-eyed statues scattered through every mission (usually 10-20 per level) give XP when destroyed, and that XP builds toward Technique Points — which have a big effect on how fights actually play out.', pt:'Caixas azuis e estátuas de olhos vermelhos espalhadas por cada missão (normalmente 10 a 20 por nível) dão XP quando destruídas, e esse XP contribui para Pontos de Técnica — que têm um grande efeito em como os combates decorrem de facto.'}},
+      {type:'h2', text:{en:'Watch for Leaders and Snipers', pt:'Atenção a Leaders e Snipers'}},
+      {type:'p', text:{en:'Enemies with a red skull above their head are Leaders and can call in reinforcements — the longer they survive, the more overwhelming a fight gets. Reaver Snipers, easy to spot by their red laser sights, deal heavy ranged damage and are easy to lose track of while dealing with melee enemies up close.', pt:'Inimigos com uma caveira vermelha por cima da cabeça são Leaders e podem chamar reforços — quanto mais tempo sobreviverem, mais avassalador o combate se torna. Os Reaver Snipers, fáceis de identificar pelas miras laser vermelhas, causam dano pesado à distância e é fácil perder o rasto deles enquanto lidas com inimigos corpo a corpo.'}},
+      {type:'h2', text:{en:'Open Nightmare Doors as soon as you see them', pt:'Abre as Nightmare Doors assim que as vires'}},
+      {type:'p', text:{en:'Walking into a Nightmare Door unlocks its trial for later, so you don\'t need to stop what you\'re doing — but skip it entirely and you\'ll have to restart the mission and find the door again to unlock it.', pt:'Entrar numa Nightmare Door desbloqueia o seu trial para mais tarde, por isso não precisas de parar o que estás a fazer — mas se a ignorares por completo, vais ter de reiniciar a missão e encontrar a porta outra vez para a desbloquear.'}},
+      {type:'h2', text:{en:'Learn the Rage system', pt:'Aprende o sistema de Rage'}},
+      {type:'p', text:{en:'Rage builds across three tiers as you damage enemies, parry and land Barrages, and decays when you\'re inactive. Tier 2 boosts combo finisher damage; Tier 3 boosts damage further and unlocks instant-kill Critical Strikes against staggered or low-health enemies.', pt:'A Rage acumula-se em três níveis à medida que danificas inimigos, parrias e acertas Barrages, e decai quando estás inactivo. O Tier 2 aumenta o dano dos finishers de combo; o Tier 3 aumenta ainda mais o dano e desbloqueia Critical Strikes de morte instantânea contra inimigos atordoados ou com pouca vida.'}},
+      {type:'note', text:{en:'Small extra: you can toggle Logan\'s cowl on or off from the Suits menu (press Triangle) if you\'d rather see his face — it also works with hats.', pt:'Extra pequeno: podes ligar ou desligar o capuz do Logan no menu de Fatos (prime Triângulo) se preferires ver a cara dele — também funciona com chapéus.'}},
+      {type:'p', text:{en:'For a farming shortcut to reach those Technique Points faster, see our <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">best XP farm</a>, and for exactly which upgrades to prioritise, see our <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">Techniques and Adaptations picks</a>. For deeper mechanics — the real AP/XP numbers, Critical Strike odds and D-Pad shortcuts — see our <a href="/news/marvels-wolverine-advanced-tips-xp-economy-shortcuts">advanced tips guide</a>.', pt:'Para um atalho de farm para chegares mais depressa a esses Pontos de Técnica, vê o nosso <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">melhor farm de XP</a>, e para saberes exactamente que upgrades priorizar, vê as nossas <a href="/news/marvels-wolverine-best-techniques-adaptations-unlock-first">escolhas de Técnicas e Adaptações</a>. Para mecânicas mais profundas — os números reais de AP/XP, as hipóteses de Critical Strike e atalhos de D-Pad — vê o nosso <a href="/news/marvels-wolverine-advanced-tips-xp-economy-shortcuts">guia de dicas avançadas</a>.'}}
+    ]
+  },
+  {
+    slug:'marvels-wolverine-best-techniques-adaptations-unlock-first',
+    title:{en:"Marvel's Wolverine: Best Techniques and Adaptations to Unlock First", pt:"Marvel's Wolverine: Melhores Técnicas e Adaptações a Desbloquear Primeiro"},
+    summary:{en:'Two separate progression systems, one build question: which upgrades actually matter early. Here\'s where to spend your first AP and Technique Points.', pt:'Dois sistemas de progressão separados, uma única pergunta de build: que upgrades importam mesmo cedo. Aqui está onde gastar os teus primeiros AP e Pontos de Técnica.'},
+    game:'marvels-wolverine', tags:['guide','build','techniques'], featured:false, date:'2026-09-17', lastUpdated:'2026-09-17', readTime:4, prefix:'quick-read',
+    source:['https://fr.vgtimes.com/guides/167850-marvels-wolverine-meilleures-techniques-et-adaptations-dbloquer-en-premier.html'],
+    content:[
+      {type:'p', text:{en:'Despite its fairly linear structure, Marvel\'s Wolverine has two separate progression systems that let you adapt Logan to different playstyles: Adaptations and Techniques. They level up differently and are worth understanding before you start spending points.', pt:'Apesar da estrutura bastante linear, Marvel\'s Wolverine tem dois sistemas de progressão separados que permitem adaptar o Logan a diferentes estilos de jogo: Adaptações e Técnicas. Sobem de nível de formas diferentes e vale a pena perceber isso antes de começares a gastar pontos.'}},
+      {type:'h2', text:{en:'How the two systems work', pt:'Como funcionam os dois sistemas'}},
+      {type:'p', text:{en:'Adaptations are passive modifiers that improve Logan\'s stats and specific combat mechanics, bought with AP earned from Whiskey Bottles and Nightmare Door trials. Techniques are new combat moves and upgrades — both standard (passive) and Special (active) — that unlock progressively as Logan levels up and are bought with Technique Points.', pt:'As Adaptações são modificadores passivos que melhoram as estatísticas do Logan e mecânicas de combate específicas, compradas com AP ganho de Garrafas de Whiskey e trials de Nightmare Doors. As Técnicas são novos movimentos e melhorias de combate — tanto standard (passivas) como Especiais (activas) — que se desbloqueiam progressivamente à medida que o Logan sobe de nível, compradas com Pontos de Técnica.'}},
+      {type:'h2', text:{en:'Best Adaptations to unlock first', pt:'Melhores Adaptações a desbloquear primeiro'}},
+      {type:'ul', items:[
+        {en:'<strong>Healing Parry / Healing Dodge / Healing Crit</strong> — restore health after a successful parry, dodge or Critical Strike.', pt:'<strong>Healing Parry / Healing Dodge / Healing Crit</strong> — restauram vida depois de um parry, esquiva ou Critical Strike bem-sucedido.'},
+        {en:'<strong>Extended Rage</strong> — slows down how fast the Rage gauge decays.', pt:'<strong>Extended Rage</strong> — abranda a rapidez com que a barra de Rage decai.'},
+        {en:'<strong>Extended Parry</strong> — widens the timing window for a successful parry.', pt:'<strong>Extended Parry</strong> — alarga a janela de tempo para um parry bem-sucedido.'},
+        {en:'<strong>Enraging Barrage</strong> — Barrages generate extra Rage.', pt:'<strong>Enraging Barrage</strong> — os Barrages geram Rage extra.'}
+      ]},
+      {type:'p', text:{en:'These four hold up in almost any build, since they directly improve survivability and how aggressively you can play.', pt:'Estas quatro funcionam bem em quase qualquer build, já que melhoram directamente a sobrevivência e a agressividade com que se pode jogar.'}},
+      {type:'h2', text:{en:'Best Techniques to unlock first', pt:'Melhores Técnicas a desbloquear primeiro'}},
+      {type:'ul', items:[
+        {en:'<strong>Knee Strike</strong> (Special) — a powerful knee that staggers hard and can interrupt enemy attacks, including unblockable ones.', pt:'<strong>Knee Strike</strong> (Especial) — um golpe de joelho poderoso que atordoa bastante e pode interromper ataques inimigos, incluindo os imbloqueáveis.'},
+        {en:'<strong>Overwhelm</strong> (Special) — Logan charges an enemy, knocks them down and keeps attacking; upgrades can send other enemies flying as he passes through.', pt:'<strong>Overwhelm</strong> (Especial) — o Logan carrega contra um inimigo, derruba-o e continua a atacar; upgrades podem lançar outros inimigos pelos ares ao passar por eles.'},
+        {en:'<strong>Power Counter</strong> (Standard) — lets Logan immediately counter-attack after successfully dodging an enemy Power Attack.', pt:'<strong>Power Counter</strong> (Standard) — permite ao Logan contra-atacar de imediato depois de esquivar com sucesso um Power Attack inimigo.'},
+        {en:'<strong>Running Dropkick</strong> — a powerful running dropkick that knocks enemies back and interrupts their attacks.', pt:'<strong>Running Dropkick</strong> — um dropkick a correr poderoso que empurra inimigos para trás e interrompe os seus ataques.'},
+        {en:'<strong>Charged Helix Blast</strong> — a strong ranged attack that hits multiple enemies across a wide area in front of Logan.', pt:'<strong>Charged Helix Blast</strong> — um ataque à distância forte que atinge vários inimigos numa área larga à frente do Logan.'}
+      ]},
+      {type:'p', text:{en:'Special Techniques need to be unlocked in the Techniques tree and assigned to one of four slots — with default controls, they\'re triggered by holding L2 and pressing Square, Triangle, Circle or Cross.', pt:'As Técnicas Especiais precisam de ser desbloqueadas na árvore de Técnicas e atribuídas a um de quatro slots — com os controlos por defeito, activam-se ao manter L2 e premir Quadrado, Triângulo, Círculo ou Cruz.'}},
+      {type:'p', text:{en:'General rule of thumb: prioritise survivability and base attack upgrades first, then move on to Rage generation and crowd control. Adaptations and Techniques can be freely mixed and matched, so it\'s worth adjusting your loadout as you go rather than locking into one setup. For where to farm the XP to get here faster, see our <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">best XP farm</a> guide.', pt:'Regra geral: prioriza primeiro a sobrevivência e upgrades de ataque base, e só depois avança para geração de Rage e controlo de grupos de inimigos. Adaptações e Técnicas podem ser livremente combinadas, por isso vale a pena ajustar o teu loadout ao longo do jogo em vez de te fixares numa só configuração. Para saberes onde fazer farm de XP para chegares aqui mais depressa, vê o nosso guia do <a href="/news/marvels-wolverine-best-xp-farm-level-up-fast">melhor farm de XP</a>.'}}
+    ]
+  },
   {
     slug:'gta-6-gameplay-reveal-vice-city-detail',
     title:{en:'GTA 6 Gameplay Reveal Shows a Shockingly Detailed Vice City', pt:'Gameplay Reveal de GTA 6 Mostra uma Vice City de Detalhe Absurdo'},
@@ -6634,10 +6828,12 @@ const MEDIA_KIT = {
   ],
   // The 3 best-performing vertical clips — real, playable embeds (opened in the
   // existing lightbox modal) so a sponsor can see the live's dynamic in seconds.
+  // `thumb` is optional — drop a screenshot in /clips (e.g. clips/pro-gaming.jpg) and
+  // reference it here to show a real preview image instead of the text fallback.
   bestClips:[
-    {kind:'instagram', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/'},
-    {kind:'instagram', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'#1 post this month · 42 reactions',pt:'#1 publicação do mês · 42 reações'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/'},
-    {kind:'tiktok', tag:{en:'VIRAL ON TIKTOK',pt:'VIRAL NO TIKTOK'}, title:{en:'Standout TikTok clip',pt:'Clip em destaque no TikTok'}, stat:{en:'Strong reach & shares',pt:'Grande alcance e partilhas'}, url:'https://www.tiktok.com/@rick__rattle/video/7588637952838749473'}
+    {kind:'instagram', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/', thumb:null},
+    {kind:'instagram', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'#1 post this month · 42 reactions',pt:'#1 publicação do mês · 42 reações'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/', thumb:null},
+    {kind:'tiktok', tag:{en:'VIRAL ON TIKTOK',pt:'VIRAL NO TIKTOK'}, title:{en:'Standout TikTok clip',pt:'Clip em destaque no TikTok'}, stat:{en:'Strong reach & shares',pt:'Grande alcance e partilhas'}, url:'https://www.tiktok.com/@rick__rattle/video/7588637952838749473', thumb:null}
   ],
   growth:[
     {name:'Twitch', from:'6', to:'22', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
@@ -6788,11 +6984,11 @@ function MediaKitView(view){
   const clipSourceLabel = k => k==='tiktok' ? 'TikTok' : (PT?'Reel do Instagram':'Instagram Reel');
   const bestClipCards = MEDIA_KIT.bestClips.map(c=>{
     const titleStr=tt(c.title);
+    const thumbStyle = c.thumb ? ` style="background-image:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,.1)),url('${encodeURI(c.thumb)}');background-size:cover;background-position:center"` : '';
     return `
     <div class="mk-clip-card" onclick="openModal('${c.url}','${titleStr.replace(/'/g,"\\'")}','${c.kind}')">
-      <div class="mk-clip-thumb">
-        <div class="mk-hl-name">${titleStr}</div>
-        <div class="mk-hl-source">${clipSourceLabel(c.kind)}</div>
+      <div class="mk-clip-thumb${c.thumb?' has-thumb':''}"${thumbStyle}>
+        ${c.thumb?'':`<div class="mk-hl-name">${titleStr}</div><div class="mk-hl-source">${clipSourceLabel(c.kind)}</div>`}
         <span class="mk-clip-play">▶</span>
       </div>
       <div class="mk-highlight-tag">${tt(c.tag)}</div>
