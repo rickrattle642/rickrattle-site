@@ -6211,15 +6211,20 @@ async function mountTwitchEmbed(){
 }
 
 /* ===== Homepage aside widgets =====
-   POPULAR_NOW is manually curated based on Google Search Console top-impressions
-   pages. Update every 4 weeks when checking GSC. Order = display order.
-   Items are slugs — resolver looks them up across articles/guides/tierLists/game-hubs. */
+   POPULAR_NOW is manually curated based on Google Search Console top-clicks
+   pages (ranked by clicks, ties broken by impressions). Update every 4 weeks
+   when checking GSC. Order = display order.
+   Items are slugs — resolver looks them up across articles/guides/tierLists/game-hubs.
+   Last checked 2026-09-17 (GSC export, period ~15 May – 17 Sep 2026):
+   007-first-light 22 clicks, forza-horizon-6-easy-money 15, homepage 19 (not
+   linkable here), gta-6-eating-sleeping-exercise-mechanics 5, cs2-pro-settings-gear-list
+   3 (361 impr), arc-raiders-pvp-weapon-tier-list 3 (35 impr). */
 const POPULAR_NOW = [
-  '007-first-light',                       // /tips/007-first-light (game hub)
-  'forza-horizon-6',                        // /tips/forza-horizon-6  (game hub)
-  'forza-horizon-6-easy-money',
-  'finals-season-3-weapons-leaked',
-  'forza-horizon-6-progression-pathways'
+  '007-first-light',                       // /tips/007-first-light (game hub) — 22 clicks
+  'forza-horizon-6-easy-money',             // 15 clicks
+  'gta-6-eating-sleeping-exercise-mechanics',// 5 clicks
+  'cs2-pro-settings-gear-list',              // 3 clicks, 361 impressions
+  'arc-raiders-pvp-weapon-tier-list'         // 3 clicks, 35 impressions
 ];
 
 function resolvePopularItem(slug){
