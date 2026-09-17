@@ -612,6 +612,44 @@ a.mk-highlight-card:hover{transform:translateY(-4px);border-color:var(--accent);
 .mk-updated{text-align:center;color:var(--muted);font-size:11px;margin:0 0 8px}
 @media (max-width:600px){.mk-hero{flex-direction:column}.mk-hero-tagline{text-align:left}}
 
+/* ---- Media Kit: Últimos 30 Dias / momentum ---- */
+.mk-mo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:18px}
+.mk-mo-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+.mk-mo-val{font-family:'Anton',sans-serif;font-size:26px;line-height:1}
+.mk-mo-label{font-size:11px;color:var(--muted);margin:4px 0 8px}
+.mk-mo-delta{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;display:inline-block;padding:2px 7px;border-radius:5px}
+.mk-mo-delta.up{color:#2ecc71;background:rgba(46,204,113,.12)}
+.mk-mo-delta.down{color:#ff5c5c;background:rgba(255,92,92,.12)}
+.mk-mo-table{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:22px}
+.mk-mo-row{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr 1fr;gap:8px;padding:12px 16px;align-items:center;border-bottom:1px solid var(--line);font-size:13px}
+.mk-mo-row:last-child{border-bottom:none}
+.mk-mo-head{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--muted);text-transform:uppercase;background:var(--panel2)}
+.mk-mo-channel{display:flex;align-items:center;gap:8px;font-weight:600}
+.mk-mo-row em{display:block;font-style:normal;font-size:10px;color:var(--muted);margin-top:1px}
+.mk-mo-subtitle{font-size:14px;margin:0 0 12px}
+.mk-mo-posts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mk-mo-post{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-decoration:none;color:var(--ink);position:relative;transition:.25s}
+a.mk-mo-post:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 22px rgba(176,38,255,.2)}
+.mk-mo-post-rank{font-family:'Anton',sans-serif;font-size:13px;color:var(--accent);position:absolute;top:12px;right:14px}
+.mk-mo-post-reactions{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;margin-bottom:2px}
+.mk-mo-post-date{font-size:10px;color:var(--muted);margin-bottom:8px}
+.mk-mo-post-caption{font-size:12px;line-height:1.4;color:var(--muted);max-width:88%}
+@media (max-width:640px){.mk-mo-row{grid-template-columns:1.2fr 1fr 1fr;font-size:12px}.mk-mo-row span:nth-child(4),.mk-mo-row span:nth-child(5){display:none}}
+
+/* ---- Media Kit: Melhores Clipes ---- */
+.mk-clip-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.25s}
+.mk-clip-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
+.mk-clip-thumb{position:relative}
+.mk-clip-play{position:absolute;bottom:10px;right:12px;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.mk-ctypes-link{display:inline-block;margin-top:14px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:600}
+.mk-ctypes-link:hover{text-decoration:underline}
+
+/* ---- Media Kit: Tráfego de Pesquisa ---- */
+.mk-search-growth{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12.5px;color:var(--muted);margin-bottom:22px}
+.mk-search-row{grid-template-columns:2fr 1fr 1fr}
+a.mk-mo-row{text-decoration:none;color:var(--ink);transition:.2s}
+a.mk-mo-row:hover{background:var(--panel2)}
+
 /* ==================== VISIT COUNTER ==================== */
 .visit-counter{display:flex;align-items:center;gap:6px;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);margin-top:4px;padding-top:10px}
 .visit-eye{font-size:12px}
@@ -6518,11 +6556,11 @@ function mkSparkline(from,to){
 }
 
 const MEDIA_KIT = {
-  periodStart:'2026-01-01', periodEnd:'2026-09-12', updated:'2026-09-12',
+  periodStart:'2026-01-01', periodEnd:'2026-09-17', updated:'2026-09-17',
   overview:[
-    {key:'twitch', color:'#9146FF', name:'Twitch', big:'214',
+    {key:'twitch', color:'#9146FF', name:'Twitch', big:'270',
       bigLabel:{en:'Followers (current)', pt:'Seguidores (atual)'},
-      quick:[{v:'23',l:{en:'Avg. viewers',pt:'Média de espectadores'}},{v:'40',l:{en:'Peak viewers',pt:'Pico de espectadores'}}]},
+      quick:[{v:'22',l:{en:'Avg. viewers',pt:'Média de espectadores'}},{v:'38',l:{en:'Peak viewers',pt:'Pico de espectadores'}}]},
     {key:'instagram', color:'#E4405F', name:'Instagram', big:'146',
       bigLabel:{en:'Followers', pt:'Seguidores'},
       quick:[{v:'50K',l:{en:'Views',pt:'Visualizações'}},{v:'33K',l:{en:'Reach',pt:'Alcance'}},{v:'9,01%',l:{en:'Engagement rate',pt:'Taxa de engagement'}}]},
@@ -6537,14 +6575,14 @@ const MEDIA_KIT = {
     {key:'twitch', color:'#9146FF', name:'Twitch',
       title:{en:'Consistent community growth', pt:'Crescimento consistente da comunidade'},
       stats:[
-        {v:'23',l:{en:'Avg. viewers (Sep 2026)',pt:'Média de espectadores (setembro 2026)'}},
-        {v:'+9',l:{en:'Followers (Sep 2026)',pt:'Seguidores (setembro 2026)'}},
-        {v:'40',l:{en:'Peak viewers (Sep 2026)',pt:'Pico de espectadores (setembro 2026)'}},
+        {v:'22',l:{en:'Avg. viewers (Sep 2026)',pt:'Média de espectadores (setembro 2026)'}},
+        {v:'+11',l:{en:'Followers (Sep 2026)',pt:'Seguidores (setembro 2026)'}},
+        {v:'38',l:{en:'Peak viewers (Sep 2026)',pt:'Pico de espectadores (setembro 2026)'}},
         {v:'+29',l:{en:'Followers (Aug 2026)',pt:'Seguidores (agosto 2026)'}},
-        {v:'268',l:{en:'Total followers (Sep 2026)',pt:'Seguidores totais (setembro 2026)'}},
+        {v:'270',l:{en:'Total followers (Sep 2026)',pt:'Seguidores totais (setembro 2026)'}},
         {v:'41,7h',l:{en:'Hours streamed (Aug 2026)',pt:'Horas transmitidas (agosto 2026)'}}
       ],
-      trend:{from:6,to:23,fromLabel:'Jan 2026',toLabel:{en:'Sep 2026',pt:'Set 2026'},l:{en:'Avg. viewers trend',pt:'Evolução da média de espectadores'}}},
+      trend:{from:6,to:22,fromLabel:'Jan 2026',toLabel:{en:'Sep 2026',pt:'Set 2026'},l:{en:'Avg. viewers trend',pt:'Evolução da média de espectadores'}}},
     {key:'instagram', color:'#E4405F', name:'Instagram',
       title:{en:'Growing reach and engagement', pt:'Alcance e interação em crescimento'},
       stats:[
@@ -6594,17 +6632,60 @@ const MEDIA_KIT = {
     {icon:'🏆', l:{en:'Community challenges',pt:'Desafios da comunidade'}},
     {icon:'▶', l:{en:'Short-form content',pt:'Conteúdo de curta duração'}}
   ],
-  highlights:[
-    {source:{en:'Instagram Reel',pt:'Reel do Instagram'}, tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/', external:true},
-    {source:{en:'Community Hub',pt:'Espaço da Comunidade'}, tag:{en:'MOST ENGAGEMENT',pt:'MAIS ENVOLVIMENTO'}, title:'Universidade do Rick', stat:{en:'19.52% engagement rate',pt:'19,52% de taxa de engagement'}, url:'/universidade/Notas.html', external:true},
-    {source:{en:'Instagram',pt:'Instagram'}, tag:{en:'MOST SHARES',pt:'MAIS PARTILHAS'}, title:{en:'Short-form content',pt:'Conteúdo de curta duração'}, stat:{en:'708 shares',pt:'708 partilhas'}, url:'https://www.instagram.com/rick__rattle/', external:true},
-    {source:{en:'Instagram Reel',pt:'Reel do Instagram'}, tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'High interaction',pt:'Alta interação'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/', external:true}
+  // The 3 best-performing vertical clips — real, playable embeds (opened in the
+  // existing lightbox modal) so a sponsor can see the live's dynamic in seconds.
+  bestClips:[
+    {kind:'instagram', tag:{en:'MOST REACTIONS',pt:'MAIS REAÇÕES'}, title:'Pro Gaming do Gaming Pro!', stat:{en:'104 reactions',pt:'104 reações'}, url:'https://www.instagram.com/reel/DZZs4GLITDg/'},
+    {kind:'instagram', tag:{en:'COMMUNITY FAVORITE',pt:'FAVORITO DA COMUNIDADE'}, title:'Quiz / A-B-C-D', stat:{en:'#1 post this month · 42 reactions',pt:'#1 publicação do mês · 42 reações'}, url:'https://www.instagram.com/reel/Dc8zwn6AXhg/'},
+    {kind:'tiktok', tag:{en:'VIRAL ON TIKTOK',pt:'VIRAL NO TIKTOK'}, title:{en:'Standout TikTok clip',pt:'Clip em destaque no TikTok'}, stat:{en:'Strong reach & shares',pt:'Grande alcance e partilhas'}, url:'https://www.tiktok.com/@rick__rattle/video/7588637952838749473'}
   ],
   growth:[
-    {name:'Twitch', from:'6', to:'23', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
+    {name:'Twitch', from:'6', to:'22', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
     {name:'Instagram', from:'106', to:'146', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}},
     {name:'TikTok', from:'62', to:'80', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}}
-  ]
+  ],
+  // Rolling 30-day snapshot (Aug 19 – Sep 17, 2026 vs. Jul 20 – Aug 18, 2026).
+  // Shows current momentum/growth rate rather than lifetime totals — useful to
+  // show sponsors the channel is actively accelerating right now.
+  momentum30:{
+    rangeStart:'2026-08-19', rangeEnd:'2026-09-17',
+    compareStart:'2026-07-20', compareEnd:'2026-08-18',
+    summary:[
+      {v:'84', delta:'+833.3%', up:true, l:{en:'Posts',pt:'Publicações'}},
+      {v:'251', delta:'+36', up:true, l:{en:'Total Followers',pt:'Seguidores Totais'}},
+      {v:'965', delta:'+342.7%', up:true, l:{en:'Reactions',pt:'Reações'}},
+      {v:'350', delta:'+695.5%', up:true, l:{en:'Comments',pt:'Comentários'}},
+      {v:'7%', delta:'-18.7%', up:false, l:{en:'Eng. Rate',pt:'Taxa de Engagement'}},
+      {v:'32,8K', delta:'+416.2%', up:true, l:{en:'Views',pt:'Visualizações'}}
+    ],
+    byChannel:[
+      {name:'Instagram', color:'#E4405F', posts:{v:'35',d:'+600%'}, reactions:{v:'588',d:'+236%'}, comments:{v:'299',d:'+864.5%'}, eng:{v:'9,78%',d:'+29%'}},
+      {name:'TikTok', color:'#FF2E63', posts:{v:'26',d:'+550%'}, reactions:{v:'305',d:'+609.3%'}, comments:{v:'45',d:'+246.2%'}, eng:{v:'5,83%',d:'-75.5%'}},
+      {name:'YouTube', color:'#FF0000', posts:{v:'23',d:null}, reactions:{v:'72',d:null}, comments:{v:'6',d:null}, eng:{v:'1,34%',d:null}}
+    ],
+    topPosts:[
+      {rank:1, date:'2026-09-06', reactions:'42', caption:'Tu escolhias A, B, C ou D? #TwitchPortugal #Quiz #Trivia #Portugal #UniversidadeDoRick', url:'https://www.instagram.com/reel/Dc8zwn6AXhg/'},
+      {rank:2, date:'2026-08-30', reactions:'35', caption:'Generation Alpha, Generation Strange. #farmaraura #genalpha #twitchportugal #67 #toooldforthis'},
+      {rank:3, date:'2026-08-19', reactions:'34', caption:'Aquele shot de 👀👀 que te dá força antes de uma batalha sangrenta!!! #mistfallhunter #streamontwitch'},
+      {rank:4, date:'2026-08-22', reactions:'33', caption:'O mês de shooters a acabar, boas companhias diversão e muita ação!!! #pvp #shooters #warzoneclips'},
+      {rank:5, date:'2026-09-12', reactions:'31', caption:'ai Snhra Diretora... assim voce me mata! #TwitchPortugal #tensaosexual #fungames #precoce'}
+    ]
+  },
+  // Google Search Console export — proof the guides/tips content drives real,
+  // growing organic traffic that can be pointed at sponsor links/pages.
+  search:{
+    rangeStart:'2026-05-15', rangeEnd:'2026-09-17',
+    totals:{clicks:76, impressions:6546, ctr:1.16, position:13.8},
+    recent8:{clicks:44, impressions:4948},
+    prev8:{clicks:12, impressions:1050},
+    topPages:[
+      {url:'https://rickrattle.com/tips/007-first-light', label:'007: First Light — Tips', clicks:22, impressions:1508},
+      {url:'https://rickrattle.com/tips/forza-horizon-6/forza-horizon-6-easy-money', label:'Forza Horizon 6 — Easy Money', clicks:15, impressions:1867},
+      {url:'https://rickrattle.com/', label:{en:'Homepage',pt:'Página inicial'}, clicks:19, impressions:96},
+      {url:'https://rickrattle.com/news/gta-6-eating-sleeping-exercise-mechanics', label:'GTA VI — Eating, Sleeping & Exercise', clicks:5, impressions:94},
+      {url:'https://rickrattle.com/tips/cs2/cs2-pro-settings-gear-list', label:'CS2 — Pro Settings & Gear', clicks:3, impressions:361}
+    ]
+  }
 };
 
 function MediaKitView(view){
@@ -6627,6 +6708,47 @@ function MediaKitView(view){
       </div>
     </div>
   `).join('');
+
+  const m30 = MEDIA_KIT.momentum30;
+  const m30RangeStr = PT
+    ? `${fmtDatePt(m30.rangeStart)} – ${fmtDatePt(m30.rangeEnd)}`
+    : `${fmtDateEn(m30.rangeStart)} – ${fmtDateEn(m30.rangeEnd)}`;
+  const momentumSummary = m30.summary.map(s=>`
+    <div class="mk-mo-card">
+      <div class="mk-mo-val">${s.v}</div>
+      <div class="mk-mo-label">${tt(s.l)}</div>
+      <div class="mk-mo-delta ${s.up?'up':'down'}">${s.up?'▲':'▼'} ${s.delta}</div>
+    </div>
+  `).join('');
+  const momentumTable = `
+    <div class="mk-mo-table">
+      <div class="mk-mo-row mk-mo-head">
+        <span>${PT?'Canal':'Channel'}</span><span>${PT?'Publicações':'Posts'}</span><span>${PT?'Reações':'Reactions'}</span><span>${PT?'Comentários':'Comments'}</span><span>${PT?'Eng.':'Eng.'}</span>
+      </div>
+      ${m30.byChannel.map(c=>`
+        <div class="mk-mo-row">
+          <span class="mk-mo-channel"><span class="mk-dot" style="--social:${c.color}"></span>${c.name}</span>
+          <span><b>${c.posts.v}</b>${c.posts.d?`<em>${c.posts.d}</em>`:''}</span>
+          <span><b>${c.reactions.v}</b>${c.reactions.d?`<em>${c.reactions.d}</em>`:''}</span>
+          <span><b>${c.comments.v}</b>${c.comments.d?`<em>${c.comments.d}</em>`:''}</span>
+          <span><b>${c.eng.v}</b>${c.eng.d?`<em>${c.eng.d}</em>`:''}</span>
+        </div>
+      `).join('')}
+    </div>`;
+  const momentumTop = `
+    <div class="mk-mo-posts">
+      ${m30.topPosts.map(p=>{
+        const dateStr = PT ? fmtDatePt(p.date) : fmtDateEn(p.date);
+        const inner = `
+          <div class="mk-mo-post-rank">#${p.rank}</div>
+          <div class="mk-mo-post-reactions">❤ ${p.reactions}</div>
+          <div class="mk-mo-post-date">${dateStr}</div>
+          <div class="mk-mo-post-caption">${p.caption}</div>`;
+        return p.url
+          ? `<a class="mk-mo-post" href="${p.url}" target="_blank" rel="noopener">${inner}</a>`
+          : `<div class="mk-mo-post">${inner}</div>`;
+      }).join('')}
+    </div>`;
 
   const detailCards = MEDIA_KIT.detail.map(p=>`
     <div class="mk-detail-card" style="--social:${p.color}">
@@ -6660,26 +6782,60 @@ function MediaKitView(view){
       <div class="mk-ctypes">
         ${MEDIA_KIT.contentTypes.map(c=>`<div class="mk-ctype"><span class="mk-ctype-icon">${c.icon}</span><span>${tt(c.l)}</span></div>`).join('')}
       </div>
+      <a class="mk-ctypes-link" href="/universidade/Notas.html" data-external="true">${PT?'Ver exemplo: Universidade do Rick →':'See example: Universidade do Rick →'}</a>
     </div>`;
 
-  const highlightCards = MEDIA_KIT.highlights.map(h=>{
-    const isHttp=(h.url||'').startsWith('http');
-    const tag=h.url?'a':'div';
-    const attrs=h.url?`href="${h.url}"${isHttp?' target="_blank" rel="noopener"':''}${h.external?' data-external="true"':''}`:'';
+  const clipSourceLabel = k => k==='tiktok' ? 'TikTok' : (PT?'Reel do Instagram':'Instagram Reel');
+  const bestClipCards = MEDIA_KIT.bestClips.map(c=>{
+    const titleStr=tt(c.title);
     return `
-    <${tag} class="mk-highlight-card" ${attrs}>
-      <div class="mk-highlight-img">
-        <div class="mk-hl-name">${tt(h.title)}</div>
-        <div class="mk-hl-source">${tt(h.source)}</div>
+    <div class="mk-clip-card" onclick="openModal('${c.url}','${titleStr.replace(/'/g,"\\'")}','${c.kind}')">
+      <div class="mk-clip-thumb">
+        <div class="mk-hl-name">${titleStr}</div>
+        <div class="mk-hl-source">${clipSourceLabel(c.kind)}</div>
+        <span class="mk-clip-play">▶</span>
       </div>
-      <div class="mk-highlight-tag">${tt(h.tag)}</div>
+      <div class="mk-highlight-tag">${tt(c.tag)}</div>
       <div class="mk-highlight-body">
-        <div class="mk-highlight-title">${tt(h.title)}</div>
-        <div class="mk-highlight-stat">${tt(h.stat)}</div>
+        <div class="mk-highlight-title">${titleStr}</div>
+        <div class="mk-highlight-stat">${tt(c.stat)}</div>
       </div>
-    </${tag}>
+    </div>
   `;
   }).join('');
+
+  const sr = MEDIA_KIT.search;
+  const srRangeStr = PT
+    ? `${fmtDatePt(sr.rangeStart)} – ${fmtDatePt(sr.rangeEnd)}`
+    : `${fmtDateEn(sr.rangeStart)} – ${fmtDateEn(sr.rangeEnd)}`;
+  const fmtNum = n => n.toLocaleString(PT?'pt-PT':'en-GB');
+  const clickGrowth = Math.round((sr.recent8.clicks/sr.prev8.clicks-1)*100);
+  const imprGrowth = Math.round((sr.recent8.impressions/sr.prev8.impressions-1)*100);
+  const searchStats = [
+    {v:fmtNum(sr.totals.clicks), l:{en:'Total Clicks',pt:'Cliques Totais'}},
+    {v:fmtNum(sr.totals.impressions), l:{en:'Impressions',pt:'Impressões'}},
+    {v:sr.totals.ctr+'%', l:{en:'CTR',pt:'Taxa de Cliques (CTR)'}},
+    {v:sr.totals.position, l:{en:'Avg. Google Position',pt:'Posição Média no Google'}}
+  ].map(s=>`<div class="mk-mo-card"><div class="mk-mo-val">${s.v}</div><div class="mk-mo-label">${tt(s.l)}</div></div>`).join('');
+  const searchGrowth = `
+    <div class="mk-search-growth">
+      <span>${PT?'Últimas 8 semanas vs. anteriores:':'Last 8 weeks vs. previous:'}</span>
+      <span class="mk-mo-delta up">▲ ${clickGrowth}% ${PT?'cliques':'clicks'}</span>
+      <span class="mk-mo-delta up">▲ ${imprGrowth}% ${PT?'impressões':'impressions'}</span>
+    </div>`;
+  const searchPages = `
+    <div class="mk-mo-table">
+      <div class="mk-mo-row mk-mo-head mk-search-row">
+        <span>${PT?'Página':'Page'}</span><span>${PT?'Cliques':'Clicks'}</span><span>${PT?'Impressões':'Impressions'}</span>
+      </div>
+      ${sr.topPages.map(p=>`
+        <a class="mk-mo-row mk-search-row" href="${p.url}" target="_blank" rel="noopener">
+          <span class="mk-mo-channel">${typeof p.label==='string'?p.label:tt(p.label)}</span>
+          <span><b>${p.clicks}</b></span>
+          <span><b>${fmtNum(p.impressions)}</b></span>
+        </a>
+      `).join('')}
+    </div>`;
 
   const growthItems = MEDIA_KIT.growth.map(g=>`
     <div class="mk-growth-item">
@@ -6714,6 +6870,18 @@ function MediaKitView(view){
       <div class="mk-grid-4">${overviewCards}</div>
     </div>
 
+    <div class="section mk-momentum">
+      <div class="section-head">
+        <h2>🔥 ${PT?'Últimos 30 Dias':'Last 30 Days'}</h2>
+        <span class="mk-period">${m30RangeStr}</span>
+      </div>
+      <p class="mk-section-sub">${PT?'Comparado com o período anterior (20 Jul – 18 Ago 2026) — o canal está a acelerar.':'Compared to the previous period (Jul 20 – Aug 18, 2026) — the channel is accelerating.'}</p>
+      <div class="mk-mo-grid">${momentumSummary}</div>
+      ${momentumTable}
+      <h3 class="mk-mo-subtitle">${PT?'Top 5 Publicações':'Top 5 Posts'}</h3>
+      ${momentumTop}
+    </div>
+
     <div class="section">
       <div class="mk-grid-3">${detailCards}</div>
     </div>
@@ -6723,8 +6891,21 @@ function MediaKitView(view){
     </div>
 
     <div class="section">
-      <div class="section-head"><h2>${PT?'Destaques de Conteúdo':'Content Highlights'}</h2></div>
-      <div class="mk-highlights-grid">${highlightCards}</div>
+      <div class="section-head"><h2>🎬 ${PT?'Melhores Clipes':'Best Clips'}</h2></div>
+      <p class="mk-section-sub">${PT?'Clica para ver o vídeo real — a dinâmica da live em poucos segundos.':'Click to watch the real video — the live\'s dynamic in a few seconds.'}</p>
+      <div class="mk-highlights-grid">${bestClipCards}</div>
+    </div>
+
+    <div class="section mk-search-section">
+      <div class="section-head">
+        <h2>🔍 ${PT?'Tráfego de Pesquisa (Google)':'Search Traffic (Google)'}</h2>
+        <span class="mk-period">${srRangeStr}</span>
+      </div>
+      <p class="mk-section-sub">${PT?'O hub de guias do site gera cliques reais e crescentes no Google — prova de capacidade de direcionar tráfego para links específicos.':'The site\'s guides hub drives real, growing Google clicks — proof of the ability to direct traffic to specific links.'}</p>
+      <div class="mk-mo-grid">${searchStats}</div>
+      ${searchGrowth}
+      <h3 class="mk-mo-subtitle">${PT?'Páginas com Mais Cliques':'Top Pages by Clicks'}</h3>
+      ${searchPages}
     </div>
 
     <div class="mk-growth-bar">
@@ -7273,6 +7454,26 @@ function openModal(src,name,kind){
     b.innerHTML=`<iframe class="modal-yt" src="${src}" title="${name}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
   }else if(kind==='video'){
     b.innerHTML=`<video src="${src}" controls autoplay loop playsinline></video>`;
+  }else if(kind==='instagram'){
+    // Official Instagram oEmbed markup. embed.js scans the DOM for .instagram-media
+    // blocks on load; if it's already loaded from a previous modal open, we call
+    // instgrm.Embeds.process() manually so the new blockquote gets picked up too.
+    b.innerHTML=`<blockquote class="instagram-media" data-instgrm-permalink="${src}" data-instgrm-version="14" style="margin:0 auto;max-width:540px;width:100%"></blockquote>`;
+    if(window.instgrm){ window.instgrm.Embeds.process(); }
+    else if(!document.querySelector('script[data-ig-embed]')){
+      const s=document.createElement('script');
+      s.src='https://www.instagram.com/embed.js'; s.async=true; s.dataset.igEmbed='1';
+      document.body.appendChild(s);
+    }
+  }else if(kind==='tiktok'){
+    // TikTok's embed.js doesn't expose a public reprocess API, so we append a
+    // fresh <script> element each time (browsers execute newly-created script
+    // elements even if the same src was fetched before — cheap on cache).
+    const vid=(src.match(/video\/(\d+)/)||[])[1]||'';
+    b.innerHTML=`<blockquote class="tiktok-embed" cite="${src}" data-video-id="${vid}" style="max-width:340px;min-width:288px;margin:0 auto"><section></section></blockquote>`;
+    const s=document.createElement('script');
+    s.src='https://www.tiktok.com/embed.js'; s.async=true;
+    document.body.appendChild(s);
   }else{
     b.innerHTML=`<img src="${src}" alt="${name}">`;
   }
