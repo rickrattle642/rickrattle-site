@@ -6755,7 +6755,7 @@ function mkSparkline(from,to){
 }
 
 const MEDIA_KIT = {
-  periodStart:'2026-01-01', periodEnd:'2026-09-17', updated:'2026-09-17',
+  periodStart:'2026-01-01', periodEnd:'2026-09-20', updated:'2026-09-21',
   overview:[
     {key:'twitch', color:'#9146FF', name:'Twitch', big:'270',
       bigLabel:{en:'Followers (current)', pt:'Seguidores (atual)'},
@@ -6845,31 +6845,32 @@ const MEDIA_KIT = {
     {name:'Instagram', from:'106', to:'146', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}},
     {name:'TikTok', from:'62', to:'80', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}}
   ],
-  // Rolling 30-day snapshot (Aug 19 – Sep 17, 2026 vs. Jul 20 – Aug 18, 2026).
+  // Rolling snapshot (Aug 1 – Sep 20, 2026 vs. previous period).
   // Shows current momentum/growth rate rather than lifetime totals — useful to
   // show sponsors the channel is actively accelerating right now.
+  // Source: Aug/Sep 2026 analytics export (timeseries.csv/posts.csv/summary.csv).
   momentum30:{
-    rangeStart:'2026-08-19', rangeEnd:'2026-09-17',
-    compareStart:'2026-07-20', compareEnd:'2026-08-18',
+    rangeStart:'2026-08-01', rangeEnd:'2026-09-20',
+    compareStart:'2026-06-11', compareEnd:'2026-07-31',
     summary:[
-      {v:'84', delta:'+833.3%', up:true, l:{en:'Posts',pt:'Publicações'}},
-      {v:'251', delta:'+36', up:true, l:{en:'Total Followers',pt:'Seguidores Totais'}},
-      {v:'965', delta:'+342.7%', up:true, l:{en:'Reactions',pt:'Reações'}},
-      {v:'350', delta:'+695.5%', up:true, l:{en:'Comments',pt:'Comentários'}},
-      {v:'7%', delta:'-18.7%', up:false, l:{en:'Eng. Rate',pt:'Taxa de Engagement'}},
-      {v:'32,8K', delta:'+416.2%', up:true, l:{en:'Views',pt:'Visualizações'}}
+      {v:'119', delta:'+1387.5%', up:true, l:{en:'Posts',pt:'Publicações'}},
+      {v:'260', delta:'+57', up:true, l:{en:'Total Followers',pt:'Seguidores Totais'}},
+      {v:'1421', delta:'+274%', up:true, l:{en:'Reactions',pt:'Reações'}},
+      {v:'492', delta:'+1347.1%', up:true, l:{en:'Comments',pt:'Comentários'}},
+      {v:'7%', delta:'-37.9%', up:false, l:{en:'Eng. Rate',pt:'Taxa de Engagement'}},
+      {v:'48,7K', delta:'+483%', up:true, l:{en:'Views',pt:'Visualizações'}}
     ],
     byChannel:[
-      {name:'Instagram', color:'#E4405F', posts:{v:'35',d:'+600%'}, reactions:{v:'588',d:'+236%'}, comments:{v:'299',d:'+864.5%'}, eng:{v:'9,78%',d:'+29%'}},
-      {name:'TikTok', color:'#FF2E63', posts:{v:'26',d:'+550%'}, reactions:{v:'305',d:'+609.3%'}, comments:{v:'45',d:'+246.2%'}, eng:{v:'5,83%',d:'-75.5%'}},
-      {name:'YouTube', color:'#FF0000', posts:{v:'23',d:null}, reactions:{v:'72',d:null}, comments:{v:'6',d:null}, eng:{v:'1,34%',d:null}}
+      {name:'Instagram', color:'#E4405F', posts:{v:'50',d:null}, reactions:{v:'878',d:null}, comments:{v:'401',d:null}, eng:{v:'12,41%',d:null}},
+      {name:'TikTok', color:'#FF2E63', posts:{v:'38',d:null}, reactions:{v:'431',d:null}, comments:{v:'64',d:null}, eng:{v:'7,61%',d:null}},
+      {name:'YouTube', color:'#FF0000', posts:{v:'31',d:null}, reactions:{v:'112',d:null}, comments:{v:'27',d:null}, eng:{v:'3,41%',d:null}}
     ],
     topPosts:[
       {rank:1, date:'2026-09-06', reactions:'42', caption:'Tu escolhias A, B, C ou D? #TwitchPortugal #Quiz #Trivia #Portugal #UniversidadeDoRick', url:'https://www.instagram.com/reel/Dc8zwn6AXhg/'},
-      {rank:2, date:'2026-08-30', reactions:'35', caption:'Generation Alpha, Generation Strange. #farmaraura #genalpha #twitchportugal #67 #toooldforthis'},
-      {rank:3, date:'2026-08-19', reactions:'34', caption:'Aquele shot de 👀👀 que te dá força antes de uma batalha sangrenta!!! #mistfallhunter #streamontwitch'},
-      {rank:4, date:'2026-08-22', reactions:'33', caption:'O mês de shooters a acabar, boas companhias diversão e muita ação!!! #pvp #shooters #warzoneclips'},
-      {rank:5, date:'2026-09-12', reactions:'31', caption:'ai Snhra Diretora... assim voce me mata! #TwitchPortugal #tensaosexual #fungames #precoce'}
+      {rank:2, date:'2026-08-02', reactions:'41', caption:'Parabéns ao @xblackhulk07 pelo primeiro lugar, ao @rui_lascasas88 pelo 2º e ao @hookwrath pelo 3º. #interativo #streamerpt #livestreaming', url:'https://www.instagram.com/reel/DbjMFjxoqmF/'},
+      {rank:3, date:'2026-08-30', reactions:'35', caption:'Generation Alpha, Generation Strange. #farmaraura #genalpha #twitchportugal #67 #toooldforthis', url:'https://www.instagram.com/reel/DcrPtpBoOqU/'},
+      {rank:4, date:'2026-08-15', reactions:'35', caption:'The boys are back in the street! #backstreetboys #coisasdehomem #twitchportugal #momentoslive #livestreaming', url:'https://www.instagram.com/reel/DcElyuKoaMb/'},
+      {rank:5, date:'2026-08-05', reactions:'34', caption:'mi perdona mi hermanos!!! te gusto mucho carinho!!! #nuestroshermanos #pvp #warzoneclips #twitchportugal', url:'https://www.instagram.com/reel/Dbq800moxp4/'}
     ]
   },
   // Google Search Console export — proof the guides/tips content drives real,
