@@ -639,8 +639,10 @@ a.mk-mo-post:hover{transform:translateY(-3px);border-color:var(--accent);box-sha
 /* ---- Media Kit: Melhores Clipes ---- */
 .mk-clip-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.25s}
 .mk-clip-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
-.mk-clip-thumb{position:relative}
-.mk-clip-play{position:absolute;bottom:10px;right:12px;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.mk-clip-thumb{position:relative;aspect-ratio:16/9;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:16px 56px 16px 16px;background-image:linear-gradient(135deg,rgba(176,38,255,.18) 0%,transparent 60%),repeating-linear-gradient(45deg,transparent 0,transparent 14px,rgba(255,255,255,.025) 14px,rgba(255,255,255,.025) 16px),linear-gradient(135deg,var(--panel2),var(--bg2))}
+.mk-clip-thumb.has-thumb{justify-content:flex-end}
+.mk-clip-thumb .mk-hl-name{max-width:100%}
+.mk-clip-play{position:absolute;bottom:14px;right:14px;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.4)}
 .mk-ctypes-link{display:inline-block;margin-top:14px;font-size:12px;color:var(--accent);text-decoration:none;font-weight:600}
 .mk-ctypes-link:hover{text-decoration:underline}
 
