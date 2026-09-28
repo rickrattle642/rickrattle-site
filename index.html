@@ -7030,20 +7030,6 @@ function MediaKitView(view){
       <span class="mk-mo-delta up">▲ ${clickGrowth}% ${PT?'cliques':'clicks'}</span>
       <span class="mk-mo-delta up">▲ ${imprGrowth}% ${PT?'impressões':'impressions'}</span>
     </div>`;
-  const searchPages = `
-    <div class="mk-mo-table">
-      <div class="mk-mo-row mk-mo-head mk-search-row">
-        <span>${PT?'Página':'Page'}</span><span>${PT?'Cliques':'Clicks'}</span><span>${PT?'Impressões':'Impressions'}</span>
-      </div>
-      ${sr.topPages.map(p=>`
-        <a class="mk-mo-row mk-search-row" href="${p.url}" target="_blank" rel="noopener">
-          <span class="mk-mo-channel">${typeof p.label==='string'?p.label:tt(p.label)}</span>
-          <span><b>${p.clicks}</b></span>
-          <span><b>${fmtNum(p.impressions)}</b></span>
-        </a>
-      `).join('')}
-    </div>`;
-
   const growthItems = MEDIA_KIT.growth.map(g=>`
     <div class="mk-growth-item">
       <div class="mk-growth-name">${g.name}</div>
@@ -7111,8 +7097,6 @@ function MediaKitView(view){
       <p class="mk-section-sub">${PT?'O hub de guias do site gera cliques reais e crescentes no Google — prova de capacidade de direcionar tráfego para links específicos.':'The site\'s guides hub drives real, growing Google clicks — proof of the ability to direct traffic to specific links.'}</p>
       <div class="mk-mo-grid">${searchStats}</div>
       ${searchGrowth}
-      <h3 class="mk-mo-subtitle">${PT?'Páginas com Mais Cliques':'Top Pages by Clicks'}</h3>
-      ${searchPages}
     </div>
 
     <div class="mk-growth-bar">
