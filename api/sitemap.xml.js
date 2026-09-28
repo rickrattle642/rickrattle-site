@@ -5,7 +5,7 @@
 
 const CANONICAL_HOST = 'https://rickrattle.com';
 
-const STATIC_PATHS = ['/', '/news', '/tips', '/rick', '/mediakit', '/premiados', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
+const STATIC_PATHS = ['/', '/news', '/tips', '/rick', '/mediakit', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
 
 const GAME_SLUGS = [
   'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
@@ -20,7 +20,9 @@ const GAME_SLUGS = [
   // Phase 8 — Path of Exile 2
   'path-of-exile-2',
   // Phase 9 — Halo: Campaign Evolved launch (July 28, 2026)
-  'halo-campaign-evolved'
+  'halo-campaign-evolved',
+  // Phase 11 — Marvel's Wolverine launch (September 15, 2026)
+  'marvels-wolverine'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -37,7 +39,12 @@ const MANUAL_ARTICLE_SLUGS = [
   // Phase 10 — GTA 6 Netflix gameplay reveal (August 27, 2026)
   'gta-6-gameplay-reveal-vice-city-detail','gta-6-netflix-trailer-every-reveal','gta-6-eating-sleeping-exercise-mechanics',
   'gta-6-netflix-extended-look-11-features','gta-6-vehicle-police-mechanics-details','gta-6-gameplay-details-rockstar-demo',
-  'gta-6-gameplay-video-features-november-launch'
+  'gta-6-gameplay-video-features-november-launch',
+  // Phase 11 — Marvel's Wolverine launch coverage + Fortnite (September 17, 2026)
+  'marvels-wolverine-best-xp-farm-level-up-fast','fortnite-pixel-polli-free-skin-sprite-mastery',
+  'marvels-wolverine-secret-ending-repressed-memories','marvels-wolverine-tips-to-know-before-you-play',
+  'marvels-wolverine-best-techniques-adaptations-unlock-first',
+  'marvels-wolverine-advanced-tips-xp-economy-shortcuts','marvels-wolverine-mission-list-walkthrough-hub'
 ];
 
 const MANUAL_TIPS_SLUGS = [
@@ -191,7 +198,7 @@ const STATIC_META = {
   '/tips':            {priority:'0.9', changefreq:'daily'},
   '/rick':            {priority:'0.9', changefreq:'weekly'},
   '/mediakit':        {priority:'0.7', changefreq:'monthly'},
-  '/premiados':       {priority:'0.6', changefreq:'monthly'},
+  '/hall-of-fame':    {priority:'0.6', changefreq:'monthly'},
   '/about':           {priority:'0.6', changefreq:'monthly'},
   '/contact':         {priority:'0.5', changefreq:'monthly'},
   '/terms':           {priority:'0.3', changefreq:'yearly'},
