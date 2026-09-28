@@ -6760,11 +6760,11 @@ function mkSparkline(from,to){
 }
 
 const MEDIA_KIT = {
-  periodStart:'2026-01-01', periodEnd:'2026-09-20', updated:'2026-09-21',
+  periodStart:'2026-01-01', periodEnd:'2026-09-27', updated:'2026-09-28',
   overview:[
-    {key:'twitch', color:'#9146FF', name:'Twitch', big:'270',
+    {key:'twitch', color:'#9146FF', name:'Twitch', big:'275',
       bigLabel:{en:'Followers (current)', pt:'Seguidores (atual)'},
-      quick:[{v:'22',l:{en:'Avg. viewers',pt:'Média de espectadores'}},{v:'38',l:{en:'Peak viewers',pt:'Pico de espectadores'}}]},
+      quick:[{v:'21',l:{en:'Avg. viewers',pt:'Média de espectadores'}},{v:'38',l:{en:'Peak viewers',pt:'Pico de espectadores'}}]},
     {key:'instagram', color:'#E4405F', name:'Instagram', big:'146',
       bigLabel:{en:'Followers', pt:'Seguidores'},
       quick:[{v:'50K',l:{en:'Views',pt:'Visualizações'}},{v:'33K',l:{en:'Reach',pt:'Alcance'}},{v:'9,01%',l:{en:'Engagement rate',pt:'Taxa de engagement'}}]},
@@ -6779,14 +6779,14 @@ const MEDIA_KIT = {
     {key:'twitch', color:'#9146FF', name:'Twitch',
       title:{en:'Consistent community growth', pt:'Crescimento consistente da comunidade'},
       stats:[
-        {v:'22',l:{en:'Avg. viewers (Sep 2026)',pt:'Média de espectadores (setembro 2026)'}},
-        {v:'+11',l:{en:'Followers (Sep 2026)',pt:'Seguidores (setembro 2026)'}},
+        {v:'21',l:{en:'Avg. viewers (Sep 2026)',pt:'Média de espectadores (setembro 2026)'}},
+        {v:'+16',l:{en:'Followers (Sep 2026)',pt:'Seguidores (setembro 2026)'}},
         {v:'38',l:{en:'Peak viewers (Sep 2026)',pt:'Pico de espectadores (setembro 2026)'}},
         {v:'+29',l:{en:'Followers (Aug 2026)',pt:'Seguidores (agosto 2026)'}},
-        {v:'270',l:{en:'Total followers (Sep 2026)',pt:'Seguidores totais (setembro 2026)'}},
+        {v:'275',l:{en:'Total followers (Sep 2026)',pt:'Seguidores totais (setembro 2026)'}},
         {v:'41,7h',l:{en:'Hours streamed (Aug 2026)',pt:'Horas transmitidas (agosto 2026)'}}
       ],
-      trend:{from:6,to:22,fromLabel:'Jan 2026',toLabel:{en:'Sep 2026',pt:'Set 2026'},l:{en:'Avg. viewers trend',pt:'Evolução da média de espectadores'}}},
+      trend:{from:6,to:21,fromLabel:'Jan 2026',toLabel:{en:'Sep 2026',pt:'Set 2026'},l:{en:'Avg. viewers trend',pt:'Evolução da média de espectadores'}}},
     {key:'instagram', color:'#E4405F', name:'Instagram',
       title:{en:'Growing reach and engagement', pt:'Alcance e interação em crescimento'},
       stats:[
@@ -6846,7 +6846,7 @@ const MEDIA_KIT = {
     {kind:'tiktok', tag:{en:'VIRAL ON TIKTOK',pt:'VIRAL NO TIKTOK'}, title:{en:'Standout TikTok clip',pt:'Clip em destaque no TikTok'}, stat:{en:'Strong reach & shares',pt:'Grande alcance e partilhas'}, url:'https://www.tiktok.com/@rick__rattle/video/7588637952838749473', thumb:null}
   ],
   growth:[
-    {name:'Twitch', from:'6', to:'22', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
+    {name:'Twitch', from:'6', to:'21', l:{en:'Avg. viewers (Jan → Sep)',pt:'Média de espectadores (Jan → Set)'}},
     {name:'Instagram', from:'106', to:'146', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}},
     {name:'TikTok', from:'62', to:'80', l:{en:'Followers (Jul → Sep)',pt:'Seguidores (Jul → Set)'}}
   ],
@@ -6855,27 +6855,27 @@ const MEDIA_KIT = {
   // show sponsors the channel is actively accelerating right now.
   // Source: Aug/Sep 2026 analytics export (timeseries.csv/posts.csv/summary.csv).
   momentum30:{
-    rangeStart:'2026-08-01', rangeEnd:'2026-09-20',
-    compareStart:'2026-06-11', compareEnd:'2026-07-31',
+    rangeStart:'2026-08-30', rangeEnd:'2026-09-27',
+    compareStart:'2026-07-02', compareEnd:'2026-08-29',
     summary:[
-      {v:'119', delta:'+1387.5%', up:true, l:{en:'Posts',pt:'Publicações'}},
-      {v:'260', delta:'+57', up:true, l:{en:'Total Followers',pt:'Seguidores Totais'}},
-      {v:'1421', delta:'+274%', up:true, l:{en:'Reactions',pt:'Reações'}},
-      {v:'492', delta:'+1347.1%', up:true, l:{en:'Comments',pt:'Comentários'}},
-      {v:'7%', delta:'-37.9%', up:false, l:{en:'Eng. Rate',pt:'Taxa de Engagement'}},
-      {v:'48,7K', delta:'+483%', up:true, l:{en:'Views',pt:'Visualizações'}}
+      {v:'138', delta:'+885.7%', up:true, l:{en:'Posts',pt:'Publicações'}},
+      {v:'271', delta:'+42', up:true, l:{en:'Total Followers',pt:'Seguidores Totais'}},
+      {v:'1456', delta:'+323.3%', up:true, l:{en:'Reactions',pt:'Reações'}},
+      {v:'517', delta:'+618.1%', up:true, l:{en:'Comments',pt:'Comentários'}},
+      {v:'6%', delta:'-40.2%', up:false, l:{en:'Eng. Rate',pt:'Taxa de Engagement'}},
+      {v:'54,7K', delta:'+520.8%', up:true, l:{en:'Views',pt:'Visualizações'}}
     ],
     byChannel:[
-      {name:'Instagram', color:'#E4405F', posts:{v:'50',d:null}, reactions:{v:'878',d:null}, comments:{v:'401',d:null}, eng:{v:'12,41%',d:null}},
-      {name:'TikTok', color:'#FF2E63', posts:{v:'38',d:null}, reactions:{v:'431',d:null}, comments:{v:'64',d:null}, eng:{v:'7,61%',d:null}},
-      {name:'YouTube', color:'#FF0000', posts:{v:'31',d:null}, reactions:{v:'112',d:null}, comments:{v:'27',d:null}, eng:{v:'3,41%',d:null}}
+      {name:'Instagram', color:'#E4405F', posts:{v:'55',d:null}, reactions:{v:'807',d:null}, comments:{v:'420',d:null}, eng:{v:'12,48%',d:null}},
+      {name:'TikTok', color:'#FF2E63', posts:{v:'42',d:null}, reactions:{v:'508',d:null}, comments:{v:'58',d:null}, eng:{v:'5,27%',d:null}},
+      {name:'YouTube', color:'#FF0000', posts:{v:'41',d:null}, reactions:{v:'141',d:null}, comments:{v:'39',d:null}, eng:{v:'2,30%',d:null}}
     ],
     topPosts:[
-      {rank:1, date:'2026-09-06', reactions:'42', caption:'Tu escolhias A, B, C ou D? #TwitchPortugal #Quiz #Trivia #Portugal #UniversidadeDoRick', url:'https://www.instagram.com/reel/Dc8zwn6AXhg/'},
-      {rank:2, date:'2026-08-02', reactions:'41', caption:'Parabéns ao @xblackhulk07 pelo primeiro lugar, ao @rui_lascasas88 pelo 2º e ao @hookwrath pelo 3º. #interativo #streamerpt #livestreaming', url:'https://www.instagram.com/reel/DbjMFjxoqmF/'},
+      {rank:1, date:'2026-09-06', reactions:'43', caption:'Tu escolhias A, B, C ou D? #TwitchPortugal #Quiz #Trivia #Portugal #UniversidadeDoRick', url:'https://www.instagram.com/reel/Dc8zwn6AXhg/'},
+      {rank:2, date:'2026-09-27', reactions:'38', caption:'O chat ficou dividido. De que lado estás? #TwitchPortugal #Quiz #Trivia #Portugal #UniversidadeDoRick', url:'https://www.instagram.com/reel/DdykIP8D6E0/'},
       {rank:3, date:'2026-08-30', reactions:'35', caption:'Generation Alpha, Generation Strange. #farmaraura #genalpha #twitchportugal #67 #toooldforthis', url:'https://www.instagram.com/reel/DcrPtpBoOqU/'},
-      {rank:4, date:'2026-08-15', reactions:'35', caption:'The boys are back in the street! #backstreetboys #coisasdehomem #twitchportugal #momentoslive #livestreaming', url:'https://www.instagram.com/reel/DcElyuKoaMb/'},
-      {rank:5, date:'2026-08-05', reactions:'34', caption:'mi perdona mi hermanos!!! te gusto mucho carinho!!! #nuestroshermanos #pvp #warzoneclips #twitchportugal', url:'https://www.instagram.com/reel/Dbq800moxp4/'}
+      {rank:4, date:'2026-09-12', reactions:'33', caption:'ai Snhra Diretora... assim voce me mata! #TwitchPortugal #tensaosexual #fungames #precoce #UniversidadeDoRick', url:'https://www.instagram.com/reel/DdMsFSuDdBg/'},
+      {rank:5, date:'2026-09-10', reactions:'30', caption:'O chat já respondeu. Agora é a tua vez. #TwitchPortugal #Quiz #Trivia #Portugal #UniversidadeDoRick', url:'https://www.instagram.com/reel/DdGyrK9gIas/'}
     ]
   },
   // Google Search Console export — proof the guides/tips content drives real,
