@@ -5,7 +5,7 @@
 
 const CANONICAL_HOST = 'https://rickrattle.com';
 
-const STATIC_PATHS = ['/', '/news', '/tips', '/rick', '/mediakit', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
+const STATIC_PATHS = ['/', '/news', '/tips', '/mobile', '/rick', '/mediakit', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
 
 const GAME_SLUGS = [
   'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
@@ -22,7 +22,9 @@ const GAME_SLUGS = [
   // Phase 9 — Halo: Campaign Evolved launch (July 28, 2026)
   'halo-campaign-evolved',
   // Phase 11 — Marvel's Wolverine launch (September 15, 2026)
-  'marvels-wolverine'
+  'marvels-wolverine',
+  // Phase 12 — Mobile section launch (September 29, 2026)
+  'balatro-mobile','rainbow-six-mobile','honkai-star-rail','palworld-mobile','delta-force'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -196,6 +198,7 @@ const STATIC_META = {
   '/':                {priority:'1.0', changefreq:'daily'},
   '/news':            {priority:'0.9', changefreq:'daily'},
   '/tips':            {priority:'0.9', changefreq:'daily'},
+  '/mobile':          {priority:'0.7', changefreq:'weekly'},
   '/rick':            {priority:'0.9', changefreq:'weekly'},
   '/mediakit':        {priority:'0.7', changefreq:'monthly'},
   '/hall-of-fame':    {priority:'0.6', changefreq:'monthly'},

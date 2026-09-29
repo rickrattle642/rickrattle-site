@@ -818,8 +818,9 @@ const T = {
     "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
     "search.ph":"Search articles, guides, tier lists...",
     "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS",
-    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit",
+    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit",
     "premiados.kicker":"// EVENTS","premiados.title":"Hall of Fame","premiados.sub":"Where the community that shows up — and wins — gets remembered.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No one in the Hall of Fame yet — the first prize is still up for grabs.",
+    "mobile.kicker":"// MOBILE","mobile.title":"Mobile Gaming","mobile.sub":"The mobile games we're tracking — guides and news on the way.","mobile.intro":"A new section for the mobile games worth covering right now. Guides and news are being added game by game.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
     "home.aside.popular":"POPULAR NOW","home.aside.latest":"LATEST ARTICLES",
@@ -847,8 +848,9 @@ const T = {
     "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
     "search.ph":"Procurar artigos, guias, tier lists...",
     "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS",
-    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit",
+    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit",
     "premiados.kicker":"// EVENTOS","premiados.title":"Hall of Fame","premiados.sub":"Onde a comunidade que aparece — e ganha — fica para sempre.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda ninguém no Hall of Fame — o primeiro prémio está por agarrar.",
+    "mobile.kicker":"// MOBILE","mobile.title":"Gaming Mobile","mobile.sub":"Os jogos mobile que estamos a acompanhar — guias e novidades a caminho.","mobile.intro":"Uma secção nova, dedicada aos jogos mobile que fazem sentido cobrir agora. Vamos adicionando guias e notícias jogo a jogo.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
     "home.aside.popular":"POPULARES AGORA","home.aside.latest":"ARTIGOS RECENTES",
@@ -946,7 +948,14 @@ const games = [
   {slug:'paralives',           name:'Paralives',              short:'Paralives',    steamAppId:1118520, subreddit:'Paralives',       hasLocalImage:true, platforms:['pc']},
   {slug:'path-of-exile-2',     name:'Path of Exile 2',        short:'PoE 2',        steamAppId:2694490, subreddit:'pathofexile2',    platforms:['pc','ps5','xbox']},
   {slug:'halo-campaign-evolved', name:'Halo: Campaign Evolved', short:'Halo CE',    steamAppId:2806050, subreddit:'halo',            platforms:['pc','ps5','xbox']},
-  {slug:'marvels-wolverine',   name:"Marvel's Wolverine",     short:'Wolverine',                        subreddit:'MarvelsWolverine',platforms:['ps5']}
+  {slug:'marvels-wolverine',   name:"Marvel's Wolverine",     short:'Wolverine',                        subreddit:'MarvelsWolverine',platforms:['ps5']},
+
+  // === MOBILE (Sep 2026 — mobile section launch) ===
+  {slug:'balatro-mobile',      name:'Balatro Mobile',         short:'Balatro',                          blurb:{en:'The roguelike deckbuilder phenomenon, now in your pocket.',pt:'O fenómeno roguelike de deckbuilding, agora no teu bolso.'}, platforms:['mobile']},
+  {slug:'rainbow-six-mobile',  name:'Rainbow Six Mobile',     short:'R6 Mobile',                        blurb:{en:"Ubisoft's tactical shooter, rebuilt for touchscreens.",pt:'O shooter tático da Ubisoft, feito de raiz para ecrãs táteis.'}, platforms:['mobile']},
+  {slug:'honkai-star-rail',    name:'Honkai: Star Rail',      short:'Star Rail',   subreddit:'HonkaiStarRail', blurb:{en:"HoYoverse's turn-based RPG hit — cross-platform, still growing.",pt:'O RPG por turnos de sucesso da HoYoverse — multiplataforma, em crescimento.'}, platforms:['mobile','pc']},
+  {slug:'palworld-mobile',     name:'Palworld Mobile',        short:'Palworld Mobile',                  blurb:{en:'The "Pokémon with guns" craze, going mobile.',pt:'A febre "Pokémon com armas", agora em mobile.'}, platforms:['mobile']},
+  {slug:'delta-force',         name:'Delta Force',            short:'Delta Force',                      blurb:{en:"TiMi's cross-platform extraction shooter — PC, console and mobile.",pt:'O shooter de extração multiplataforma da TiMi — PC, consola e mobile.'}, platforms:['mobile','pc','ps5','xbox']}
 ];
 
 // === Feeds gerais — não amarrados a um jogo específico ===
@@ -5449,6 +5458,7 @@ const navItems = [
   {key:'home', icon:'⌂', label:'nav.home', section:'main'},
   {key:'news', icon:'◫', label:'nav.news', section:'main'},
   {key:'tips', icon:'✦', label:'nav.tips', section:'main'},
+  {key:'mobile', icon:'📱', label:'nav.mobile', section:'main'},
   // Events are separate pages (not SPA views) — external:true bypasses the SPA click interceptor.
   {key:'barraca', icon:'◉', label:'nav.barraca', section:'events', external:true, href:'/barraca'},
   {key:'universidade', icon:'✎', label:'nav.universidade', section:'events', external:true, href:'/universidade/Notas.html'},
@@ -5501,6 +5511,7 @@ const routes = {
   'hall-of-fame':PremiadosView,
   news:NewsView,
   tips:TipsView,
+  mobile:MobileView,
   about:AboutView,
   contact:ContactView,
   terms:TermsView,
@@ -5517,6 +5528,7 @@ const SEO_COPY={
     tipsHub:{title:'Gaming Tips — Rick Rattle', desc:'Guides, builds and tier lists across the games we play. Updated regularly.'},
     rick:{title:'The Channel — Rick Rattle', desc:'Variety streamer running interactive chaos sessions. Join the Twitch live show.'},
     premiados:{title:'Hall of Fame — Rick Rattle', desc:'A hall of fame for the community members who won prizes in our competitions — see the prizes and their setups.'},
+    mobile:{title:'Mobile Gaming — Rick Rattle', desc:'The mobile games we cover — Balatro Mobile, Rainbow Six Mobile, Honkai: Star Rail, Palworld Mobile, Delta Force and more.'},
     mediakit:{title:'Media Kit — Rick Rattle', desc:'Audience stats, growth and content highlights across Twitch, Instagram, TikTok and YouTube. For brands and partners.'},
     about:{title:'About — Rick Rattle', desc:'Rick Rattle is a small, honest gaming hub built around a Twitch community. Learn what the project is about and what you\'ll find here.'},
     contact:{title:'Contact — Rick Rattle', desc:'Get in touch — feedback, bug reports, collaborations and community contact for rickrattle.com.'},
@@ -5533,6 +5545,7 @@ const SEO_COPY={
     tipsHub:{title:'Dicas de Gaming — Rick Rattle', desc:'Guias, builds e tier lists para os jogos que jogamos. Atualizado regularmente.'},
     rick:{title:'O Canal — Rick Rattle', desc:'Streamer variety com sessões interativas de caos. Junta-te à live na Twitch.'},
     premiados:{title:'Hall of Fame — Rick Rattle', desc:'Um hall of fame para os membros da comunidade que ganharam prémios nas nossas competições — vê os prémios e os seus setups.'},
+    mobile:{title:'Gaming Mobile — Rick Rattle', desc:'Os jogos mobile que cobrimos — Balatro Mobile, Rainbow Six Mobile, Honkai: Star Rail, Palworld Mobile, Delta Force e mais.'},
     mediakit:{title:'Media Kit — Rick Rattle', desc:'Estatísticas de audiência, crescimento e destaques de conteúdo no Twitch, Instagram, TikTok e YouTube. Para marcas e parceiros.'},
     about:{title:'Sobre — Rick Rattle', desc:'Rick Rattle é um gaming hub pequeno e honesto construído à volta de uma comunidade Twitch. Vê do que o projeto trata e o que vais encontrar aqui.'},
     contact:{title:'Contacto — Rick Rattle', desc:'Entra em contacto — feedback, bug reports, colaborações e comunidade rickrattle.com.'},
@@ -5616,6 +5629,7 @@ function updateSEO(r){
     const game=games.find(g=>g.slug===r.a);
     if(game){const m=copy.gameTips(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
   }else if(r.view==='tips'){title=copy.tipsHub.title;desc=copy.tipsHub.desc;}
+  else if(r.view==='mobile'){title=copy.mobile.title;desc=copy.mobile.desc;}
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
   else if(r.view==='mediakit'){title=copy.mediakit.title;desc=copy.mediakit.desc;}
   else if(r.view==='hall-of-fame'){title=copy.premiados.title;desc=copy.premiados.desc;}
@@ -5702,6 +5716,8 @@ function buildBreadcrumbs(r){
     trail.push({label:'Rick Rattle', href:'/rick'});
   }else if(r.view==='hall-of-fame'){
     trail.push({label:'Hall of Fame', href:'/hall-of-fame'});
+  }else if(r.view==='mobile'){
+    trail.push({label:'Mobile', href:'/mobile'});
   }else if(r.view==='mediakit'){
     trail.push({label:'Media Kit', href:'/mediakit'});
   }else if(r.view==='about'){
@@ -6739,6 +6755,38 @@ function PremiadosView(view){
       <p data-i18n="premiados.intro">${t('premiados.intro')}</p>
     </div>
     ${grid}
+  `;
+}
+
+/* -------------------- MOBILE HUB -------------------- */
+// Curated index of mobile games — links into the *existing* /tips/{slug} (and
+// /news/{slug}) infrastructure per game rather than a parallel content system.
+// Structure only for now: real guides/news get added game by game later.
+function MobileGameCard(g){
+  const item={game:g.slug};
+  return `<a class="card" href="/tips/${g.slug}">
+    <div class="card-thumb">${thumbHtml(item)}${fallbackHtml(item)}</div>
+    <div class="card-body">
+      <div class="card-meta"><span class="game">${g.short}</span></div>
+      <h3 class="card-title">${g.name}</h3>
+      <p class="card-summary">${tr(g.blurb)||''}</p>
+    </div>
+  </a>`;
+}
+function MobileView(view){
+  const mobileGames=games.filter(g=>(g.platforms||[]).includes('mobile'));
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="mobile.kicker">${t('mobile.kicker')}</div>
+        <h1 class="page-title" data-i18n="mobile.title">${t('mobile.title')}</h1>
+        <p class="page-sub" data-i18n="mobile.sub">${t('mobile.sub')}</p>
+      </div>
+    </div>
+    <div class="detail-body" style="max-width:780px;margin-bottom:8px">
+      <p data-i18n="mobile.intro">${t('mobile.intro')}</p>
+    </div>
+    <div class="grid grid-2">${mobileGames.map(MobileGameCard).join('')}</div>
   `;
 }
 
