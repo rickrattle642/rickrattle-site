@@ -923,7 +923,7 @@ const games = [
   {slug:'palworld',            name:'Palworld',               short:'Palworld',     steamAppId:1623730, subreddit:'Palworld',        platforms:['pc','xbox']},
   {slug:'monster-hunter-wilds',name:'Monster Hunter Wilds',   short:'MH Wilds',     steamAppId:2246340, subreddit:'MonsterHunter',   platforms:['pc','ps5','xbox']},
   {slug:'apex',                name:'Apex Legends',           short:'Apex',         steamAppId:1172470, subreddit:'apexlegends',     platforms:['pc','ps5','xbox','switch']},
-  {slug:'fortnite',            name:'Fortnite',               short:'Fortnite',                         subreddit:'FortNiteBR',      platforms:['pc','ps5','xbox','switch','mobile']},
+  {slug:'fortnite',            name:'Fortnite',               short:'Fortnite',   hasLocalImage:true,   subreddit:'FortNiteBR',      platforms:['pc','ps5','xbox','switch','mobile']},
   {slug:'overwatch2',          name:'Overwatch 2',            short:'Overwatch 2',                      subreddit:'Overwatch',       platforms:['pc','ps5','xbox','switch']},
   {slug:'crimson-desert',      name:'Crimson Desert',         short:'Crimson Desert',steamAppId:1216730,subreddit:'CrimsonDesert',   hasLocalImage:true, platforms:['pc','ps5','xbox']},
   {slug:'diablo-iv',           name:'Diablo IV',              short:'Diablo IV',    steamAppId:2344520, subreddit:'Diablo4',         platforms:['pc','ps5','xbox']},
@@ -7683,12 +7683,11 @@ function TipsView(view,r){
         return `<button class="game-tab${g.slug===game?' active':''}${g.streamPlayed?' game-tab-stream':''}" data-g="${g.slug}" title="${g.name}">${g.streamPlayed?'★ ':''}${g.short}<span class="count">${c}</span></button>`;
       }).join('')}
     </div>
-    ${game ? `
     <div class="subtabs">
-      <button class="subtab${tipsState.sub==='guides'?' active':''}" data-s="guides"><span data-i18n="tips.guides">${t('tips.guides')}</span> · ${gGuides.length}</button>
-      <button class="subtab${tipsState.sub==='tiers'?' active':''}" data-s="tiers"><span data-i18n="tips.tiers">${t('tips.tiers')}</span> · ${gTiers.length}</button>
-      <button class="subtab${tipsState.sub==='builds'?' active':''}" data-s="builds"><span data-i18n="tips.builds">${t('tips.builds')}</span> · ${gBuilds.length}</button>
-    </div>` : ''}
+      <button class="subtab${tipsState.sub==='guides'?' active':''}" data-s="guides"><span data-i18n="tips.guides">${t('tips.guides')}</span> · ${game?gGuides.length:guides.filter(g=>g.type!=='tierlist'&&g.type!=='build').length}</button>
+      <button class="subtab${tipsState.sub==='tiers'?' active':''}" data-s="tiers"><span data-i18n="tips.tiers">${t('tips.tiers')}</span> · ${game?gTiers.length:tierLists.length}</button>
+      <button class="subtab${tipsState.sub==='builds'?' active':''}" data-s="builds"><span data-i18n="tips.builds">${t('tips.builds')}</span> · ${game?gBuilds.length:guides.filter(g=>g.type==='build').length}</button>
+    </div>
     <div id="tipsContent"></div>
   `;
   view.querySelectorAll('[data-g]').forEach(b=>b.addEventListener('click',()=>{
@@ -7700,20 +7699,23 @@ function TipsView(view,r){
 
   const cont=view.querySelector('#tipsContent');
 
-  // No game selected — show a neutral prompt instead of forcing a default selection.
-  if(!game){
-    cont.innerHTML=`
-      <div class="empty-tips" style="text-align:center;padding:48px 24px">
-        <div class="empty-icon" style="font-size:32px;margin-bottom:14px">🎮</div>
-        <h3 style="font-family:'Anton',sans-serif;font-size:24px;letter-spacing:-.5px;margin:0 0 8px">${lang==='pt'?'Escolhe um jogo':'Pick a game'}</h3>
-        <p style="color:var(--muted2);max-width:520px;margin:0 auto">${lang==='pt'?'Seleciona um jogo acima para veres guias, builds e tier lists.':'Select a game above to see guides, builds and tier lists.'}</p>
-      </div>
-    `;
-    return;
-  }
+  // Sort helper — featured first, then most recently updated. Mirrors getAllArticles()
+  // so the hub feels populated from the start, same as /news, instead of forcing a
+  // game pick before showing anything.
+  const byRecency=(a,b)=>{
+    if(a.featured&&!b.featured)return -1;
+    if(!a.featured&&b.featured)return 1;
+    return (b.lastUpdated||b.date||'').localeCompare(a.lastUpdated||a.date||'');
+  };
 
   let items=[];
-  if(tipsState.sub==='guides')items=gGuides.map(GuideCard);
+  if(!game){
+    // No game selected — populate the hub with everything across all games,
+    // same "browse from the start" behaviour as the News page.
+    if(tipsState.sub==='guides')items=guides.filter(g=>g.type!=='tierlist'&&g.type!=='build').sort(byRecency).map(GuideCard);
+    else if(tipsState.sub==='tiers')items=[...tierLists].sort(byRecency).map(TierCard);
+    else items=guides.filter(g=>g.type==='build').sort(byRecency).map(GuideCard);
+  }else if(tipsState.sub==='guides')items=gGuides.map(GuideCard);
   else if(tipsState.sub==='tiers')items=gTiers.map(TierCard);
   else items=gBuilds.map(GuideCard);
 
