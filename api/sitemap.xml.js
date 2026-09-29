@@ -46,7 +46,9 @@ const MANUAL_ARTICLE_SLUGS = [
   'marvels-wolverine-best-xp-farm-level-up-fast','fortnite-pixel-polli-free-skin-sprite-mastery',
   'marvels-wolverine-secret-ending-repressed-memories','marvels-wolverine-tips-to-know-before-you-play',
   'marvels-wolverine-best-techniques-adaptations-unlock-first',
-  'marvels-wolverine-advanced-tips-xp-economy-shortcuts','marvels-wolverine-mission-list-walkthrough-hub'
+  'marvels-wolverine-advanced-tips-xp-economy-shortcuts','marvels-wolverine-mission-list-walkthrough-hub',
+  // Phase 14 — Fortnitemares 2026 coverage (September 29, 2026)
+  'fortnite-fortnitemares-2026-season-4-overview','fortnite-chapter-8-season-4-end-date-leaks'
 ];
 
 const MANUAL_TIPS_SLUGS = [
@@ -199,7 +201,16 @@ const MANUAL_TIPS_SLUGS = [
   {game:'palworld-mobile',    slug:'palworld-online-controls-mechanics-guide'},
   {game:'honkai-star-rail',   slug:'honkai-star-rail-tier-list-builds-guide'},
   {game:'honkai-star-rail',   slug:'honkai-star-rail-active-codes-guide'},
-  {game:'honkai-star-rail',   slug:'honkai-star-rail-memory-of-chaos-simulated-universe-guide'}
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-memory-of-chaos-simulated-universe-guide'},
+  // Phase 14 — Fortnite, Grounded 2, It Takes Two, Warzone (September 29, 2026)
+  {game:'fortnite',       slug:'fortnite-season-4-weapons-meta-guide'},
+  {game:'grounded-2',     slug:'grounded-2-best-mutations-guide'},
+  {game:'grounded-2',     slug:'grounded-2-queen-ant-boss-guide'},
+  {game:'it-takes-two',   slug:'it-takes-two-friends-pass-crossplay-guide'},
+  {game:'it-takes-two',   slug:'it-takes-two-minigames-achievements-guide'},
+  {game:'warzone',        slug:'warzone-gunsmith-recoil-ttk-guide'},
+  {game:'warzone',        slug:'warzone-audio-settings-footsteps-guide'},
+  {game:'warzone',        slug:'warzone-connection-errors-crash-fix-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
