@@ -24,7 +24,9 @@ const GAME_SLUGS = [
   // Phase 11 — Marvel's Wolverine launch (September 15, 2026)
   'marvels-wolverine',
   // Phase 12 — Mobile section launch (September 29, 2026)
-  'balatro-mobile','rainbow-six-mobile','honkai-star-rail','palworld-mobile','delta-force'
+  'balatro-mobile','rainbow-six-mobile','honkai-star-rail','palworld-mobile','delta-force',
+  // Phase 15 — Last War: Survival (September 29, 2026)
+  'last-war-survival'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -210,7 +212,11 @@ const MANUAL_TIPS_SLUGS = [
   {game:'it-takes-two',   slug:'it-takes-two-minigames-achievements-guide'},
   {game:'warzone',        slug:'warzone-gunsmith-recoil-ttk-guide'},
   {game:'warzone',        slug:'warzone-audio-settings-footsteps-guide'},
-  {game:'warzone',        slug:'warzone-connection-errors-crash-fix-guide'}
+  {game:'warzone',        slug:'warzone-connection-errors-crash-fix-guide'},
+  // Phase 15 — Last War: Survival (September 29, 2026)
+  {game:'last-war-survival', slug:'last-war-survival-f2p-beginner-guide'},
+  {game:'last-war-survival', slug:'last-war-survival-tank-squad-meta-guide'},
+  {game:'last-war-survival', slug:'last-war-survival-season-2-aircraft-meta-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
