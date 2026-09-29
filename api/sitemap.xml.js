@@ -182,7 +182,14 @@ const MANUAL_TIPS_SLUGS = [
   {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-walkthrough'},
   {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-all-skulls'},
   {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-all-terminals'},
-  {game:'gta-v',                slug:'gta-online-weekly-updates-tracker'}
+  {game:'gta-v',                slug:'gta-online-weekly-updates-tracker'},
+  // Phase 12 — Mobile section launch (September 29, 2026)
+  {game:'balatro-mobile', slug:'balatro-mobile-early-game-guide'},
+  {game:'balatro-mobile', slug:'balatro-mobile-synergy-combos-guide'},
+  {game:'balatro-mobile', slug:'balatro-mobile-unlock-secret-jokers-guide'},
+  {game:'delta-force',    slug:'delta-force-mobile-fps-lag-settings-guide'},
+  {game:'delta-force',    slug:'delta-force-mobile-best-weapons-meta-guide'},
+  {game:'delta-force',    slug:'delta-force-mobile-sensitivity-hud-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
