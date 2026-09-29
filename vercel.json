@@ -1,6 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/premiados", "destination": "/hall-of-fame", "permanent": true },
+    { "source": "/premiados/(.*)", "destination": "/hall-of-fame", "permanent": true },
+    { "source": "/barraca/admin", "destination": "/barraca", "permanent": true },
+    { "source": "/barraca/overlay", "destination": "/barraca", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" },
     { "source": "/home", "destination": "/index.html" },
