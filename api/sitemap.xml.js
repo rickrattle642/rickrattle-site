@@ -189,7 +189,17 @@ const MANUAL_TIPS_SLUGS = [
   {game:'balatro-mobile', slug:'balatro-mobile-unlock-secret-jokers-guide'},
   {game:'delta-force',    slug:'delta-force-mobile-fps-lag-settings-guide'},
   {game:'delta-force',    slug:'delta-force-mobile-best-weapons-meta-guide'},
-  {game:'delta-force',    slug:'delta-force-mobile-sensitivity-hud-guide'}
+  {game:'delta-force',    slug:'delta-force-mobile-sensitivity-hud-guide'},
+  // Phase 13 — Mobile section batch 2 (September 29, 2026)
+  {game:'rainbow-six-mobile', slug:'r6-mobile-sensitivity-hud-settings-guide'},
+  {game:'rainbow-six-mobile', slug:'r6-mobile-best-operators-guide'},
+  {game:'rainbow-six-mobile', slug:'r6-mobile-connection-errors-lag-fix-guide'},
+  {game:'palworld-mobile',    slug:'palworld-mobile-vs-online-release-date-guide'},
+  {game:'palworld-mobile',    slug:'palworld-mobile-requirements-apk-safety-guide'},
+  {game:'palworld-mobile',    slug:'palworld-online-controls-mechanics-guide'},
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-tier-list-builds-guide'},
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-active-codes-guide'},
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-memory-of-chaos-simulated-universe-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
