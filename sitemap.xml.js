@@ -1,0 +1,278 @@
+// Vercel serverless function — generates sitemap.xml dynamically.
+// Canonical host hardcoded so URLs are consistent regardless of how the sitemap is reached
+// (works the same via /sitemap.xml OR /api/sitemap.xml, on rickrattle.com or vercel preview).
+// Search Console already knows /api/sitemap.xml — keep that path live alongside the canonical.
+
+const CANONICAL_HOST = 'https://rickrattle.com';
+
+const STATIC_PATHS = ['/', '/news', '/tips', '/mobile', '/rick', '/mediakit', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
+
+const GAME_SLUGS = [
+  'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
+  'cs2','eldenring','cyberpunk2077','baldursgate3','gta-vi','helldivers2','lol','valorant','palworld','monster-hunter-wilds',
+  'apex','fortnite','overwatch2','crimson-desert','diablo-iv','gta-v','marathon','marvel-rivals','re-requiem','saros','windrose',
+  'tekken-8','callofduty','destiny-2','forza-horizon-6',
+  'subnautica-2','wow','warzone','cod-bo7',
+  // Phase 4 — community-requested catalogue additions
+  'dota-2','007-first-light','escape-from-tarkov',
+  // Phase 6 — Paralives Early Access launch (May 25, 2026)
+  'paralives',
+  // Phase 8 — Path of Exile 2
+  'path-of-exile-2',
+  // Phase 9 — Halo: Campaign Evolved launch (July 28, 2026)
+  'halo-campaign-evolved',
+  // Phase 11 — Marvel's Wolverine launch (September 15, 2026)
+  'marvels-wolverine',
+  // Phase 12 — Mobile section launch (September 29, 2026)
+  'balatro-mobile','rainbow-six-mobile','honkai-star-rail','palworld-mobile','delta-force',
+  // Phase 15 — Last War: Survival (September 29, 2026)
+  'last-war-survival',
+  // Phase 16 — Gears of War: E-Day (October 2, 2026)
+  'gears-of-war-e-day'
+];
+
+const MANUAL_ARTICLE_SLUGS = [
+  'kcd2-patch-1-3-horse-overhaul','rl-season-evolution-recap','finals-season-3-weapons-leaked',
+  'arc-raiders-tech-test-results','minecraft-tricky-trials-recap','chivalry-2-content-roadmap',
+  'gaming-handheld-market-2026','esports-2026-prize-pool-record','subscription-fatigue-gaming','crossplay-state-2026',
+  // Phase 3B editorial
+  'goty-2026-race-wide-open','hidden-gems-2026-played-by-nobody','best-vintage-games-2026',
+  'games-aging-surprisingly-well','forgotten-masterpieces-7-underrated','future-contenders-2027-watchlist',
+  // Phase 3F platforms
+  'ps-plus-2026-monthly-highlights','xbox-game-pass-2026-roadmap',
+  // Phase 6 — Paralives launch coverage
+  'paralives-early-access-launch','paralives-post-launch-roadmap','paralives-bundles-and-collabs',
+  // Phase 10 — GTA 6 Netflix gameplay reveal (August 27, 2026)
+  'gta-6-gameplay-reveal-vice-city-detail','gta-6-netflix-trailer-every-reveal','gta-6-eating-sleeping-exercise-mechanics',
+  'gta-6-netflix-extended-look-11-features','gta-6-vehicle-police-mechanics-details','gta-6-gameplay-details-rockstar-demo',
+  'gta-6-gameplay-video-features-november-launch',
+  // Phase 11 — Marvel's Wolverine launch coverage + Fortnite (September 17, 2026)
+  'marvels-wolverine-best-xp-farm-level-up-fast','fortnite-pixel-polli-free-skin-sprite-mastery',
+  'marvels-wolverine-secret-ending-repressed-memories','marvels-wolverine-tips-to-know-before-you-play',
+  'marvels-wolverine-best-techniques-adaptations-unlock-first',
+  'marvels-wolverine-advanced-tips-xp-economy-shortcuts','marvels-wolverine-mission-list-walkthrough-hub',
+  // Phase 14 — Fortnitemares 2026 coverage (September 29, 2026)
+  'fortnite-fortnitemares-2026-season-4-overview','fortnite-chapter-8-season-4-end-date-leaks',
+  // Phase 16 — Gears of War: E-Day review round-up (October 2, 2026)
+  'gears-of-war-e-day-review-round-up-what-critics-say'
+];
+
+const MANUAL_TIPS_SLUGS = [
+  // guides
+  {game:'kcd2', slug:'kcd2-early-game-survival'},
+  {game:'rocket-league', slug:'rl-aerial-training-routine'},
+  {game:'the-finals', slug:'finals-light-class-movement'},
+  {game:'minecraft', slug:'minecraft-villager-trading-loop'},
+  {game:'arc-raiders', slug:'arc-raiders-extraction-101'},
+  {game:'arc-raiders', slug:'arc-raiders-extraction-routing'},
+  {game:'arc-raiders', slug:'arc-raiders-pvp-loadout'},
+  {game:'chivalry-2', slug:'chivalry2-knight-fundamentals'},
+  {game:'cyberpunk2077', slug:'cyberpunk-netrunner-phantom'},
+  {game:'gta-v', slug:'gtav-money-optimization'},
+  {game:'split-fiction', slug:'split-fiction-coop-tips'},
+  {game:'rdr2', slug:'rdr2-honor-route'},
+  {game:'palworld', slug:'palworld-late-base'},
+  {game:'minecraft', slug:'minecraft-first-night-survival'},
+  {game:'minecraft', slug:'minecraft-trial-chambers-loot-route'},
+  {game:'re-requiem', slug:'re-requiem-best-weapons-grace'},
+  {game:'re-requiem', slug:'re-requiem-best-weapons-leon'},
+  {game:'re-requiem', slug:'re-requiem-ammo-economy'},
+  {game:'re-requiem', slug:'re-requiem-no-damage-run'},
+  {game:'crimson-desert', slug:'crimson-desert-combat-stances'},
+  {game:'crimson-desert', slug:'crimson-desert-pvp-builds'},
+  {game:'diablo-iv', slug:'diablo4-leveling-1-70'},
+  {game:'diablo-iv', slug:'diablo4-pit-pushing-meta'},
+  {game:'diablo-iv', slug:'diablo4-auradin-paladin-build'},
+  {game:'diablo-iv', slug:'diablo4-warlock-intro'},
+  {game:'monster-hunter-wilds', slug:'mh-wilds-artian-weapons-tu4'},
+  {game:'destiny-2', slug:'destiny2-classes-overview'},
+  {game:'destiny-2', slug:'destiny2-edge-of-fate-beginner'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-tracker'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-easy-money'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-credit-skill-point-farm'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-best-cars-race-type'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-beginner-tips-tricks'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-progression-pathways'},
+  {game:'subnautica-2', slug:'subnautica-2-first-hour'},
+  {game:'subnautica-2', slug:'subnautica-2-things-to-do-first'},
+  {game:'wow', slug:'wow-new-player-class-path'},
+  {game:'wow', slug:'wow-dps-tier-mythic-plus'},
+  {game:'warzone', slug:'warzone-current-meta-loadouts'},
+  {game:'cod-bo7', slug:'cod-bo7-launch-meta'},
+  {game:'tekken-8', slug:'tekken-8-mod-discovery'},
+  {game:'fortnite', slug:'fortnite-weapons-tier-chapter-7'},
+  // tier lists
+  {game:'rocket-league', slug:'rl-cars-spring-2026'},
+  {game:'the-finals', slug:'finals-weapons-current'},
+  {game:'kcd2', slug:'kcd2-perks-bohemia-edition'},
+  {game:'cs2', slug:'cs2-rifles-current'},
+  {game:'eldenring', slug:'eldenring-classes-2026'},
+  {game:'helldivers2', slug:'helldivers2-stratagems'},
+  {game:'baldursgate3', slug:'bg3-classes-honour-mode'},
+  {game:'marvel-rivals', slug:'marvel-rivals-heroes-current'},
+  {game:'apex', slug:'apex-legends-current'},
+  {game:'valorant', slug:'valorant-agents-current'},
+  {game:'monster-hunter-wilds', slug:'mh-wilds-weapons-tu4'},
+  {game:'diablo-iv', slug:'diablo4-classes-tier-s13'},
+  {game:'diablo-iv', slug:'diablo4-leveling-tier-s13'},
+  {game:'diablo-iv', slug:'diablo4-speed-farm-tier-s13'},
+  {game:'palworld', slug:'palworld-best-pals-early'},
+  {game:'minecraft', slug:'minecraft-enchantments-tier'},
+  {game:'arc-raiders', slug:'arc-raiders-pve-weapon-tier-list'},
+  {game:'arc-raiders', slug:'arc-raiders-pvp-weapon-tier-list'},
+  {game:'crimson-desert', slug:'crimson-desert-classes-tier'},
+  {game:'re-requiem', slug:'re-requiem-weapons-tier'},
+  {game:'destiny-2', slug:'destiny2-exotic-weapons-pve'},
+  {game:'destiny-2', slug:'destiny2-class-tier-list'},
+  // Phase 4 — added FH6 guides
+  {game:'forza-horizon-6', slug:'forza-horizon-6-complete-walkthrough'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-tips-and-tricks'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-barn-finds'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-car-list'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-easy-car-unlock'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-afk-xp-grind'},
+  // Phase 4 — Dota 2
+  {game:'dota-2', slug:'dota-2-beginner-fundamentals'},
+  {game:'dota-2', slug:'dota-2-hero-guides-hub'},
+  {game:'dota-2', slug:'dota-2-stratz-hero-builds'},
+  // Phase 4 — LoL
+  {game:'lol', slug:'lol-alistar-comprehensive-guide'},
+  {game:'lol', slug:'lol-smolder-guide'},
+  {game:'lol', slug:'lol-kindred-jungle-guide'},
+  {game:'lol', slug:'lol-pyke-echoes-from-the-deep'},
+  {game:'lol', slug:'lol-aatrox-grandmaster-guide'},
+  {game:'lol', slug:'lol-fiora-handbook'},
+  {game:'lol', slug:'lol-probuilds-meta'},
+  {game:'lol', slug:'lol-champion-tier-list'},
+  // Phase 4 — 007 First Light
+  {game:'007-first-light', slug:'007-first-light-essential-tips'},
+  {game:'007-first-light', slug:'007-first-light-chapters-progress'},
+  {game:'007-first-light', slug:'007-first-light-beginner-guide'},
+  {game:'007-first-light', slug:'007-first-light-walkthrough'},
+  {game:'007-first-light', slug:'007-first-light-best-weapons'},
+  {game:'007-first-light', slug:'007-first-light-stealth-tips'},
+  {game:'007-first-light', slug:'007-first-light-gadget-usage'},
+  // Phase 4 — Escape from Tarkov
+  {game:'escape-from-tarkov', slug:'eft-the-guide-quest'},
+  {game:'escape-from-tarkov', slug:'eft-the-guide-requirements'},
+  {game:'escape-from-tarkov', slug:'eft-best-pc-settings'},
+  {game:'escape-from-tarkov', slug:'eft-weapon-choice-guide'},
+  {game:'escape-from-tarkov', slug:'eft-achievements-guide'},
+  {game:'escape-from-tarkov', slug:'eft-money-making-guide'},
+  // Phase 5 — SEO-targeted guides (queries already getting GSC impressions)
+  {game:'forza-horizon-6', slug:'forza-horizon-6-faq'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-colossus-unlock-guide'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-raku-raku-xp'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-seasonal-objective-cars'},
+  {game:'arc-raiders', slug:'arc-raiders-ttk-weapon-tier'},
+  // Phase 6 — Paralives Early Access guides
+  {game:'paralives', slug:'paralives-things-to-do-first'},
+  {game:'paralives', slug:'paralives-paramaker-guide'},
+  {game:'paralives', slug:'paralives-cheats-console-commands'},
+  {game:'paralives', slug:'paralives-roadmap'},
+  // Phase 7 — High-density SEO guides
+  {game:'007-first-light', slug:'007-first-light-best-gadgets-ranked'},
+  {game:'arc-raiders', slug:'arc-raiders-best-settings-fps-visibility'},
+  {game:'arc-raiders', slug:'arc-raiders-best-solo-build'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-level-up-fast-xp'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-super-wheelspins'},
+  // Phase 8 — SEO batch June 2026 (FH6 Spinball Wizard + Skill Points + PoE2 + CS2 x3)
+  {game:'forza-horizon-6', slug:'forza-horizon-6-spinball-wizard-cars'},
+  {game:'forza-horizon-6', slug:'forza-horizon-6-farm-skill-points'},
+  {game:'path-of-exile-2',  slug:'path-of-exile-2-best-builds-hub'},
+  {game:'cs2',              slug:'cs2-best-settings-options'},
+  {game:'cs2',              slug:'cs2-fps-console-commands'},
+  {game:'cs2',              slug:'cs2-pro-settings-gear-list'},
+  // Phase 9 — July 2026 batch: Warzone meta refresh + Halo Campaign Evolved launch + GTA Online
+  {game:'warzone',              slug:'warzone-current-meta-tier-list'},
+  {game:'warzone',              slug:'warzone-best-guns-current-meta'},
+  {game:'warzone',              slug:'warzone-best-loadouts-current'},
+  {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-walkthrough'},
+  {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-all-skulls'},
+  {game:'halo-campaign-evolved', slug:'halo-campaign-evolved-all-terminals'},
+  {game:'gta-v',                slug:'gta-online-weekly-updates-tracker'},
+  // Phase 12 — Mobile section launch (September 29, 2026)
+  {game:'balatro-mobile', slug:'balatro-mobile-early-game-guide'},
+  {game:'balatro-mobile', slug:'balatro-mobile-synergy-combos-guide'},
+  {game:'balatro-mobile', slug:'balatro-mobile-unlock-secret-jokers-guide'},
+  {game:'delta-force',    slug:'delta-force-mobile-fps-lag-settings-guide'},
+  {game:'delta-force',    slug:'delta-force-mobile-best-weapons-meta-guide'},
+  {game:'delta-force',    slug:'delta-force-mobile-sensitivity-hud-guide'},
+  // Phase 13 — Mobile section batch 2 (September 29, 2026)
+  {game:'rainbow-six-mobile', slug:'r6-mobile-sensitivity-hud-settings-guide'},
+  {game:'rainbow-six-mobile', slug:'r6-mobile-best-operators-guide'},
+  {game:'rainbow-six-mobile', slug:'r6-mobile-connection-errors-lag-fix-guide'},
+  {game:'palworld-mobile',    slug:'palworld-mobile-vs-online-release-date-guide'},
+  {game:'palworld-mobile',    slug:'palworld-mobile-requirements-apk-safety-guide'},
+  {game:'palworld-mobile',    slug:'palworld-online-controls-mechanics-guide'},
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-tier-list-builds-guide'},
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-active-codes-guide'},
+  {game:'honkai-star-rail',   slug:'honkai-star-rail-memory-of-chaos-simulated-universe-guide'},
+  // Phase 14 — Fortnite, Grounded 2, It Takes Two, Warzone (September 29, 2026)
+  {game:'fortnite',       slug:'fortnite-season-4-weapons-meta-guide'},
+  {game:'grounded-2',     slug:'grounded-2-best-mutations-guide'},
+  {game:'grounded-2',     slug:'grounded-2-queen-ant-boss-guide'},
+  {game:'it-takes-two',   slug:'it-takes-two-friends-pass-crossplay-guide'},
+  {game:'it-takes-two',   slug:'it-takes-two-minigames-achievements-guide'},
+  {game:'warzone',        slug:'warzone-gunsmith-recoil-ttk-guide'},
+  {game:'warzone',        slug:'warzone-audio-settings-footsteps-guide'},
+  {game:'warzone',        slug:'warzone-connection-errors-crash-fix-guide'},
+  // Phase 15 — Last War: Survival (September 29, 2026)
+  {game:'last-war-survival', slug:'last-war-survival-f2p-beginner-guide'},
+  {game:'last-war-survival', slug:'last-war-survival-tank-squad-meta-guide'},
+  {game:'last-war-survival', slug:'last-war-survival-season-2-aircraft-meta-guide'},
+  // Phase 16 — Gears of War: E-Day (October 2, 2026)
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-walkthrough-all-acts-chapters'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-collectibles-guide'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-pc-graphics-settings-fps-guide'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-horde-siege-guide'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-hard-cases-weapon-mods-guide'}
+];
+
+function urlEntry(loc, priority='0.7', changefreq='weekly') {
+  return `  <url>
+    <loc>${CANONICAL_HOST}${loc}</loc>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+}
+
+// Per-path SEO weighting. Legal/about/contact get lower priority + monthly changefreq.
+const STATIC_META = {
+  '/':                {priority:'1.0', changefreq:'daily'},
+  '/news':            {priority:'0.9', changefreq:'daily'},
+  '/tips':            {priority:'0.9', changefreq:'daily'},
+  '/mobile':          {priority:'0.7', changefreq:'weekly'},
+  '/rick':            {priority:'0.9', changefreq:'weekly'},
+  '/mediakit':        {priority:'0.7', changefreq:'monthly'},
+  '/hall-of-fame':    {priority:'0.6', changefreq:'monthly'},
+  '/about':           {priority:'0.6', changefreq:'monthly'},
+  '/contact':         {priority:'0.5', changefreq:'monthly'},
+  '/terms':           {priority:'0.3', changefreq:'yearly'},
+  '/privacy-policy':  {priority:'0.3', changefreq:'yearly'},
+  '/cookie-policy':   {priority:'0.3', changefreq:'yearly'}
+};
+
+export default function handler(req, res) {
+  const urls = [
+    ...STATIC_PATHS.map(p => {
+      const m = STATIC_META[p] || {priority:'0.7', changefreq:'weekly'};
+      return urlEntry(p, m.priority, m.changefreq);
+    }),
+    ...GAME_SLUGS.flatMap(slug => [
+      urlEntry(`/news/${slug}`, '0.8', 'daily'),
+      urlEntry(`/tips/${slug}`, '0.7', 'weekly')
+    ]),
+    ...MANUAL_ARTICLE_SLUGS.map(slug => urlEntry(`/news/${slug}`, '0.6', 'monthly')),
+    ...MANUAL_TIPS_SLUGS.map(t => urlEntry(`/tips/${t.game}/${t.slug}`, '0.6', 'monthly'))
+  ];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.join('\n')}
+</urlset>`;
+
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+  return res.status(200).send(xml);
+}
