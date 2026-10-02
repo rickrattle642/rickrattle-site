@@ -52,7 +52,9 @@ const MANUAL_ARTICLE_SLUGS = [
   'marvels-wolverine-best-techniques-adaptations-unlock-first',
   'marvels-wolverine-advanced-tips-xp-economy-shortcuts','marvels-wolverine-mission-list-walkthrough-hub',
   // Phase 14 — Fortnitemares 2026 coverage (September 29, 2026)
-  'fortnite-fortnitemares-2026-season-4-overview','fortnite-chapter-8-season-4-end-date-leaks'
+  'fortnite-fortnitemares-2026-season-4-overview','fortnite-chapter-8-season-4-end-date-leaks',
+  // Phase 16 — Gears of War: E-Day review round-up (October 2, 2026)
+  'gears-of-war-e-day-review-round-up-what-critics-say'
 ];
 
 const MANUAL_TIPS_SLUGS = [
