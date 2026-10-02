@@ -167,7 +167,7 @@
   </div>
   <h1>UNIVERSIDADE DO RICK</h1>
   <div class="underline"></div>
-  <div class="subtitle">Registo de Notas</div>
+  <div class="subtitle" id="subtitle">Registo de Notas</div>
 
   <div id="board">
     <h2>👑 Notas da Turma 👑</h2>
@@ -196,6 +196,20 @@ async function carregarNotas() {
     const emptyEl = document.getElementById('empty-state');
     const metaEl = document.getElementById('meta');
     const updatedEl = document.getElementById('updated-note');
+    const subtitleEl = document.getElementById('subtitle');
+
+    if (data.mesExibido) {
+      const agora = new Date();
+      const mesAtualStr = agora.getFullYear() + String(agora.getMonth() + 1).padStart(2, '0');
+      if (data.mesExibido !== mesAtualStr) {
+        const MESES = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+        const ano = data.mesExibido.slice(0, 4);
+        const mesIdx = parseInt(data.mesExibido.slice(4, 6), 10) - 1;
+        subtitleEl.textContent = `Registo de Notas — ${MESES[mesIdx]} ${ano}`;
+      } else {
+        subtitleEl.textContent = 'Registo de Notas';
+      }
+    }
 
     if (!data.ranking || data.ranking.length === 0) {
       rowsEl.innerHTML = '';
