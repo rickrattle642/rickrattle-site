@@ -26,7 +26,9 @@ const GAME_SLUGS = [
   // Phase 12 — Mobile section launch (September 29, 2026)
   'balatro-mobile','rainbow-six-mobile','honkai-star-rail','palworld-mobile','delta-force',
   // Phase 15 — Last War: Survival (September 29, 2026)
-  'last-war-survival'
+  'last-war-survival',
+  // Phase 16 — Gears of War: E-Day (October 2, 2026)
+  'gears-of-war-e-day'
 ];
 
 const MANUAL_ARTICLE_SLUGS = [
@@ -216,7 +218,13 @@ const MANUAL_TIPS_SLUGS = [
   // Phase 15 — Last War: Survival (September 29, 2026)
   {game:'last-war-survival', slug:'last-war-survival-f2p-beginner-guide'},
   {game:'last-war-survival', slug:'last-war-survival-tank-squad-meta-guide'},
-  {game:'last-war-survival', slug:'last-war-survival-season-2-aircraft-meta-guide'}
+  {game:'last-war-survival', slug:'last-war-survival-season-2-aircraft-meta-guide'},
+  // Phase 16 — Gears of War: E-Day (October 2, 2026)
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-walkthrough-all-acts-chapters'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-collectibles-guide'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-pc-graphics-settings-fps-guide'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-horde-siege-guide'},
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-hard-cases-weapon-mods-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
