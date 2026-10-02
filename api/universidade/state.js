@@ -29,11 +29,33 @@ function mesAtual() {
   return (d.getFullYear()) + (String(d.getMonth() + 1).padStart(2, '0'));
 }
 
+function mesAnterior(aaaamm) {
+  const ano = parseInt(aaaamm.slice(0, 4), 10);
+  const mes = parseInt(aaaamm.slice(4, 6), 10);
+  const d = new Date(ano, mes - 2, 1); // mes-1 (0-indexado) - 1 = mês anterior
+  return (d.getFullYear()) + (String(d.getMonth() + 1).padStart(2, '0'));
+}
+
+// Procura o mês mais recente com resultados reais, recuando a partir
+// do atual (até 12 meses) — para a página nunca aparecer vazia só
+// porque calhou não haver nenhuma sessão nesse mês em concreto.
+async function encontrarMesComResultados() {
+  let mes = mesAtual();
+  for (let i = 0; i < 12; i++) {
+    const key = (PREFIX) + 'month:' + mes + ':leaderboard';
+    const total = Number(await redisCmd('ZCARD', key)) || 0;
+    if (total > 0) return mes;
+    mes = mesAnterior(mes);
+  }
+  return mesAtual(); // nada encontrado em 12 meses, devolve o atual (vazio) na mesma
+}
+
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
   try {
     const round = await redisGetJSON((PREFIX) + 'round:current');
-    const leaderboardKey = (PREFIX) + 'month:' + (mesAtual()) + ':leaderboard';
+    const mesExibido = await encontrarMesComResultados();
+    const leaderboardKey = (PREFIX) + 'month:' + mesExibido + ':leaderboard';
     const rankingRaw = (await redisCmd('ZRANGE', leaderboardKey, 0, -1, 'REV', 'WITHSCORES')) || [];
     const ranking = [];
     for (let i = 0; i < rankingRaw.length; i += 2) {
@@ -66,6 +88,7 @@ export default async function handler(req, res) {
         : null,
       top10,
       ranking,
+      mesExibido,
       perguntas: { total: questions.length, usadas: usadas.length, idsUsados: usadas },
     });
   } catch (err) {
