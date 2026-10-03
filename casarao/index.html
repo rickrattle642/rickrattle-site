@@ -105,6 +105,20 @@
     font-size:14px; letter-spacing:.05em; color: rgba(240,230,210,.55);
     padding-bottom: 16px;
   }
+  .botao-comecar{
+    all:unset; cursor:pointer;
+    font-family:'UnifrakturCook', cursive; font-weight:700;
+    font-size: clamp(22px, 2.6vw, 32px);
+    color: var(--blood);
+    background: linear-gradient(160deg, var(--parchment) 0%, #e2d3a8 100%);
+    border: 2px solid rgba(122,32,32,.5);
+    border-radius: 6px;
+    padding: 22px 48px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.5);
+    text-align:center;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .botao-comecar:hover{ transform: translateY(-2px); box-shadow: 0 14px 36px rgba(0,0,0,.6); }
   .spread::before{
     /* a "lombada" do livro entre as duas páginas */
     content:"";
@@ -1070,18 +1084,39 @@ const INTRO_TELAS = [
 ];
 let introIndex = 0;
 
+function mostrarEcraInicial(){
+  const overlay = document.getElementById('intro-overlay');
+  if(!overlay) return;
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.backgroundImage = `url('assets/texturas/pergaminho_envelhecido.png')`;
+  overlay.innerHTML = `<button id="btn-comecar" class="botao-comecar">Começa aqui a tua aventura</button>`;
+  const btn = document.getElementById('btn-comecar');
+  if(btn){
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      garantirAmbiente(); // único clique explícito — nunca escondido, resolve o aviso do browser
+      overlay.addEventListener('click', avancarIntro); // só a partir daqui 'clicar para avançar' fica ativo
+      mostrarIntro(0);
+    });
+  }
+}
+
 function mostrarIntro(i){
   const overlay = document.getElementById('intro-overlay');
   if(!overlay) return;
   const tela = INTRO_TELAS[i];
   overlay.style.display = 'flex';
+  overlay.style.alignItems = 'stretch';
+  overlay.style.justifyContent = 'flex-end';
   overlay.style.backgroundImage = `url('${tela.imagem}')`;
   const textoHTML = tela.texto ? `<div class="intro-texto">${tela.texto}</div>` : '';
   overlay.innerHTML = `${textoHTML}<div class="intro-clique">clica para continuar</div>`;
 }
 
 function avancarIntro(){
-  garantirAmbiente(); // 1º clique real da página — o mais cedo que o browser deixa o som começar
+  garantirAmbiente(); // mesmo clique que avança já arranca o som — sem passo escondido
   introIndex++;
   if(introIndex < INTRO_TELAS.length){
     mostrarIntro(introIndex);
@@ -1091,11 +1126,9 @@ function avancarIntro(){
   }
 }
 
-const elIntroOverlay = document.getElementById('intro-overlay');
-if(elIntroOverlay) elIntroOverlay.addEventListener('click', avancarIntro);
 // o jogo (iniciar()) corre sempre por baixo, mesmo durante a introdução — quando o overlay
 // fecha, o Hall já está pronto e visível, sem espera adicional nenhuma.
-mostrarIntro(0);
+mostrarEcraInicial();
 
 iniciar();
 ajustarAlturaLivro();
