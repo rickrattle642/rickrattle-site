@@ -738,12 +738,17 @@ function paginarHTML(itensCore, itemExtra){
   const passo = LIMITE_OPCOES - 1;
   let inicio = S._paginaNav * passo;
   if(inicio >= itensCore.length){ inicio = 0; S._paginaNav = 0; }
-  const restantes = itensCore.length - inicio;
-  const mostraMais = restantes > LIMITE_OPCOES;
-  const fatia = itensCore.slice(inicio, inicio + (mostraMais ? passo : LIMITE_OPCOES));
 
+  // Quando há um "Voltar" (itemExtra), só o mostramos na página onde cabe tudo o resto —
+  // nunca a meio, e nunca escondido silenciosamente. Se não couber tudo, reparte-se por
+  // mais páginas, mas nada se perde pelo caminho.
+  const maxSemContinuar = itemExtra ? LIMITE_OPCOES - 1 : LIMITE_OPCOES;
+  const restantes = itensCore.length - inicio;
+  const cabeTudo = restantes <= maxSemContinuar;
+
+  const fatia = itensCore.slice(inicio, inicio + (cabeTudo ? restantes : passo));
   let itensPagina = fatia;
-  if(!mostraMais && itemExtra && fatia.length < LIMITE_OPCOES){
+  if(cabeTudo && itemExtra){
     itensPagina = [...fatia, itemExtra];
   }
 
@@ -751,7 +756,7 @@ function paginarHTML(itensCore, itemExtra){
   itensPagina.forEach((it, i) => {
     html += `<button class="choice" onclick="${it.onclick}"><span class="arrow">${String.fromCharCode(65+i)}</span> ${it.texto}</button>`;
   });
-  if(mostraMais){
+  if(!cabeTudo){
     html += `<button class="choice" onclick="S._paginaNav=(S._paginaNav||0)+1; render();"><span class="arrow">${String.fromCharCode(65+itensPagina.length)}</span> Continuar a explorar</button>`;
   }
   return html;
