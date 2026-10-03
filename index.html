@@ -543,6 +543,17 @@ button{font-family:inherit}
 .premiados-body{padding:14px 16px;text-align:center}
 .premiados-name{font-family:'Anton',sans-serif;font-size:16px;letter-spacing:.5px;color:var(--accent);text-transform:uppercase}
 
+/* ==================== PARTNERS ==================== */
+.partners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.partner-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:.25s}
+.partner-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
+.partner-logo{background:#fff;padding:22px;display:flex;align-items:center;justify-content:center;min-height:120px}
+.partner-logo img{width:100%;max-width:220px;height:auto;object-fit:contain}
+.partner-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.partner-name{font-family:'Anton',sans-serif;font-size:18px;letter-spacing:.3px;color:var(--ink)}
+.partner-blurb{font-size:14px;line-height:1.5;color:var(--muted);flex:1;margin:0}
+.partner-body .btn{align-self:flex-start}
+
 /* ==================== MEDIA KIT ==================== */
 .mk-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;background:linear-gradient(135deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:16px;padding:32px 28px;margin-bottom:28px}
 .mk-hero-title{font-family:'Anton',sans-serif;font-size:clamp(32px,6vw,56px);letter-spacing:1px;margin:4px 0 8px;line-height:.95}
@@ -817,9 +828,10 @@ const T = {
   en:{
     "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
     "search.ph":"Search articles, guides, tier lists...",
-    "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS",
-    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit",
+    "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS","nav.section.partners":"PARTNERS",
+    "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Partners",
     "premiados.kicker":"// EVENTS","premiados.title":"Hall of Fame","premiados.sub":"Where the community that shows up — and wins — gets remembered.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No one in the Hall of Fame yet — the first prize is still up for grabs.",
+    "partners.kicker":"// PARTNERS","partners.title":"Partners","partners.sub":"The brands backing the channel and the community.","partners.intro":"A quick look at who supports Rick Rattle — and why they're worth checking out yourself.","partners.cta":"Visit site",
     "mobile.kicker":"// MOBILE","mobile.title":"Mobile Gaming","mobile.sub":"The mobile games we're tracking — guides and news on the way.","mobile.intro":"A new section for the mobile games worth covering right now. Guides and news are being added game by game.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
@@ -847,9 +859,10 @@ const T = {
   pt:{
     "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
     "search.ph":"Procurar artigos, guias, tier lists...",
-    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS",
-    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit",
+    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS","nav.section.partners":"PARCEIROS",
+    "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Parceiros",
     "premiados.kicker":"// EVENTOS","premiados.title":"Hall of Fame","premiados.sub":"Onde a comunidade que aparece — e ganha — fica para sempre.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda ninguém no Hall of Fame — o primeiro prémio está por agarrar.",
+    "partners.kicker":"// PARCEIROS","partners.title":"Parceiros","partners.sub":"As marcas que apoiam o canal e a comunidade.","partners.intro":"Um resumo de quem apoia o Rick Rattle — e porque vale a pena conhecê-los também.","partners.cta":"Visitar site",
     "mobile.kicker":"// MOBILE","mobile.title":"Gaming Mobile","mobile.sub":"Os jogos mobile que estamos a acompanhar — guias e novidades a caminho.","mobile.intro":"Uma secção nova, dedicada aos jogos mobile que fazem sentido cobrir agora. Vamos adicionando guias e notícias jogo a jogo.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
@@ -6119,7 +6132,8 @@ const navItems = [
   {key:'universidade', icon:'✎', label:'nav.universidade', section:'events', external:true, href:'/universidade/Notas.html'},
   {key:'hall-of-fame', icon:'🏆', label:'nav.premiados', section:'events'},
   {key:'rick', icon:'★', label:'nav.rick', section:'creator'},
-  {key:'mediakit', icon:'📊', label:'nav.mediakit', section:'creator'}
+  {key:'mediakit', icon:'📊', label:'nav.mediakit', section:'creator'},
+  {key:'partners', icon:'🤝', label:'nav.partners', section:'partners'}
 ];
 
 function renderSidebar(){
@@ -6163,6 +6177,7 @@ const routes = {
   home:HomeView,
   rick:RickView,
   mediakit:MediaKitView,
+  partners:PartnersView,
   'hall-of-fame':PremiadosView,
   news:NewsView,
   tips:TipsView,
@@ -6185,6 +6200,7 @@ const SEO_COPY={
     premiados:{title:'Hall of Fame — Rick Rattle', desc:'A hall of fame for the community members who won prizes in our competitions — see the prizes and their setups.'},
     mobile:{title:'Mobile Gaming — Rick Rattle', desc:'The mobile games we cover — Balatro Mobile, Rainbow Six Mobile, Honkai: Star Rail, Palworld Mobile, Delta Force and more.'},
     mediakit:{title:'Media Kit — Rick Rattle', desc:'Audience stats, growth and content highlights across Twitch, Instagram, TikTok and YouTube. For brands and partners.'},
+    partners:{title:'Partners — Rick Rattle', desc:'The brands partnering with Rick Rattle — who they are and why they\'re worth checking out.'},
     about:{title:'About — Rick Rattle', desc:'Rick Rattle is a small, honest gaming hub built around a Twitch community. Learn what the project is about and what you\'ll find here.'},
     contact:{title:'Contact — Rick Rattle', desc:'Get in touch — feedback, bug reports, collaborations and community contact for rickrattle.com.'},
     terms:{title:'Terms & Conditions — Rick Rattle', desc:'Plain-language terms of use for rickrattle.com — acceptable use, IP, disclaimers and contact.'},
@@ -6202,6 +6218,7 @@ const SEO_COPY={
     premiados:{title:'Hall of Fame — Rick Rattle', desc:'Um hall of fame para os membros da comunidade que ganharam prémios nas nossas competições — vê os prémios e os seus setups.'},
     mobile:{title:'Gaming Mobile — Rick Rattle', desc:'Os jogos mobile que cobrimos — Balatro Mobile, Rainbow Six Mobile, Honkai: Star Rail, Palworld Mobile, Delta Force e mais.'},
     mediakit:{title:'Media Kit — Rick Rattle', desc:'Estatísticas de audiência, crescimento e destaques de conteúdo no Twitch, Instagram, TikTok e YouTube. Para marcas e parceiros.'},
+    partners:{title:'Parceiros — Rick Rattle', desc:'As marcas parceiras do Rick Rattle — quem são e porque vale a pena conhecê-las.'},
     about:{title:'Sobre — Rick Rattle', desc:'Rick Rattle é um gaming hub pequeno e honesto construído à volta de uma comunidade Twitch. Vê do que o projeto trata e o que vais encontrar aqui.'},
     contact:{title:'Contacto — Rick Rattle', desc:'Entra em contacto — feedback, bug reports, colaborações e comunidade rickrattle.com.'},
     terms:{title:'Termos e Condições — Rick Rattle', desc:'Termos de uso em linguagem clara para rickrattle.com — uso aceitável, propriedade intelectual, disclaimers e contacto.'},
@@ -6287,6 +6304,7 @@ function updateSEO(r){
   else if(r.view==='mobile'){title=copy.mobile.title;desc=copy.mobile.desc;}
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
   else if(r.view==='mediakit'){title=copy.mediakit.title;desc=copy.mediakit.desc;}
+  else if(r.view==='partners'){title=copy.partners.title;desc=copy.partners.desc;}
   else if(r.view==='hall-of-fame'){title=copy.premiados.title;desc=copy.premiados.desc;}
   else if(r.view==='about' && copy.about){title=copy.about.title;desc=copy.about.desc;}
   else if(r.view==='contact' && copy.contact){title=copy.contact.title;desc=copy.contact.desc;}
@@ -6375,6 +6393,8 @@ function buildBreadcrumbs(r){
     trail.push({label:'Mobile', href:'/mobile'});
   }else if(r.view==='mediakit'){
     trail.push({label:'Media Kit', href:'/mediakit'});
+  }else if(r.view==='partners'){
+    trail.push({label:PT?'Parceiros':'Partners', href:'/partners'});
   }else if(r.view==='about'){
     trail.push({label:PT?'Sobre':'About', href:'/about'});
   }else if(r.view==='contact'){
@@ -7479,6 +7499,47 @@ function MobileView(view){
       <p data-i18n="mobile.intro">${t('mobile.intro')}</p>
     </div>
     <div class="grid grid-2">${mobileGames.map(MobileGameCard).join('')}</div>
+  `;
+}
+
+/* -------------------- PARTNERS -------------------- */
+const partners = [
+  {
+    slug:'np4-game',
+    name:'NP4 Game & Smartphone',
+    logo:'/img/np4game.png',
+    url:'https://np4game.com',
+    blurb:{
+      en:'Game and smartphone store — consoles, accessories, repairs and mobile devices.',
+      pt:'Loja de jogos e smartphones — consolas, acessórios, reparações e dispositivos móveis.'
+    }
+  }
+];
+
+function PartnerCard(p){
+  return `<div class="partner-card">
+    <div class="partner-logo"><img src="${p.logo}" alt="${p.name}" loading="lazy"></div>
+    <div class="partner-body">
+      <h3 class="partner-name">${p.name}</h3>
+      <p class="partner-blurb">${tr(p.blurb)}</p>
+      <a class="btn btn-primary" href="${p.url}" target="_blank" rel="noopener sponsored">${t('partners.cta')} ↗</a>
+    </div>
+  </div>`;
+}
+
+function PartnersView(view){
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="partners.kicker">${t('partners.kicker')}</div>
+        <h1 class="page-title" data-i18n="partners.title">${t('partners.title')}</h1>
+        <p class="page-sub" data-i18n="partners.sub">${t('partners.sub')}</p>
+      </div>
+    </div>
+    <div class="detail-body" style="max-width:780px;margin-bottom:8px">
+      <p data-i18n="partners.intro">${t('partners.intro')}</p>
+    </div>
+    <div class="partners-grid">${partners.map(PartnerCard).join('')}</div>
   `;
 }
 
