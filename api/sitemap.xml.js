@@ -5,7 +5,7 @@
 
 const CANONICAL_HOST = 'https://rickrattle.com';
 
-const STATIC_PATHS = ['/', '/news', '/tips', '/mobile', '/rick', '/mediakit', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
+const STATIC_PATHS = ['/', '/news', '/tips', '/mobile', '/rick', '/mediakit', '/partners', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
 
 const GAME_SLUGS = [
   'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
@@ -245,6 +245,7 @@ const STATIC_META = {
   '/mobile':          {priority:'0.7', changefreq:'weekly'},
   '/rick':            {priority:'0.9', changefreq:'weekly'},
   '/mediakit':        {priority:'0.7', changefreq:'monthly'},
+  '/partners':        {priority:'0.6', changefreq:'monthly'},
   '/hall-of-fame':    {priority:'0.6', changefreq:'monthly'},
   '/about':           {priority:'0.6', changefreq:'monthly'},
   '/contact':         {priority:'0.5', changefreq:'monthly'},
