@@ -140,6 +140,8 @@
   @media (max-width: 860px){
     .spread{ grid-template-columns: 1fr; height: auto; }
     .spread::before{ display:none; }
+    .intro-overlay .intro-texto{ padding: 24px 20px 18px; }
+    .botao-comecar{ padding: 16px 28px; }
   }
 
   /* ---------- Página esquerda: imagem, a página inteira ---------- */
@@ -1060,6 +1062,10 @@ function reiniciar(){
 function ajustarAlturaLivro(){
   const spread = document.querySelector('.spread');
   if(!spread) return;
+  if(window.innerWidth <= 860){
+    spread.style.height = ''; // mobile empilha (1 coluna) — deixa a regra do media query (height:auto) mandar
+    return;
+  }
   const header = document.querySelector('.tome-header');
   const footnote = document.querySelector('.footnote');
   const ocupado = (header ? header.offsetHeight : 0) + (footnote ? footnote.offsetHeight : 0);
