@@ -1,0 +1,1022 @@
+{
+  "meta": {
+    "projeto": "RickVerse — Casarão Assombrado",
+    "versao": "0.53-blueprint",
+    "tipo_documento": "Blueprint (dados de playset). Filosofia fica no Manifesto. Regras de motor ficam na Gameplay Specification.",
+    "changelog": "v0.53: trocados 2 NPCs por pedido do Rick — O Cavaleiro (Biblioteca) dá lugar ao Professor Rick, o Rastafarian (Quarto de Hóspedes) dá lugar ao Professor de Educação Física. Mecânicas inalteradas (troca de objeto / mitigação do fumo), só a identidade muda — nome, falas, imagem. Atualizados todos os textos que mencionavam os nomes antigos, incluindo 2 sítios no motor (fora do Blueprint) que tinham o nome do Cavaleiro escrito à mão no texto da troca. v0.52: aparados os textos (tema + narrativa_inicial) das salas mais longas, para caberem melhor na altura fixa do livro sem precisar de scroll — Corredor Principal (313→200 chars, o pior caso de longe), Hall (291→215), Salão, Quarto Infantil (removida repetição \"alguém esteve aqui há pouco\" entre tema e narrativa), Arrecadação, Observatório. Variação total ficou muito mais equilibrada entre salas (62-215 chars, era 62-313). v0.51: corrigido bug introduzido em v0.50 — \"Examinar a Porta Principal\" ficava marcada como usada depois do 1º clique e desaparecia para sempre, o que significava que a porta reativa às relíquias (v0.50) só funcionava se por acaso a re-examinasses depois de já teres mais relíquias, o que raramente acontecia. Agora a porta pode ser examinada sempre, tantas vezes quantas quiseres, refletindo sempre o estado atual. v0.50: Porta Principal (Hall) reage agora a quantas relíquias já tens (0/1/2 encaixes a brilhar) em vez de mostrar sempre o mesmo texto fixo — dá sensação tangível de progresso. Quarto de Hóspedes: depois de abrir a janela (mitigação), \"Explorar debaixo da cama\" passa a dar um Broche Antigo (objeto para troca) em vez de ficar sem efeito nenhum — resolve o único sítio da casa onde a segurança apagava tudo o resto. v0.49: removidas 3 ações redundantes que só forçavam ir para uma sala que a navegação normal já oferecia diretamente (2 cliques para o que 1 já fazia) — as 2 da Janela (Passar/Recuar) e o \"Voltar atrás\" do Telhado. Janela passa a ser pura junção de navegação (Observatório/Telhado). Telhado cabe agora tudo numa só página (Saltar, Chaminé, Janela) sem precisar de \"Continuar a explorar\". LEVA_A fica vazio (as 3 entradas que tinha já não são precisas). v0.48: generalizado o mecanismo \"decisão única\" (antes só no Corredor Antigo, hardcoded) para uma flag do Blueprint (decisao_unica: true) — aplica-se agora também ao Telhado, que tinha o mesmo problema (Saltar/Chaminé continuavam pendentes depois de escolher Voltar atrás em segurança). Telhado reordenado: Saltar e Explorar a chaminé aparecem antes de Voltar atrás — tentação primeiro, segurança por último, mais consistente com o resto da casa. v0.47: escritos os textos de morte que faltavam (Corredor Antigo/saltar o buraco e Telhado/saltar) — antes mostravam só \"DERROTA — morte imediata\", um placeholder genérico e redundante (o ecrã já diz \"Morte\" em cima). Também limpo o texto morto da Capela (nunca é mostrado de facto, sobreposto pela lógica do aviso, mas fica consistente). v0.46: adicionado um conjunto de 6 mensagens de morte genéricas e atmosféricas (dá voz própria à casa, além do motivo específico de cada morte) — escolhida ao calhar, nunca repete a mesma duas vezes a fio, mesmo entre tentativas separadas (memória vive fora do estado do jogo, sobrevive a \"Nova Tentativa\"). v0.45: corrigido o Corredor Antigo — Contornar/Saltar o buraco eram tratadas como decisões independentes, por isso escolher a segura deixava a perigosa pendente para sempre (chegava a ser oferecida sozinha, sem contexto, depois de já teres passado em segurança). Agora resolvem-se juntas — escolher uma fecha as duas. Removido \"com cuidado\" do texto (denunciava qual era a segura). Corrigida também a ordem geral: salas normais (não-hub) mostram todas as ações pendentes juntas antes da navegação, em vez de a navegação se intrometer a meio de uma decisão de risco só. Hubs com zonas (Hall, Corredor Principal) continuam a dar prioridade à navegação, sem mudança. v0.44 (versão website): grupos_solo ganham texto_ambiente — a narrativa muda a cada nível de progressão (Alas -> Ala Oeste -> sala), tal como a imagem já mudava, mantendo o suspense em vez de ficar congelada no texto inicial do Hall. v0.43: as últimas 3 opções sem função nenhuma ganham consequência real. Cadeira do Salão: visão/possessão, -1 coração. Cavalo do Quarto Infantil: sem dano, mas avisa (\"o teu reflexo quer causar-te dor\") — pista cruzada apontando ao espelho. Espelho do Quarto Principal: estilhaça-se, -1 coração — cumpre o aviso do cavalo. Já não resta nenhuma ação sem efeito em toda a casa. v0.42: Telhado ganha uma 3ª opção — \"Explorar a chaminé\", morte instantânea mas apresentada como curiosidade razoável (não rotulada como óbvia tipo \"Saltar\"). Identificadas 3 opções ainda sem função nenhuma (Salão/cadeira, Quarto Infantil/cavalo, Quarto Principal/espelho) — candidatas ao próximo passo de balanço. v0.40 — primeiro passe de balanço de dificuldade: (1) Mochila reduzida de 5 para 3 objetos não essenciais — menos trocas sempre garantidas. (2) Relógio do Corredor Principal passa a causar 1 coração de dano (antes não fazia nada). (3) Retratos do Corredor Principal dão uma pista (\"o segredo está em olhar para as estrelas\") em vez de não fazerem nada — aponta para a cura escondida no Estudar o Mapa Estelar do Observatório. (4) Novo evento único \"Algo te segue\": ao regressar do Sótão pelo Corredor Principal com as 3 relíquias já reunidas, surge uma escolha binária (Esconder-te = seguro / Correr = -3 corações, pode matar) — só acontece uma vez por partida. Resolve o problema do regresso final sem risco nenhum. v0.39: nova imagem de detalhe para \"Examinar a Porta Principal\" — porta com 3 espaços vazios para as relíquias (moeda, malagueta, luneta), mostrada só enquanto essa é a última ação feita. Mecanismo genérico (campo \"imagem\" por opção), reutilizável para outras ações-chave no futuro. v0.38: corrigida a paginação — o botão \"Voltar\" competia pelo mesmo espaço que escolhas reais de navegação, chegando a esconder uma Ala inteira atrás de \"Continuar a explorar\". Agora o núcleo (ações + destinos reais) pagina primeiro, sem nunca ser cortado pelo \"Voltar\"; este só aparece quando já sobra espaço livre na página. v0.37: removida de vez a opção \"Ouvir o silêncio\" do Hall (não tinha função nenhuma, só preenchia espaço) — princípio geral adotado: só mostrar menos de 3 opções quando não há nada real para a 3ª, em vez de inventar algo só para preencher. Revistas as restantes salas por padrão semelhante: confirmado que as outras opções sem efeito mecânico direto (Salão, Quarto Infantil, Corredor Principal, Quarto Principal) são tensão/atmosfera deliberada, não filler, e ficaram como estavam. v0.36: Hall reduzido a 3 itens na 1ª página (Examinar Porta / Alas / Subir ao 1º andar) — as 2 alas fundem-se num só botão \"Alas\", que abre um sub-nível (Ala Oeste/Leste). grupos_solo passa a suportar profundidade arbitrária (grupo dentro de grupo), com um único \"Voltar\" que recua 1 nível de cada vez. \"Ouvir o silêncio\" fica oculto do Solo (novo campo solo_oculto) mas continua no Blueprint para o Modo Live não perder a 2ª opção do voto binário inicial. v0.35: correção de fundo — a navegação dos 3 hubs (Hall, Corredor Principal, Observatório) ganha sentido de progressão (novo campo \"grupos_solo\": escolhe a zona, depois a sala específica), em vez de lista plana sem hierarquia. Independente da navegacao_arvore, que fica intacta para o Modo Live. Corrigido também texto que não batia certo (\"Ouvir o silêncio\" dizia respeito a passos, não a silêncio). v0.34: Hall, Corredor Principal e Observatório ganham uma frase na narrativa a descrever as saídas visíveis (alas, portas, escadaria) — para a lista de destinos que se segue parecer justificada pelo que o jogador vê, não arbitrária. Também: opção B do Hall renomeada (\"Avançar para o interior da casa\" soava a navegação mas era só atmosfera — agora \"Ouvir o silêncio da casa\"). v0.33: o piso de destino passa a aparecer no próprio botão de navegação (ex: \"Corredor Principal — 1º Andar\"), sempre que for diferente do piso atual — o jogador sabe antes de clicar, não só depois pela frase de transição. Funciona mesmo para a Escadaria (conector invisível), que agora mostra \"Escadaria — Sótão\". v0.32: correção de rumo — as 3 Relíquias devem ter a MESMA regra em todo o lado (com objeto não essencial: grátis; sem objeto: -1 coração), não uma dificuldade escalada por piso na própria relíquia. A escalada de dificuldade vem da casa (NPCs, armadilhas por piso), nunca do custo da relíquia em si. Revertida a v0.31 (RDC grátis / Sótão -2), que tinha percebido mal o pedido. v0.31: corrigida a curva de dificuldade das 3 Relíquias, que estava invertida. Agora escala com o piso: Moeda de Ouro (RDC, baixo) passa a ser sempre grátis; Malagueta Dourada (1º andar, médio) mantém-se (com objeto grátis, sem objeto -1 coração); Luneta (Sótão, alto) sem objeto passa a custar 2 corações em vez de 1. Pirata deixa de retirar coração — passa a ser ameaça sem consequência real, condizente com o novo custo zero da Arrecadação. v0.30: mudar de piso passa a ter uma frase de transição (\"Sobes/Desces as escadas até X\"), gerada automaticamente pelo motor ao detetar mudança de andar entre a sala de onde se vem e a de destino — funciona mesmo ao atravessar a Escadaria (conector invisível ao jogador). Sem isto não havia qualquer indicação de mudança de piso. v0.29: substituído o retrato pequeno do NPC (ilegível em telemóvel) por troca dinâmica da imagem principal — mostra o NPC ao entrar na sala e sempre que a última ação foi diretamente sobre ele (novo campo por opção: \"foco\": \"npc\"), mostra a sala nas ações sobre o ambiente. Dá mais dinamismo visual sem sacrificar nenhum dos dois assets. v0.28: Lavandaria (Madeirense) e Quarto Principal (Enchilito) deixam de ser sem risco. Madeirense só dá a Poncha com um objeto não essencial em troca (sem objeto, só conversa). Enchilito continua a dar a Malagueta sempre, mas sem objeto para troca custa 1 coração — mesmo padrão do Cavaleiro/Viking/Gentleman. v0.27: Rastafarian fica mais arriscado — a 1ª pesquisa já custa 1 coração (deixou de ser grátis), a 2ª sem mitigar mata em vez de custar outra vez. Continua totalmente evitável abrindo a janela primeiro. v0.26: correção de rumo — v0.25 mostrava tudo sem limite (Hall chegou a 7 botões), longe do pedido real (máximo 3, A/B/C). Motor Solo passa a paginar: sempre no máximo 3 por ecrã (ações e destinos misturados na mesma lista), com \"Mais opções…\" como 3ª posição quando há mais por ver. Testado: Hall (7 itens totais) precisa de 3 páginas; Lavandaria (4 itens) precisa de 2. v0.25 — MUDANÇA DE IDENTIDADE: o limite de 2 opções por prompt passa a ser regra exclusiva do Modo Live (onde a votação exige isso). O Modo Solo mostra sempre tudo o que está disponível numa lista só — ações ainda por fazer + todos os destinos de navegação (a árvore binária do Blueprint é desdobrada por completo, sem perguntas aninhadas). Removida toda a lógica de diferimento de opções, árvore de navegação sequencial, e \"seguir sem fazer nada\" do motor Solo — motor bastante simplificado. O Blueprint mantém navegacao_arvore intacta (é o que o Modo Live vai precisar). Excepção mantida: um_a_um continua a mostrar só 1 ação de cada vez (mecânica de ritmo, não de voto). v0.24: regra de diferimento da opção restante removida por completo — passa a ser universal e sem excepções, em todas as salas de todos os pisos. Só se sai de uma sala quando o jogador quer ou esgota as opções; nunca é preciso ir e voltar para ver algo que ficou por fazer. Código simplificado (removida a lista de excepções escaladaContinua/agiuNestaVisita). v0.23: salas com Relíquia (Arrecadação, Quarto Principal, Observatório) ficam isentas da regra de diferimento — a opção que leva à relíquia nunca espera por uma próxima visita, mesmo que o jogador já tenha feito outra coisa na sala primeiro (ex: falar com o Pirata antes de abrir o baú). v0.22 (piloto): Templário ganha aviso-antes-do-castigo (1ª tentativa de pegar no Graal avisa, 2ª mata). Rastafarian ganha mitigação ativa (abrir a janela evita o custo das pesquisas seguintes). Suavização parcial do \"sempre mostrar voltar\": só protegido nas últimas paragens antes de Relíquia (Lavandaria, Corredor Antigo); resto do mapa volta a podar o voltar quando não há nada lá. NOTA: encontrado efeito colateral — o aviso do Templário nunca conta como resolvido sem morrer, o que mantém a Capela/Hall sempre com conteúdo por fazer e trava a suavização nessa zona. Pendente decisão do Rick.v0.21: Compartimento Secreto deixa de abrir sem chave (a chave agora encontra-se no Escritório, opção B) e passa a recompensar (+1 coração) em vez de penalizar. Tentar sem chave nunca conta como usado, por isso fica sempre repetível até se ter a chave. v0.20: mochila passa de 1 para 5 objetos não essenciais (maçã não bloqueava mais o terço). Navegação de ligação simples deixa de esconder o \"voltar\" mesmo sem recompensa lá (nunca conduz o jogador só para a frente, sobretudo perto de Relíquias) — removida a navegação forçada do alçapão da Lavandaria pelo mesmo motivo. Quarto de Hóspedes: nova mecânica 1-a-1 com custo progressivo (1ª pesquisa grátis, todas as seguintes custam 1 coração, sempre com Sair disponível) substitui o perigo acumulado antigo. Removidos sufixos literais tipo \"objeto não essencial, sem risco\". Pirata deixa de implicar troca nunca pedida — passa a pergunta genérica. Corredor Principal: árvore deixa de listar salas entre parênteses. Janela deixa de revelar antecipadamente que a decisão seguinte pode matar. v0.19: opção restante única deixa de ser oferecida na mesma visita — espera pela próxima entrada na sala (evita 2 cliques de seguida em conteúdo já visto, ex: Hall). Excepção: salas de perigo acumulado continuam a mostrar tudo na mesma visita (escalada tem de ser contínua). v0.18: Quarto de Hóspedes deixa de matar ao fim de 3 explorações — passa a custar 1 coração (morte parecia anticlimática). 4 textos 'tensão, sem dano' reescritos em prosa atmosférica real (Salão, Corredor Principal x2, Quarto Principal). v0.17: mais 3 opções \"seguras\" (Biblioteca, Corredor Antigo, Compartimento Secreto) deixam de dizer \"nada acontece\" seco — ganham toque atmosférico, mesma lógica da correção do Hall. v0.16: 2 correções de detalhe. Hall opção B deixa de dizer 'nada acontece de imediato' — ganha texto atmosférico real (passos que demoram a chegar). Ala Leste passa a ramificar Quarto Infantil/Lavandaria (escolha direta), simétrico à Ala Oeste — deixa de forçar entrada única pelo Quarto Infantil; a Arrecadação continua só acessível via Lavandaria (isso não mudou). Corrigido também um changelog anterior corrompido por um sed mal executado. v0.15: fundidas as edições de Rick à checklist — temas expandidos, 8 NPCs com personalidade/protege/quer/recompensa/penalização revistos e Primeira Frase/Frase Final (campos novos). Viking (Escritório) e Gentleman (Observatório) passam a ter troca condicional (com/sem objeto não essencial), espelhando o Cavaleiro. Corrigido typo 'Card Sketch Seria'. v0.14: Quarto de Hóspedes reestruturado — 3 ações concretas (gaveta/armário/cama) em vez de 'explorar 1 ou vários itens' (abstração pouco natural). Introduz 'perigo_acumulado': a 3ª exploração nesta sala mata, seja qual for o item. Motor passa a mostrar sempre no máximo 2 opções por prompt, mesmo quando a sala define 3+. v0.13: Lavandaria → Arrecadação deixa de ser via lençóis (salto lógico estranho), passa a ser um alçapão sob o tanque. v0.12: Observatório (3 ligações) tinha ficado sem árvore binária, violando a própria regra — corrigido, ganha navegacao_arvore + voltar_para. v0.11: ida vs volta separadas — corredor_principal ganha 'voltar_para' (1 clique direto para o Hall, sem árvore); a árvore fica só para exploração para a frente, evitando o custo repetido de perguntar tudo outra vez em cada regresso. v0.10: Capela ganha recompensa real na opção segura (terço partido, objeto não essencial). Hall: Ala Oeste passa a dar escolha direta Salão/Capela em vez de forçar entrada pelo Salão (Ala Leste mantém-se sequencial por ter justificação narrativa — Arrecadação escondida atrás da Lavandaria). v0.9: navegação binária obrigatória — Hall e Corredor Principal (3+ ligações) ganham navegacao_arvore, nunca mostram todos os destinos de uma vez (preserva a divisão do chat em 2 campos). v0.8: acerto de dano/cura/morte por piso (RDC baixo, 1andar médio, sótão alto). corredor_antigo sai de placeholder — morte direta (buraco no soalho). Capela: Graal escala de -1 coração para morte direta. Observatório: relíquia passa a custar 1 coração; mapa estelar passa a curar 1. Compartimento Secreto: abrir a escotilha passa a custar 1 coração. v0.7: corredor_principal sai de placeholder (relógio parado + retratos, sem dano/cura por design). v0.6: fusão das Fichas das Salas v0.1 (autor: Rick). Reestrutura RDC (Ala Oeste/Ala Leste) e Sótão. Arrecadação passa de Sótão para RDC. Biblioteca/Escritório confirmados no 1º andar. Entrada Principal deixa de ser sala — Porta Principal é objeto do Hall. Adiciona 8 NPCs nomeados. Relíquias ganham nome próprio (Moeda de Ouro / Malagueta Dourada / Luneta). Adiciona Compartimento Secreto (sala final opcional, não conta para as 3 Relíquias). Quarto de Hóspedes sai de placeholder (tem NPC e mecânica definidos).",
+    "temporada": {
+      "inicio": "2026-10-01",
+      "fim": "2026-10-31"
+    },
+    "reset": [
+      "morte_do_grupo",
+      "fim_da_temporada"
+    ]
+  },
+  "mecanicas": {
+    "modos_de_jogo": [
+      "live",
+      "solo"
+    ],
+    "modos_de_jogo_nota": "Live = Twitch, votação coletiva. Solo = website, jogador decide diretamente. Detalhe completo na Gameplay Specification secção 3.",
+    "vida_max": 5,
+    "vida_max_nota": "Live: coletiva (todo o chat partilha). Solo: pessoal (cada jogador tem a sua).",
+    "mochila_slot_objeto_nao_essencial": 1,
+    "escolhas_por_sala": 2,
+    "voto": "keywords_no_chat",
+    "opcoes_por_votacao": 2,
+    "reliquias_obrigatorias": 3,
+    "sem_item_obrigatorio": false,
+    "sem_item_obrigatorio_nota": "A saída depende de reunir as 3 Relíquias Essenciais (uma por andar) — ver 'reliquias_globais'.",
+    "memoria_entre_runs": true,
+    "consumiveis_fora_do_inventario": true,
+    "nota": "Regra de Ouro: reunir as 3 Relíquias → abrir a Porta Principal (no Hall) → sair."
+  },
+  "votacao_regras": {
+    "nota": "Aplica-se apenas ao Modo Live. Modo Solo não tem votação.",
+    "tempo_fixo_segundos": 60,
+    "regra_vitoria": "Maioria simples de votos.",
+    "desempate": "Vence a opção que recebeu o primeiro voto (cronologicamente).",
+    "limiar_minimo": "Nenhum."
+  },
+  "andares": [
+    "rdc",
+    "1andar",
+    "sotao"
+  ],
+  "alas": {
+    "ala_oeste": {
+      "andar": "rdc",
+      "salas": [
+        "salao",
+        "capela"
+      ],
+      "nota": "Agrupamento de navegação, não é uma sala jogável."
+    },
+    "ala_leste": {
+      "andar": "rdc",
+      "salas": [
+        "quarto_infantil",
+        "lavandaria",
+        "arrecadacao"
+      ],
+      "nota": "Agrupamento de navegação, não é uma sala jogável."
+    }
+  },
+  "salas": {
+    "hall": {
+      "nome": "Hall de Entrada",
+      "andar": "rdc",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "A entrada — incomodativa, como se algo vivesse dentro das paredes.",
+      "objeto_principal": "Porta Principal",
+      "objeto_secundario": "Escadaria (para o 1º andar)",
+      "narrativa_inicial": "Frio. Cheiro a madeira antiga e pó. Silêncio total. A casa observa quem entra. Duas alas afastam-se para lados opostos, e uma escadaria sobe, escura.",
+      "npc": null,
+      "ligacoes": [
+        "salao",
+        "quarto_infantil",
+        "corredor_principal"
+      ],
+      "navegacao_arvore": {
+        "pergunta": "Explorar o Rés-do-Chão ou subir ao 1º andar?",
+        "opcoes": [
+          {
+            "texto": "Subir ao 1º andar",
+            "destino": "corredor_principal"
+          },
+          {
+            "texto": "Ficar no Rés-do-Chão",
+            "resultado": {
+              "pergunta": "Ala Oeste ou Ala Leste?",
+              "opcoes": [
+                {
+                  "texto": "Ala Leste",
+                  "resultado": {
+                    "pergunta": "Quarto Infantil ou Lavandaria?",
+                    "opcoes": [
+                      {
+                        "texto": "Quarto Infantil",
+                        "destino": "quarto_infantil"
+                      },
+                      {
+                        "texto": "Lavandaria",
+                        "destino": "lavandaria"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "texto": "Ala Oeste",
+                  "resultado": {
+                    "pergunta": "Salão ou Capela?",
+                    "opcoes": [
+                      {
+                        "texto": "Salão",
+                        "destino": "salao"
+                      },
+                      {
+                        "texto": "Capela",
+                        "destino": "capela"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Examinar a Porta Principal",
+          "consequencia": "Está fechada — precisa das 3 Relíquias Essenciais",
+          "imagem": "porta_principal"
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "A porta continua fechada até reunir as 3 Relíquias.",
+      "condicao_saida": "Abre quando o grupo possuir as 3 Relíquias Essenciais (moeda_ouro + malagueta_dourada + luneta).",
+      "notas": "Sala inicial. Liga Ala Oeste, Ala Leste e o 1º andar (via Escadaria, sem sala própria). v0.37: removida a opção 'Ouvir o silêncio' (não tinha função nenhuma, só preenchia espaço). Hall passa a ter só 1 ação própria (Examinar a Porta). NOTA para o Modo Live: a regra de 'sempre exatamente 2 opções no voto' precisa de outra solução aqui quando Live for construído de verdade — sugestão: emparelhar 'Examinar a Porta' com uma escolha de navegação real.",
+      "grupos_solo": [
+        {
+          "texto": "Alas",
+          "imagem": "hall_alas",
+          "grupos": [
+            {
+              "texto": "Ala Oeste",
+              "imagem": "ala_oeste",
+              "salas": [
+                "salao",
+                "capela"
+              ],
+              "texto_ambiente": "O ar aqui é mais pesado, como incenso antigo. Uma respiração longa vem de trás de uma das portas fechadas."
+            },
+            {
+              "texto": "Ala Leste",
+              "imagem": "ala_leste",
+              "salas": [
+                "quarto_infantil",
+                "lavandaria"
+              ],
+              "texto_ambiente": "Um cheiro doce e podre chega da direção da Lavandaria. Do Quarto Infantil, uma cantiga de embalar — cantada por ninguém."
+            }
+          ],
+          "texto_ambiente": "Um som vem de cada lado — madeira a ranger na Ala Oeste, um arrastar leve e contínuo na Ala Leste. Por onde queres ir?"
+        },
+        {
+          "texto": "Subir ao 1º andar",
+          "destino": "corredor_principal"
+        }
+      ]
+    },
+    "salao": {
+      "nome": "Salão",
+      "andar": "rdc",
+      "ala": "ala_oeste",
+      "tipo": "sala",
+      "tema": "Um convívio abandonado — como se um jantar fosse ainda ser servido.",
+      "objeto_principal": "Cadeira",
+      "objeto_secundario": "Maçã",
+      "narrativa_inicial": "Antigo salão de convívio, abandonado. Cheiro a madeira envelhecida. Ranger ocasional. Demasiado calmo.",
+      "npc": null,
+      "ligacoes": [
+        "hall",
+        "capela"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Sentar na cadeira antiga",
+          "consequencia": "Ao sentares-te, os olhos pesam-te de repente. Vês um espírito a aproximar-se, sentes um frio a invadir-te por dentro — e depois nada. Acordas horas mais tarde, no chão, desnorteado. Perdes 1 coração."
+        },
+        {
+          "id": "b",
+          "texto": "Pegar na maçã",
+          "consequencia": "Se a vida não estiver cheia: recupera 1 coração e a maçã desaparece (consumível). Se a vida estiver cheia: fica como objeto não essencial opcional."
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [
+        "maca"
+      ],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "A cadeira continua no mesmo sítio.",
+      "notas": "A maçã tem comportamento duplo — ver Gameplay Spec, lifecycle de Consumível vs Objeto não essencial."
+    },
+    "capela": {
+      "nome": "Capela",
+      "andar": "rdc",
+      "ala": "ala_oeste",
+      "tipo": "sala",
+      "tema": "Um guardião preso ao seu juramento, que aguarda a chegada do Salvador da Cruz!",
+      "objeto_principal": "Altar",
+      "objeto_secundario": "Santo Graal",
+      "narrativa_inicial": "Pequena capela privada da família. Escuro e solene. Cheiro a incenso antigo. Madeira a estalar. Algo vigia o altar.",
+      "npc": "templario",
+      "ligacoes": [
+        "salao"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Aproximar-se do altar",
+          "consequencia": "Encontra um terço partido esquecido no genuflexório."
+        },
+        {
+          "id": "b",
+          "texto": "Tentar pegar no Santo Graal",
+          "consequencia": "O Templário não avisa duas vezes — a espada desce, certeira.",
+          "foco": "npc"
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [
+        "terco_partido"
+      ],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O Templário continua junto ao altar.",
+      "notas": "Sem Relíquia. O Santo Graal é side story do Templário, não é necessário."
+    },
+    "quarto_infantil": {
+      "nome": "Quarto Infantil",
+      "andar": "rdc",
+      "ala": "ala_leste",
+      "tipo": "sala",
+      "tema": "Uma sombra parece ainda ocupar o canto do quarto.",
+      "objeto_principal": "Caixa",
+      "objeto_secundario": "Cavalo de brincar",
+      "narrativa_inicial": "Quarto antigo de uma criança. Silencioso. Cheiro a madeira e brinquedos antigos. Quase impercetível o som. Alguém esteve aqui há pouco.",
+      "npc": null,
+      "ligacoes": [
+        "hall",
+        "lavandaria"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Abrir a caixa",
+          "consequencia": "Uma mão fria em forma de sombra agarra o braço — perde 1 coração"
+        },
+        {
+          "id": "b",
+          "texto": "Brincar com o cavalo de madeira",
+          "consequencia": "Belisca os olhos de vidro do cavalo e sentes um frio súbito a percorrer-te a espinha. Uma vozinha, que não é a tua, sussurra: \"O teu reflexo quer causar-te dor.\""
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "A caixa continua fechada.",
+      "notas": ""
+    },
+    "lavandaria": {
+      "nome": "Lavandaria",
+      "andar": "rdc",
+      "ala": "ala_leste",
+      "tipo": "sala",
+      "tema": "Um espírito perdido, procurando a luz — aqui pode encontrar ajuda para o próximo capítulo.",
+      "objeto_principal": "Tanque",
+      "objeto_secundario": "Lençóis",
+      "narrativa_inicial": "Lavandaria antiga, muito húmida. Cheiro a bolor. Água a pingar. Uma tábua do soalho, perto do tanque, parece deslocada.",
+      "npc": "madeirense",
+      "ligacoes": [
+        "quarto_infantil",
+        "arrecadacao"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Interagir com o Madeirense",
+          "consequencia": "Se tiveres um objeto não essencial: o Madeirense aceita a troca e dá a Poncha da Vida. Se não tiveres: fica só a conversa.",
+          "foco": "npc"
+        },
+        {
+          "id": "b",
+          "texto": "Reparar num alçapão semiescondido sob o tanque",
+          "consequencia": "Um alçapão de madeira, quase escondido pelo tanque."
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [
+        "poncha"
+      ],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O alçapão continua ali, agora entreaberto.",
+      "notas": "A Arrecadação está escondida atrás da Lavandaria — é a única entrada. v0.22: protegerVoltar=true — é a última paragem antes da Arrecadação (relíquia), nunca esconde o voltar.",
+      "protegerVoltar": true
+    },
+    "arrecadacao": {
+      "nome": "Arrecadação",
+      "andar": "rdc",
+      "ala": "ala_leste",
+      "tipo": "sala",
+      "tema": "Um corsário que guarda um tesouro que já não é seu.",
+      "objeto_principal": "Baú",
+      "objeto_secundario": "Barris",
+      "narrativa_inicial": "Pequena divisão escondida atrás da lavandaria. Escuro. Cheiro a madeira velha e maresia. Silêncio. Parece esconder um segredo.",
+      "npc": "pirata",
+      "ligacoes": [
+        "lavandaria"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Abrir o baú",
+          "consequencia": "Se tiveres um objeto não essencial: o Pirata aceita a troca e a Moeda de Ouro sai sem custo. Se não tiveres: amaldiçoa-te pela troca — perdes 1 coração."
+        },
+        {
+          "id": "b",
+          "texto": "Falar com o Pirata sobre o mapa do tesouro",
+          "consequencia": "O Pirata pergunta: \"Sabes onde está o meu mapa do tesouro?\" Não sabes o que responder.",
+          "foco": "npc"
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O baú continua entreaberto, já revistado.",
+      "reliquia": "moeda_ouro",
+      "notas": "Portadora da Relíquia do Rés-do-Chão. v0.32: mesma regra das 3 Relíquias — com objeto não essencial, grátis; sem objeto, custa 1 coração. A escalada de dificuldade por piso vem da casa (NPCs, armadilhas), não da relíquia em si."
+    },
+    "corredor_principal": {
+      "nome": "Corredor Principal",
+      "andar": "1andar",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "O tempo parou nesta casa.",
+      "objeto_principal": "Relógio parado às 03:13",
+      "objeto_secundario": "Fileira de retratos ao longo da parede",
+      "narrativa_inicial": "Um relógio de pé marca sempre a mesma hora. Retratos desbotados alinham-se ao longo do corredor. Portas fechadas rodeiam-te; o corredor continua, mais escuro, para além delas.",
+      "npc": null,
+      "ligacoes": [
+        "hall",
+        "biblioteca",
+        "quarto_principal",
+        "escritorio",
+        "quarto_hospedes",
+        "corredor_antigo"
+      ],
+      "navegacao_arvore": {
+        "pergunta": "Os quartos ou o resto da casa?",
+        "opcoes": [
+          {
+            "texto": "Os quartos",
+            "resultado": {
+              "pergunta": "Qual quarto?",
+              "opcoes": [
+                {
+                  "texto": "Quarto Principal",
+                  "destino": "quarto_principal"
+                },
+                {
+                  "texto": "Quarto de Hóspedes",
+                  "destino": "quarto_hospedes"
+                }
+              ]
+            }
+          },
+          {
+            "texto": "O resto da casa",
+            "resultado": {
+              "pergunta": "Biblioteca/Escritório ou seguir para o Corredor Antigo?",
+              "opcoes": [
+                {
+                  "texto": "Biblioteca ou Escritório",
+                  "resultado": {
+                    "pergunta": "Biblioteca ou Escritório?",
+                    "opcoes": [
+                      {
+                        "texto": "Biblioteca",
+                        "destino": "biblioteca"
+                      },
+                      {
+                        "texto": "Escritório",
+                        "destino": "escritorio"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "texto": "Seguir para o Corredor Antigo",
+                  "destino": "corredor_antigo"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "voltar_para": "hall",
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Tentar acertar o relógio",
+          "consequencia": "Tentas acertar os ponteiros, mas um deles vira-se contra a tua mão e corta-te o dedo. Ao recuares, o relógio marca de novo as 03:13 — perdes 1 coração."
+        },
+        {
+          "id": "b",
+          "texto": "Observar a fileira de retratos",
+          "consequencia": "Os olhos pintados dos retratos seguem-te pela sala. Um deles, mais desesperado que os outros, parece implorar: \"O segredo está em olhar para as estrelas.\""
+        }
+      ],
+      "imagem": "TODO",
+      "itens_possiveis": [],
+      "pistas_ambientais": [
+        "O relógio sempre parado sugere que algo aconteceu às 03:13, nunca explicado diretamente."
+      ],
+      "estado_apos_exploracao": "O relógio continua parado à mesma hora.",
+      "notas": "Saiu de placeholder (v0.7). Sala de transição intencionalmente sem dano/cura — é o nó de maior tráfego do mapa (6 ligações), mantido leve por design. Ecoa a filosofia 'a casa parece viva, mas não está'.",
+      "grupos_solo": [
+        {
+          "texto": "Os quartos",
+          "imagem": "corredor_quartos",
+          "salas": [
+            "quarto_principal",
+            "quarto_hospedes"
+          ],
+          "texto_ambiente": "Duas portas fechadas, uma de cada lado. De uma delas, um som de tecido a arrastar-se; da outra, um silêncio absoluto demais para ser vazio."
+        },
+        {
+          "texto": "Biblioteca ou Escritório",
+          "imagem": "corredor_biblioteca_escritorio",
+          "salas": [
+            "biblioteca",
+            "escritorio"
+          ],
+          "texto_ambiente": "O cheiro a papel velho mistura-se com o de tabaco frio. Alguém tossiu, há pouco, nalguma destas salas — ou foi só a casa a imitar um."
+        },
+        {
+          "texto": "Corredor Antigo",
+          "destino": "corredor_antigo"
+        }
+      ]
+    },
+    "biblioteca": {
+      "nome": "Biblioteca",
+      "andar": "1andar",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "Alguém continua a estudar aqui, e o conhecimento vai custar caro.",
+      "objeto_principal": "Estante",
+      "objeto_secundario": "Livro",
+      "narrativa_inicial": "Biblioteca antiga e escura. Cheiro a livros antigos. Folhas a mexer sozinhas. Alguém continua a estudar.",
+      "npc": "professor_rick",
+      "ligacoes": [
+        "corredor_principal"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Trocar um objeto não essencial com o Professor Rick",
+          "consequencia": "Se o jogador tiver um objeto não essencial: ganha 1 coração. Se não tiver: perde 1 coração.",
+          "foco": "npc"
+        },
+        {
+          "id": "b",
+          "texto": "Explorar a estante sozinho, sem interagir com o Professor Rick",
+          "consequencia": "Nada acontece — mas sentes o olhar dele atento a cada livro que tocas."
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [
+        "diario_rasgado"
+      ],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O Professor Rick continua a vigiar a estante.",
+      "notas": "O Professor Rick protege \"a sua autoridade na escola\" — side story, não obrigatória."
+    },
+    "quarto_principal": {
+      "nome": "Quarto Principal",
+      "andar": "1andar",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "Há alguém atrás de ti, e quer seguir-te até ao final.",
+      "objeto_principal": "Penteadeira",
+      "objeto_secundario": "Espelho",
+      "narrativa_inicial": "Quarto principal da mansão. Frio. Perfume antigo e malaguetas no ar. Silêncio. Há alguém atrás de ti.",
+      "npc": "enchilito",
+      "ligacoes": [
+        "corredor_principal"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Interagir com o Enchilito",
+          "consequencia": "Se tiveres um objeto não essencial: o Enchilito aceita a troca e dá a Malagueta Dourada sem custo. Se não tiveres: dá-a mesmo assim, mas custa 1 coração.",
+          "foco": "npc"
+        },
+        {
+          "id": "b",
+          "texto": "Olhar para o espelho da penteadeira",
+          "consequencia": "O espelho estala com um grito agudo — que não é teu — e estilhaça-se em mil pedaços. Um fragmento corta-te fundo. Perdes 1 coração."
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O Enchilito continua no quarto.",
+      "reliquia": "malagueta_dourada",
+      "notas": "Portadora da Relíquia do 1º Andar. Outros objetos presentes (gaveta, fotografia, cama, almofada) ainda sem função mecânica."
+    },
+    "escritorio": {
+      "nome": "Escritório",
+      "andar": "1andar",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "Todas as decisões da casa passaram por aqui, e aqui o embate de titãs se irá dar.",
+      "objeto_principal": "Secretária",
+      "objeto_secundario": "Mapa",
+      "narrativa_inicial": "Escritório do proprietário. Pesado. Cheiro a papel velho. Um relógio antigo continua a bater. Todas as decisões passaram por aqui.",
+      "npc": "viking",
+      "ligacoes": [
+        "corredor_principal"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Interagir com o Viking",
+          "consequencia": "Se tiveres um objeto não essencial: o Viking aceita a troca e dá o Corno de Valhalla. Se não tiveres: ataca-te — perde 1 coração.",
+          "foco": "npc"
+        },
+        {
+          "id": "b",
+          "texto": "Estudar o mapa na secretária",
+          "consequencia": "Um mapa antigo da propriedade — dobrado dentro dele, uma pequena chave enferrujada."
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [
+        "chave_compartimento",
+        "corno_valhalla"
+      ],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O mapa continua sobre a secretária.",
+      "notas": "Sem Relíquia."
+    },
+    "quarto_hospedes": {
+      "nome": "Quarto de Hóspedes",
+      "andar": "1andar",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "Um fumo esquisito que enche tudo e que intoxica quem fica por muito tempo.",
+      "objeto_principal": "Cadeira (onde o Professor de Educação Física está sentado)",
+      "objeto_secundario": null,
+      "narrativa_inicial": "O quarto está cheio de fumo, com um cheiro esquisito.",
+      "npc": "professor_edfisica",
+      "ligacoes": [
+        "corredor_principal"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Explorar a gaveta",
+          "consequencia": "Só roupa velha e traças"
+        },
+        {
+          "id": "b",
+          "texto": "Explorar o armário",
+          "consequencia": "Só teias de aranha"
+        },
+        {
+          "id": "c",
+          "texto": "Explorar debaixo da cama",
+          "consequencia": "Só pó e um sapato sozinho"
+        }
+      ],
+      "imagem": "TODO",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O Professor de Educação Física continua sentado, indiferente.",
+      "notas": "v0.20: pesquisa 1 a 1, sempre com opção de saída explícita. 1ª pesquisa grátis; a 2ª e seguintes custam sempre 1 coração cada (não só a 3ª). v0.22: ganha mitigação ativa — abrir a janela evita o custo das explorações seguintes. v0.27: já custa 1 coração na 1ª pesquisa (não é mais grátis); a 2ª pesquisa sem mitigar mata em vez de custar outra vez — risco real de continuar.",
+      "um_a_um": true,
+      "custo_progressivo": {
+        "a_partir_de": 1,
+        "efeito_vida": -1,
+        "mensagem": "O fumo aperta-te o peito e os pulmões ardem — perdes 1 coração."
+      },
+      "mitigacao": {
+        "id": "j",
+        "texto": "Abrir a janela para arejar",
+        "consequencia": "O fumo começa a dissipar-se. As explorações seguintes já não te vão intoxicar.",
+        "flag": "janelaAberta"
+      },
+      "morte_a_partir_de": {
+        "a_partir_de": 2,
+        "mensagem": "O fumo é demasiado espesso. Não consegues respirar."
+      }
+    },
+    "corredor_antigo": {
+      "nome": "Corredor Antigo",
+      "andar": "1andar",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "Um risco óbvio, fácil de evitar",
+      "objeto_principal": "Buraco no soalho",
+      "objeto_secundario": null,
+      "narrativa_inicial": "O soalho cedeu numa parte do corredor. O buraco é largo, escuro, e claramente perigoso.",
+      "npc": null,
+      "ligacoes": [
+        "corredor_principal",
+        "escadaria_sotao"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Contornar o buraco",
+          "consequencia": "Nada acontece — mas o soalho geme sob os teus pés ao passares."
+        },
+        {
+          "id": "b",
+          "texto": "Saltar o buraco",
+          "consequencia": "O buraco, que parecia pequeno, alarga-se sob os teus pés no exato momento do salto — e continuas a cair, sem nunca tocar o fundo."
+        }
+      ],
+      "imagem": "TODO",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O buraco continua ali, agora bem visível.",
+      "notas": "Saiu de placeholder (v0.8). É a morte direta do 1º andar — obviamente evitável, como o salto do Telhado. v0.22: protegerVoltar=true — é a última paragem real antes do Observatório (relíquia, via Escadaria que é conector).",
+      "protegerVoltar": true,
+      "decisao_unica": true
+    },
+    "escadaria_sotao": {
+      "nome": "Escadaria",
+      "andar": "sotao",
+      "ala": null,
+      "tipo": "conector",
+      "narrativa_inicial": "Escadas estreitas que levam ao sótão. Escuro. Cheiro a madeira velha. Vento.",
+      "ligacoes": [
+        "corredor_antigo",
+        "observatorio"
+      ],
+      "notas": "Conectores não usam o template de sala completo."
+    },
+    "observatorio": {
+      "nome": "Observatório",
+      "andar": "sotao",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "O céu nunca muda aqui",
+      "objeto_principal": "Luneta",
+      "objeto_secundario": "Mapa Estelar",
+      "narrativa_inicial": "Observatório abandonado. Frio, pó, vento. O céu nunca muda. Uma janela bate contra a moldura, e uma porta pequena parece levar a algum lado.",
+      "npc": "gentleman",
+      "ligacoes": [
+        "escadaria_sotao",
+        "janela",
+        "compartimento_secreto"
+      ],
+      "navegacao_arvore": {
+        "pergunta": "Seguir para a janela ou explorar o compartimento secreto?",
+        "opcoes": [
+          {
+            "texto": "Seguir para a janela (Telhado)",
+            "destino": "janela"
+          },
+          {
+            "texto": "Explorar o compartimento secreto",
+            "destino": "compartimento_secreto"
+          }
+        ]
+      },
+      "voltar_para": "escadaria_sotao",
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Olhar pela Luneta",
+          "consequencia": "Se tiveres um objeto não essencial: o Gentleman aceita a troca e dá a Luneta sem custo. Se não tiveres: dá-a mesmo assim, mas custa 1 coração."
+        },
+        {
+          "id": "b",
+          "texto": "Estudar o Mapa Estelar",
+          "consequencia": "Encontra um frasco de conhaque esquecido — recupera 1 coração"
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "O Gentleman continua junto à luneta.",
+      "reliquia": "luneta",
+      "notas": "Portadora da Relíquia do Sótão. Ligação ao Compartimento Secreto é uma assunção — confirmar com Rick.",
+      "grupos_solo": [
+        {
+          "texto": "Janela (Telhado)",
+          "destino": "janela"
+        },
+        {
+          "texto": "Compartimento Secreto",
+          "destino": "compartimento_secreto"
+        }
+      ]
+    },
+    "janela": {
+      "nome": "Janela",
+      "andar": "sotao",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "A decisão de sair pelo alto",
+      "objeto_principal": "Janela que conduz ao exterior",
+      "objeto_secundario": null,
+      "narrativa_inicial": "Tempestade. Ar húmido. Vento forte.",
+      "npc": null,
+      "ligacoes": [
+        "observatorio",
+        "telhado"
+      ],
+      "opcoes": [],
+      "imagem": "TODO",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "A janela continua aberta.",
+      "notas": "Conector de alto risco, não uma porta neutra. v0.49: removidas as 2 ações — eram puro flavor a forçar ida para uma sala que a navegação já oferecia diretamente (2 cliques para o que 1 já fazia). Fica só como junção de navegação."
+    },
+    "telhado": {
+      "nome": "Telhado",
+      "andar": "sotao",
+      "ala": null,
+      "tipo": "sala",
+      "tema": "Um passo em falso pode ser fatal",
+      "objeto_principal": "Vista exterior",
+      "objeto_secundario": null,
+      "narrativa_inicial": "Telhado antigo, exposto ao vento. Chuva. Telhas a ranger. Um passo em falso pode ser fatal.",
+      "npc": null,
+      "ligacoes": [
+        "janela"
+      ],
+      "opcoes": [
+        {
+          "id": "b",
+          "texto": "Saltar",
+          "consequencia": "Um passo em falso na beira do telhado. As telhas escorregam sob os pés, e o vazio faz o resto."
+        },
+        {
+          "id": "c",
+          "texto": "Explorar a chaminé enegrecida",
+          "consequencia": "Um dos tijolos cede sob o teu peso. Escorregas, sem nada a que te agarrar, e caís do telhado direto para o pátio de pedra, três andares abaixo."
+        }
+      ],
+      "imagem": "TODO",
+      "itens_possiveis": [],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "Ninguém volta ao telhado duas vezes.",
+      "notas": "Beco sem saída. Parece uma saída, não é. v0.41: nova opção 'Explorar a chaminé' — morte instantânea, mas apresentada como curiosidade razoável, não como 'Saltar' (que se anuncia como óbvia). NOTA para o Modo Live: esta sala passa a ter 3 opções — mesma questão pendente do Hall, precisa de solução própria quando Live for implementado a sério. v0.49: removida a opção 'Voltar atrás' — redundante com a navegação direta para a Janela, que já está sempre disponível. Sobram as 2 ações reais (Saltar, Explorar a chaminé), cabem numa só página com a Janela, sem precisar de paginação.",
+      "decisao_unica": true
+    },
+    "compartimento_secreto": {
+      "nome": "Compartimento Secreto",
+      "andar": "sotao",
+      "ala": null,
+      "tipo": "sala",
+      "opcional": true,
+      "tema": "O coração escondido da mansão",
+      "objeto_principal": "Escotilha",
+      "objeto_secundario": "Diário",
+      "narrativa_inicial": "Sala escondida, muito escura. Cheiro a papel antigo. Silêncio absoluto. O coração da mansão.",
+      "npc": null,
+      "ligacoes": [
+        "observatorio"
+      ],
+      "opcoes": [
+        {
+          "id": "a",
+          "texto": "Abrir a escotilha com a chave enferrujada",
+          "consequencia": "Se tiveres a chave: revela o Diário e um pequeno alívio — ganhas 1 coração. Se não tiveres: a escotilha não se move."
+        },
+        {
+          "id": "b",
+          "texto": "Sair sem tocar em nada",
+          "consequencia": "Nada acontece — a escotilha continua fechada, guardando o que quer que seja."
+        }
+      ],
+      "imagem": "Card Sketch Sépia",
+      "itens_possiveis": [
+        "chave_compartimento"
+      ],
+      "pistas_ambientais": [],
+      "estado_apos_exploracao": "A escotilha continua visível, já aberta.",
+      "notas": "Sala de descoberta/final OPCIONAL. Não contém Relíquia. A chave (chave_compartimento) encontra-se no Escritório, não aqui — sem ela, a opção A não tem efeito."
+    }
+  },
+  "reliquias_globais": {
+    "moeda_ouro": {
+      "andar": "rdc",
+      "sala_portadora": "arrecadacao",
+      "npc_associado": "pirata",
+      "permanente": true,
+      "consumivel": false,
+      "trocavel": false,
+      "revelado_ao_jogador": false
+    },
+    "malagueta_dourada": {
+      "andar": "1andar",
+      "sala_portadora": "quarto_principal",
+      "npc_associado": "enchilito",
+      "permanente": true,
+      "consumivel": false,
+      "trocavel": false,
+      "revelado_ao_jogador": false
+    },
+    "luneta": {
+      "andar": "sotao",
+      "sala_portadora": "observatorio",
+      "npc_associado": "gentleman",
+      "permanente": true,
+      "consumivel": false,
+      "trocavel": false,
+      "revelado_ao_jogador": false
+    }
+  },
+  "objetos_nao_essenciais_globais": {
+    "diario_rasgado": {
+      "sala": "biblioteca",
+      "trocavel": true
+    },
+    "corno_valhalla": {
+      "sala": "escritorio",
+      "trocavel": true
+    },
+    "terco_partido": {
+      "sala": "capela",
+      "trocavel": true
+    },
+    "maca_guardada": {
+      "sala": "salao",
+      "trocavel": true,
+      "nota": "Só existe como objeto não essencial se a vida estiver cheia quando encontrada — caso contrário é consumível (ver 'consumiveis_globais')."
+    },
+    "chave_compartimento": {
+      "sala": "compartimento_secreto",
+      "trocavel": false,
+      "nota": "Sem função mecânica fora da sala — flavor/final."
+    }
+  },
+  "consumiveis_globais": {
+    "maca": {
+      "sala": "salao",
+      "vida_recuperada": 1,
+      "nota": "Só atua como consumível se a vida não estiver cheia. Ver nota em objetos_nao_essenciais_globais."
+    },
+    "poncha": {
+      "sala": "lavandaria",
+      "vida_recuperada": 1,
+      "npc_associado": "madeirense"
+    }
+  },
+  "npcs_globais": {
+    "templario": {
+      "nome": "O Templário",
+      "sala": "capela",
+      "personalidade": [
+        "Calmo",
+        "Imponente",
+        "Direto"
+      ],
+      "protege": "Santo Graal",
+      "quer": "Proteger o Santo Graal de invasores e daqueles que querem desacralizar o Santo Graal.",
+      "recompensa": "Se o jogador não pegar no Santo Graal, sai sem dano da interação.",
+      "penalizacao": "Se o jogador tenta pegar no Graal, perde 1 coração",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "primeira_frase": "Tu que ousas entrar nesta Capela protegida pela Ordem da Cruz… Proclamai a que vindes!",
+      "frase_final": "Ide na paz do Senhor e que a Cruz vos proteja!"
+    },
+    "madeirense": {
+      "nome": "O Madeirense",
+      "sala": "lavandaria",
+      "personalidade": [
+        "Divertido",
+        "Perdido",
+        "Sem noção do seu estado de limbo"
+      ],
+      "protege": "O segredo da poncha perfeita!",
+      "quer": "Descobrir a luz",
+      "recompensa": "Dá a Poncha da Vida ao interagir",
+      "penalizacao": null,
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "notas": "Fala de forma difícil de compreender — ajuda quem tem dificuldade em ser compreendido.",
+      "primeira_frase": "Ó paz! Estou com uma rueza que nem te conto!",
+      "frase_final": "Fica bem, ó paz, até amanhã se Deus quiser!"
+    },
+    "pirata": {
+      "nome": "O Pirata",
+      "sala": "arrecadacao",
+      "personalidade": [
+        "Ameaçador",
+        "Sagaz",
+        "Matreiro"
+      ],
+      "protege": "moeda_ouro (Relíquia do Rés-do-Chão)",
+      "quer": "O mapa do tesouro",
+      "recompensa": "Moeda de ouro",
+      "penalizacao": "Amaldiçoa o jogador pela troca da relíquia, se não tiver nada para dar em troca — retira 1 coração.",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "primeira_frase": "AAAARRGGGHHH!!! Marujo, viste onde deixei o meu mapa do tesouro?",
+      "frase_final": "Nunca sairás a ganhar comigo, seu gato de nove rabos!"
+    },
+    "enchilito": {
+      "nome": "O Enchilito",
+      "sala": "quarto_principal",
+      "personalidade": [
+        "Divertido",
+        "Humorístico",
+        "Cómico"
+      ],
+      "protege": "malagueta_dourada (Relíquia do 1º Andar)",
+      "quer": "Que saias da casa vivo.",
+      "recompensa": "Dá a Malagueta Dourada quando existe interação",
+      "penalizacao": "Apenas ele fica penalizado — com tantas malaguetas que come.",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "primeira_frase": "Normalmente as verdes são as piores, fica longe dessas.",
+      "frase_final": "Já vais? Bebe mais um copo!"
+    },
+    "viking": {
+      "nome": "O Viking",
+      "sala": "escritorio",
+      "personalidade": [
+        "Corajoso",
+        "Honroso",
+        "Leal"
+      ],
+      "protege": "O caminho para Valhalla, e que se reencontre com os seus antepassados.",
+      "quer": "Andar à porrada com o mais temido guerreiro.",
+      "recompensa": "Dá o Corno de Valhalla (objeto não essencial)",
+      "penalizacao": "Ataca o jogador se este não tiver um objeto para troca — perde 1 coração.",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "primeira_frase": "És tu o enviado de Odin, para me concederes a batalha mais épica de todo o Nærøyfjord?",
+      "frase_final": "Por Thor, ainda não foi esta a vez em que encontrei adversário à altura!"
+    },
+    "gentleman": {
+      "nome": "O Gentleman",
+      "sala": "observatorio",
+      "personalidade": [
+        "Eloquente",
+        "Inteligente",
+        "Educado"
+      ],
+      "protege": "luneta (Relíquia do Sótão)",
+      "quer": null,
+      "recompensa": "Em troca de um objeto não essencial, entrega a Luneta sem custo.",
+      "penalizacao": "Se o jogador não tiver um objeto não essencial, a troca da Luneta custa 1 coração.",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "notas": "Ficha original não especifica quer/recompensa/penalização em detalhe — TODO.",
+      "primeira_frase": "Quem vem lá e ousa entrar sem bater à porta! Vens para o chá das 5?",
+      "frase_final": "Que a Luneta sirva para que saias deste maldito Casarão!"
+    },
+    "professor_rick": {
+      "nome": "O Professor Rick",
+      "sala": "biblioteca",
+      "personalidade": [
+        "Rabugento",
+        "Desconfiado",
+        "Chato"
+      ],
+      "protege": "A sua autoridade na escola",
+      "quer": "1 objeto não essencial do jogador",
+      "recompensa": "Se o jogador tiver um objeto não essencial: ganha 1 coração",
+      "penalizacao": "Se não tiver: perde 1 coração",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "primeira_frase": "Outra vez atrasado... Que cheiro é este? Estiveste com o Professor de Educação Física atrás do Pavilhão?",
+      "frase_final": "Vai, mas se cruzares com ele outra vez, diz-lhe que eu sei muito bem o que andam a fazer."
+    },
+    "professor_edfisica": {
+      "nome": "O Professor de Educação Física",
+      "sala": "quarto_hospedes",
+      "personalidade": [
+        "Relaxado",
+        "Descontraído",
+        "Camarada"
+      ],
+      "protege": "O seu charro escondido atrás do pavilhão",
+      "quer": "Fumar o seu tranquilo.",
+      "recompensa": null,
+      "penalizacao": "Explorar mais de 1 item na sala causa 1 coração de dano pelo fumo",
+      "resolucao_obrigatoria": false,
+      "imagem_estilo": "Card Sketch Sépia",
+      "primeira_frase": "Shhhhh, entra e não digas ao Professor Rick que estamos aqui. Toma lá uma passa e tá calado chavalo.",
+      "frase_final": "Força aí, e nem uma palavra ao Rick, combinado?"
+    }
+  },
+  "assuncoes_confirmadas_por_rick": [
+    "Ligação interna Salão↔Capela (Ala Oeste) — linear a partir do Hall.",
+    "Ligação Observatório↔Compartimento Secreto — confirmada.",
+    "Textos das opções A/B por sala — aceites como estão."
+  ],
+  "mensagens_morte_genericas": [
+    "A casa suspira, satisfeita. Mais uma alma para guardar entre as paredes.",
+    "O relógio do corredor marca, de novo, as 03:13. Como se sempre soubesse que assim seria.",
+    "Silêncio. A casa nunca teve pressa — sabia que ias ficar.",
+    "Nas paredes, alguma coisa sorri.",
+    "Longe, uma porta fecha-se sozinha. Ninguém a ouve — exceto a casa.",
+    "O pó volta a assentar sobre o soalho, como se nunca tivesses lá estado."
+  ]
+}

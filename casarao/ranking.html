@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casarão Assombrado — Ranking de Interações (privado)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Yellowtail&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root{
+    --parchment: #ece0c4;
+    --parchment-deep: #c9b380;
+    --parchment-shadow: #9c8a5e;
+    --ink: #241a12;
+    --ink-soft: #5a4a37;
+    --blood: #7a2020;
+    --candle: #b8862f;
+    --candle-bright: #e0ac4a;
+    --night: #14100b;
+  }
+  *{ box-sizing:border-box; }
+  html, body{
+    margin:0; min-height:100vh;
+    background: radial-gradient(ellipse at 50% -10%, #2a1f16 0%, var(--night) 60%, #080604 100%);
+    font-family:'Cormorant Garamond', serif;
+    color: var(--ink);
+    display:flex; flex-direction:column; align-items:center;
+    padding: 48px 20px 60px;
+  }
+
+  h1{
+    font-family:'UnifrakturCook', cursive; font-weight:700;
+    font-size: clamp(34px, 5vw, 54px);
+    color: var(--parchment);
+    text-shadow: 0 2px 24px rgba(184,134,47,.3);
+    margin: 0 0 6px;
+    text-align:center;
+  }
+  .subtitulo{
+    color: var(--candle-bright); font-style:italic; font-size:16px;
+    opacity:.75; margin-bottom: 36px; letter-spacing:.05em;
+  }
+
+  #board{
+    width: min(560px, 92vw);
+    background: linear-gradient(160deg, var(--parchment) 0%, #e2d3a8 100%);
+    border: 1px solid rgba(0,0,0,.4);
+    border-radius: 6px;
+    box-shadow: 0 30px 70px -20px rgba(0,0,0,.7), inset 0 0 60px rgba(90,60,25,.08);
+    padding: 30px 28px 24px;
+  }
+  #board h2{
+    font-family:'UnifrakturCook', cursive; font-weight:700;
+    text-align:center; font-size:26px; color: var(--blood);
+    margin: 0 0 22px;
+  }
+
+  .row{
+    display:flex; align-items:baseline; gap:14px;
+    padding: 11px 4px;
+    border-bottom: 1px dashed var(--parchment-shadow);
+    opacity:0; animation: entrar .4s ease forwards;
+  }
+  .row:last-child{ border-bottom:none; }
+  .rank{
+    font-family:'Cormorant Garamond', serif; font-weight:700;
+    width: 32px; text-align:center; color: var(--ink-soft); font-size:18px;
+  }
+  .row.top1 .rank, .row.top1 .nome{ color: var(--blood); font-size:22px; }
+  .row.top2 .rank, .row.top2 .nome{ color: #6b5230; }
+  .row.top3 .rank, .row.top3 .nome{ color: var(--candle); }
+  .nome{
+    flex:1; font-family:'Yellowtail', cursive; font-size:21px;
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .contagem{
+    font-family:'Cormorant Garamond', serif; font-weight:700; font-size:19px;
+    color: var(--ink);
+  }
+
+  @keyframes entrar{ from{ opacity:0; transform:translateY(5px); } to{ opacity:1; transform:translateY(0); } }
+
+  #vazio{
+    text-align:center; color: var(--ink-soft); font-style:italic;
+    font-size:17px; padding: 20px 10px;
+  }
+
+  #nota{
+    margin-top: 20px; font-size:13px; color: rgba(236,224,196,.4);
+    text-align:center;
+  }
+</style>
+</head>
+<body>
+
+<h1>Casarão Assombrado</h1>
+<div class="subtitulo">A escolha está nas tuas mãos</div>
+
+<div id="board">
+  <h2>🕯️ Quem mais decidiu 🕯️</h2>
+  <div id="rows"></div>
+  <div id="vazio" style="display:none;">Ainda ninguém votou nesta sessão.</div>
+</div>
+
+<div id="nota"></div>
+
+<script>
+const ORDINAIS = ['1º','2º','3º','4º','5º','6º','7º','8º','9º','10º'];
+
+async function carregarRanking(){
+  try{
+    const resp = await fetch('/api/casarao/admin?action=obter_leaderboard', { cache: 'no-store' });
+    const data = await resp.json();
+
+    const rowsEl = document.getElementById('rows');
+    const vazioEl = document.getElementById('vazio');
+    const notaEl = document.getElementById('nota');
+
+    if(!data.ok || !data.ranking || data.ranking.length === 0){
+      rowsEl.innerHTML = '';
+      vazioEl.style.display = 'block';
+    } else {
+      vazioEl.style.display = 'none';
+      rowsEl.innerHTML = data.ranking.map((item, i) => {
+        const topClass = i===0 ? 'top1' : i===1 ? 'top2' : i===2 ? 'top3' : '';
+        return `<div class="row ${topClass}" style="animation-delay:${i*0.05}s">
+          <div class="rank">${ORDINAIS[i] || (i+1)+'º'}</div>
+          <div class="nome">${escapeHtml(item.user)}</div>
+          <div class="contagem">${item.contagem}</div>
+        </div>`;
+      }).join('');
+    }
+
+    notaEl.textContent = 'Atualizado às ' + new Date().toLocaleTimeString('pt-PT');
+  }catch(e){
+    console.error('Erro a carregar o ranking:', e);
+  }
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+carregarRanking();
+setInterval(carregarRanking, 20000); // atualiza sozinho a cada 20s, mesmo padrão do Notas.html
+</script>
+
+</body>
+</html>
