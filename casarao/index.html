@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casarão Assombrado</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=UnifrakturCook:wght@700&family=Yellowtail&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap');
+
+  :root{
+    --parchment: #ece0c4;
+    --parchment-deep: #c9b380;
+    --parchment-shadow: #9c8a5e;
+    --ink: #241a12;
+    --ink-soft: #5a4a37;
+    --blood: #7a2020;
+    --candle: #b8862f;
+    --candle-bright: #e0ac4a;
+    --night: #14100b;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0; padding:0; min-height:100vh;
+    background:
+      radial-gradient(ellipse at 50% -20%, #2a1f16 0%, var(--night) 60%, #080604 100%);
+    color: var(--ink);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  /* ---------- Cabeçalho ---------- */
+  .tome-header{
+    text-align:center;
+    padding: 16px 24px 10px;
+  }
+  .tome-header h1{
+    font-family:'Yellowtail', cursive; font-weight:400;
+    font-size: clamp(44px, 6.5vw, 72px);
+    color: var(--parchment);
+    margin:0; letter-spacing:.01em;
+    text-shadow: 0 2px 24px rgba(184,134,47,.25);
+  }
+  .tome-header .rule{
+    width: 120px; height:1px; margin: 14px auto 0;
+    background: linear-gradient(90deg, transparent, var(--candle), transparent);
+  }
+
+  .heart-full{ color: #d64545; text-shadow: 0 0 8px rgba(214,69,69,.6); }
+  .heart-empty{ color: rgba(236,224,196,.25); }
+
+  /* ---------- O livro ---------- */
+  .tome{
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+  }
+  .torn-frame{
+    position:absolute;
+    top:-14px; left:12px; right:12px; bottom:-14px;
+    background: linear-gradient(135deg, #1a0f08 0%, #4a2f18 35%, #2a1a0d 60%, #140a05 100%);
+    clip-path: polygon(
+      1% 0%, 6% 4%, 13% 0%, 19% 5%, 27% 1%, 34% 4%, 42% 0%, 50% 3%, 58% 0%, 66% 4%, 74% 0%, 82% 5%, 89% 1%, 96% 4%, 100% 0%,
+      99% 6%, 100% 13%, 97% 19%, 100% 27%, 98% 34%, 100% 42%, 96% 50%, 100% 58%, 98% 66%, 100% 74%, 97% 82%, 100% 89%, 99% 96%, 100% 100%,
+      94% 99%, 87% 100%, 81% 97%, 73% 100%, 65% 98%, 57% 100%, 49% 97%, 41% 100%, 33% 98%, 25% 100%, 18% 97%, 11% 100%, 4% 99%, 0% 100%,
+      1% 94%, 0% 87%, 3% 80%, 0% 72%, 2% 65%, 0% 57%, 4% 49%, 0% 41%, 2% 33%, 0% 25%, 3% 18%, 0% 11%, 1% 4%
+    );
+    z-index:0; pointer-events:none;
+  }
+  .spread{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    height: 700px; /* valor de partida — ajustado dinamicamente por JS ao espaço real da janela */
+    background: linear-gradient(180deg, var(--parchment) 0%, #e2d3a8 100%);
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px rgba(0,0,0,.5),
+      0 40px 90px -30px rgba(0,0,0,.8),
+      0 0 120px rgba(184,134,47,.06),
+      inset 0 0 70px 18px rgba(35,20,10,.5),
+      inset 0 0 20px 6px rgba(20,10,5,.35);
+    overflow:hidden;
+    position:relative;
+    z-index:1;
+  }
+  .intro-overlay{
+    position:absolute; inset:0; z-index:20;
+    background-size:cover; background-position:center;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    cursor:pointer;
+  }
+  .intro-overlay .intro-texto{
+    background: linear-gradient(0deg, rgba(10,6,3,.94) 0%, rgba(10,6,3,.65) 60%, transparent 100%);
+    padding: 40px 56px 26px;
+    color: #f0e6d2;
+    font-family:'Yellowtail', cursive;
+    font-size: clamp(19px, 2vw, 25px);
+    line-height:1.45;
+    text-shadow: 0 2px 10px rgba(0,0,0,.6);
+  }
+  .intro-overlay .intro-clique{
+    text-align:center; font-family:'Cormorant Garamond', serif; font-style:italic;
+    font-size:14px; letter-spacing:.05em; color: rgba(240,230,210,.55);
+    padding-bottom: 16px;
+  }
+  .spread::before{
+    /* a "lombada" do livro entre as duas páginas */
+    content:"";
+    position:absolute; top:0; bottom:0; left:50%; width:28px;
+    margin-left:-14px;
+    background: linear-gradient(90deg, transparent, rgba(0,0,0,.16) 45%, rgba(0,0,0,.16) 55%, transparent);
+    pointer-events:none; z-index:5;
+  }
+  .spread::after{
+    /* canto dobrado (dog-ear) — sugere um livro usado, não um objeto perfeito */
+    content:"";
+    position:absolute; bottom:0; right:0; width:0; height:0;
+    border-style: solid;
+    border-width: 0 0 46px 46px;
+    border-color: transparent transparent rgba(80,60,35,.4) transparent;
+    box-shadow: -3px -3px 8px rgba(0,0,0,.3) inset;
+    pointer-events:none; z-index:4;
+  }
+  @media (max-width: 860px){
+    .spread{ grid-template-columns: 1fr; height: auto; }
+    .spread::before{ display:none; }
+  }
+
+  /* ---------- Página esquerda: imagem, a página inteira ---------- */
+  .sheet{
+    background: linear-gradient(160deg, #e6d8ae 0%, #d8c692 100%);
+    border-right: 1px solid rgba(0,0,0,.08);
+    display:flex; align-items:stretch; justify-content:stretch;
+    height:100%;
+    position:relative;
+  }
+  @media (max-width: 860px){ .sheet{ border-right:none; border-bottom: 1px solid rgba(0,0,0,.1); height: 420px; } }
+
+  .sheet-inventario{
+    position:absolute; top:0; left:0; right:0; z-index:4;
+    display:flex; align-items:center; justify-content:center;
+    padding: 16px 22px;
+    pointer-events:none;
+  }
+  .sheet-inventario .status-grid{ position:relative; z-index:1; display:grid; grid-template-columns: auto auto; column-gap:16px; row-gap:6px; align-items:center; }
+  .sheet-inventario .stat-label{
+    font-family:'Yellowtail', cursive; font-weight:400;
+    font-size:24px; color: #fff; text-align:left;
+    text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
+  }
+  .sheet-inventario .hearts-big{ font-size:24px; }
+  .sheet-inventario .relic-sockets-mini{ display:flex; gap:10px; }
+  .sheet-inventario .socket-mini{ font-size:22px; opacity:.35; filter:grayscale(1) brightness(.6); transition:opacity .3s, filter .3s; }
+  .sheet-inventario .socket-mini.filled{ opacity:1; filter:none; text-shadow:0 0 6px rgba(184,134,47,.6); }
+  .sheet-inventario .mochila-inline{
+    font-family:'Yellowtail', cursive; font-size:22px; color: #fff;
+    text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
+  }
+  .sheet-inventario .mochila-inline .vazio{ opacity:.75; font-style:italic; color: #fff; }
+
+  .sheet-mes{
+    position:absolute; bottom:0; left:0; right:0; z-index:4;
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    padding: 10px 22px 14px;
+    pointer-events:none;
+  }
+  .sheet-mes .status-grid-mes{ position:relative; z-index:1; }
+  .status-grid-mes{
+    display:grid; grid-template-columns: auto auto;
+    column-gap:16px; row-gap:6px; align-items:center;
+  }
+  .status-grid-mes .stat-label{
+    font-family:'Yellowtail', cursive; font-size:24px; color: #fff; text-align:left;
+    text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
+  }
+  .status-grid-mes .mes-valor{
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:20px;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
+  }
+
+  .sheet-imgbox{
+    width:100%; height:100%;
+    background: linear-gradient(150deg, var(--parchment-deep), var(--parchment-shadow));
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; position:relative;
+  }
+  .sheet-imgbox::before{
+    /* escurece ligeiramente cima/baixo — o texto sobreposto cai sempre em cima de imagem real agora */
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:5;
+    background: linear-gradient(180deg, rgba(20,14,8,.55) 0%, transparent 18%, transparent 82%, rgba(20,14,8,.5) 100%);
+  }
+  .sheet-imgbox::after{
+    /* textura real de pergaminho envelhecido, por cima da imagem — via multiply, nunca a esconde */
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:3;
+    background: url('assets/texturas/pergaminho_envelhecido.png') center/cover;
+    mix-blend-mode: multiply;
+    opacity:.55;
+  }
+  .sheet-imgbox img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    filter: brightness(1.16) contrast(.96) saturate(1.05); /* imagens um pouco mais claras */
+  }
+  .sheet-imgbox .placeholder{
+    color:#6b5a3f; font-family:'Playfair Display', serif; font-style:italic;
+    font-size:15px; text-align:center; padding: 0 18px;
+  }
+
+  /* ---------- Página direita: narrativa ---------- */
+  .page{
+    background:
+      linear-gradient(rgba(255,248,230,.5), rgba(255,248,230,.5)),
+      url('assets/texturas/pergaminho_envelhecido.png') center/cover,
+      linear-gradient(155deg, var(--parchment) 0%, #f1e6c8 100%);
+    background-blend-mode: normal, multiply, normal;
+    background-attachment: local, local, local; /* crucial: acompanha o scroll do conteúdo, nunca fica cortada a meio */
+    box-shadow:
+      inset 0 0 55px 14px rgba(35,20,10,.28),
+      inset 0 0 15px 4px rgba(20,10,5,.2);
+    padding: 28px 40px 30px;
+    height:100%;
+    display:flex; flex-direction:column;
+    overflow-y: auto;
+    scrollbar-width: thin; scrollbar-color: rgba(122,32,32,.4) transparent; /* visível, para nunca esconder que há mais conteúdo */
+    position: relative;
+  }
+  .page::-webkit-scrollbar{ width: 8px; }
+  .page::-webkit-scrollbar-track{ background: transparent; }
+  .page::-webkit-scrollbar-thumb{ background: rgba(122,32,32,.4); border-radius: 4px; }
+  @media (max-width: 860px){ .page{ padding: 32px 26px 36px; height: auto; overflow-y: visible; } }
+
+  .eyebrow{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-weight:600; font-size:18px;
+    color: var(--ink); margin-bottom:6px;
+  }
+  .page h1{
+    font-family:'UnifrakturCook', cursive; font-weight:700;
+    font-size: clamp(32px, 4vw, 44px); margin: 0 0 14px; color: var(--blood); line-height:1.1;
+    text-shadow: 0 1px 0 rgba(255,255,255,.15);
+  }
+  .transicao-andar{ font-style: italic; font-weight:600; font-size:18px; color: var(--ink); margin: 0 0 8px; }
+  .narrativa{
+    font-family:'Yellowtail', cursive; font-weight:400;
+    font-size: clamp(22px, 2.3vw, 27px); line-height:1.42; letter-spacing:.01em;
+    margin: 0 0 14px; color: var(--ink);
+  }
+  .narrativa::first-letter{
+    font-family:'Playfair Display', serif; font-weight:700; font-size:1.4em;
+    color: var(--blood);
+  }
+
+  .npcbox{
+    border-left: 3px solid var(--blood);
+    padding: 10px 16px; margin-bottom: 14px;
+    background: rgba(122,32,32,.06);
+    font-size:19px; font-weight:600;
+  }
+  .npcbox b{ font-family:'Playfair Display', serif; font-weight:700; }
+
+  .consequencia{
+    font-style: italic; font-weight:600; font-size:19px; color: var(--ink);
+    border-top:1px dashed var(--parchment-shadow); border-bottom:1px dashed var(--parchment-shadow);
+    padding: 10px 0; margin: 6px 0 14px;
+  }
+
+  .conquista{
+    font-size:17px; font-weight:600; color: #5a3f10;
+    background: linear-gradient(135deg, rgba(184,134,47,.2), rgba(184,134,47,.06));
+    border: 1px solid var(--candle);
+    border-radius: 4px;
+    padding: 10px 16px; margin: 6px 0 12px;
+  }
+  .conquista b{ font-family:'Playfair Display', serif; font-weight:700; }
+
+  .choices{ display:flex; flex-direction:column; gap:8px; margin-top: auto; padding-top: 8px; }
+  button.choice{
+    all:unset; cursor:pointer;
+    display:flex; align-items:baseline; gap:14px;
+    padding: 13px 20px;
+    background: linear-gradient(160deg, #3a2c1a, #241a0f);
+    border: 1px solid rgba(184,134,47,.35);
+    border-radius: 4px;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:19px; color: #d64545;
+    box-shadow: 0 4px 14px rgba(0,0,0,.35);
+    transition: background .15s, transform .15s, border-color .15s, box-shadow .15s;
+  }
+  button.choice:hover{
+    background: linear-gradient(160deg, #4a3820, #2e2110);
+    transform: translateX(4px);
+    border-color: var(--candle);
+    box-shadow: 0 6px 18px rgba(0,0,0,.45), 0 0 20px rgba(184,134,47,.2);
+  }
+  button.choice:focus-visible{ outline:2px solid var(--blood); outline-offset:2px; }
+  button.choice .arrow{ color: var(--candle-bright); font-family:'Playfair Display', serif; font-weight:700; }
+
+  .end{ text-align:center; margin: auto 0; position:relative; z-index:2; }
+  .end h1{ font-size:44px; }
+  .end.morte h1{ color: var(--blood); }
+
+  /* ---------- Mancha de sangue — assinatura discreta, sempre presente num canto ---------- */
+  .blood-mark{
+    position:absolute; bottom: 18px; right: 22px; width:34px; height:34px;
+    opacity:.22; pointer-events:none; z-index:2;
+  }
+  .blood-mark path{ fill: var(--blood); }
+
+  .claw-marks{
+    position:absolute; top:0; left:0; width:70px; height:200px;
+    opacity:.5; pointer-events:none; z-index:2;
+  }
+
+  /* ---------- Reação teatral no ecrã de morte — o sangue intensifica-se ---------- */
+  .blood-flash{
+    position:absolute; inset:0; pointer-events:none; z-index:1;
+    background: radial-gradient(ellipse at 50% -10%, transparent 35%, rgba(122,32,32,.4) 100%);
+    opacity:0; animation: sangue-surge 1.4s ease-out forwards;
+  }
+  @keyframes sangue-surge{
+    0%{ opacity:0; }
+    100%{ opacity:1; }
+  }
+  .end.saiu h1{ color: var(--candle); }
+  .restart{
+    all:unset; cursor:pointer; margin-top:22px;
+    display:inline-block; padding: 12px 28px;
+    border: 1px solid var(--ink); border-radius:3px;
+    font-family:'Playfair Display', serif; font-size:16px;
+  }
+  .restart:hover{ background: var(--ink); color: var(--parchment); }
+
+  .loading, .error{
+    padding: 80px 30px; text-align:center; font-family:'Playfair Display', serif;
+    font-size:19px; color: var(--parchment-shadow);
+  }
+
+  .footnote{
+    text-align:center; font-size:12px; color: var(--parchment-shadow); opacity:.5;
+    padding: 14px 24px 18px;
+  }
+  .stats-nota{
+    font-size:13px; font-style:italic; color: var(--ink-soft); opacity:.7;
+    margin-top: 16px; text-align:center;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@streamerbot/client/dist/streamerbot-client.js"></script>
+</head>
+<body>
+
+<header class="tome-header">
+  <h1>Casarão Assombrado</h1>
+  <div class="rule"></div>
+</header>
+
+<audio id="sfx-rain-distant" src="assets/sound/distant rain.mp3" loop preload="auto"></audio>
+<audio id="sfx-rain" src="assets/sound/raining.mp3" loop preload="auto"></audio>
+<audio id="sfx-thunder" src="assets/sound/thunder sound effect.mp3" preload="auto"></audio>
+<audio id="sfx-creak" src="assets/sound/creaking floor door.mp3" preload="auto"></audio>
+<audio id="sfx-violin" src="assets/sound/eerie violin.mp3" preload="auto"></audio>
+<audio id="sfx-ghostvoice" src="assets/sound/eerie ghost voice.mp3" preload="auto"></audio>
+<audio id="sfx-ghostchill" src="assets/sound/ghost chilling sound.mp3" preload="auto"></audio>
+
+<div class="tome">
+  <div class="torn-frame"></div>
+  <div class="spread">
+    <aside class="sheet" id="sheet"><div class="loading">…</div></aside>
+    <main class="page" id="page"><div class="loading">A abrir a porta do Casarão…</div></main>
+    <div id="intro-overlay" class="intro-overlay"></div>
+  </div>
+</div>
+<p class="footnote">Versão de exploração — layout de website, não o overlay de stream.</p>
+
+<script>
+const EFEITOS = {
+  'quarto_infantil|a': {vida:-1},
+  'corredor_principal|a': {vida:-1},
+  'salao|a': {vida:-1},
+  'quarto_principal|b': {vida:-1},
+  'arrecadacao|a': {reliquia:'moeda_ouro'},
+  'quarto_principal|a': {reliquia:'malagueta_dourada'},
+  'observatorio|a': {reliquia:'luneta'},
+  'observatorio|b': {vida:+1},
+  'telhado|b': {morte:true},
+  'telhado|c': {morte:true},
+  'corredor_antigo|b': {morte:true},
+};
+const LEVA_A = {
+  // vazio de propósito — as únicas 3 entradas que existiam (Janela, Telhado) eram redundantes
+  // com a navegação normal e foram removidas em v0.49. O mecanismo fica disponível para o futuro.
+};
+const IMG_SALA = id => `assets/salas/${id}.png`;
+const IMG_NPC  = id => `assets/npcs/${id}.png`;
+const IMG_GRUPO = id => `assets/grupos/${id}.png`;
+const IMG_DETALHE = id => `assets/detalhes/${id}.png`;
+const MANCHA_SANGUE_SVG = `<svg class="blood-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M50 22 Q61 12 64 26 Q76 30 68 44 Q79 49 68 60 Q64 76 49 69 Q34 79 29 64 Q18 58 29 49 Q19 34 34 30 Q35 14 50 22 Z"/>
+  <circle cx="18" cy="72" r="3.5"/>
+  <circle cx="80" cy="24" r="2.5"/>
+</svg>`;
+
+const MARCAS_UNHAS_SVG = `<svg class="claw-marks" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M20 10 Q35 70 15 190" stroke="#1a0e0e" stroke-width="2.5" fill="none" opacity=".5"/>
+  <path d="M45 5 Q58 65 42 185" stroke="#1a0e0e" stroke-width="2.5" fill="none" opacity=".45"/>
+  <path d="M70 15 Q80 70 66 180" stroke="#1a0e0e" stroke-width="2" fill="none" opacity=".4"/>
+</svg>`;
+
+const NOMES_RELIQUIA_INFO = {
+  moeda_ouro: {icon:'🪙', label:'Moeda de Ouro'},
+  malagueta_dourada: {icon:'🌶️', label:'Malagueta Dourada'},
+  luneta: {icon:'🔭', label:'Luneta'},
+};
+const MOCHILA_MAX = 3;
+const NOMES_RELIQUIA = { moeda_ouro: 'Moeda de Ouro', malagueta_dourada: 'Malagueta Dourada', luneta: 'Luneta' };
+const LIMITE_OPCOES = 3;
+const ORDEM_ANDARES = { rdc: 0, '1andar': 1, sotao: 2 };
+const NOME_ANDAR = { rdc: 'ao rés-do-chão', '1andar': 'ao 1º andar', sotao: 'ao sótão' };
+const NOME_ANDAR_CURTO = { rdc: 'Rés-do-Chão', '1andar': '1º Andar', sotao: 'Sótão' };
+
+let BP = null;
+let S = null;
+let ultimaMensagemMorteGlobal = null; // fora do S de propósito — tem de sobreviver a reiniciar()
+
+function statsLocais(){
+  const base = {jogos:0, escapou:0, morreu:0, encontros:0, reliquiasTotais:0};
+  try{
+    const guardado = JSON.parse(localStorage.getItem('casarao_stats'));
+    return Object.assign({}, base, guardado || {});
+  }catch(e){ return base; }
+}
+function incrementarStat(chave){
+  const s = statsLocais();
+  s[chave] = (s[chave]||0) + 1;
+  try{ localStorage.setItem('casarao_stats', JSON.stringify(s)); }catch(e){}
+  return s;
+}
+function statsHTML(){
+  const s = statsLocais();
+  return `<p class="stats-nota">Neste browser — tentativas: ${s.jogos} · fugas: ${s.escapou} · mortes: ${s.morreu}</p>`;
+}
+
+function tocar(id, vol, variarTom){
+  const el = document.getElementById(id);
+  if(!el) return;
+  try{
+    el.volume = vol != null ? vol : 0.5;
+    el.currentTime = 0;
+    el.playbackRate = variarTom ? (0.88 + Math.random()*0.24) : 1;
+    el.play().catch(()=>{});
+  }catch(e){}
+}
+
+function garantirAmbiente(){
+  if(S && (S.atual === 'telhado' || S.atual === 'janela')) return; // aí manda o ambiente exterior
+  const el = document.getElementById('sfx-rain-distant');
+  if(el && el.paused){
+    el.volume = 0.16;
+    el.play().catch(()=>{}); // se falhar (ex: ainda a carregar), a próxima chamada tenta de novo
+  }
+}
+
+function atualizarAmbienteExterior(){
+  const exterior = S.atual === 'telhado' || S.atual === 'janela';
+  const distante = document.getElementById('sfx-rain-distant');
+  const forte = document.getElementById('sfx-rain');
+  if(exterior){
+    if(distante && !distante.paused) distante.pause();
+    if(forte){ forte.volume = 0.32; if(forte.paused) forte.play().catch(()=>{}); }
+    if(Math.random() < 0.35) tocar('sfx-thunder', 0.4);
+  } else {
+    if(forte && !forte.paused) forte.pause();
+    if(distante && distante.paused) distante.play().catch(()=>{});
+  }
+}
+
+function novoEstado(){
+  return {
+    atual: 'hall',
+    vida: BP.mecanicas.vida_max,
+    vidaMax: BP.mecanicas.vida_max,
+    reliquias: new Set(),
+    opcoesUsadas: {},
+    salasVistas: new Set(),
+    inventario: [],
+    ultimaConsequencia: null,
+    ultimaConquista: null,
+    morreu: false,
+    saiu: false,
+    _proximaForcada: null,
+    _paginaNav: 0,
+    _grupoSoloPath: null,
+    _ultimoFoco: null,
+    _ultimoDetalhe: null,
+    _transicaoAndar: null,
+    _eventoPresenca: false,
+    _presencaCorredorVista: false,
+    _somMorteTocado: false,
+    _statEscapouContado: false,
+    _somPresencaTocado: false,
+    _npcsIntroduzidos: new Set(),
+  };
+}
+
+async function iniciar(){
+  try{
+    const res = await fetch('./casarao_mapa.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    BP = await res.json();
+  }catch(e){
+    document.getElementById('page').innerHTML = `<div class="error">
+      Não consegui carregar <code>casarao_mapa.json</code>.<br><br>
+      Corre um servidor simples na pasta do projeto:<br>
+      <code>python3 -m http.server</code><br>e abre <code>http://localhost:8000</code>.
+    </div>`;
+    return;
+  }
+  S = novoEstado();
+  incrementarStat('jogos');
+  render();
+  ajustarAlturaLivro();
+}
+
+function sala(id){ return BP.salas[id]; }
+
+function temConteudoAlcancavel(salaId, vindoDe, visitado){
+  if(!visitado) visitado = new Set();
+  if(visitado.has(salaId)) return false;
+  visitado.add(salaId);
+  const s = sala(salaId);
+  if(s.tipo === 'conector'){
+    return s.ligacoes.some(viz => viz !== vindoDe && temConteudoAlcancavel(viz, salaId, visitado));
+  }
+  const usadas = S.opcoesUsadas[salaId] || new Set();
+  const total = (s.opcoes || []).length;
+  if(usadas.size < total) return true;
+  return (s.ligacoes || []).some(viz => viz !== vindoDe && temConteudoAlcancavel(viz, salaId, visitado));
+}
+
+function heartsHTML(){
+  let h = '';
+  for(let i=0;i<S.vidaMax;i++) h += `<span class="${i < S.vida ? 'heart-full' : 'heart-empty'}">❤</span>`;
+  return h;
+}
+
+function relicSocketsMiniHTML(){
+  return Object.keys(BP.reliquias_globais).map(r => {
+    const info = NOMES_RELIQUIA_INFO[r] || {icon:'◆', label:r};
+    const on = S.reliquias.has(r);
+    return `<span class="socket-mini ${on?'filled':''}" title="${info.label}">${info.icon}</span>`;
+  }).join('');
+}
+
+function mochilaInlineHTML(){
+  if(S.inventario.length === 0) return `<span class="vazio">vazia</span>`;
+  return S.inventario.map(i => `🎒 ${i}`).join(' · ');
+}
+
+function inventarioHTML(){
+  return `
+    <div class="status-grid">
+      <span class="stat-label">Vida</span><span class="hearts-big">${heartsHTML()}</span>
+      <span class="stat-label">Relíquias</span><span class="relic-sockets-mini">${relicSocketsMiniHTML()}</span>
+      <span class="stat-label">Mochila</span><span class="mochila-inline">${mochilaInlineHTML()}</span>
+    </div>
+  `;
+}
+
+function statsMesHTML(){
+  const m = statsLocais();
+  return `
+    <div class="status-grid status-grid-mes">
+      <span class="stat-label">Mortes</span><span class="mes-valor">${m.morreu}</span>
+      <span class="stat-label">Fugas</span><span class="mes-valor">${m.escapou}</span>
+      <span class="stat-label">Encontros</span><span class="mes-valor">${m.encontros}</span>
+      <span class="stat-label">Relíquias</span><span class="mes-valor">${m.reliquiasTotais}</span>
+    </div>
+  `;
+}
+
+function sheetHTML(imgSrc, imgAlt){
+  return `
+    <div class="sheet-inventario">${inventarioHTML()}</div>
+    <div class="sheet-imgbox">
+      <img src="${imgSrc}" alt="${imgAlt}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+      <div class="placeholder" style="display:none;">🖋 Imagem por gerar<br>${imgAlt}</div>
+    </div>
+    <div class="sheet-mes">${statsMesHTML()}</div>
+  `;
+}
+
+function imgSrcFor(kind, id){
+  return kind === 'npc' ? IMG_NPC(id) : kind === 'grupo' ? IMG_GRUPO(id) : kind === 'detalhe' ? IMG_DETALHE(id) : IMG_SALA(id);
+}
+
+function mensagemMorteGenerica(){
+  const pool = BP.mensagens_morte_genericas || [];
+  if(!pool.length) return '';
+  let candidatas = pool.filter(m => m !== ultimaMensagemMorteGlobal);
+  if(!candidatas.length) candidatas = pool;
+  const escolhida = candidatas[Math.floor(Math.random() * candidatas.length)];
+  ultimaMensagemMorteGlobal = escolhida;
+  return escolhida;
+}
+
+function render(){
+  const sheetEl = document.getElementById('sheet');
+  const pageEl = document.getElementById('page');
+
+  if(S.morreu){
+    if(!S._somMorteTocado){ S._somMorteTocado = true; incrementarStat('morreu'); tocar('sfx-ghostvoice', 0.55); }
+    sheetEl.innerHTML = sheetHTML(imgSrcFor('sala', S.atual), sala(S.atual).nome);
+    pageEl.innerHTML = `
+      <div class="blood-flash"></div>
+      <div class="end morte">
+        <h1>Morte</h1>
+        <p class="narrativa">${S.ultimaConsequencia || 'A escuridão engole tudo.'}</p>
+        <p class="consequencia">${mensagemMorteGenerica()}</p>
+        <p class="eyebrow">Relíquias reunidas: ${S.reliquias.size}/3 · Salas exploradas: ${S.salasVistas.size}</p>
+        <button class="restart" onclick="reiniciar()">↺ Nova tentativa</button>
+        ${statsHTML()}
+      </div>`;
+    return;
+  }
+  if(S.saiu){
+    if(!S._statEscapouContado){ S._statEscapouContado = true; incrementarStat('escapou'); }
+    sheetEl.innerHTML = sheetHTML(imgSrcFor('sala', 'hall'), 'Hall de Entrada');
+    pageEl.innerHTML = `
+      <div class="end saiu">
+        <h1>Escapou</h1>
+        <p class="narrativa">As três Relíquias reunidas na mão. A Porta Principal abre-se, finalmente.</p>
+        <p class="eyebrow">Salas exploradas: ${S.salasVistas.size}</p>
+        <button class="restart" onclick="reiniciar()">↺ Jogar de novo</button>
+        ${statsHTML()}
+      </div>`;
+    return;
+  }
+
+  if(S._eventoPresenca){
+    if(!S._somPresencaTocado){ S._somPresencaTocado = true; tocar('sfx-ghostchill', 0.5); }
+    sheetEl.innerHTML = sheetHTML(imgSrcFor('sala', 'corredor_principal'), 'Corredor Principal');
+    pageEl.innerHTML = `
+      <div class="eyebrow">O regresso</div>
+      <h1>Algo te segue</h1>
+      <p class="narrativa">As três Relíquias pesam-te na mão. Atrás de ti, no corredor às escuras, ouves passos que não são teus — cada vez mais próximos. A porta principal está longe; um quarto ao lado está perto.</p>
+      <div class="choices">
+        <button class="choice" onclick="escolherPresenca('esconder')"><span class="arrow">A</span> Esconder-te num quarto</button>
+        <button class="choice" onclick="escolherPresenca('correr')"><span class="arrow">B</span> Correr para a saída</button>
+      </div>
+      ${MARCAS_UNHAS_SVG}`;
+    return;
+  }
+
+  const s = sala(S.atual);
+  if(s.tipo === 'conector'){ return autoAtravessarConector(); }
+
+  const usadas = S.opcoesUsadas[S.atual] || new Set();
+  const totalOpcoes = (s.opcoes || []).filter(op => !op.solo_oculto).length;
+  const jaExplorada = totalOpcoes > 0 && usadas.size >= totalOpcoes;
+  const maxPorVez = s.um_a_um ? 1 : 2;
+  const opcoesDisponiveis = (s.opcoes || []).filter(op => !usadas.has(op.id)).slice(0, maxPorVez);
+  const npcId = s.npc;
+  const npc = npcId ? BP.npcs_globais[npcId] : null;
+
+  const mostrarNPC = !!npc && (!S.ultimaConsequencia || S._ultimoFoco === 'npc');
+  if(mostrarNPC && !S.ultimaConsequencia && !S._npcsIntroduzidos.has(npcId)){
+    S._npcsIntroduzidos.add(npcId);
+    incrementarStat('encontros');
+    tocar('sfx-violin', 0.45, true);
+  }
+  atualizarAmbienteExterior();
+  const imgDetalhe = (!mostrarNPC && S.ultimaConsequencia && S._ultimoDetalhe) ? S._ultimoDetalhe : null;
+  const imgGrupo = (!mostrarNPC && !imgDetalhe && s.grupos_solo) ? grupoImagemAtual(s) : null;
+
+  const imgKind = mostrarNPC ? 'npc' : imgDetalhe ? 'detalhe' : imgGrupo ? 'grupo' : 'sala';
+  const imgId = mostrarNPC ? npcId : imgDetalhe ? imgDetalhe : imgGrupo ? imgGrupo : S.atual;
+  const imgAlt = mostrarNPC ? npc.nome : s.nome;
+
+  sheetEl.innerHTML = sheetHTML(imgSrcFor(imgKind, imgId), imgAlt);
+
+  const textoGrupo = (!mostrarNPC && s.grupos_solo) ? grupoTextoAtual(s) : null;
+  let corpoNarrativa;
+  if(textoGrupo){
+    corpoNarrativa = textoGrupo;
+  } else {
+    corpoNarrativa = jaExplorada ? (s.estado_apos_exploracao || 'Já não há nada de novo aqui.') : (s.narrativa_inicial || '');
+    if(s.tema) corpoNarrativa = `${s.tema} ${corpoNarrativa}`;
+  }
+
+  let html = '';
+  html += `<h1>${s.nome}</h1>`;
+  if(S._transicaoAndar){
+    html += `<p class="transicao-andar">${S._transicaoAndar}</p>`;
+  }
+  html += `<p class="narrativa">${corpoNarrativa}</p>`;
+  if(npc){
+    const frase = S.ultimaConsequencia ? npc.frase_final : npc.primeira_frase;
+    html += `<div class="npcbox"><b>${npc.nome}</b> está aqui.${frase ? ` <em>"${frase}"</em>` : ''}</div>`;
+  }
+  if(S.ultimaConquista){
+    html += `<div class="conquista">${S.ultimaConquista}</div>`;
+  }
+  if(S.ultimaConsequencia){
+    html += `<div class="consequencia">${S.ultimaConsequencia}</div>`;
+  }
+
+  const acoesDisponiveis = (s.opcoes || []).filter(op => !usadas.has(op.id) && !op.solo_oculto).slice(0, s.um_a_um ? 1 : Infinity);
+  const acoesHTML = acoesDisponiveis.map(op => ({ texto: op.texto, onclick: `escolher('${op.id}')` }));
+  const mitigacaoHTML = (s.mitigacao && !S[s.mitigacao.flag]) ? [{ texto: s.mitigacao.texto, onclick: `escolher('${s.mitigacao.id}')` }] : [];
+  const { destinos: destinosReais, voltar: voltarHTML } = destinosLista(s);
+  const primeiraFatia = s.grupos_solo ? acoesHTML.slice(0, 1) : acoesHTML;
+  const restoAcoes = s.grupos_solo ? acoesHTML.slice(1) : [];
+  const itensCore = [...primeiraFatia, ...destinosReais, ...mitigacaoHTML, ...restoAcoes];
+
+  html += `<div class="choices">${paginarHTML(itensCore, voltarHTML)}</div>`;
+  html += MANCHA_SANGUE_SVG;
+  if(mostrarNPC && npcId === 'templario'){ html += MARCAS_UNHAS_SVG; }
+  pageEl.innerHTML = html;
+}
+
+function paginarHTML(itensCore, itemExtra){
+  if(!S._paginaNav) S._paginaNav = 0;
+  const passo = LIMITE_OPCOES - 1;
+  let inicio = S._paginaNav * passo;
+  if(inicio >= itensCore.length){ inicio = 0; S._paginaNav = 0; }
+  const restantes = itensCore.length - inicio;
+  const mostraMais = restantes > LIMITE_OPCOES;
+  const fatia = itensCore.slice(inicio, inicio + (mostraMais ? passo : LIMITE_OPCOES));
+
+  let itensPagina = fatia;
+  if(!mostraMais && itemExtra && fatia.length < LIMITE_OPCOES){
+    itensPagina = [...fatia, itemExtra];
+  }
+
+  let html = '';
+  itensPagina.forEach((it, i) => {
+    html += `<button class="choice" onclick="${it.onclick}"><span class="arrow">${String.fromCharCode(65+i)}</span> ${it.texto}</button>`;
+  });
+  if(mostraMais){
+    html += `<button class="choice" onclick="S._paginaNav=(S._paginaNav||0)+1; render();"><span class="arrow">${String.fromCharCode(65+itensPagina.length)}</span> Continuar a explorar</button>`;
+  }
+  return html;
+}
+
+function formatarDestino(id, sOrigem, textoOverride){
+  const dSala = sala(id);
+  const mudaPiso = dSala.andar && sOrigem.andar && dSala.andar !== sOrigem.andar;
+  const nomeBase = textoOverride || dSala.nome;
+  const texto = mudaPiso ? `${nomeBase} — ${NOME_ANDAR_CURTO[dSala.andar]}` : nomeBase;
+  return { texto, onclick: `mover('${id}')` };
+}
+
+function grupoImagemAtual(s){
+  const path = S._grupoSoloPath || [];
+  if(!path.length) return null;
+  let nivel = s.grupos_solo;
+  let item = null;
+  for(const i of path){
+    item = nivel[i];
+    nivel = item.grupos || item.salas;
+  }
+  return (item && item.imagem) ? item.imagem : null;
+}
+
+function grupoTextoAtual(s){
+  const path = S._grupoSoloPath || [];
+  if(!path.length) return null;
+  let nivel = s.grupos_solo;
+  let item = null;
+  for(const i of path){
+    item = nivel[i];
+    nivel = item.grupos || item.salas;
+  }
+  return (item && item.texto_ambiente) ? item.texto_ambiente : null;
+}
+
+function entrarGrupoSolo(i){
+  if(!S._grupoSoloPath) S._grupoSoloPath = [];
+  S._grupoSoloPath.push(i);
+  S._paginaNav = 0;
+  S.ultimaConsequencia = null;
+  S._ultimoDetalhe = null;
+  render();
+}
+
+function voltarGrupoSolo(){
+  if(S._grupoSoloPath && S._grupoSoloPath.length){
+    S._grupoSoloPath.pop();
+    S._paginaNav = 0;
+    S.ultimaConsequencia = null;
+    S._ultimoDetalhe = null;
+    render();
+  } else {
+    const vp = sala(S.atual).voltar_para;
+    if(vp) mover(vp);
+  }
+}
+
+function destinosLista(s){
+  if(S._proximaForcada){
+    const d = sala(S._proximaForcada);
+    return { destinos: [{ texto: d.nome, onclick: `mover('${S._proximaForcada}')` }], voltar: null };
+  }
+
+  if(s.grupos_solo){
+    const path = S._grupoSoloPath || [];
+    let nivel = s.grupos_solo;
+    for(const i of path){
+      const item = nivel[i];
+      nivel = item.grupos || item.salas;
+    }
+    const dentroDeAlgo = path.length > 0;
+    const podeVoltar = dentroDeAlgo || !!s.voltar_para;
+    const voltar = podeVoltar ? { texto: 'Voltar', onclick: 'voltarGrupoSolo()' } : null;
+
+    if(typeof nivel[0] === 'string'){
+      return { destinos: nivel.map(id => formatarDestino(id, s)), voltar };
+    }
+    const itens = nivel.map((g, i) => {
+      if(g.destino) return { texto: g.texto, onclick: `mover('${g.destino}')` };
+      return { texto: g.texto, onclick: `entrarGrupoSolo(${i})` };
+    });
+    return { destinos: itens, voltar };
+  }
+
+  let destinos = [];
+  if(s.navegacao_arvore){
+    if(s.voltar_para){
+      destinos.push({ nome: sala(s.voltar_para).nome, id: s.voltar_para });
+    }
+    const folhas = [];
+    const coletar = (no) => {
+      no.opcoes.forEach(op => {
+        if(op.destino){ if(nodoTemConteudo(op, S.atual)) folhas.push(op.destino); }
+        else coletar(op.resultado);
+      });
+    };
+    coletar(s.navegacao_arvore);
+    folhas.forEach(id => destinos.push({ nome: sala(id).nome, id }));
+    const vistos = new Set();
+    destinos = destinos.filter(d => !vistos.has(d.id) && vistos.add(d.id));
+    return { destinos: destinos.map(d => formatarDestino(d.id, s)), voltar: null };
+  }
+  return { destinos: s.ligacoes.map(id => formatarDestino(id, s)), voltar: null };
+}
+
+function escolher(id){
+  garantirAmbiente();
+  const s = sala(S.atual);
+  const chave = `${S.atual}|${id}`;
+  let efeito = EFEITOS[chave] || {};
+  const opcaoEscolhida = s.opcoes.find(o=>o.id===id) || (s.mitigacao && s.mitigacao.id===id ? s.mitigacao : {});
+  let texto = opcaoEscolhida.consequencia || '';
+  S._ultimoFoco = opcaoEscolhida.foco || 'sala';
+  S._ultimoDetalhe = opcaoEscolhida.imagem || null;
+  S.ultimaConquista = null;
+  S._paginaNav = 0;
+  let itemGanho = null;
+
+  const éAMitigacao = s.mitigacao && id === s.mitigacao.id;
+  const risco_mitigado = s.mitigacao && S[s.mitigacao.flag];
+  if(!éAMitigacao && !risco_mitigado){
+    const usadasAntes = (S.opcoesUsadas[S.atual] || new Set()).size;
+    if(s.morte_a_partir_de && usadasAntes + 1 >= s.morte_a_partir_de.a_partir_de){
+      S.morreu = true;
+      texto = s.morte_a_partir_de.mensagem;
+    } else if(s.custo_progressivo && usadasAntes + 1 >= s.custo_progressivo.a_partir_de){
+      const cp = s.custo_progressivo;
+      S.vida = Math.min(S.vidaMax, S.vida + cp.efeito_vida);
+      texto = cp.mensagem;
+      if(S.vida <= 0){ S.morreu = true; }
+    }
+  }
+  if(éAMitigacao){
+    S[s.mitigacao.flag] = true;
+    texto = s.mitigacao.consequencia;
+  }
+
+  if(S.atual === 'salao' && id === 'b'){
+    if(S.vida < S.vidaMax){ S.vida++; texto = 'A vida não estava cheia — a maçã recupera 1 coração.'; }
+    else if(S.inventario.length < MOCHILA_MAX){ S.inventario.push('Maçã'); itemGanho = 'Maçã'; texto = 'A vida já estava cheia — a maçã fica guardada na mochila.'; }
+    else { texto = 'A vida já estava cheia e a mochila está lotada — deixas a maçã.'; }
+  }
+  if(S.atual === 'biblioteca' && id === 'a'){
+    if(S.inventario.length > 0){ S.inventario.pop(); S.vida = Math.min(S.vidaMax, S.vida+1); texto = 'O Professor Rick aceita um dos teus objetos em troca — ganhas 1 coração.'; }
+    else { S.vida -= 1; texto = 'Não tens nenhum objeto não essencial para trocar — perdes 1 coração.'; }
+  }
+  if(S.atual === 'biblioteca' && id === 'b' && S.inventario.length < MOCHILA_MAX){ S.inventario.push('Diário Rasgado'); itemGanho = 'Diário Rasgado'; }
+  if(S.atual === 'escritorio' && id === 'a'){
+    if(S.inventario.length > 0){ S.inventario.pop(); if(S.inventario.length < MOCHILA_MAX) S.inventario.push('Corno de Valhalla'); itemGanho = 'Corno de Valhalla'; texto = 'O Viking aceita a troca — dá o Corno de Valhalla.'; }
+    else { S.vida -= 1; texto = 'Não tens nada para trocar — o Viking ataca-te. Perdes 1 coração.'; }
+  }
+  if(S.atual === 'observatorio' && id === 'a'){
+    if(S.inventario.length > 0){ S.inventario.pop(); texto = 'O Gentleman aceita a troca — dá a Luneta sem custo.'; }
+    else { S.vida -= 1; texto = 'Não tens nada para trocar — a Luneta custa-te 1 coração.'; }
+  }
+  let naoMarcarComoUsada = false;
+
+  if(S.atual === 'quarto_hospedes' && id === 'c' && S.janelaAberta && S.inventario.length < MOCHILA_MAX){
+    S.inventario.push('Broche Antigo');
+    itemGanho = 'Broche Antigo';
+    texto = 'Debaixo da cama, entre o pó e o sapato esquecido, um pequeno broche antigo brilha ainda. Guardas-lo.';
+  }
+  if(S.atual === 'hall' && id === 'a'){
+    naoMarcarComoUsada = true; // a porta pode ser examinada sempre, para refletir quantas relíquias já tens
+    const n = S.reliquias.size;
+    if(n === 0) texto = 'Está fechada — nenhum dos três encaixes tem lá nada. Precisas das 3 Relíquias Essenciais.';
+    else if(n === 1) texto = 'Um dos três encaixes brilha, ténue — já tens uma das relíquias. Faltam duas.';
+    else if(n === 2) texto = 'Dois dos três encaixes brilham agora. Só um continua escuro e vazio — falta só uma.';
+  }
+  if(S.atual === 'capela' && id === 'a' && S.inventario.length < MOCHILA_MAX){ S.inventario.push('Terço Partido'); itemGanho = 'Terço Partido'; }
+  if(S.atual === 'lavandaria' && id === 'a'){
+    if(S.inventario.length > 0){ S.inventario.pop(); S.vida = Math.min(S.vidaMax, S.vida+1); texto = 'O Madeirense aceita a troca — dá a Poncha da Vida. Recuperas 1 coração.'; }
+    else { texto = 'O Madeirense precisa de algo em troca — sem nada para dar, fica só a conversa.'; }
+  }
+  if(S.atual === 'arrecadacao' && id === 'a'){
+    if(S.inventario.length > 0){ S.inventario.pop(); texto = 'O Pirata aceita a troca — a Moeda de Ouro sai sem custo.'; }
+    else { S.vida -= 1; texto = 'Não tens nada para trocar — o Pirata amaldiçoa-te pela troca. Perdes 1 coração.'; }
+  }
+  if(S.atual === 'quarto_principal' && id === 'a'){
+    if(S.inventario.length > 0){ S.inventario.pop(); texto = 'O Enchilito aceita a troca — dá a Malagueta Dourada sem custo.'; }
+    else { S.vida -= 1; texto = 'Não tens nada para trocar — o Enchilito exige o seu preço. Perdes 1 coração.'; }
+  }
+  if(S.atual === 'capela' && id === 'b'){
+    if(!S.avisoTemplario){
+      S.avisoTemplario = true;
+      naoMarcarComoUsada = true;
+      texto = 'O Templário ergue a espada antes que toques no Graal: "Afasta-te agora, ou o próximo passo será o teu último." Recuas a tempo.';
+    } else {
+      S.morreu = true;
+      texto = 'O Templário não avisa duas vezes.';
+    }
+  }
+  if(S.atual === 'escritorio' && id === 'b'){ S.temChaveCompartimento = true; }
+  if(S.atual === 'compartimento_secreto' && id === 'a'){
+    if(S.temChaveCompartimento){ S.vida = Math.min(S.vidaMax, S.vida+1); texto = 'A chave enferrujada encaixa. O Diário revela-se — ganhas 1 coração de alívio.'; }
+    else { naoMarcarComoUsada = true; texto = 'A escotilha está trancada. Precisas de uma chave.'; }
+  }
+
+  if(S.morreu || S.vida <= 0){
+    S.morreu = true; S.ultimaConsequencia = texto; render(); return;
+  }
+  if(efeito.morte){
+    S.morreu = true; S.ultimaConsequencia = texto; render(); return;
+  }
+  if(typeof efeito.vida === 'number'){
+    S.vida = Math.min(S.vidaMax, S.vida + efeito.vida);
+    if(S.vida <= 0){ S.morreu = true; S.ultimaConsequencia = texto; render(); return; }
+  }
+  if(efeito.reliquia){
+    S.reliquias.add(efeito.reliquia);
+    incrementarStat('reliquiasTotais');
+    S.ultimaConquista = `🗝️ Relíquia obtida: <b>${NOMES_RELIQUIA[efeito.reliquia]}</b> — ${S.reliquias.size}/3 reunidas para abrir a Porta Principal.`;
+  } else if(itemGanho){
+    S.ultimaConquista = `🎒 Objeto guardado: <b>${itemGanho}</b>`;
+  }
+
+  if(!naoMarcarComoUsada){
+    if(!S.opcoesUsadas[S.atual]) S.opcoesUsadas[S.atual] = new Set();
+    S.opcoesUsadas[S.atual].add(id);
+    if(s.decisao_unica){
+      s.opcoes.forEach(op => S.opcoesUsadas[S.atual].add(op.id));
+    }
+  }
+  S.salasVistas.add(S.atual);
+  S.ultimaConsequencia = texto;
+  S._proximaForcada = LEVA_A[chave] || null;
+  render();
+}
+
+function nodoTemConteudo(no, vindoDe){
+  if(no.destino) return temConteudoAlcancavel(no.destino, vindoDe);
+  if(no.resultado) return no.resultado.opcoes.some(op => nodoTemConteudo(op, vindoDe));
+  return false;
+}
+
+function mover(id){
+  garantirAmbiente();
+  const destino = sala(id);
+  const vaiTerViolino = destino.npc && !S._npcsIntroduzidos.has(destino.npc);
+  const vaiExterior = (id === 'telhado' || id === 'janela');
+  if(!vaiTerViolino && !vaiExterior && Math.random() < 0.6) tocar('sfx-creak', 0.4, true);
+  const andarAntes = sala(S.atual).andar;
+  const andarDepois = sala(id).andar;
+  if(andarAntes && andarDepois && andarAntes !== andarDepois){
+    const subindo = ORDEM_ANDARES[andarDepois] > ORDEM_ANDARES[andarAntes];
+    S._transicaoAndar = `${subindo ? 'Sobes as escadas' : 'Desces as escadas'} até ${NOME_ANDAR[andarDepois]}.`;
+  } else {
+    S._transicaoAndar = null;
+  }
+  const vindoDe = S.atual;
+  S._veioDe = S.atual;
+  S.atual = id;
+  S._proximaForcada = null;
+  S._paginaNav = 0;
+  S._grupoSoloPath = null;
+  S._ultimoFoco = null;
+  S._ultimoDetalhe = null;
+  S.ultimaConsequencia = null;
+  S.ultimaConquista = null;
+  if(id === 'corredor_principal' && vindoDe === 'corredor_antigo' && S.reliquias.size === 3 && !S._presencaCorredorVista){
+    S._eventoPresenca = true;
+  }
+  checarSaida();
+  render();
+}
+
+function checarSaida(){
+  if(S.atual === 'hall' && S.reliquias.size >= 3){
+    S.saiu = true;
+  }
+}
+
+function autoAtravessarConector(){
+  const s = sala(S.atual);
+  const outros = s.ligacoes.filter(id => id !== S._veioDe);
+  const proximo = outros[0] || s.ligacoes[0];
+  S._veioDe = S.atual;
+  S.atual = proximo;
+  checarSaida();
+  render();
+}
+
+function escolherPresenca(opcao){
+  S._presencaCorredorVista = true;
+  S._eventoPresenca = false;
+  if(opcao === 'correr'){
+    S.vida -= 3;
+    if(S.vida <= 0){
+      S.morreu = true;
+      S.ultimaConsequencia = 'Corres em pânico, tropeças na escuridão do corredor e caís pela escadaria abaixo. A queda é o teu fim.';
+    } else {
+      S.ultimaConsequencia = 'Corres em pânico e tropeças, caindo pela escadaria abaixo. Levantas-te a tremer, magoado, mas vivo.';
+    }
+  } else {
+    S.ultimaConsequencia = 'Encolhes-te nas sombras do quarto e esperas, sem respirar. Os passos afastam-se, devagar, até desaparecerem.';
+  }
+  render();
+}
+
+function reiniciar(){
+  S = novoEstado();
+  incrementarStat('jogos');
+  render();
+}
+
+function ajustarAlturaLivro(){
+  const spread = document.querySelector('.spread');
+  if(!spread) return;
+  const header = document.querySelector('.tome-header');
+  const footnote = document.querySelector('.footnote');
+  const ocupado = (header ? header.offsetHeight : 0) + (footnote ? footnote.offsetHeight : 0);
+  const margemSegura = 20;
+  const disponivel = window.innerHeight - ocupado - margemSegura;
+  spread.style.height = Math.max(320, disponivel) + 'px'; // nunca abaixo de um mínimo legível, mas mais baixo que antes para caber em ecrãs pequenos
+}
+window.addEventListener('resize', ajustarAlturaLivro);
+window.addEventListener('load', ajustarAlturaLivro);
+
+// ========== INTRODUÇÃO — 2 ecrãs widescreen, antes de entrar no Hall ==========
+// Nomes de ficheiro por confirmar com o Rick — ajustar quando as imagens finais estiverem na pasta.
+const INTRO_TELAS = [
+  {
+    imagem: 'assets/casa/casarao.png',
+    texto: 'Há anos que passas por este portão, a caminho da universidade, sem nunca parares. Na aldeia, há sempre quem fale da casa — um hospício esquecido durante a guerra, dizem uns; o lugar onde um pai perdeu a cabeça e a família, dizem outros. Ninguém sabe ao certo. Ninguém se atreve a entrar. Hoje, alguma coisa do outro lado parece chamar por ti.'
+  },
+  {
+    imagem: 'assets/casa/casarao_porta_entrada.png',
+    texto: null // sem texto de propósito — o Rick aparece ao vivo aqui, via câmara, por cima do overlay
+  }
+];
+let introIndex = 0;
+
+function mostrarIntro(i){
+  const overlay = document.getElementById('intro-overlay');
+  if(!overlay) return;
+  const tela = INTRO_TELAS[i];
+  overlay.style.display = 'flex';
+  overlay.style.backgroundImage = `url('${tela.imagem}')`;
+  const textoHTML = tela.texto ? `<div class="intro-texto">${tela.texto}</div>` : '';
+  overlay.innerHTML = `${textoHTML}<div class="intro-clique">clica para continuar</div>`;
+}
+
+function avancarIntro(){
+  garantirAmbiente(); // 1º clique real da página — o mais cedo que o browser deixa o som começar
+  introIndex++;
+  if(introIndex < INTRO_TELAS.length){
+    mostrarIntro(introIndex);
+  } else {
+    const overlay = document.getElementById('intro-overlay');
+    if(overlay) overlay.style.display = 'none';
+  }
+}
+
+const elIntroOverlay = document.getElementById('intro-overlay');
+if(elIntroOverlay) elIntroOverlay.addEventListener('click', avancarIntro);
+// o jogo (iniciar()) corre sempre por baixo, mesmo durante a introdução — quando o overlay
+// fecha, o Hall já está pronto e visível, sem espera adicional nenhuma.
+mostrarIntro(0);
+
+iniciar();
+ajustarAlturaLivro();
+setTimeout(ajustarAlturaLivro, 300); // reajusta depois das fontes carregarem (podem mudar a altura da faixa/cabeçalho)
+
+// ========== MODO LIVE — ponte com o Streamer.bot ==========
+// Mesma lógica do jogo que o painel clicável (Solo) já usa — o Streamer.bot só diz qual letra
+// venceu; o motor trata essa escolha exactamente como se tivesse sido um clique humano.
+
+function escolherPorLetra(letra){
+  const idx = letra.toLowerCase().charCodeAt(0) - 97; // 'a'->0, 'b'->1, 'c'->2
+  const botoes = document.querySelectorAll('#page .choices button.choice');
+  if(botoes[idx]){
+    botoes[idx].click();
+  } else {
+    console.warn('[live] não encontrei o botão da letra', letra, '— só há', botoes.length, 'visíveis');
+  }
+}
+
+function iniciarTimerVotacao(segundos){
+  let el = document.getElementById('timer-votacao');
+  if(el) el.remove();
+  el = document.createElement('div');
+  el.id = 'timer-votacao';
+  el.style.cssText = 'position:fixed; top:16px; right:16px; z-index:999; '
+    + 'background:rgba(20,14,9,.88); color:#fff; padding:10px 20px; border-radius:22px; '
+    + 'font-family:\'Cormorant Garamond\',serif; font-weight:700; font-size:20px; '
+    + 'border:1px solid rgba(184,134,47,.5); box-shadow:0 4px 14px rgba(0,0,0,.4);';
+  document.body.appendChild(el);
+  let restante = segundos;
+  const atualizar = () => { el.textContent = '⏱ ' + restante + 's'; };
+  atualizar();
+  const intervalo = setInterval(() => {
+    restante--;
+    if(restante <= 0){
+      clearInterval(intervalo);
+      el.remove();
+    } else {
+      atualizar();
+    }
+  }, 1000);
+}
+
+function mostrarResultadoVotacao(contagem, vencedoraLetra){
+  const botoes = Array.from(document.querySelectorAll('#page .choices button.choice'));
+  const total = Object.values(contagem).reduce((a,b) => a+b, 0) || 1;
+  botoes.forEach((btn, i) => {
+    const letra = String.fromCharCode(97+i);
+    const votos = contagem[letra] || 0;
+    const pct = Math.round((votos/total)*100);
+    btn.style.pointerEvents = 'none';
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+
+    const barra = document.createElement('div');
+    barra.className = 'barra-voto';
+    barra.style.cssText = 'position:absolute; inset:0; right:auto; width:0%; '
+      + 'background:rgba(184,134,47,.4); z-index:0; transition:width .8s ease;';
+    btn.insertBefore(barra, btn.firstChild);
+    requestAnimationFrame(() => { barra.style.width = pct + '%'; });
+
+    const pctLabel = document.createElement('span');
+    pctLabel.textContent = pct + '%';
+    pctLabel.style.cssText = 'margin-left:auto; font-weight:700; position:relative; z-index:1;';
+    btn.appendChild(pctLabel);
+
+    if(letra === vencedoraLetra.toLowerCase()){
+      btn.style.borderColor = 'var(--candle)';
+      btn.style.boxShadow = '0 0 22px rgba(184,134,47,.65)';
+    }
+  });
+
+  setTimeout(() => {
+    escolherPorLetra(vencedoraLetra);
+  }, 10000); // 10 segundos a ver as percentagens, depois avança sozinho
+}
+
+const sbClient = new StreamerbotClient({
+  host: '127.0.0.1',
+  port: 8080,
+  onConnect: () => console.log('✅ [live] Ligado ao Streamer.bot'),
+  onDisconnect: () => console.log('⚠️ [live] Desligado do Streamer.bot — a tentar religar...')
+});
+
+sbClient.on('General.Custom', (payload) => {
+  const d = payload.data;
+  console.log('[live] evento recebido:', d.event, d);
+
+  switch(d.event){
+
+    case 'casarao_mostrar':
+      // o motor já guarda o estado atual (S.atual) — isto só garante que está a mostrar-se
+      render();
+      break;
+
+    case 'casarao_iniciar_voto':
+      iniciarTimerVotacao(parseInt(d.duracao_seg, 10) || 60);
+      break;
+
+    case 'casarao_resultado':
+      mostrarResultadoVotacao(d.contagem || {}, d.vencedora);
+      break;
+
+    case 'casarao_esconder':
+      // o OBS trata de esconder a Browser Source; nada a fazer aqui por agora
+      break;
+
+  }
+});
+</script>
+</body>
+</html>
