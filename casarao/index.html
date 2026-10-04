@@ -719,9 +719,13 @@ function render(){
     html += `<div class="consequencia">${S.ultimaConsequencia}</div>`;
   }
 
-  const acoesDisponiveis = (s.opcoes || []).filter(op => !usadas.has(op.id) && !op.solo_oculto).slice(0, s.um_a_um ? 1 : Infinity);
+  // Dentro de um sub-grupo de um hub (ex: "Biblioteca ou Escritório"), só interessa escolher entre
+  // as salas desse grupo — as ações do próprio corredor/hall (relógio, retratos, porta...) ficam
+  // para o nível de cima, senão aparecem fora de sítio e empurram salas para a página seguinte.
+  const dentroDeGrupo = !!(s.grupos_solo && S._grupoSoloPath && S._grupoSoloPath.length > 0);
+  const acoesDisponiveis = dentroDeGrupo ? [] : (s.opcoes || []).filter(op => !usadas.has(op.id) && !op.solo_oculto).slice(0, s.um_a_um ? 1 : Infinity);
   const acoesHTML = acoesDisponiveis.map(op => ({ texto: op.texto, onclick: `escolher('${op.id}')` }));
-  const mitigacaoHTML = (s.mitigacao && !S[s.mitigacao.flag]) ? [{ texto: s.mitigacao.texto, onclick: `escolher('${s.mitigacao.id}')` }] : [];
+  const mitigacaoHTML = (!dentroDeGrupo && s.mitigacao && !S[s.mitigacao.flag]) ? [{ texto: s.mitigacao.texto, onclick: `escolher('${s.mitigacao.id}')` }] : [];
   const { destinos: destinosReais, voltar: voltarHTML } = destinosLista(s);
   const primeiraFatia = s.grupos_solo ? acoesHTML.slice(0, 1) : acoesHTML;
   const restoAcoes = s.grupos_solo ? acoesHTML.slice(1) : [];
