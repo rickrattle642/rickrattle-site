@@ -110,7 +110,7 @@
     padding: 40px 56px 26px;
     color: #f0e6d2;
     font-family:'Yellowtail', cursive;
-    font-size: clamp(19px, 2vw, 25px);
+    font-size: clamp(24px, 2.5vw, 32px);
     line-height:1.45;
     text-shadow: 0 2px 10px rgba(0,0,0,.6);
   }
@@ -166,7 +166,7 @@
     height:100%;
     position:relative;
   }
-  @media (max-width: 860px){ .sheet{ border-right:none; border-bottom: 1px solid rgba(0,0,0,.1); height: 420px; } }
+  @media (max-width: 860px){ .sheet{ border-right:none; border-bottom: 1px solid rgba(0,0,0,.1); height: 500px; } }
 
   .sheet-inventario{
     position:absolute; top:0; left:0; right:0; z-index:4;
@@ -177,15 +177,15 @@
   .sheet-inventario .status-grid{ position:relative; z-index:1; display:grid; grid-template-columns: auto auto; column-gap:16px; row-gap:6px; align-items:center; }
   .sheet-inventario .stat-label{
     font-family:'Yellowtail', cursive; font-weight:400;
-    font-size:24px; color: #fff; text-align:left;
+    font-size:30px; color: #fff; text-align:left;
     text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
   }
-  .sheet-inventario .hearts-big{ font-size:24px; }
+  .sheet-inventario .hearts-big{ font-size:28px; }
   .sheet-inventario .relic-sockets-mini{ display:flex; gap:10px; }
-  .sheet-inventario .socket-mini{ font-size:22px; opacity:.35; filter:grayscale(1) brightness(.6); transition:opacity .3s, filter .3s; }
+  .sheet-inventario .socket-mini{ font-size:26px; opacity:.35; filter:grayscale(1) brightness(.6); transition:opacity .3s, filter .3s; }
   .sheet-inventario .socket-mini.filled{ opacity:1; filter:none; text-shadow:0 0 6px rgba(184,134,47,.6); }
   .sheet-inventario .mochila-inline{
-    font-family:'Yellowtail', cursive; font-size:22px; color: #fff;
+    font-family:'Yellowtail', cursive; font-size:27px; color: #fff;
     text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
   }
   .sheet-inventario .mochila-inline .vazio{ opacity:.75; font-style:italic; color: #fff; }
@@ -202,11 +202,11 @@
     column-gap:16px; row-gap:6px; align-items:center;
   }
   .status-grid-mes .stat-label{
-    font-family:'Yellowtail', cursive; font-size:24px; color: #fff; text-align:left;
+    font-family:'Yellowtail', cursive; font-size:30px; color: #fff; text-align:left;
     text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
   }
   .status-grid-mes .mes-valor{
-    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:20px;
+    font-family:'Cormorant Garamond', serif; font-weight:600; font-size:25px;
     color: #fff;
     text-shadow: 0 1px 4px rgba(255,248,230,.85), 0 0 12px rgba(255,248,230,.7);
   }
@@ -287,6 +287,8 @@
     font-family:'Playfair Display', serif; font-weight:700; font-size:1.4em;
     color: var(--blood);
   }
+  /* Mobile: a história sobe de 22px (o mínimo) para 26px. Tem de vir depois da regra de base acima. */
+  @media (max-width: 860px){ .narrativa{ font-size: 26px; line-height:1.4; } }
 
   .npcbox{
     border-left: 3px solid var(--blood);
