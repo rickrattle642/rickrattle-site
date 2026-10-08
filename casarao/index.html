@@ -3,6 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  // Quando a página é aberta como ".../casarao" (sem barra final e sem index.html), o browser
+  // resolve os caminhos relativos (JSON, imagens, sons) um nível acima e dá tudo 404.
+  // Isto força a base certa. Não faz nada em ".../casarao/", ".../casarao/index.html" nem em localhost.
+  (function(){
+    var p = location.pathname;
+    var ultimo = p.substring(p.lastIndexOf('/') + 1);
+    if(ultimo !== '' && ultimo.indexOf('.') === -1){
+      var b = document.createElement('base');
+      b.href = p + '/';
+      document.head.appendChild(b);
+    }
+  })();
+</script>
 <title>Casarão Assombrado</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&family=UnifrakturCook:wght@700&family=Yellowtail&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap');
