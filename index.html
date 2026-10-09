@@ -6235,6 +6235,22 @@ const SEO_COPY={
 // "Page with redirect" warnings caused by canonical/sitemap host mismatches.
 const CANONICAL_ORIGIN='https://rickrattle.com';
 
+/* Hand-written search titles/descriptions for the pages that already earn impressions.
+   Keyed by path. English only (Google sees EN); other pages use the SEO_COPY templates.
+   Keep titles <= ~62 chars and descriptions <= ~158 so they are not truncated in results.
+   The server (api/sitemap.xml.js) applies the same map so Google gets it without JS. */
+const SEO_OVERRIDES={
+  '/tips/007-first-light':{title:'007 First Light Tips: Stealth, Gadgets & Best Weapons Guide',desc:'8 guides for 007 First Light: essential tips, beginner guide, full walkthrough (stealth and loud routes), best weapons, stealth and gadget usage.'},
+  '/tips/007-first-light/007-first-light-essential-tips':{title:'007 First Light Tips and Tricks: Stealth, Take-Downs & Gadgets',desc:'Essential 007 First Light tips and tricks: stealth basics, lock-pick rhythm, take-down chains, gadget pacing and the mistakes that get you busted.'},
+  '/tips/007-first-light/007-first-light-walkthrough':{title:'007 First Light Walkthrough: Stealth and Loud Routes, Both Endings',desc:'Stealth-first and loud-first walkthrough of 007 First Light: both routes, both endings, collectible callouts and chapter-by-chapter targets.'},
+  '/tips/cs2':{title:'CS2 Tips: Best Settings, FPS Commands & Pro Gear List',desc:'Counter-Strike 2 guides: best settings and options, FPS console commands, the pro settings and gear list, plus a tier list.'},
+  '/tips/cs2/cs2-pro-settings-gear-list':{title:'CS2 Pro Settings & Gear List: Mouse, DPI & Monitor Hz',desc:'What CS2 pros use: mouse models, DPI, sensitivity, monitor refresh rate, keyboards and headsets, with the patterns behind the meta picks.'},
+  '/tips/forza-horizon-6':{title:'Forza Horizon 6 Guides: Easy Money, Best Cars & Skill Point Farms',desc:'20 Forza Horizon 6 guides: how to earn money fast, credit and skill point farms, best cars, barn finds, car list, walkthrough and beginner tips.'},
+  '/tips/forza-horizon-6/forza-horizon-6-easy-money':{title:'Forza Horizon 6 Money Guide: 7 Ways to Earn Credits Fast',desc:'Seven verified ways to earn money fast in Forza Horizon 6: difficulty multipliers, the Colossus grind and the Skill Point conversion trick.'},
+  '/tips/gears-of-war-e-day':{title:'Gears of War: E-Day Guides: Walkthrough, Collectibles, PC Settings',desc:'5 Gears of War: E-Day guides: all-acts walkthrough, collectibles, Hard Cases and weapon mods, Horde Siege and PC graphics settings.'},
+  '/news/gta-6-eating-sleeping-exercise-mechanics':{title:'GTA 6 Eat, Sleep & Exercise: Real Body Consequences Explained',desc:'Rockstar confirmed food, sleep and exercise will visibly change Jason and Lucia\'s bodies, a San Andreas-style RPG layer on a far more detailed engine.'}
+};
+
 /* ================================================================
    404 / NOINDEX HANDLING
    ================================================================
@@ -6319,6 +6335,9 @@ function updateSEO(r){
   else if(r.view==='terms' && copy.terms){title=copy.terms.title;desc=copy.terms.desc;}
   else if(r.view==='privacy-policy' && copy.privacy){title=copy.privacy.title;desc=copy.privacy.desc;}
   else if(r.view==='cookie-policy' && copy.cookies){title=copy.cookies.title;desc=copy.cookies.desc;}
+  // Hand-written overrides for pages that already earn impressions (EN only).
+  const _ov=SEO_OVERRIDES[location.pathname.replace(/\/+$/,'')];
+  if(_ov && lang==='en'){title=_ov.title;desc=_ov.desc;}
   document.title=title;
   document.documentElement.lang=lang;
   if(external)setRobotsNoIndex();
