@@ -322,7 +322,7 @@ function pageLoad() {
   const cut = code.indexOf("applyTheme(localStorage.getItem('rr_theme')");
   if (cut < 0) throw new Error('INIT marker not found in index.html');
   code = code.slice(0, cut) +
-    '\n;globalThis.__data={games,articles,guides,tierLists,SEO_COPY,tr,gameThumb};';
+    '\n;globalThis.__data={games,articles,guides,tierLists,SEO_COPY,SEO_OVERRIDES,tr,gameThumb};';
 
   const stub = () => new Proxy(function () {}, {
     get: (t, k) => (k === Symbol.toPrimitive ? () => '' : stub()),
@@ -498,6 +498,9 @@ function pageHandler(req, res) {
     const { template, data } = pageLoad();
     const p = (req.query && req.query.p) || '/';
     const o = resolve(p, data);
+    // Hand-written overrides (same map the client uses) — only for real, indexable pages.
+    const ov = o.status === 200 && data.SEO_OVERRIDES && data.SEO_OVERRIDES[o.canonical.replace(ORIGIN, '')];
+    if (ov) { o.title = ov.title; o.desc = ov.desc; }
     const html = inject(template, o);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', o.status === 200
