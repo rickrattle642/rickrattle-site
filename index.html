@@ -9,14 +9,14 @@
 <meta name="robots" id="seoRobots" content="index, follow">
 <link rel="icon" type="image/png" href="/logo.png">
 <link rel="apple-touch-icon" href="/logo.png">
-<link rel="canonical" id="seoCanonical" href="">
+<link rel="canonical" id="seoCanonical" href="https://rickrattle.com/">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Rick Rattle">
 <meta property="og:title" id="seoOgTitle" content="Rick Rattle — Gaming Hub">
 <meta property="og:description" id="seoOgDesc" content="Gaming news, tips and tier lists for the games that matter — plus the chaos of the Rick Rattle Twitch channel.">
 <meta property="og:image" id="seoOgImage" content="/logo.png">
-<meta property="og:url" id="seoOgUrl" content="">
+<meta property="og:url" id="seoOgUrl" content="https://rickrattle.com/">
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" id="seoTwitterTitle" content="Rick Rattle — Gaming Hub">
@@ -6278,7 +6278,8 @@ function notFoundView(view, opts={}){
 }
 
 function updateSEO(r){
-  const baseUrl=CANONICAL_ORIGIN+location.pathname;
+  // /home is the same page as / — always canonicalise to the root.
+  const baseUrl=CANONICAL_ORIGIN+((r.view==='home'||!r.view)?'/':location.pathname);
   const copy=SEO_COPY[lang]||SEO_COPY.en;
   let title=copy.siteTitle;
   let desc=copy.siteDesc;
@@ -6301,6 +6302,12 @@ function updateSEO(r){
   else if(r.view==='tips' && r.a){
     const game=games.find(g=>g.slug===r.a);
     if(game){const m=copy.gameTips(game);title=m.title;desc=m.desc;img=gameThumb(game.slug)||img;}
+    // Individual guide / tier list: own title + summary (previously every guide of a
+    // game shared the game-level title -> duplicate titles in search results).
+    if(game && r.b){
+      const it=guides.find(x=>x.slug===r.b)||tierLists.find(x=>x.slug===r.b);
+      if(it && it.game===r.a){title=`${tr(it.title)} — Rick Rattle`;desc=tr(it.summary)||desc;}
+    }
   }else if(r.view==='tips'){title=copy.tipsHub.title;desc=copy.tipsHub.desc;}
   else if(r.view==='mobile'){title=copy.mobile.title;desc=copy.mobile.desc;}
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
@@ -6317,6 +6324,7 @@ function updateSEO(r){
   if(external)setRobotsNoIndex();
   const set=(id,v,attr='content')=>{const el=document.getElementById(id);if(el)el.setAttribute(attr,v);};
   set('seoCanonical',canonicalUrl,'href');
+  if(img&&img.charAt(0)==='/')img=CANONICAL_ORIGIN+img;
   set('seoOgTitle',title);set('seoOgDesc',desc);set('seoOgImage',img);set('seoOgUrl',baseUrl);
   set('seoTwitterTitle',title);set('seoTwitterDesc',desc);set('seoTwitterImage',img);
   // Update meta description

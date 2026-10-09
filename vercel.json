@@ -2,63 +2,214 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
   "redirects": [
-    { "source": "/premiados", "destination": "/hall-of-fame", "permanent": true },
-    { "source": "/premiados/(.*)", "destination": "/hall-of-fame", "permanent": true },
-    { "source": "/barraca/admin", "destination": "/barraca", "permanent": true },
-    { "source": "/barraca/overlay", "destination": "/barraca", "permanent": true }
+    {
+      "source": "/premiados",
+      "destination": "/hall-of-fame",
+      "permanent": true
+    },
+    {
+      "source": "/premiados/(.*)",
+      "destination": "/hall-of-fame",
+      "permanent": true
+    },
+    {
+      "source": "/barraca/admin",
+      "destination": "/barraca",
+      "permanent": true
+    },
+    {
+      "source": "/barraca/overlay",
+      "destination": "/barraca",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/sitemap.xml", "destination": "/api/sitemap.xml" },
-    { "source": "/home", "destination": "/index.html" },
-    { "source": "/home/(.*)", "destination": "/index.html" },
-    { "source": "/news", "destination": "/index.html" },
-    { "source": "/news/(.*)", "destination": "/index.html" },
-    { "source": "/tips", "destination": "/index.html" },
-    { "source": "/tips/(.*)", "destination": "/index.html" },
-    { "source": "/mobile", "destination": "/index.html" },
-    { "source": "/mobile/(.*)", "destination": "/index.html" },
-    { "source": "/rick", "destination": "/index.html" },
-    { "source": "/rick/(.*)", "destination": "/index.html" },
-    { "source": "/hall-of-fame", "destination": "/index.html" },
-    { "source": "/hall-of-fame/(.*)", "destination": "/index.html" },
-    { "source": "/mediakit", "destination": "/index.html" },
-    { "source": "/mediakit/(.*)", "destination": "/index.html" },
-    { "source": "/partners", "destination": "/index.html" },
-    { "source": "/partners/(.*)", "destination": "/index.html" },
-    { "source": "/decks", "destination": "/index.html" },
-    { "source": "/decks/(.*)", "destination": "/index.html" }
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap.xml"
+    },
+    {
+      "source": "/home",
+      "destination": "/api/page?p=/"
+    },
+    {
+      "source": "/home/:path*",
+      "destination": "/api/page?p=/"
+    },
+    {
+      "source": "/news",
+      "destination": "/api/page?p=/news"
+    },
+    {
+      "source": "/news/:path*",
+      "destination": "/api/page?p=/news/:path*"
+    },
+    {
+      "source": "/tips",
+      "destination": "/api/page?p=/tips"
+    },
+    {
+      "source": "/tips/:path*",
+      "destination": "/api/page?p=/tips/:path*"
+    },
+    {
+      "source": "/mobile",
+      "destination": "/api/page?p=/mobile"
+    },
+    {
+      "source": "/mobile/:path*",
+      "destination": "/api/page?p=/mobile/:path*"
+    },
+    {
+      "source": "/rick",
+      "destination": "/api/page?p=/rick"
+    },
+    {
+      "source": "/rick/:path*",
+      "destination": "/api/page?p=/rick/:path*"
+    },
+    {
+      "source": "/hall-of-fame",
+      "destination": "/api/page?p=/hall-of-fame"
+    },
+    {
+      "source": "/hall-of-fame/:path*",
+      "destination": "/api/page?p=/hall-of-fame/:path*"
+    },
+    {
+      "source": "/mediakit",
+      "destination": "/api/page?p=/mediakit"
+    },
+    {
+      "source": "/mediakit/:path*",
+      "destination": "/api/page?p=/mediakit/:path*"
+    },
+    {
+      "source": "/partners",
+      "destination": "/api/page?p=/partners"
+    },
+    {
+      "source": "/partners/:path*",
+      "destination": "/api/page?p=/partners/:path*"
+    },
+    {
+      "source": "/about",
+      "destination": "/api/page?p=/about"
+    },
+    {
+      "source": "/about/:path*",
+      "destination": "/api/page?p=/about/:path*"
+    },
+    {
+      "source": "/contact",
+      "destination": "/api/page?p=/contact"
+    },
+    {
+      "source": "/contact/:path*",
+      "destination": "/api/page?p=/contact/:path*"
+    },
+    {
+      "source": "/terms",
+      "destination": "/api/page?p=/terms"
+    },
+    {
+      "source": "/terms/:path*",
+      "destination": "/api/page?p=/terms/:path*"
+    },
+    {
+      "source": "/privacy-policy",
+      "destination": "/api/page?p=/privacy-policy"
+    },
+    {
+      "source": "/privacy-policy/:path*",
+      "destination": "/api/page?p=/privacy-policy/:path*"
+    },
+    {
+      "source": "/cookie-policy",
+      "destination": "/api/page?p=/cookie-policy"
+    },
+    {
+      "source": "/cookie-policy/:path*",
+      "destination": "/api/page?p=/cookie-policy/:path*"
+    },
+    {
+      "source": "/decks",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/decks/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/api/barraca/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, POST, OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, X-Admin-Password" },
-        { "key": "Cache-Control", "value": "no-store, max-age=0" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, X-Admin-Password"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store, max-age=0"
+        }
       ]
     },
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET, OPTIONS" },
-        { "key": "Cache-Control", "value": "public, s-maxage=600, stale-while-revalidate=1800" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, OPTIONS"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=600, stale-while-revalidate=1800"
+        }
       ]
     },
     {
       "source": "/sitemap.xml",
       "headers": [
-        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, s-maxage=3600, stale-while-revalidate=86400" }
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, s-maxage=3600, stale-while-revalidate=86400"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/page.js": {
+      "includeFiles": "index.html"
+    }
+  }
 }
