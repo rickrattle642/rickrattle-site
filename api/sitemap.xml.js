@@ -469,18 +469,20 @@ function inject(template, o) {
   const img = abs(o.img);
   let h = template;
   const rep = (re, val) => { h = h.replace(re, () => val); };
+  // For patterns with two capture groups: keep the tag prefix/suffix, swap only the value.
+  const repv = (re, val) => { h = h.replace(re, (m, a, b) => a + val + b); };
   rep(/<title>[\s\S]*?<\/title>/, `<title>${esc(o.title)}</title>`);
   rep(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(o.desc)}">`);
   rep(/<meta name="robots" id="seoRobots" content="[^"]*">/, `<meta name="robots" id="seoRobots" content="${o.robots}">`);
   rep(/<link rel="canonical" id="seoCanonical" href="[^"]*">/, `<link rel="canonical" id="seoCanonical" href="${esc(o.canonical)}">`);
   rep(/<meta property="og:type" content="[^"]*">/, `<meta property="og:type" content="${o.ogType}">`);
-  rep(/(<meta property="og:title" id="seoOgTitle" content=")[^"]*(">)/, `$1${esc(o.title)}$2`);
-  rep(/(<meta property="og:description" id="seoOgDesc" content=")[^"]*(">)/, `$1${esc(o.desc)}$2`);
-  rep(/(<meta property="og:image" id="seoOgImage" content=")[^"]*(">)/, `$1${esc(img)}$2`);
-  rep(/(<meta property="og:url" id="seoOgUrl" content=")[^"]*(">)/, `$1${esc(o.canonical)}$2`);
-  rep(/(<meta name="twitter:title" id="seoTwitterTitle" content=")[^"]*(">)/, `$1${esc(o.title)}$2`);
-  rep(/(<meta name="twitter:description" id="seoTwitterDesc" content=")[^"]*(">)/, `$1${esc(o.desc)}$2`);
-  rep(/(<meta name="twitter:image" id="seoTwitterImage" content=")[^"]*(">)/, `$1${esc(img)}$2`);
+  repv(/(<meta property="og:title" id="seoOgTitle" content=")[^"]*(">)/, esc(o.title));
+  repv(/(<meta property="og:description" id="seoOgDesc" content=")[^"]*(">)/, esc(o.desc));
+  repv(/(<meta property="og:image" id="seoOgImage" content=")[^"]*(">)/, esc(img));
+  repv(/(<meta property="og:url" id="seoOgUrl" content=")[^"]*(">)/, esc(o.canonical));
+  repv(/(<meta name="twitter:title" id="seoTwitterTitle" content=")[^"]*(">)/, esc(o.title));
+  repv(/(<meta name="twitter:description" id="seoTwitterDesc" content=")[^"]*(">)/, esc(o.desc));
+  repv(/(<meta name="twitter:image" id="seoTwitterImage" content=")[^"]*(">)/, esc(img));
   if (o.jsonld) {
     const json = JSON.stringify(o.jsonld).replace(/</g, '\\u003c');
     h = h.replace('</head>', () => `<script type="application/ld+json" id="pageJsonLd">${json}</script>\n</head>`);
