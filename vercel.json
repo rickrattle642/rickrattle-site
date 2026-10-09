@@ -30,107 +30,107 @@
     },
     {
       "source": "/home",
-      "destination": "/api/page?p=/"
+      "destination": "/api/sitemap.xml?p=/"
     },
     {
       "source": "/home/:path*",
-      "destination": "/api/page?p=/"
+      "destination": "/api/sitemap.xml?p=/"
     },
     {
       "source": "/news",
-      "destination": "/api/page?p=/news"
+      "destination": "/api/sitemap.xml?p=/news"
     },
     {
       "source": "/news/:path*",
-      "destination": "/api/page?p=/news/:path*"
+      "destination": "/api/sitemap.xml?p=/news/:path*"
     },
     {
       "source": "/tips",
-      "destination": "/api/page?p=/tips"
+      "destination": "/api/sitemap.xml?p=/tips"
     },
     {
       "source": "/tips/:path*",
-      "destination": "/api/page?p=/tips/:path*"
+      "destination": "/api/sitemap.xml?p=/tips/:path*"
     },
     {
       "source": "/mobile",
-      "destination": "/api/page?p=/mobile"
+      "destination": "/api/sitemap.xml?p=/mobile"
     },
     {
       "source": "/mobile/:path*",
-      "destination": "/api/page?p=/mobile/:path*"
+      "destination": "/api/sitemap.xml?p=/mobile/:path*"
     },
     {
       "source": "/rick",
-      "destination": "/api/page?p=/rick"
+      "destination": "/api/sitemap.xml?p=/rick"
     },
     {
       "source": "/rick/:path*",
-      "destination": "/api/page?p=/rick/:path*"
+      "destination": "/api/sitemap.xml?p=/rick/:path*"
     },
     {
       "source": "/hall-of-fame",
-      "destination": "/api/page?p=/hall-of-fame"
+      "destination": "/api/sitemap.xml?p=/hall-of-fame"
     },
     {
       "source": "/hall-of-fame/:path*",
-      "destination": "/api/page?p=/hall-of-fame/:path*"
+      "destination": "/api/sitemap.xml?p=/hall-of-fame/:path*"
     },
     {
       "source": "/mediakit",
-      "destination": "/api/page?p=/mediakit"
+      "destination": "/api/sitemap.xml?p=/mediakit"
     },
     {
       "source": "/mediakit/:path*",
-      "destination": "/api/page?p=/mediakit/:path*"
+      "destination": "/api/sitemap.xml?p=/mediakit/:path*"
     },
     {
       "source": "/partners",
-      "destination": "/api/page?p=/partners"
+      "destination": "/api/sitemap.xml?p=/partners"
     },
     {
       "source": "/partners/:path*",
-      "destination": "/api/page?p=/partners/:path*"
+      "destination": "/api/sitemap.xml?p=/partners/:path*"
     },
     {
       "source": "/about",
-      "destination": "/api/page?p=/about"
+      "destination": "/api/sitemap.xml?p=/about"
     },
     {
       "source": "/about/:path*",
-      "destination": "/api/page?p=/about/:path*"
+      "destination": "/api/sitemap.xml?p=/about/:path*"
     },
     {
       "source": "/contact",
-      "destination": "/api/page?p=/contact"
+      "destination": "/api/sitemap.xml?p=/contact"
     },
     {
       "source": "/contact/:path*",
-      "destination": "/api/page?p=/contact/:path*"
+      "destination": "/api/sitemap.xml?p=/contact/:path*"
     },
     {
       "source": "/terms",
-      "destination": "/api/page?p=/terms"
+      "destination": "/api/sitemap.xml?p=/terms"
     },
     {
       "source": "/terms/:path*",
-      "destination": "/api/page?p=/terms/:path*"
+      "destination": "/api/sitemap.xml?p=/terms/:path*"
     },
     {
       "source": "/privacy-policy",
-      "destination": "/api/page?p=/privacy-policy"
+      "destination": "/api/sitemap.xml?p=/privacy-policy"
     },
     {
       "source": "/privacy-policy/:path*",
-      "destination": "/api/page?p=/privacy-policy/:path*"
+      "destination": "/api/sitemap.xml?p=/privacy-policy/:path*"
     },
     {
       "source": "/cookie-policy",
-      "destination": "/api/page?p=/cookie-policy"
+      "destination": "/api/sitemap.xml?p=/cookie-policy"
     },
     {
       "source": "/cookie-policy/:path*",
-      "destination": "/api/page?p=/cookie-policy/:path*"
+      "destination": "/api/sitemap.xml?p=/cookie-policy/:path*"
     },
     {
       "source": "/decks",
@@ -208,7 +208,7 @@
     }
   ],
   "functions": {
-    "api/page.js": {
+    "api/sitemap.xml.js": {
       "includeFiles": "index.html"
     }
   }
