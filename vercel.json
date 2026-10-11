@@ -93,6 +93,14 @@
       "destination": "/api/sitemap.xml?p=/partners/:path*"
     },
     {
+      "source": "/giveaway",
+      "destination": "/api/sitemap.xml?p=/giveaway"
+    },
+    {
+      "source": "/giveaway/:path*",
+      "destination": "/api/sitemap.xml?p=/giveaway/:path*"
+    },
+    {
       "source": "/about",
       "destination": "/api/sitemap.xml?p=/about"
     },

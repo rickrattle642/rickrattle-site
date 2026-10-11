@@ -545,6 +545,11 @@ button{font-family:inherit}
 
 /* ==================== PARTNERS ==================== */
 .partners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+/* ==================== GIVEAWAY ==================== */
+.giveaway-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;max-width:780px;margin:0 0 8px}
+.giveaway-chip{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.giveaway-chip .gc-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.giveaway-chip .gc-val{font-size:14px;line-height:1.4;color:var(--ink);font-weight:600}
 .partner-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column;transition:.25s}
 .partner-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 12px 28px rgba(176,38,255,.25)}
 .partner-logo{background:#fff;padding:22px;display:flex;align-items:center;justify-content:center;min-height:120px}
@@ -828,10 +833,11 @@ const T = {
   en:{
     "brand.tag":"GAMING HUB","live":"WATCH ON TWITCH","theme.dark":"DARK","theme.light":"LIGHT",
     "search.ph":"Search articles, guides, tier lists...",
-    "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS","nav.section.partners":"PARTNERS",
+    "nav.section.main":"MAIN","nav.section.creator":"CREATOR","nav.section.events":"EVENTS","nav.section.partners":"PARTNERS","nav.section.giveaway":"GIVEAWAY",
     "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Partners",
     "premiados.kicker":"// EVENTS","premiados.title":"Hall of Fame","premiados.sub":"Where the community that shows up — and wins — gets remembered.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No one in the Hall of Fame yet — the first prize is still up for grabs.",
     "partners.kicker":"// PARTNERS","partners.title":"Partners","partners.sub":"The brands backing the channel and the community.","partners.intro":"A quick look at who supports Rick Rattle — and why they're worth checking out yourself.","partners.cta":"Visit site",
+    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Official rules to enter and win.","giveaway.prize":"Prize","giveaway.prizeVal":"4 NP4 tech products","giveaway.ends":"Entries close","giveaway.endsVal":"31 Oct 2026, 23:59 (mainland Portugal)","giveaway.draw":"Live draw","giveaway.drawVal":"1 Nov 2026, 21:00 (mainland Portugal), on Twitch",
     "mobile.kicker":"// MOBILE","mobile.title":"Mobile Gaming","mobile.sub":"The mobile games we're tracking — guides and news on the way.","mobile.intro":"A new section for the mobile games worth covering right now. Guides and news are being added game by game.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
@@ -859,10 +865,11 @@ const T = {
   pt:{
     "brand.tag":"GAMING HUB","live":"VER NA TWITCH","theme.dark":"ESCURO","theme.light":"CLARO",
     "search.ph":"Procurar artigos, guias, tier lists...",
-    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS","nav.section.partners":"PARCEIROS",
+    "nav.section.main":"PRINCIPAL","nav.section.creator":"CRIADOR","nav.section.events":"EVENTOS","nav.section.partners":"PARCEIROS","nav.section.giveaway":"GIVEAWAY",
     "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Parceiros",
     "premiados.kicker":"// EVENTOS","premiados.title":"Hall of Fame","premiados.sub":"Onde a comunidade que aparece — e ganha — fica para sempre.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda ninguém no Hall of Fame — o primeiro prémio está por agarrar.",
     "partners.kicker":"// PARCEIROS","partners.title":"Parceiros","partners.sub":"As marcas que apoiam o canal e a comunidade.","partners.intro":"Um resumo de quem apoia o Rick Rattle — e porque vale a pena conhecê-los também.","partners.cta":"Visitar site",
+    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Regras oficiais para participar e ganhar.","giveaway.prize":"Prémio","giveaway.prizeVal":"4 produtos tecnológicos NP4","giveaway.ends":"Participações até","giveaway.endsVal":"31 out 2026, 23h59 (Portugal continental)","giveaway.draw":"Sorteio em direto","giveaway.drawVal":"1 nov 2026, 21h00 (Portugal continental), na Twitch",
     "mobile.kicker":"// MOBILE","mobile.title":"Gaming Mobile","mobile.sub":"Os jogos mobile que estamos a acompanhar — guias e novidades a caminho.","mobile.intro":"Uma secção nova, dedicada aos jogos mobile que fazem sentido cobrir agora. Vamos adicionando guias e notícias jogo a jogo.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
@@ -6134,7 +6141,8 @@ const navItems = [
   {key:'hall-of-fame', icon:'🏆', label:'nav.premiados', section:'events'},
   {key:'rick', icon:'★', label:'nav.rick', section:'creator'},
   {key:'mediakit', icon:'📊', label:'nav.mediakit', section:'creator'},
-  {key:'partners', icon:'🤝', label:'nav.partners', section:'partners'}
+  {key:'partners', icon:'🤝', label:'nav.partners', section:'partners'},
+  {key:'giveaway', icon:'🎁', label:'nav.giveaway', section:'giveaway'}
 ];
 
 function renderSidebar(){
@@ -6179,6 +6187,7 @@ const routes = {
   rick:RickView,
   mediakit:MediaKitView,
   partners:PartnersView,
+  giveaway:GiveawayView,
   'hall-of-fame':PremiadosView,
   news:NewsView,
   tips:TipsView,
@@ -6202,6 +6211,7 @@ const SEO_COPY={
     mobile:{title:'Mobile Gaming — Rick Rattle', desc:'The mobile games we cover — Balatro Mobile, Rainbow Six Mobile, Honkai: Star Rail, Palworld Mobile, Delta Force and more.'},
     mediakit:{title:'Media Kit — Rick Rattle', desc:'Audience stats, growth and content highlights across Twitch, Instagram, TikTok and YouTube. For brands and partners.'},
     partners:{title:'Partners — Rick Rattle', desc:'The brands partnering with Rick Rattle — who they are and why they\'re worth checking out.'},
+    giveaway:{title:'Giveaway NP4Game × Rick_Rattle — Official Rules', desc:'Official rules for the NP4Game × Rick_Rattle giveaway: how to enter, the prize, key dates and how the winner is chosen.'},
     about:{title:'About — Rick Rattle', desc:'Rick Rattle is a small, honest gaming hub built around a Twitch community. Learn what the project is about and what you\'ll find here.'},
     contact:{title:'Contact — Rick Rattle', desc:'Get in touch — feedback, bug reports, collaborations and community contact for rickrattle.com.'},
     terms:{title:'Terms & Conditions — Rick Rattle', desc:'Plain-language terms of use for rickrattle.com — acceptable use, IP, disclaimers and contact.'},
@@ -6220,6 +6230,7 @@ const SEO_COPY={
     mobile:{title:'Gaming Mobile — Rick Rattle', desc:'Os jogos mobile que cobrimos — Balatro Mobile, Rainbow Six Mobile, Honkai: Star Rail, Palworld Mobile, Delta Force e mais.'},
     mediakit:{title:'Media Kit — Rick Rattle', desc:'Estatísticas de audiência, crescimento e destaques de conteúdo no Twitch, Instagram, TikTok e YouTube. Para marcas e parceiros.'},
     partners:{title:'Parceiros — Rick Rattle', desc:'As marcas parceiras do Rick Rattle — quem são e porque vale a pena conhecê-las.'},
+    giveaway:{title:'Giveaway NP4Game × Rick_Rattle — Regras Oficiais', desc:'Regras oficiais do giveaway NP4Game × Rick_Rattle: como participar, o prémio, datas importantes e como é escolhido o vencedor.'},
     about:{title:'Sobre — Rick Rattle', desc:'Rick Rattle é um gaming hub pequeno e honesto construído à volta de uma comunidade Twitch. Vê do que o projeto trata e o que vais encontrar aqui.'},
     contact:{title:'Contacto — Rick Rattle', desc:'Entra em contacto — feedback, bug reports, colaborações e comunidade rickrattle.com.'},
     terms:{title:'Termos e Condições — Rick Rattle', desc:'Termos de uso em linguagem clara para rickrattle.com — uso aceitável, propriedade intelectual, disclaimers e contacto.'},
@@ -6329,6 +6340,7 @@ function updateSEO(r){
   else if(r.view==='rick'){title=copy.rick.title;desc=copy.rick.desc;}
   else if(r.view==='mediakit'){title=copy.mediakit.title;desc=copy.mediakit.desc;}
   else if(r.view==='partners'){title=copy.partners.title;desc=copy.partners.desc;}
+  else if(r.view==='giveaway'){title=copy.giveaway.title;desc=copy.giveaway.desc;}
   else if(r.view==='hall-of-fame'){title=copy.premiados.title;desc=copy.premiados.desc;}
   else if(r.view==='about' && copy.about){title=copy.about.title;desc=copy.about.desc;}
   else if(r.view==='contact' && copy.contact){title=copy.contact.title;desc=copy.contact.desc;}
@@ -6423,6 +6435,8 @@ function buildBreadcrumbs(r){
     trail.push({label:'Media Kit', href:'/mediakit'});
   }else if(r.view==='partners'){
     trail.push({label:PT?'Parceiros':'Partners', href:'/partners'});
+  }else if(r.view==='giveaway'){
+    trail.push({label:'Giveaway', href:'/giveaway'});
   }else if(r.view==='about'){
     trail.push({label:PT?'Sobre':'About', href:'/about'});
   }else if(r.view==='contact'){
@@ -7568,6 +7582,98 @@ function PartnersView(view){
       <p data-i18n="partners.intro">${t('partners.intro')}</p>
     </div>
     <div class="partners-grid">${partners.map(PartnerCard).join('')}</div>
+  `;
+}
+
+/* -------------------- GIVEAWAY (official rules) -------------------- */
+// One entry per section. `lead` = optional intro line, `ol` = numbered steps, `ul` = bullets,
+// `after` = closing paragraph. All strings are {en,pt}; <strong> is allowed.
+// Edit dates/prizes here only (plus the three summary chips in the i18n keys giveaway.*Val).
+const giveawayRules = [
+  {h:{en:`1. Organisation`,pt:`1. Organização`},
+   ul:[
+    {en:`This giveaway is run by Rick_Rattle in partnership with NP4Game.`,pt:`Este passatempo é promovido pelo Rick_Rattle, em parceria com a NP4Game.`},
+    {en:`Entry is free and no purchase is required.`,pt:`A participação é gratuita e não exige qualquer compra.`}
+   ]},
+  {h:{en:`2. Entry period`,pt:`2. Período de participação`},
+   ul:[
+    {en:`The giveaway starts with the official Reel on Instagram and ends on <strong>31 October 2026, 23:59 (mainland Portugal time)</strong>.`,pt:`O passatempo começa com a publicação oficial do Reel no Instagram e termina a <strong>31 de outubro de 2026, às 23h59 (hora de Portugal continental)</strong>.`}
+   ]},
+  {h:{en:`3. Who can enter`,pt:`3. Quem pode participar`},
+   ul:[
+    {en:`Residents of Portugal and the other European Union countries.`,pt:`Residentes em Portugal e nos restantes países da União Europeia.`},
+    {en:`One entry per person.`,pt:`Cada pessoa pode ter apenas uma entrada.`}
+   ]},
+  {h:{en:`4. How to enter`,pt:`4. Como participar`},
+   lead:{en:`To be valid, an entry must complete <strong>all</strong> of these steps:`,pt:`Para a participação ser válida, é necessário cumprir <strong>todos</strong> os seguintes passos:`},
+   ol:[
+    {en:`Follow Rick_Rattle on Instagram.`,pt:`Seguir a página de Instagram do Rick_Rattle.`},
+    {en:`Follow NP4Game on Instagram.`,pt:`Seguir a página de Instagram da NP4Game.`},
+    {en:`Repost the official giveaway Reel.`,pt:`Republicar o Reel oficial do passatempo.`},
+    {en:`Tag two friends in the comments of the official giveaway post.`,pt:`Identificar dois amigos nos comentários da publicação oficial do giveaway.`}
+   ],
+   ul:[
+    {en:`If asked by the organiser, participants must be able to prove they reposted the Reel.`,pt:`Se solicitado pela organização, o participante deve comprovar que republicou o Reel.`},
+    {en:`Tagging friends in extra comments does not earn extra entries.`,pt:`Identificar amigos em comentários adicionais não dá direito a entradas extra.`}
+   ]},
+  {h:{en:`5. Prize`,pt:`5. Prémio`},
+   lead:{en:`A single prize made up of four products:`,pt:`Será atribuído um único prémio, composto por quatro produtos:`},
+   ul:[
+    {en:`<strong>Titanium Waterproof Case</strong> — Black`,pt:`<strong>Titanium Waterproof Case</strong> — Black`},
+    {en:`<strong>Titanium USB-C to USB-C PD 100W Cable</strong> — Black`,pt:`<strong>Titanium USB-C to USB-C PD 100W Cable</strong> — Black`},
+    {en:`<strong>TitanPods Pro</strong> — White`,pt:`<strong>TitanPods Pro</strong> — White`},
+    {en:`<strong>NP4 Energy Base USB-C 67W</strong> — White`,pt:`<strong>NP4 Energy Base USB-C 67W</strong> — White`}
+   ],
+   after:{en:`All four products go together to a single winner. The prize cannot be split, exchanged for cash or replaced by any other compensation.`,pt:`Os quatro produtos são atribuídos em conjunto a um único vencedor. O prémio não pode ser dividido, trocado por dinheiro ou convertido noutra compensação.`}},
+  {h:{en:`6. The draw`,pt:`6. Como será realizado o sorteio`},
+   ul:[
+    {en:`The draw takes place on <strong>1 November 2026 at 21:00 (mainland Portugal time)</strong>, live on Twitch, on the Rick_Rattle channel.`,pt:`O sorteio realiza-se a <strong>1 de novembro de 2026, às 21h00 (hora de Portugal continental)</strong>, em direto na Twitch, no canal do Rick_Rattle.`},
+    {en:`After the giveaway closes, entries are checked against these rules. Each eligible participant gets one entry on a prize wheel, spun live to pick the winner at random.`,pt:`Depois do encerramento, as participações são verificadas e cada participante elegível tem uma única entrada numa roda de sorteio, utilizada em direto para escolher o vencedor de forma aleatória.`},
+    {en:`The result is then announced in a Reel on the Rick_Rattle Instagram.`,pt:`O resultado é depois divulgado num Reel no Instagram do Rick_Rattle.`}
+   ]},
+  {h:{en:`7. Contacting the winner`,pt:`7. Contacto com o vencedor`},
+   ul:[
+    {en:`The winner is contacted by Instagram direct message and has <strong>7 days to reply</strong> and accept the prize.`,pt:`O vencedor é contactado por mensagem privada no Instagram e tem <strong>7 dias para responder</strong> e aceitar o prémio.`},
+    {en:`If the winner does not reply in time, cannot be verified or does not meet the requirements, a replacement winner may be chosen in a new draw.`,pt:`Se o vencedor não responder dentro do prazo, não for possível validar a participação ou não cumprir os requisitos, poderá ser escolhido um suplente num novo sorteio.`}
+   ]},
+  {h:{en:`8. Collection and delivery`,pt:`8. Levantamento e envio do prémio`},
+   ul:[
+    {en:`Where possible, the winner can collect the four products at an NP4Game store, with the store and date agreed beforehand.`,pt:`Sempre que possível, o vencedor poderá levantar os quatro produtos numa loja NP4Game, com loja e data combinadas previamente.`},
+    {en:`If there is no accessible NP4Game store, the prize is shipped to an address in the European Union. <strong>Shipping costs are paid by Rick_Rattle.</strong>`,pt:`Se não houver uma loja NP4Game acessível, o prémio é enviado para uma morada na União Europeia. <strong>Os custos de envio são suportados pelo Rick_Rattle.</strong>`},
+    {en:`The winner is responsible for providing, by private message, a correct and complete address.`,pt:`O vencedor é responsável por indicar, por contacto privado, uma morada correta e completa.`},
+    {en:`Only the personal data strictly needed is requested, and it is used solely to organise and deliver the prize, in accordance with applicable law.`,pt:`Apenas são pedidos os dados pessoais estritamente necessários, utilizados só para organizar e entregar o prémio, nos termos da legislação aplicável.`}
+   ]},
+  {h:{en:`9. Final provisions`,pt:`9. Disposições finais`},
+   ul:[
+    {en:`Taking part means accepting these rules.`,pt:`A participação implica a aceitação destas regras.`},
+    {en:`The organiser may exclude incomplete, fake or duplicate entries, and any that break the rules or show signs of fraud.`,pt:`A organização pode excluir participações incompletas, falsas ou duplicadas, bem como as que violem as regras ou apresentem indícios de fraude.`},
+    {en:`Questions can be sent by direct message to Rick_Rattle.`,pt:`Qualquer questão pode ser colocada por mensagem privada ao Rick_Rattle.`},
+    {en:`This giveaway is not sponsored, administered by or associated with Instagram or Meta.`,pt:`Este passatempo não é patrocinado, administrado ou associado ao Instagram ou à Meta.`}
+   ]}
+];
+
+function GiveawayView(view){
+  const sections = giveawayRules.map(sec=>`
+    <h3>${tr(sec.h)}</h3>
+    ${sec.lead?`<p>${tr(sec.lead)}</p>`:''}
+    ${sec.ol?`<ol>${trItems(sec.ol).map(x=>`<li>${x}</li>`).join('')}</ol>`:''}
+    ${sec.ul?`<ul>${trItems(sec.ul).map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
+    ${sec.after?`<p>${tr(sec.after)}</p>`:''}
+  `).join('');
+  view.innerHTML=`
+    <div class="page-head">
+      <div>
+        <div class="page-kicker" data-i18n="giveaway.kicker">${t('giveaway.kicker')}</div>
+        <h1 class="page-title" data-i18n="giveaway.title">${t('giveaway.title')}</h1>
+        <p class="page-sub" data-i18n="giveaway.sub">${t('giveaway.sub')}</p>
+      </div>
+    </div>
+    <div class="giveaway-info">
+      <div class="giveaway-chip"><div class="gc-label" data-i18n="giveaway.prize">${t('giveaway.prize')}</div><div class="gc-val" data-i18n="giveaway.prizeVal">${t('giveaway.prizeVal')}</div></div>
+      <div class="giveaway-chip"><div class="gc-label" data-i18n="giveaway.ends">${t('giveaway.ends')}</div><div class="gc-val" data-i18n="giveaway.endsVal">${t('giveaway.endsVal')}</div></div>
+      <div class="giveaway-chip"><div class="gc-label" data-i18n="giveaway.draw">${t('giveaway.draw')}</div><div class="gc-val" data-i18n="giveaway.drawVal">${t('giveaway.drawVal')}</div></div>
+    </div>
+    <div class="detail-body" style="max-width:780px">${sections}</div>
   `;
 }
 
