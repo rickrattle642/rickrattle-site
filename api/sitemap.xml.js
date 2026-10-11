@@ -9,7 +9,7 @@ import vm from 'node:vm';
 
 const CANONICAL_HOST = 'https://rickrattle.com';
 
-const STATIC_PATHS = ['/', '/news', '/tips', '/mobile', '/rick', '/mediakit', '/partners', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
+const STATIC_PATHS = ['/', '/news', '/tips', '/mobile', '/rick', '/mediakit', '/partners', '/giveaway', '/hall-of-fame', '/about', '/contact', '/terms', '/privacy-policy', '/cookie-policy'];
 
 const GAME_SLUGS = [
   'kcd2','rocket-league','arc-raiders','minecraft','grounded-2','chivalry-2','it-takes-two','split-fiction','the-finals','rdr2',
@@ -250,6 +250,7 @@ const STATIC_META = {
   '/rick':            {priority:'0.9', changefreq:'weekly'},
   '/mediakit':        {priority:'0.7', changefreq:'monthly'},
   '/partners':        {priority:'0.6', changefreq:'monthly'},
+  '/giveaway':        {priority:'0.6', changefreq:'weekly'},
   '/hall-of-fame':    {priority:'0.6', changefreq:'monthly'},
   '/about':           {priority:'0.6', changefreq:'monthly'},
   '/contact':         {priority:'0.5', changefreq:'monthly'},
@@ -304,9 +305,9 @@ ${urls.join('\n')}
    ==================================================================== */
 const ORIGIN = 'https://rickrattle.com';
 
-const STATIC_VIEWS = ['rick', 'mediakit', 'partners', 'hall-of-fame', 'mobile', 'about', 'contact', 'terms', 'privacy-policy', 'cookie-policy'];
+const STATIC_VIEWS = ['rick', 'mediakit', 'partners', 'giveaway', 'hall-of-fame', 'mobile', 'about', 'contact', 'terms', 'privacy-policy', 'cookie-policy'];
 const STATIC_COPY_KEY = {
-  'rick': 'rick', 'mediakit': 'mediakit', 'partners': 'partners', 'hall-of-fame': 'premiados', 'mobile': 'mobile',
+  'rick': 'rick', 'mediakit': 'mediakit', 'partners': 'partners', 'giveaway': 'giveaway', 'hall-of-fame': 'premiados', 'mobile': 'mobile',
   'about': 'about', 'contact': 'contact', 'terms': 'terms', 'privacy-policy': 'privacy', 'cookie-policy': 'cookies'
 };
 
