@@ -837,7 +837,7 @@ const T = {
     "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Partners",
     "premiados.kicker":"// EVENTS","premiados.title":"Hall of Fame","premiados.sub":"Where the community that shows up — and wins — gets remembered.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No one in the Hall of Fame yet — the first prize is still up for grabs.",
     "partners.kicker":"// PARTNERS","partners.title":"Partners","partners.sub":"The brands backing the channel and the community.","partners.intro":"A quick look at who supports Rick Rattle — and why they're worth checking out yourself.","partners.cta":"Visit site",
-    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Official rules to enter and win.","giveaway.prize":"Prize","giveaway.prizeVal":"4 NP4 tech products","giveaway.ends":"Entries close","giveaway.endsVal":"31 Oct 2026, 23:59 (mainland Portugal)","giveaway.draw":"Live draw","giveaway.drawVal":"1 Nov 2026, 21:00 (mainland Portugal), on Twitch",
+    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Official rules to enter and win.","giveaway.prize":"Prize","giveaway.prizeVal":"4 NP4 tech products","giveaway.ends":"Entries close","giveaway.endsVal":"31 Oct 2026, 23:59 (mainland Portugal)","giveaway.cta":"Enter on Instagram","giveaway.draw":"Live draw","giveaway.drawVal":"1 Nov 2026, 21:00 (mainland Portugal), on Twitch",
     "mobile.kicker":"// MOBILE","mobile.title":"Mobile Gaming","mobile.sub":"The mobile games we're tracking — guides and news on the way.","mobile.intro":"A new section for the mobile games worth covering right now. Guides and news are being added game by game.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
@@ -869,7 +869,7 @@ const T = {
     "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Parceiros",
     "premiados.kicker":"// EVENTOS","premiados.title":"Hall of Fame","premiados.sub":"Onde a comunidade que aparece — e ganha — fica para sempre.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda ninguém no Hall of Fame — o primeiro prémio está por agarrar.",
     "partners.kicker":"// PARCEIROS","partners.title":"Parceiros","partners.sub":"As marcas que apoiam o canal e a comunidade.","partners.intro":"Um resumo de quem apoia o Rick Rattle — e porque vale a pena conhecê-los também.","partners.cta":"Visitar site",
-    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Regras oficiais para participar e ganhar.","giveaway.prize":"Prémio","giveaway.prizeVal":"4 produtos tecnológicos NP4","giveaway.ends":"Participações até","giveaway.endsVal":"31 out 2026, 23h59 (Portugal continental)","giveaway.draw":"Sorteio em direto","giveaway.drawVal":"1 nov 2026, 21h00 (Portugal continental), na Twitch",
+    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Regras oficiais para participar e ganhar.","giveaway.prize":"Prémio","giveaway.prizeVal":"4 produtos tecnológicos NP4","giveaway.ends":"Participações até","giveaway.endsVal":"31 out 2026, 23h59 (Portugal continental)","giveaway.cta":"Participar no Instagram","giveaway.draw":"Sorteio em direto","giveaway.drawVal":"1 nov 2026, 21h00 (Portugal continental), na Twitch",
     "mobile.kicker":"// MOBILE","mobile.title":"Gaming Mobile","mobile.sub":"Os jogos mobile que estamos a acompanhar — guias e novidades a caminho.","mobile.intro":"Uma secção nova, dedicada aos jogos mobile que fazem sentido cobrir agora. Vamos adicionando guias e notícias jogo a jogo.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
@@ -7589,6 +7589,8 @@ function PartnersView(view){
 // One entry per section. `lead` = optional intro line, `ol` = numbered steps, `ul` = bullets,
 // `after` = closing paragraph. All strings are {en,pt}; <strong> is allowed.
 // Edit dates/prizes here only (plus the three summary chips in the i18n keys giveaway.*Val).
+// Official giveaway post on Instagram (entry happens there).
+const GIVEAWAY_URL='https://www.instagram.com/p/DeXUFSws5UG/';
 const giveawayRules = [
   {h:{en:`1. Organisation`,pt:`1. Organização`},
    ul:[
@@ -7672,6 +7674,9 @@ function GiveawayView(view){
       <div class="giveaway-chip"><div class="gc-label" data-i18n="giveaway.prize">${t('giveaway.prize')}</div><div class="gc-val" data-i18n="giveaway.prizeVal">${t('giveaway.prizeVal')}</div></div>
       <div class="giveaway-chip"><div class="gc-label" data-i18n="giveaway.ends">${t('giveaway.ends')}</div><div class="gc-val" data-i18n="giveaway.endsVal">${t('giveaway.endsVal')}</div></div>
       <div class="giveaway-chip"><div class="gc-label" data-i18n="giveaway.draw">${t('giveaway.draw')}</div><div class="gc-val" data-i18n="giveaway.drawVal">${t('giveaway.drawVal')}</div></div>
+    </div>
+    <div style="margin:18px 0 4px">
+      <a class="btn btn-primary" href="${GIVEAWAY_URL}" target="_blank" rel="noopener" data-i18n="giveaway.cta">${t('giveaway.cta')}</a>
     </div>
     <div class="detail-body" style="max-width:780px">${sections}</div>
   `;
