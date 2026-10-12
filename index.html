@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+<!-- Google tag (gtag.js) — Consent Mode: analytics storage stays DENIED until the visitor accepts in the cookie banner -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-362PJF23FB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied', 'ad_user_data': 'denied', 'ad_personalization': 'denied',
+    'analytics_storage': 'denied', 'wait_for_update': 500
+  });
+  try { if (localStorage.getItem('rr_consent') === 'granted') gtag('consent', 'update', {'analytics_storage': 'granted'}); } catch (e) {}
+  gtag('js', new Date());
+
+  gtag('config', 'G-362PJF23FB');
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Rick Rattle — Gaming Hub · News, Tips, Tier Lists</title>
@@ -545,6 +559,13 @@ button{font-family:inherit}
 
 /* ==================== PARTNERS ==================== */
 .partners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+/* ==================== COOKIE CONSENT ==================== */
+#consentBanner{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:560px;margin:0 auto;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:16px 18px;box-shadow:0 12px 40px rgba(0,0,0,.5);display:flex;flex-wrap:wrap;gap:12px 16px;align-items:center}
+#consentBanner p{margin:0;flex:1 1 280px;font-size:13px;line-height:1.5;color:var(--muted2)}
+#consentBanner a{color:var(--cyan);font-weight:700;text-decoration:none;border-bottom:1px solid rgba(0,240,255,.4)}
+#consentBanner .consent-actions{display:flex;gap:8px;flex:0 0 auto}
+#consentBanner .btn{padding:9px 16px;font-size:13px}
+@media(min-width:900px){#consentBanner{left:calc(240px + 16px);margin:0}}
 /* ==================== GIVEAWAY ==================== */
 .giveaway-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;max-width:780px;margin:0 0 8px}
 .giveaway-chip{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
@@ -837,7 +858,7 @@ const T = {
     "nav.home":"Home","nav.rick":"Rick Rattle","nav.news":"Gaming News","nav.tips":"Gaming Tips","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"University","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Partners",
     "premiados.kicker":"// EVENTS","premiados.title":"Hall of Fame","premiados.sub":"Where the community that shows up — and wins — gets remembered.","premiados.intro":"We want to thank everyone who took part and won prizes in our competitions. Check out the prizes and their setups below.","premiados.empty":"No one in the Hall of Fame yet — the first prize is still up for grabs.",
     "partners.kicker":"// PARTNERS","partners.title":"Partners","partners.sub":"The brands backing the channel and the community.","partners.intro":"A quick look at who supports Rick Rattle — and why they're worth checking out yourself.","partners.cta":"Visit site",
-    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Official rules to enter and win.","giveaway.prize":"Prize","giveaway.prizeVal":"4 NP4 tech products","giveaway.ends":"Entries close","giveaway.endsVal":"31 Oct 2026, 23:59 (mainland Portugal)","giveaway.cta":"Enter on Instagram","giveaway.draw":"Live draw","giveaway.drawVal":"1 Nov 2026, 21:00 (mainland Portugal), on Twitch",
+    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","consent.text":"We use Google Analytics to count visits and see which pages people read. It only runs if you accept.","consent.link":"Cookie Policy","consent.accept":"Accept","consent.reject":"Reject","giveaway.sub":"Official rules to enter and win.","giveaway.prize":"Prize","giveaway.prizeVal":"4 NP4 tech products","giveaway.ends":"Entries close","giveaway.endsVal":"31 Oct 2026, 23:59 (mainland Portugal)","giveaway.cta":"Enter on Instagram","giveaway.draw":"Live draw","giveaway.drawVal":"1 Nov 2026, 21:00 (mainland Portugal), on Twitch",
     "mobile.kicker":"// MOBILE","mobile.title":"Mobile Gaming","mobile.sub":"The mobile games we're tracking — guides and news on the way.","mobile.intro":"A new section for the mobile games worth covering right now. Guides and news are being added game by game.",
     "home.kicker":"// HUB","home.title":"Welcome to the gaming hub","home.sub":"News, tips, tier lists and guides for the games we play. Updated regularly. Built for players, by players.",
     "home.cta1":"▶ Watch Live","home.cta2":"Explore News","home.feat.news":"FEATURED NEWS","home.feat.guides":"POPULAR GUIDES","home.feat.tiers":"RECENT TIER LISTS","home.see.all":"See all →",
@@ -869,7 +890,7 @@ const T = {
     "nav.home":"Início","nav.rick":"Rick Rattle","nav.news":"Notícias","nav.tips":"Dicas","nav.mobile":"Mobile","nav.barraca":"Barraca da Feira","nav.universidade":"Universidade","nav.premiados":"Hall of Fame","nav.mediakit":"Media Kit","nav.partners":"Parceiros",
     "premiados.kicker":"// EVENTOS","premiados.title":"Hall of Fame","premiados.sub":"Onde a comunidade que aparece — e ganha — fica para sempre.","premiados.intro":"Queremos agradecer a todos os que participaram e que ganharam prémios nas nossas competições. Confere abaixo os prémios e os seus setups.","premiados.empty":"Ainda ninguém no Hall of Fame — o primeiro prémio está por agarrar.",
     "partners.kicker":"// PARCEIROS","partners.title":"Parceiros","partners.sub":"As marcas que apoiam o canal e a comunidade.","partners.intro":"Um resumo de quem apoia o Rick Rattle — e porque vale a pena conhecê-los também.","partners.cta":"Visitar site",
-    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","giveaway.sub":"Regras oficiais para participar e ganhar.","giveaway.prize":"Prémio","giveaway.prizeVal":"4 produtos tecnológicos NP4","giveaway.ends":"Participações até","giveaway.endsVal":"31 out 2026, 23h59 (Portugal continental)","giveaway.cta":"Participar no Instagram","giveaway.draw":"Sorteio em direto","giveaway.drawVal":"1 nov 2026, 21h00 (Portugal continental), na Twitch",
+    "nav.giveaway":"NP4Game × Rick_Rattle","giveaway.kicker":"// GIVEAWAY","giveaway.title":"Giveaway NP4Game × Rick_Rattle","consent.text":"Usamos o Google Analytics para contar visitas e perceber que páginas são lidas. Só funciona se aceitares.","consent.link":"Política de Cookies","consent.accept":"Aceitar","consent.reject":"Recusar","giveaway.sub":"Regras oficiais para participar e ganhar.","giveaway.prize":"Prémio","giveaway.prizeVal":"4 produtos tecnológicos NP4","giveaway.ends":"Participações até","giveaway.endsVal":"31 out 2026, 23h59 (Portugal continental)","giveaway.cta":"Participar no Instagram","giveaway.draw":"Sorteio em direto","giveaway.drawVal":"1 nov 2026, 21h00 (Portugal continental), na Twitch",
     "mobile.kicker":"// MOBILE","mobile.title":"Gaming Mobile","mobile.sub":"Os jogos mobile que estamos a acompanhar — guias e novidades a caminho.","mobile.intro":"Uma secção nova, dedicada aos jogos mobile que fazem sentido cobrir agora. Vamos adicionando guias e notícias jogo a jogo.",
     "home.kicker":"// HUB","home.title":"Bem-vindo ao gaming hub","home.sub":"Notícias, dicas, tier lists e guias dos jogos que jogamos. Atualizado regularmente. Feito para jogadores, por jogadores.",
     "home.cta1":"▶ Ver Live","home.cta2":"Explorar Notícias","home.feat.news":"NOTÍCIAS EM DESTAQUE","home.feat.guides":"GUIAS POPULARES","home.feat.tiers":"TIER LISTS RECENTES","home.see.all":"Ver tudo →",
@@ -6460,7 +6481,7 @@ function renderFooter(){
       explore:'Explore', site:'Site', legal:'Legal',
       home:'Home', news:'News', tips:'Tips', rick:'The Channel',
       about:'About', contact:'Contact',
-      terms:'Terms & Conditions', privacy:'Privacy Policy', cookies:'Cookie Policy',
+      terms:'Terms & Conditions', privacy:'Privacy Policy', cookies:'Cookie Policy', prefs:'Cookie preferences',
       copy:`© ${new Date().getFullYear()} Rick Rattle. All trademarks belong to their respective owners.`
     },
     pt:{
@@ -6468,7 +6489,7 @@ function renderFooter(){
       explore:'Explorar', site:'Site', legal:'Legal',
       home:'Início', news:'Notícias', tips:'Dicas', rick:'O Canal',
       about:'Sobre', contact:'Contacto',
-      terms:'Termos e Condições', privacy:'Política de Privacidade', cookies:'Política de Cookies',
+      terms:'Termos e Condições', privacy:'Política de Privacidade', cookies:'Política de Cookies', prefs:'Preferências de cookies',
       copy:`© ${new Date().getFullYear()} Rick Rattle. Todas as marcas pertencem aos respetivos donos.`
     }
   };
@@ -6505,6 +6526,7 @@ function renderFooter(){
           <li><a href="/terms">${c.terms}</a></li>
           <li><a href="/privacy-policy">${c.privacy}</a></li>
           <li><a href="/cookie-policy">${c.cookies}</a></li>
+          <li><a href="#" onclick="event.preventDefault();showConsentBanner();">${c.prefs}</a></li>
         </ul>
       </div>
     </div>
@@ -7348,11 +7370,11 @@ const STATIC_PAGES_COPY = {
     kicker:{en:'// LEGAL', pt:'// LEGAL'},
     title:{en:'Privacy Policy', pt:'Política de Privacidade'},
     sub:{en:'What we collect, what we don\'t, and what third-party embeds may collect. Written in plain English (and Portuguese) — no legalese.', pt:'O que recolhemos, o que não recolhemos, e o que embeds de terceiros podem recolher. Escrito em linguagem clara — sem juridiquês.'},
-    updated:{en:'Last updated: May 2026', pt:'Última atualização: maio de 2026'},
+    updated:{en:'Last updated: October 2026', pt:'Última atualização: outubro de 2026'},
     sections:[
       {h:{en:'TL;DR', pt:'Resumo rápido'},
-       p:{en:'We don\'t sell your data. We don\'t run intrusive trackers. We use lightweight analytics to see what content is popular, and we embed Twitch / YouTube / Reddit content from third parties that have their own policies. You can block cookies in your browser and the site will still work.',
-          pt:'Não vendemos os teus dados. Não corremos trackers invasivos. Usamos analytics leves para ver que conteúdo é popular, e fazemos embed de conteúdo Twitch / YouTube / Reddit de terceiros que têm as suas próprias políticas. Podes bloquear cookies no browser e o site continua a funcionar.'}},
+       p:{en:'We don\'t sell your data and we don\'t run advertising trackers. With your consent only, we use Google Analytics to see what content is popular, and we embed Twitch / YouTube / Reddit content from third parties that have their own policies. You can refuse analytics in the cookie banner, or block cookies in your browser, and the site will still work.',
+          pt:'Não vendemos os teus dados e não corremos trackers de publicidade. Só com o teu consentimento, usamos o Google Analytics para ver que conteúdo é popular, e fazemos embed de conteúdo Twitch / YouTube / Reddit de terceiros que têm as suas próprias políticas. Podes recusar analytics no aviso de cookies, ou bloquear cookies no browser, e o site continua a funcionar.'}},
       {h:{en:'Who runs the site', pt:'Quem gere o site'},
        p:{en:'rickrattle.com is operated by Rick Rattle (the streamer/editorial) as an independent gaming hub. There\'s no parent company, no investor data-sharing, no ad network reselling profiles.',
           pt:'rickrattle.com é operado pelo Rick Rattle (streamer/editorial) como gaming hub independente. Não há empresa-mãe, sem partilha de dados com investidores, sem rede de anúncios a revender perfis.'}},
@@ -7360,17 +7382,17 @@ const STATIC_PAGES_COPY = {
        p:{en:'Anonymous page-view counters (so we know which articles people actually read) and basic server logs from the hosting provider (Vercel) — IP address, user-agent, request time. Server logs are retained short-term by the host for abuse prevention; we don\'t use them to profile individuals.',
           pt:'Contadores de visitas anónimos (para sabermos que artigos as pessoas leem) e logs básicos do servidor da hospedagem (Vercel) — endereço IP, user-agent, hora do pedido. Logs são mantidos a curto prazo pela hospedagem para prevenção de abuso; não os usamos para perfilar individuos.'}},
       {h:{en:'Analytics', pt:'Analytics'},
-       p:{en:'We may use a privacy-respecting analytics tool (e.g. Vercel Analytics or similar) that aggregates traffic patterns without building cross-site profiles. No third-party advertising pixels.',
-          pt:'Podemos usar uma ferramenta de analytics que respeite a privacidade (ex. Vercel Analytics ou similar) que agrega padrões de tráfego sem construir perfis cross-site. Sem pixels de publicidade de terceiros.'}},
+       p:{en:'With your consent we use Google Analytics 4 (Google) to measure visits: which pages are viewed, approximate location (country), device and browser, and how visitors reach the site. It sets cookies only after you click Accept in the cookie banner. We don\'t use it for advertising: ad storage, ad user data and ad personalisation are denied by default through Google Consent Mode, and we run no advertising pixels. According to Google, Analytics 4 does not log or store IP addresses. Data is processed by Google under its own privacy policy and may involve transfers outside the EU. You can change your choice at any time with "Cookie preferences" in the footer.',
+          pt:'Com o teu consentimento usamos o Google Analytics 4 (Google) para medir visitas: que páginas são vistas, localização aproximada (país), dispositivo e browser, e como os visitantes chegam ao site. Só define cookies depois de clicares em Aceitar no aviso de cookies. Não o usamos para publicidade: o armazenamento de anúncios, os dados de utilizador para anúncios e a personalização de anúncios estão recusados por defeito através do Google Consent Mode, e não temos pixels de publicidade. Segundo a Google, o Analytics 4 não regista nem guarda endereços IP. Os dados são tratados pela Google ao abrigo da sua própria política de privacidade e podem envolver transferências para fora da UE. Podes mudar a tua escolha a qualquer momento em "Preferências de cookies" no rodapé.'}},
       {h:{en:'Third-party embeds', pt:'Embeds de terceiros'},
        p:{en:'When you view a page with a Twitch player, a YouTube trailer, a Reddit thread snapshot or a social link, those third parties can set their own cookies and see your IP. Their privacy is governed by their own policies — Twitch, YouTube/Google, Reddit, Discord. We only mount these embeds when needed (the Twitch player, for example, only loads when the channel is actually live).',
           pt:'Quando vês uma página com player Twitch, trailer YouTube, snapshot de thread Reddit ou link social, esses terceiros podem definir os próprios cookies e ver o teu IP. A privacidade deles é regida pelas próprias políticas — Twitch, YouTube/Google, Reddit, Discord. Só montamos esses embeds quando necessário (o player Twitch, por exemplo, só carrega quando o canal está realmente live).'}},
       {h:{en:'Cookies', pt:'Cookies'},
-       p:{en:'We use a minimal number of cookies / localStorage entries for preferences (theme: dark/light, language: EN/PT) and the visit counter. See the Cookie Policy for the full list. You can clear cookies in your browser at any time — the site will reset to defaults.',
-          pt:'Usamos um número mínimo de cookies / entradas localStorage para preferências (tema: escuro/claro, idioma: EN/PT) e o contador de visitas. Vê a Política de Cookies para a lista completa. Podes limpar cookies no browser a qualquer momento — o site repõe-se nos defaults.'}},
+       p:{en:'We use a minimal number of cookies / localStorage entries for preferences (theme: dark/light, language: EN/PT), your cookie choice and the visit counter. See the Cookie Policy for the full list. You can clear cookies in your browser at any time — the site will reset to defaults.',
+          pt:'Usamos um número mínimo de cookies / entradas localStorage para preferências (tema: escuro/claro, idioma: EN/PT), a tua escolha de cookies e o contador de visitas. Vê a Política de Cookies para a lista completa. Podes limpar cookies no browser a qualquer momento — o site repõe-se nos defaults.'}},
       {h:{en:'Your rights (GDPR)', pt:'Os teus direitos (RGPD)'},
-       p:{en:'If you\'re in the EU/UK, you have the right to access, correct or delete personal data we hold about you, and to object to processing. Since we don\'t maintain user accounts and don\'t collect personally identifying info beyond what\'s above, in practice this usually means asking the hosting provider to purge server logs containing your IP. Email rickrattle642@gmail.com and we\'ll help.',
-          pt:'Se estás na UE/Reino Unido, tens o direito de aceder, corrigir ou eliminar dados pessoais que tenhamos sobre ti, e de te opor ao processamento. Como não mantemos contas de utilizador e não recolhemos informação pessoalmente identificável para além do referido acima, na prática isto significa pedir à hospedagem para purgar logs do servidor com o teu IP. Envia email para rickrattle642@gmail.com e ajudamos.'}},
+       p:{en:'If you\'re in the EU/UK, you have the right to access, correct or delete personal data we hold about you, to object to processing, and to withdraw analytics consent at any time ("Cookie preferences" in the footer). Since we don\'t maintain user accounts and don\'t collect personally identifying info beyond what\'s above, in practice this usually means asking the hosting provider to purge server logs containing your IP. Email rickrattle642@gmail.com and we\'ll help.',
+          pt:'Se estás na UE/Reino Unido, tens o direito de aceder, corrigir ou eliminar dados pessoais que tenhamos sobre ti, de te opor ao processamento, e de retirar o consentimento de analytics a qualquer momento ("Preferências de cookies" no rodapé). Como não mantemos contas de utilizador e não recolhemos informação pessoalmente identificável para além do referido acima, na prática isto significa pedir à hospedagem para purgar logs do servidor com o teu IP. Envia email para rickrattle642@gmail.com e ajudamos.'}},
       {h:{en:'Children', pt:'Crianças'},
        p:{en:'The site isn\'t directed at children under 13. We don\'t knowingly collect data from children. If you believe a child has interacted with the site in a way that involves personal data, contact us and we\'ll act on it.',
           pt:'O site não é dirigido a crianças com menos de 13 anos. Não recolhemos conscientemente dados de crianças. Se acreditas que uma criança interagiu com o site de uma forma envolvendo dados pessoais, contacta-nos e agimos.'}},
@@ -7383,17 +7405,17 @@ const STATIC_PAGES_COPY = {
     kicker:{en:'// LEGAL', pt:'// LEGAL'},
     title:{en:'Cookie Policy', pt:'Política de Cookies'},
     sub:{en:'The small files we (and third parties) store in your browser, what each does, and how to turn them off.', pt:'Os pequenos ficheiros que nós (e terceiros) guardamos no teu browser, o que cada um faz, e como desligar.'},
-    updated:{en:'Last updated: May 2026', pt:'Última atualização: maio de 2026'},
+    updated:{en:'Last updated: October 2026', pt:'Última atualização: outubro de 2026'},
     sections:[
       {h:{en:'What is a cookie?', pt:'O que é um cookie?'},
        p:{en:'A cookie (or localStorage entry) is a small piece of data your browser stores so a site can remember things between visits — like your preferred theme, language or whether you\'ve seen a banner. We use the minimum needed for the site to feel right.',
           pt:'Um cookie (ou entrada localStorage) é um pequeno bocado de dados que o teu browser guarda para que um site se lembre de coisas entre visitas — como o tema preferido, idioma ou se já viste um banner. Usamos o mínimo necessário para o site funcionar como deve ser.'}},
       {h:{en:'Functional (set by us)', pt:'Funcionais (definidos por nós)'},
-       p:{en:'rr_lang — remembers your language choice (EN or PT). rr_theme — remembers light/dark mode. rr_visits — local counter for the eye icon in the sidebar. None of these identify you personally.',
-          pt:'rr_lang — guarda o teu idioma (EN ou PT). rr_theme — guarda modo claro/escuro. rr_visits — contador local para o ícone do olho na sidebar. Nenhum destes te identifica pessoalmente.'}},
+       p:{en:'rr_lang — remembers your language choice (EN or PT). rr_theme — remembers light/dark mode. rr_visits — local counter for the eye icon in the sidebar. rr_consent — remembers your cookie choice (accepted or rejected). None of these identify you personally.',
+          pt:'rr_lang — guarda o teu idioma (EN ou PT). rr_theme — guarda modo claro/escuro. rr_visits — contador local para o ícone do olho na sidebar. rr_consent — guarda a tua escolha de cookies (aceitar ou recusar). Nenhum destes te identifica pessoalmente.'}},
       {h:{en:'Analytics', pt:'Analytics'},
-       p:{en:'If enabled, a privacy-respecting analytics tool may set a short-lived cookie or use a similar mechanism to count unique visits without tracking you across other sites.',
-          pt:'Se ativo, uma ferramenta de analytics que respeite a privacidade pode definir um cookie de curta duração ou usar mecanismo similar para contar visitas únicas sem te seguir através de outros sites.'}},
+       p:{en:'Only if you click Accept in the cookie banner, Google Analytics sets two cookies: _ga (distinguishes visitors, lasts up to 2 years) and _ga_362PJF23FB (keeps session state). If you reject, these are not set. Change your choice any time with "Cookie preferences" in the footer; rejecting also removes the cookies from this browser.',
+          pt:'Só se clicares em Aceitar no aviso de cookies, o Google Analytics define dois cookies: _ga (distingue visitantes, dura até 2 anos) e _ga_362PJF23FB (mantém o estado da sessão). Se recusares, não são definidos. Podes mudar a escolha a qualquer momento em "Preferências de cookies" no rodapé; recusar também remove os cookies deste browser.'}},
       {h:{en:'Third-party embeds', pt:'Embeds de terceiros'},
        p:{en:'When a page loads a Twitch player, a YouTube video, a Reddit thread, a Discord widget or similar, those services set their own cookies — typically for session, language, and content recommendations. We can\'t control or read those cookies; they\'re governed by Twitch, Google/YouTube, Reddit and Discord respectively.',
           pt:'Quando uma página carrega um player Twitch, vídeo YouTube, thread Reddit, widget Discord ou similar, esses serviços definem os próprios cookies — tipicamente para sessão, idioma e recomendações. Não conseguimos controlar nem ler esses cookies; são geridos pela Twitch, Google/YouTube, Reddit e Discord respetivamente.'}},
@@ -8672,10 +8694,50 @@ document.getElementById('themeBtn').addEventListener('click',()=>{
 })();
 
 /* ================================================================
+   COOKIE CONSENT (Google Analytics via Consent Mode)
+   ================================================================
+   The gtag snippet in <head> starts with analytics_storage DENIED. Nothing is stored
+   until the visitor clicks Accept; the choice is kept in localStorage (rr_consent).
+   Both buttons carry equal weight (GDPR: rejecting must be as easy as accepting). */
+function consentGet(){try{return localStorage.getItem('rr_consent')}catch(e){return null}}
+function consentClearGaCookies(){
+  try{
+    const host=location.hostname, bare=host.replace(/^www\./,'');
+    document.cookie.split(';').forEach(c=>{
+      const name=c.split('=')[0].trim();
+      if(!/^_ga/.test(name))return;
+      ['',`; domain=${host}`,`; domain=.${bare}`].forEach(d=>{document.cookie=`${name}=; Max-Age=0; path=/${d}`});
+    });
+  }catch(e){}
+}
+function consentSet(v){
+  try{localStorage.setItem('rr_consent',v)}catch(e){}
+  if(typeof gtag==='function')gtag('consent','update',{analytics_storage:v==='granted'?'granted':'denied'});
+  if(v!=='granted')consentClearGaCookies();
+  const b=document.getElementById('consentBanner');if(b)b.remove();
+}
+function showConsentBanner(){
+  const old=document.getElementById('consentBanner');if(old)old.remove();
+  const b=document.createElement('div');
+  b.id='consentBanner';b.setAttribute('role','dialog');b.setAttribute('aria-live','polite');
+  b.innerHTML=`
+    <p><span data-i18n="consent.text">${t('consent.text')}</span> <a href="/cookie-policy" data-i18n="consent.link">${t('consent.link')}</a></p>
+    <div class="consent-actions">
+      <button class="btn btn-ghost" id="consentReject" data-i18n="consent.reject">${t('consent.reject')}</button>
+      <button class="btn btn-primary" id="consentAccept" data-i18n="consent.accept">${t('consent.accept')}</button>
+    </div>`;
+  document.body.appendChild(b);
+  b.querySelector('#consentAccept').addEventListener('click',()=>consentSet('granted'));
+  b.querySelector('#consentReject').addEventListener('click',()=>consentSet('denied'));
+}
+function initConsentBanner(){ if(!consentGet())showConsentBanner(); }
+
+/* ================================================================
    INIT
    ================================================================ */
 applyTheme(localStorage.getItem('rr_theme')||'dark');
 render();
+initConsentBanner();
 console.log('[rick-rattle] booted · articles:',articles.length,'· guides:',guides.length,'· tierLists:',tierLists.length,'· games:',games.length);
 
 // 1. Paint instantly from cache for fast first render (if cache exists).
