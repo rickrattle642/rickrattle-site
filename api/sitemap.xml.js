@@ -317,9 +317,12 @@ function pageLoad() {
   if (CACHE) return CACHE;
   const file = path.join(process.cwd(), 'index.html');
   const html = fs.readFileSync(file, 'utf8');
-  const m = html.match(/<script>\n?([\s\S]*?)<\/script>\s*<\/body>/);
-  if (!m) throw new Error('inline script not found in index.html');
-  let code = m[1];
+  // The app script is the LAST plain <script> block (head also has a small gtag one,
+  // so a lazy regex from the first <script> would swallow it). Boundaries sit at line starts.
+  const endIdx = html.lastIndexOf('</script>');
+  const startIdx = html.lastIndexOf('\n<script>\n', endIdx);
+  if (startIdx < 0 || endIdx < 0) throw new Error('inline script not found in index.html');
+  let code = html.slice(startIdx + '\n<script>\n'.length, endIdx);
   const cut = code.indexOf("applyTheme(localStorage.getItem('rr_theme')");
   if (cut < 0) throw new Error('INIT marker not found in index.html');
   code = code.slice(0, cut) +
