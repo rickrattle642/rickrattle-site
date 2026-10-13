@@ -58,7 +58,9 @@ const MANUAL_ARTICLE_SLUGS = [
   // Phase 14 — Fortnitemares 2026 coverage (September 29, 2026)
   'fortnite-fortnitemares-2026-season-4-overview','fortnite-chapter-8-season-4-end-date-leaks',
   // Phase 16 — Gears of War: E-Day review round-up (October 2, 2026)
-  'gears-of-war-e-day-review-round-up-what-critics-say'
+  'gears-of-war-e-day-review-round-up-what-critics-say',
+  // Phase 17 — Arc Raiders Update 2.1.0 (October 13, 2026)
+  'arc-raiders-update-2-1-0-patch-notes-pve-toggle-beta'
 ];
 
 const MANUAL_TIPS_SLUGS = [
@@ -230,7 +232,10 @@ const MANUAL_TIPS_SLUGS = [
   {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-collectibles-guide'},
   {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-pc-graphics-settings-fps-guide'},
   {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-horde-siege-guide'},
-  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-hard-cases-weapon-mods-guide'}
+  {game:'gears-of-war-e-day', slug:'gears-of-war-e-day-hard-cases-weapon-mods-guide'},
+  // Phase 17 — Arc Raiders PvE toggle beta + Frozen Trail (October 13, 2026)
+  {game:'arc-raiders', slug:'arc-raiders-pve-toggle-beta-guide'},
+  {game:'arc-raiders', slug:'arc-raiders-frozen-trail-update-guide'}
 ];
 
 function urlEntry(loc, priority='0.7', changefreq='weekly') {
